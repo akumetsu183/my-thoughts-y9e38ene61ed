@@ -133,16 +133,19 @@
   .kpi.prep{--kc:var(--prep)} .kpi.cut{--kc:var(--cut)} .kpi.trans{--kc:var(--trans)}
   .kpi.haul{--kc:var(--haul)} .kpi.supp{--kc:var(--support)} .kpi.farm{--kc:var(--farmer)}
 
-  /* ── LAYOUT: workforce rail on the left + content ── */
-  .layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:36px;align-items:start;
-    margin-top:22px}
-  @media (max-width:1000px){ .layout{grid-template-columns:1fr} .rail{display:none} }
+  /* ── SHELL: persistent workforce rail + content ──── */
+  .shell{display:grid;grid-template-columns:232px minmax(0,1fr);gap:34px;align-items:start}
+  .shell-main{min-width:0}
+  @media (max-width:1040px){
+    .shell{grid-template-columns:1fr;gap:0}
+    .rail{display:none}
+  }
 
-  .rail{position:sticky;top:54px;align-self:start;
+  .rail{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 84px);
     background:linear-gradient(180deg,var(--surface),var(--bg-2));
     border:1px solid var(--line-2);border-radius:var(--radius);
-    padding:20px 16px 18px;
-    box-shadow:0 20px 50px -30px rgba(0,0,0,.7), inset 0 1px 0 color-mix(in srgb,#fff 5%,transparent)}
+    padding:22px 16px 18px;margin-top:26px;
+    box-shadow:0 20px 50px -30px rgba(0,0,0,.75), inset 0 1px 0 color-mix(in srgb,#fff 5%,transparent)}
 
   .railhead{font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;
     color:var(--muted);font-family:var(--mono);line-height:1.4}
@@ -153,8 +156,12 @@
   .railscale b{color:var(--muted)}
   .railrule{height:1px;background:var(--line);margin:15px 0 13px}
 
-  .icons{display:flex;flex-wrap:wrap;gap:2px;align-content:flex-start}
-  .icons i{display:block;width:17px;height:22px;flex:none}
+  .icons{display:flex;flex-wrap:wrap;gap:1.5px;align-content:flex-start;
+    max-height:calc(100vh - 300px);min-height:180px;overflow-y:auto;
+    scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+  .icons::-webkit-scrollbar{width:5px}
+  .icons::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
+  .icons i{display:block;width:13px;height:17px;flex:none}
   .icons i svg{width:100%;height:100%;display:block}
   .icons i.fresh{animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
   @keyframes pop{0%{opacity:0;transform:scale(.4)}100%{opacity:1;transform:none}}
@@ -331,6 +338,17 @@
     </div>
   </div>
 
+  <div class="shell">
+    <aside class="rail" aria-live="polite">
+      <div class="railhead" id="railHead">Total workforce</div>
+      <div class="railtotal" id="railTotal">—</div>
+      <div class="railscale" id="railScale">—</div>
+      <div class="railrule"></div>
+      <div class="icons" id="railIcons"></div>
+      <div class="railfoot" id="railFoot">—</div>
+    </aside>
+
+    <div class="shell-main">
   <!-- 01 OVERVIEW -->
   <section class="panel on" id="p-overview">
     <div class="hero">
@@ -340,20 +358,7 @@
       <div class="kpis" id="kpis"></div>
     </div>
 
-    <div class="layout">
-      <aside class="rail" aria-live="polite">
-        <div class="railhead" id="railHead">Total workforce</div>
-        <div class="railtotal" id="railTotal">—</div>
-        <div class="railscale" id="railScale">—</div>
-        <div class="railrule"></div>
-        <div class="icons" id="railIcons"></div>
-        <div class="railfoot" id="railFoot">—</div>
-      </aside>
-
-      <div class="content">
-        <div class="bars" id="barsOverview"></div>
-      </div>
-    </div>
+    <div class="bars" style="margin-top:18px" id="barsOverview"></div>
 
     <div class="navbtns">
       <button disabled>← Back</button>
@@ -710,6 +715,9 @@
     <button class="preset" data-preset="fast">10-year build</button>
   </div>
 
+    </div>
+  </div>
+
   <div id="tip"></div>
 
   <footer>
@@ -907,10 +915,9 @@ function renderColumn(r,tab,animate){
   const shown=visible.reduce((s,k)=>s+vals[k],0);
   const full=Object.values(vals).reduce((a,b)=>a+b,0)||1;
 
-  /* Scale is fixed against the FULL workforce, not the visible subset,
-     so revealing a new crew only ever adds icons — it never re-scales
-     the ones already on screen. */
-  const scale=pickScale(full, 46);
+  /* Fixed scale: one icon always stands for 100 people, on every page,
+     so the count only ever grows as crews are revealed. */
+  const scale=100;
 
   const icons=[];
   visible.forEach(key=>{
@@ -921,9 +928,7 @@ function renderColumn(r,tab,animate){
 
   $('railHead').textContent = visible.length===6 ? 'Total workforce' : 'Workforce so far';
   $('railTotal').textContent = fmt(shown);
-  $('railScale').innerHTML = visible.length===6
-    ? `one icon = <b>${fmt(scale)}</b> people`
-    : `one icon = <b>${fmt(scale)}</b> people · ${visible.length} of 6 groups`;
+  $('railScale').innerHTML = `one icon = <b>100</b> people`;
 
   $('railIcons').innerHTML = icons.map(u=>
     `<i class="${animate&&u.key===added?'fresh':''}">
@@ -932,7 +937,7 @@ function renderColumn(r,tab,animate){
        </svg>
      </i>`).join('');
 
-  $('railFoot').textContent = `${fmt(icons.length)} icons`;
+  $('railFoot').textContent = `${fmt(icons.length)} icons · ${visible.length} of 6 groups`;
 }
 
 function renderHero(r){
