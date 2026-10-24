@@ -11,112 +11,104 @@
 <title>My Thoughts</title>
 <style>
   :root{
-    --bg:#0f1512;
-    --surface:#161e1a;
-    --surface-2:#1c2620;
-    --surface-3:#223029;
-    --line:#2a3730;
-    --line-strong:#3a4b42;
-    --text:#e6ece8;
-    --muted:#94a89d;
-    --accent:#8FBFA0;
-    --accent-dim:#5f8a71;
-    --radius:14px;
-    --measure:70ch;
+    --bg:#14100b; --bg-2:#1a150f;
+    --surface:#221b13; --surface-2:#2b2219;
+    --line:#3d3025; --line-2:#54432f;
+    --text:#f2e8d8; --muted:#b9a68c; --dim:#8a7a63;
+    --gold:#D9A441; --gold-2:#B8862E;
+    --radius:12px;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
   }
-  @media (prefers-color-scheme: light){
+  @media (prefers-color-scheme:light){
     :root{
-      --bg:#f7f9f7; --surface:#ffffff; --surface-2:#eef3ef; --surface-3:#e3ebe5;
-      --line:#dbe5de; --line-strong:#c3d2c9;
-      --text:#1a2320; --muted:#5d7168;
-      --accent:#4e8a68; --accent-dim:#6fa585;
+      --bg:#f6efe2; --bg-2:#efe5d3;
+      --surface:#fffdf8; --surface-2:#f4ead8;
+      --line:#e0d0b4; --line-2:#c9b291;
+      --text:#2a1f14; --muted:#6d5b45; --dim:#8f7d64;
+      --gold:#A9781B; --gold-2:#8A6114;
     }
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
     margin:0;background:var(--bg);color:var(--text);
-    font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
+    font:16px/1.6 var(--serif);-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(ellipse 900px 480px at 50% -14%, color-mix(in srgb,var(--gold) 10%,transparent), transparent 62%),
+                     linear-gradient(180deg,var(--bg-2),var(--bg) 45%);
+    background-attachment:fixed;
+    min-height:100vh;
   }
-  .wrap{max-width:var(--measure);margin:0 auto;padding:48px 22px 96px}
-  header{margin-bottom:34px;padding-bottom:26px;border-bottom:1px solid var(--line)}
-  h1{font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.12;margin:0 0 10px;letter-spacing:-.02em;font-weight:650}
-  .tagline{color:var(--muted);margin:0;font-size:1.02rem;max-width:58ch}
+  .wrap{max-width:680px;margin:0 auto;padding:56px 22px 90px}
 
-  .topics{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 30px}
-  .chip{
-    font:inherit;font-size:.79rem;letter-spacing:.02em;color:var(--muted);
-    background:var(--surface);border:1px solid var(--line);
-    padding:6px 13px;border-radius:999px;cursor:pointer;
-    transition:color .15s,border-color .15s,background .15s;
-  }
-  .chip:hover{color:var(--text);border-color:var(--accent-dim)}
-  .chip.on{color:var(--bg);background:var(--accent);border-color:var(--accent);font-weight:600}
-  .chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  header{margin-bottom:30px}
+  h1{font-size:clamp(1.7rem,4.5vw,2.2rem);line-height:1.1;margin:0 0 8px;
+    letter-spacing:-.02em;font-weight:600}
+  .tagline{color:var(--muted);margin:0;font-size:.94rem}
 
-  .entries{display:grid;gap:12px}
+  .filters{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 26px}
+  .chip{font:inherit;font-family:var(--mono);font-size:.7rem;letter-spacing:.03em;
+    color:var(--muted);background:transparent;border:1px solid var(--line);
+    padding:5px 11px;border-radius:999px;cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s}
+  .chip:hover{color:var(--text);border-color:var(--line-2)}
+  .chip.on{color:var(--bg);background:var(--gold);border-color:var(--gold);font-weight:600}
+  .chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 
-  a.feature{
-    display:block;text-decoration:none;color:inherit;
-    background:linear-gradient(155deg,var(--surface-2),var(--surface));
-    border:1px solid var(--line-strong);border-radius:var(--radius);
-    padding:24px 24px 22px;transition:border-color .18s,transform .18s;
-  }
-  a.feature:hover{border-color:var(--accent);transform:translateY(-2px)}
-  a.feature:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-  .fmeta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
-  .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}
-  .ftitle{font-size:1.32rem;font-weight:640;line-height:1.3;margin:0 0 9px;letter-spacing:-.011em}
-  .fdesc{font-size:.94rem;color:var(--muted);margin:0;max-width:56ch}
-  .fgo{margin-top:15px;font-size:.85rem;color:var(--accent);font-weight:560}
+  /* ── compact topic list ─────────────────────────────── */
+  .topics{display:grid;gap:2px}
 
-  details.entry{
-    background:var(--surface);border:1px solid var(--line);
-    border-radius:var(--radius);overflow:hidden;
-    transition:border-color .18s,background .18s;
+  a.topic{
+    display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;
+    padding:15px 4px;text-decoration:none;color:inherit;
+    border-bottom:1px solid var(--line);
+    transition:padding .16s,background .16s;
   }
-  details.entry[open]{border-color:var(--accent-dim);background:var(--surface-2)}
-  details.entry:hover{border-color:var(--accent-dim)}
-  summary{cursor:pointer;padding:17px 20px;list-style:none;display:flex;flex-direction:column;gap:6px;user-select:none}
-  summary::-webkit-details-marker{display:none}
-  .meta{display:flex;align-items:center;gap:10px;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-  .title-row{display:flex;align-items:baseline;gap:12px;justify-content:space-between}
-  .entry-title{font-size:1.1rem;font-weight:600;line-height:1.35}
-  .chev{flex:none;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s;margin-top:6px}
-  details[open] .chev{transform:rotate(-135deg);margin-top:10px}
-  .body{padding:0 20px 20px;border-top:1px solid transparent}
-  details[open] .body{border-top-color:var(--line);padding-top:16px}
-  .body p{margin:0 0 13px}
-  .body p:last-child{margin-bottom:0}
-  .body ul{margin:0 0 13px;padding-left:1.25em}
-  .body li{margin-bottom:7px}
-  .body blockquote{
-    margin:16px 0;padding:11px 17px;border-left:3px solid var(--accent);
-    background:var(--surface);border-radius:0 8px 8px 0;color:var(--muted);font-style:italic;
+  a.topic:hover{background:color-mix(in srgb,var(--gold) 5%,transparent);padding-left:10px}
+  a.topic:hover .tt{color:var(--gold)}
+  a.topic:hover .arrow{color:var(--gold);transform:translateX(3px)}
+  a.topic:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+  .mark{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.5;flex:none}
+  a.topic:hover .mark{opacity:1}
+
+  .tmain{min-width:0}
+  .tt{font-size:1.02rem;font-weight:600;line-height:1.35;margin:0 0 2px;
+    letter-spacing:-.01em;transition:color .16s}
+  .td{font-size:.8rem;color:var(--dim);margin:0;line-height:1.45;
+    display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .arrow{color:var(--dim);font-family:var(--mono);font-size:.9rem;transition:color .16s,transform .16s;flex:none}
+
+  .meta{font-family:var(--mono);font-size:.63rem;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:2px}
+
+  /* ── note entries ───────────────────────────────────── */
+  details.note{border-bottom:1px solid var(--line)}
+  details.note summary{
+    cursor:pointer;list-style:none;padding:14px 4px;
+    display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;
+    transition:padding .16s,background .16s;
   }
-  .tag{
-    display:inline-block;font-size:.71rem;letter-spacing:.05em;text-transform:uppercase;
-    color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);
-    border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
-    padding:2px 9px;border-radius:999px;margin:0 5px 7px 0;
-  }
-  .controls{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
-  button.ctl{
-    font:inherit;font-size:.84rem;color:var(--muted);background:var(--surface);
-    border:1px solid var(--line);padding:8px 15px;border-radius:9px;cursor:pointer;
-    transition:color .15s,border-color .15s,background .15s;
-  }
-  button.ctl:hover{color:var(--text);border-color:var(--accent-dim);background:var(--surface-2)}
-  button.ctl:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-  footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
-  .empty{color:var(--muted);font-size:.9rem;padding:18px 0;display:none}
+  details.note summary::-webkit-details-marker{display:none}
+  details.note summary:hover{background:color-mix(in srgb,var(--gold) 5%,transparent);padding-left:10px}
+  details.note summary:hover .nt{color:var(--gold)}
+  .nt{font-size:.94rem;font-weight:600;transition:color .16s}
+  .chev{flex:none;width:7px;height:7px;border-right:1.5px solid var(--dim);border-bottom:1.5px solid var(--dim);
+    transform:rotate(45deg);transition:transform .2s;margin-right:4px}
+  details[open] .chev{transform:rotate(-135deg)}
+  details.note .body{padding:0 4px 18px;color:var(--muted);font-size:.9rem;line-height:1.65}
+  details.note .body p{margin:0 0 11px}
+  details.note .body p:last-child{margin-bottom:0}
+
+  .empty{color:var(--dim);font-size:.85rem;padding:22px 0;display:none;font-family:var(--mono)}
+
+  footer{margin-top:46px;padding-top:18px;border-top:1px solid var(--line);
+    color:var(--dim);font-size:.72rem;font-family:var(--mono);line-height:1.6}
+
   @media (max-width:520px){
-    .wrap{padding:32px 16px 72px}
-    summary{padding:15px 16px}
-    .body{padding:0 16px 17px}
-    a.feature{padding:20px 18px}
+    .wrap{padding:38px 16px 70px}
+    a.topic{padding:13px 2px}
+    .td{-webkit-line-clamp:2}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -126,101 +118,83 @@
 
   <header>
     <h1>My Thoughts</h1>
-    <p class="tagline">Notes, ideas and half-formed opinions across whatever I happen to be pulling at. Updated whenever something sticks.</p>
+    <p class="tagline">Notes and ideas. Updated when something sticks.</p>
   </header>
 
-  <div class="topics" id="topics">
+  <div class="filters" id="filters">
     <button class="chip on" type="button" data-topic="all">All</button>
     <button class="chip" type="button" data-topic="pyramids">Pyramids</button>
     <button class="chip" type="button" data-topic="tools">Tools</button>
     <button class="chip" type="button" data-topic="notes">Notes</button>
   </div>
 
-  <main class="entries" id="entries">
+  <main class="topics" id="topics">
 
-    <a class="feature" href="pyramids/" data-topics="pyramids">
-      <div class="fmeta"><span class="dot"></span><span>Deep dive</span><span>·</span><span>Pyramids</span></div>
-      <div class="ftitle">The Great Pyramid: how many people?</div>
-      <p class="fdesc">Mainstream archaeology says 20 years and 20,000–30,000 workers. Put the experimentally measured copper-saw cutting rates into that, and the arithmetic does not close. An interactive calculator you can pull apart.</p>
-      <div class="fgo">Open the calculator →</div>
+    <a class="topic" href="pyramids/" data-topics="pyramids">
+      <span class="mark"></span>
+      <span class="tmain">
+        <span class="meta">Interactive · 8 pages</span>
+        <div class="tt">The Great Pyramid: how many people?</div>
+        <p class="td">Mainstream says 20 years and 20,000–30,000 workers. Measured copper-saw rates say the arithmetic doesn't close.</p>
+      </span>
+      <span class="arrow">→</span>
     </a>
 
-    <details class="entry" open data-topics="notes">
+    <details class="note" data-topics="notes">
       <summary>
-        <span class="meta"><span class="dot"></span><span>23 October 2026</span></span>
-        <span class="title-row">
-          <span class="entry-title">Why this page exists</span>
-          <span class="chev" aria-hidden="true"></span>
+        <span>
+          <span class="meta">Note · 23 Oct 2026</span>
+          <div class="nt">Why this page exists</div>
         </span>
+        <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <p>I keep thinking about things and then losing them. A conversation ends, a good idea goes into a chat window somewhere, and six months later it's gone. Writing things down in public — or semi-public — forces a different kind of attention. You can't hand-wave at something you have to actually write.</p>
+        <p>I keep thinking about things and then losing them. A conversation ends, a good idea goes into a chat window somewhere, and six months later it's gone. Writing things down in public — or semi-public — forces a different kind of attention.</p>
         <p>So this is the attempt. Not a blog with a publishing schedule, not a portfolio. Just a place where thoughts get parked once they're sticky enough to survive a day.</p>
-        <p>The rules I'm giving myself:</p>
-        <ul>
-          <li>Short is fine. A paragraph counts.</li>
-          <li>Unfinished is fine. Mark it unfinished.</li>
-          <li>Being wrong in public is fine. Being vague is not.</li>
-        </ul>
-        <blockquote>The test for whether an idea is real: can I explain it to someone who disagrees without getting defensive?</blockquote>
       </div>
     </details>
 
-    <details class="entry" data-topics="tools">
+    <details class="note" data-topics="tools">
       <summary>
-        <span class="meta"><span class="dot"></span><span>Example entry</span></span>
-        <span class="title-row">
-          <span class="entry-title">On owning your tools</span>
-          <span class="chev" aria-hidden="true"></span>
+        <span>
+          <span class="meta">Note · example</span>
+          <div class="nt">On owning your tools</div>
         </span>
+        <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <p>Every tool you depend on is a small bet that someone else keeps caring about it. Usually that's fine — that's how software works. But the bet gets expensive when the thing you've built on top becomes the thing you can't leave.</p>
-        <p>I've started asking a boring question about tools: <em>what happens to my work if this disappears tomorrow?</em> If the answer is "I lose everything", the tool is doing more than I agreed to.</p>
-        <p>This is a placeholder to show what an entry looks like. Replace it with something you actually think.</p>
-        <p><span class="tag">tools</span><span class="tag">ownership</span><span class="tag">unfinished</span></p>
+        <p>Every tool you depend on is a small bet that someone else keeps caring about it. The bet gets expensive when the thing you've built on top becomes the thing you can't leave.</p>
+        <p>The question worth asking: <em>what happens to my work if this disappears tomorrow?</em></p>
       </div>
     </details>
 
-    <details class="entry" data-topics="notes">
+    <details class="note" data-topics="notes">
       <summary>
-        <span class="meta"><span class="dot"></span><span>Example entry</span></span>
-        <span class="title-row">
-          <span class="entry-title">A note on notes</span>
-          <span class="chev" aria-hidden="true"></span>
+        <span>
+          <span class="meta">Note · example</span>
+          <div class="nt">A note on notes</div>
         </span>
+        <span class="chev" aria-hidden="true"></span>
       </summary>
       <div class="body">
-        <p>Most note-taking systems fail at retrieval, not capture. Capture is solved — anything can capture. The problem is that a year later the notes exist but the context that made them meaningful is gone.</p>
-        <p>What seems to work instead: write the note as if to a stranger, and date it. Both cost almost nothing at write time and save an enormous amount at read time.</p>
-        <p>Second placeholder entry. Yours to overwrite.</p>
+        <p>Most note-taking systems fail at retrieval, not capture. Capture is solved — anything can capture. A year later the notes exist but the context that made them meaningful is gone.</p>
+        <p>Write the note as if to a stranger, and date it. Both cost almost nothing at write time and save an enormous amount at read time.</p>
       </div>
     </details>
 
   </main>
 
-  <p class="empty" id="empty">No entries in this topic yet.</p>
-
-  <div class="controls">
-    <button class="ctl" type="button" id="expandAll">Expand all</button>
-    <button class="ctl" type="button" id="collapseAll">Collapse all</button>
-  </div>
+  <p class="empty" id="empty">Nothing in this topic yet.</p>
 
   <footer>
-    <p>Private page. Not indexed, not linked. If you're reading this without being given the link, nothing here is meant for you.</p>
+    Private page. Not indexed, not linked.
   </footer>
 
 </div>
 
 <script>
 (() => {
-  const entries = [...document.querySelectorAll('details.entry')];
-  const features = [...document.querySelectorAll('a.feature')];
-  const all = [...features, ...entries];
-
-  document.getElementById('expandAll').addEventListener('click', () => entries.forEach(e => e.open = true));
-  document.getElementById('collapseAll').addEventListener('click', () => entries.forEach(e => e.open = false));
-
+  const all = [...document.querySelectorAll('[data-topics]')];
   document.querySelectorAll('.chip').forEach(chip => {
     chip.addEventListener('click', () => {
       const topic = chip.dataset.topic;
@@ -235,11 +209,6 @@
       document.getElementById('empty').style.display = shown ? 'none' : 'block';
     });
   });
-
-  if (location.hash) {
-    const t = document.querySelector(location.hash);
-    if (t) t.open = true;
-  }
 })();
 </script>
 </body>

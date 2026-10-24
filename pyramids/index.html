@@ -133,21 +133,53 @@
   .kpi.prep{--kc:var(--prep)} .kpi.cut{--kc:var(--cut)} .kpi.trans{--kc:var(--trans)}
   .kpi.haul{--kc:var(--haul)} .kpi.supp{--kc:var(--support)} .kpi.farm{--kc:var(--farmer)}
 
-  .stage{margin:20px 0 0;background:linear-gradient(180deg,var(--surface),var(--bg-2));
-    border:1px solid var(--line);border-radius:var(--radius);padding:22px;
-    box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 4%,transparent)}
-  .stage-head{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;justify-content:space-between;margin-bottom:10px}
-  .stage-title{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:var(--mono)}
-  .stage-read{font:600 .84rem var(--mono);color:var(--gold);font-variant-numeric:tabular-nums}
-  #pyr{display:block;width:100%;height:auto;max-width:840px;margin:0 auto;overflow:visible}
-  #pyrBody g{transition:opacity .1s}
-  #pyrBody g:hover{opacity:.45}
+  /* ── LAYOUT: content + sticky piece column ───────── */
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:34px;align-items:start;
+    margin-top:22px}
+  @media (max-width:1080px){ .layout{grid-template-columns:minmax(0,1fr)} .colwrap{display:none} }
 
-  .legend{display:flex;gap:6px 14px;flex-wrap:wrap;margin-top:18px;font-size:.73rem;color:var(--muted)}
-  .legend span{display:flex;align-items:center;gap:6px}
-  .sw{width:10px;height:10px;border-radius:2px;flex:none}
-  .sw.c{background:var(--cut)} .sw.t{background:var(--trans)} .sw.h{background:var(--haul)}
-  .sw.s{background:var(--support)} .sw.f{background:var(--farmer)} .sw.p{background:var(--prep)}
+  .colwrap{position:sticky;top:52px;align-self:start;
+    background:linear-gradient(180deg,var(--surface),var(--bg-2));
+    border:1px solid var(--line);border-radius:var(--radius);padding:16px 14px 14px;
+    box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 4%,transparent)}
+  .colhead{font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+    font-family:var(--mono);margin-bottom:4px}
+  .coltotal{font:700 1.28rem/1.1 var(--mono);color:var(--gold);font-variant-numeric:tabular-nums;
+    letter-spacing:-.02em;margin-bottom:2px}
+  .colsub{font-size:.64rem;color:var(--dim);font-family:var(--mono);margin-bottom:14px;line-height:1.4}
+  .colrule{height:1px;background:var(--line);margin:0 0 14px}
+
+  .stack{display:flex;flex-direction:column-reverse;gap:3px}
+  .unit{display:flex;gap:7px;align-items:flex-start;transition:opacity .3s}
+  .unit svg{flex:none;width:19px;height:24px;display:block}
+  .unit .meta{min-width:0;padding-top:1px}
+  .unit .nm{font-size:.63rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);
+    font-family:var(--mono);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .unit .ct{font:600 .66rem/1.2 var(--mono);color:var(--dim);font-variant-numeric:tabular-nums}
+  .unit.fresh{animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes pop{0%{opacity:0;transform:translateX(14px) scale(.82)}100%{opacity:1;transform:none}}
+
+  .colfoot{margin-top:14px;padding-top:11px;border-top:1px solid var(--line);
+    font-size:.61rem;color:var(--dim);font-family:var(--mono);line-height:1.5}
+  .colfoot b{color:var(--muted)}
+
+  /* per-piece hover tooltip */
+  .unit{cursor:default}
+  .unit:hover .nm{color:var(--text)}
+
+  /* ── piece key (overview only) ─────────────────────── */
+  .roster{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px;margin-top:16px}
+  .piece-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:13px 12px;text-align:center;transition:border-color .2s,transform .2s;position:relative;overflow:hidden}
+  .piece-card::after{content:'';position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(circle at 50% 0%, color-mix(in srgb,var(--pc) 12%,transparent), transparent 70%)}
+  .piece-card:hover{border-color:var(--pc);transform:translateY(-2px)}
+  .piece-card svg{width:34px;height:43px;display:block;margin:0 auto 8px;position:relative}
+  .piece-card .pn{font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--pc);
+    font-family:var(--mono);margin-bottom:5px}
+  .piece-card .pv{font:700 1.02rem/1 var(--mono);color:var(--text);font-variant-numeric:tabular-nums;
+    margin-bottom:3px;letter-spacing:-.02em}
+  .piece-card .pd{font-size:.66rem;color:var(--dim);line-height:1.35}
 
   #tip{position:fixed;pointer-events:none;z-index:60;opacity:0;transition:opacity .12s;
     background:var(--surface-3);border:1px solid var(--gold-2);border-radius:8px;
@@ -156,20 +188,6 @@
   #tip.on{opacity:1}
   #tip b{color:var(--gold)}
 
-  .roster{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px;margin-top:18px}
-  .piece-card{background:var(--surface);border:1px solid var(--line);border-radius:11px;
-    padding:16px 14px;text-align:center;transition:border-color .2s,transform .2s;position:relative;overflow:hidden}
-  .piece-card::after{content:'';position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(circle at 50% 0%, color-mix(in srgb,var(--pc) 12%,transparent), transparent 70%)}
-  .piece-card:hover{border-color:var(--pc);transform:translateY(-3px)}
-  .piece-card svg{width:62px;height:78px;display:block;margin:0 auto 10px;position:relative}
-  .piece-card .pn{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--pc);
-    font-family:var(--mono);margin-bottom:6px}
-  .piece-card .pv{font:700 1.22rem/1 var(--mono);color:var(--text);font-variant-numeric:tabular-nums;
-    margin-bottom:4px;letter-spacing:-.02em}
-  .piece-card .pd{font-size:.69rem;color:var(--dim);line-height:1.4}
-  .piece-card .pm{font-size:.64rem;color:var(--muted);margin-top:7px;font-family:var(--mono);
-    padding-top:7px;border-top:1px solid var(--line)}
 
   .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(266px,1fr));gap:19px 26px;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
@@ -339,41 +357,27 @@
       <div class="kpis" id="kpis"></div>
     </div>
 
-    <div class="stage">
-      <div class="stage-head">
-        <span class="stage-title" id="stageTitle">Each piece = 1 worker</span>
-        <span class="stage-read" id="stageRead">—</span>
+    <div class="layout">
+      <div class="content">
+        <h3 style="font-size:1rem">The six crews</h3>
+        <p class="lede" style="margin-bottom:0">Every role has its own piece, in its own colour. The column on the right builds up as you move through the pages — the last tab shows the same total as this one.</p>
+        <div class="roster" id="roster"></div>
+        <div class="bars" style="margin-top:18px" id="barsOverview"></div>
       </div>
-      <svg id="pyr" viewBox="0 0 880 546" role="img" aria-label="The Great Pyramid filled with chess-piece figures, each standing for a group of workers">
-        <defs>
-          <linearGradient id="stoneGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="var(--surface-3)"/>
-            <stop offset="100%" stop-color="var(--bg-2)"/>
-          </linearGradient>
-          <linearGradient id="sandGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="color-mix(in srgb,var(--sand) 16%,transparent)"/>
-            <stop offset="100%" stop-color="transparent"/>
-          </linearGradient>
-        </defs>
-        <g id="pyrGround"></g>
-        <g id="pyrBody"></g>
-        <g id="pyrLabels"></g>
-      </svg>
-      <div class="legend">
-        <span><i class="sw p"></i>site prep</span>
-        <span><i class="sw c"></i>cutters</span>
-        <span><i class="sw t"></i>quarry → site</span>
-        <span><i class="sw h"></i>up the ramps</span>
-        <span><i class="sw s"></i>support</span>
-        <span><i class="sw f"></i>farmers</span>
-      </div>
+
+      <aside class="colwrap">
+        <div class="colhead" id="colHead">Total workforce</div>
+        <div class="coltotal" id="colTotal">—</div>
+        <div class="colsub" id="colSub">—</div>
+        <div class="colrule"></div>
+        <div class="stack" id="colStack"></div>
+        <div class="colfoot" id="colFoot">—</div>
+      </aside>
     </div>
 
     <h3 style="margin-top:26px;font-size:.98rem">The six crews — one chess piece each</h3>
     <p class="lede" style="margin-bottom:0">Every role gets its own silhouette so you can read the composition of the workforce at a glance. Hover any piece in the pyramid above to see what it represents.</p>
     <div class="roster" id="roster"></div>
-
-    <div class="bars" style="margin-top:14px" id="barsOverview"></div>
 
     <div class="navbtns">
       <button disabled>← Back</button>
@@ -874,148 +878,86 @@ function compute(o){
   const grainT=total*365*o.kgPerDay/1000;
   const farmers=grainT/o.tPerFarmer;
 
-  return {...o, buildMonths,buildYears,sideCm,rateCmH,hoursPerFace,hoursPerBlock,totalManYears,cutters,
+  const grandAll=prepWorkers+cutters+transport+haul+support+farmers;
+
+  return {...o, grandAll, buildMonths,buildYears,sideCm,rateCmH,hoursPerFace,hoursPerBlock,totalManYears,cutters,
     workDays,blocksPerDay,minutesPerBlock,blocksPerHour,totalSawHours,copperCm3,copperTonnes,
     sawCm3,sawLifeHours,sawsConsumed,bladesInUse,cuPerYear,blockTonnes,pullers,transport,haul,
     support,total,grainT,farmers,grand:total+farmers,
     baseSide,platThick,platArea,courtArea,platVol,rockCut,prepManDays,prepWorkers,prepWorkDays};
 }
 
-/* ── PYRAMID ────────────────────────────────────────────── */
+/* ── STICKY PIECE COLUMN ───────────────────────────────────
+   The column accumulates: each tab that introduces a crew adds its
+   piece to the stack. Overview shows the complete set; moving
+   forward reveals one crew at a time until the total is whole.
+   ───────────────────────────────────────────────────────── */
 const NICE=[1,2,5,10,25,50,100,250,500,1000,2500,5000,10000,25000,50000,100000,250000,500000,1000000];
 function pickScale(n,t){let b=0,e=Infinity;for(let i=0;i<NICE.length;i++){const d=Math.abs(n/NICE[i]-t);if(d<e){e=d;b=i;}}return NICE[b];}
 
-function renderPyramid(r){
-  const body=$('pyrBody'), labels=$('pyrLabels'), ground=$('pyrGround');
-  body.textContent=''; labels.textContent=''; ground.textContent='';
+/* which crews are visible per tab */
+const TAB_CREWS={
+  overview:['prep','cut','trans','haul','supp','farm'],
+  ground:  ['prep'],
+  cutting: ['prep','cut'],
+  copper:  ['prep','cut','supp'],
+  moving:  ['prep','cut','supp','trans','haul'],
+  feeding: ['prep','cut','supp','trans','haul','farm'],
+  verdict: ['prep','cut','supp','trans','haul','farm'],
+  sources: ['prep','cut','supp','trans','haul','farm']
+};
+/* the crew each tab introduces (for the "new" highlight) */
+const TAB_ADDS={ground:'prep',cutting:'cut',copper:'supp',moving:'trans',feeding:'farm'};
 
-  const W=880, baseHalf=368, apexY=54, baseY=470, apexX=W/2;
-  const slope=(baseY-apexY)/baseHalf;
-  const rowH=44, figW=34, figH=40, gapX=9;
-  const nRows=Math.floor((baseY-apexY)/rowH);
+let CURRENT_TAB='overview';
+let LAST_SIG='';
 
-  /* sky / sand wash */
-  const sky=document.createElementNS(NS,'rect');
-  sky.setAttribute('x',0);sky.setAttribute('y',0);
-  sky.setAttribute('width',W);sky.setAttribute('height',baseY+40);
-  sky.setAttribute('fill','url(#sandGrad)');
-  ground.appendChild(sky);
+function crewValues(r){
+  return {prep:r.prepWorkers, cut:r.cutters, trans:r.transport,
+          haul:r.haul, supp:r.support, farm:r.farmers};
+}
 
-  /* pyramid body */
-  const poly=document.createElementNS(NS,'polygon');
-  poly.setAttribute('points',`${apexX},${apexY} ${apexX+baseHalf},${baseY} ${apexX-baseHalf},${baseY}`);
-  poly.setAttribute('fill','url(#stoneGrad)');
-  poly.setAttribute('stroke','var(--line-2)');
-  poly.setAttribute('stroke-width','1.5');
-  labels.appendChild(poly);
+function renderColumn(r,tab,animate){
+  const vals=crewValues(r);
+  const visible=TAB_CREWS[tab]||TAB_CREWS.overview;
+  const added=TAB_ADDS[tab];
 
-  /* masonry courses */
-  const nCourses=20;
-  for(let i=1;i<nCourses;i++){
-    const t=i/nCourses;
-    const y=apexY+(baseY-apexY)*t;
-    const hw=baseHalf*t;
-    const ln=document.createElementNS(NS,'line');
-    ln.setAttribute('x1',apexX-hw);ln.setAttribute('x2',apexX+hw);
-    ln.setAttribute('y1',y);ln.setAttribute('y2',y);
-    ln.setAttribute('stroke','var(--line)');
-    ln.setAttribute('stroke-width','.7');
-    ln.setAttribute('opacity','.55');
-    labels.appendChild(ln);
-  }
+  const shown=visible.reduce((s,k)=>s+vals[k],0);
+  const full=Object.values(vals).reduce((a,b)=>a+b,0)||1;
 
-  /* gilded pyramidion */
-  const capH=rowH*1.1;
-  const capHalf=baseHalf*(capH/(baseY-apexY));
-  const cap=document.createElementNS(NS,'polygon');
-  cap.setAttribute('points',`${apexX},${apexY} ${apexX+capHalf},${apexY+capH} ${apexX-capHalf},${apexY+capH}`);
-  cap.setAttribute('fill','var(--gold)');
-  cap.setAttribute('opacity','.92');
-  labels.appendChild(cap);
+  $('colTotal').textContent=fmt(shown);
+  $('colSub').textContent = visible.length===6
+    ? `complete workforce · ${fmt1(shown/full*100)}%`
+    : `${visible.length} of 6 crews · ${fmt1(shown/full*100)}% of total`;
+  $('colHead').textContent = visible.length===6 ? 'Total workforce' : 'Crews so far';
 
-  /* rows */
-  const rows=[];
-  for(let row=0;row<nRows;row++){
-    const y=baseY-row*rowH-figH, midY=y+figH/2;
-    const widthAtY=(midY-apexY)/slope*2;
-    if(widthAtY<figW*2) break;
-    rows.push({y,cap:Math.max(1,Math.floor(widthAtY/(figW+gapX))),count:0});
-  }
-  if(rows.length===0) return;
+  /* how many pieces per crew: scale so the whole stack is readable */
+  const scale=pickScale(full, 16);
+  const units=[];
+  visible.forEach(key=>{
+    const role=ROLES.find(x=>x.key===key);
+    const n=Math.max(1,Math.round(vals[key]/scale));
+    for(let i=0;i<n;i++) units.push({role,key});
+  });
 
-  const capacity=rows.reduce((s,x)=>s+x.cap,0);
-  const scale=pickScale(r.grand, capacity*0.78);
-  const target=Math.min(Math.max(1,Math.round(r.grand/scale)),capacity);
+  const sig=units.map(u=>u.key).join(',')+'|'+r.grandAll;
+  const stack=$('colStack');
+  stack.innerHTML=units.map((u,i)=>{
+    const role=u.role;
+    const isNew=animate && u.key===added;
+    return `<div class="unit${isNew?' fresh':''}" title="${role.label}: ${fmt(vals[u.key])} people">
+      <svg viewBox="0 0 24 30" aria-hidden="true">
+        <path d="${PIECES[role.piece](0,0,24,30)}" fill="${role.color}" fill-rule="evenodd"/>
+      </svg>
+      <div class="meta">
+        <div class="nm" style="color:${role.color}">${role.label}</div>
+        <div class="ct">${fmt(vals[u.key])}</div>
+      </div>
+    </div>`;
+  }).join('');
 
-  rows.forEach(row=>row.count=Math.min(row.cap,Math.floor(target*row.cap/capacity)));
-  let assigned=rows.reduce((s,x)=>s+x.count,0), guard=0;
-  while(assigned<target&&guard++<rows.length*60){
-    const row=rows[guard%rows.length];
-    if(row.count<row.cap){row.count++;assigned++;}
-  }
-
-  /* role bands */
-  const vals={prep:r.prepWorkers, cut:r.cutters, trans:r.transport, haul:r.haul, supp:r.support, farm:r.farmers};
-  const sumAll=Object.values(vals).reduce((a,b)=>a+b,0)||1;
-  const cum=[]; let acc=0;
-  ROLES.forEach(role=>{ acc+=vals[role.key]; cum.push({...role, upto:acc/sumAll}); });
-  const roleOf=i=>{
-    const f=assigned>1?i/(assigned-1):0;
-    for(const c of cum) if(f<=c.upto) return c;
-    return cum[cum.length-1];
-  };
-
-  const perFig=r.grand/assigned;
-  let idx=0;
-  for(const row of rows){
-    const totalW=row.count*(figW+gapX)-gapX, startX=apexX-totalW/2;
-    for(let k=0;k<row.count;k++){
-      const x=startX+k*(figW+gapX), role=roleOf(idx++);
-      const g=document.createElementNS(NS,'g');
-
-      const p=document.createElementNS(NS,'path');
-      p.setAttribute('d',PIECES[role.piece](x,row.y,figW,figH));
-      p.setAttribute('fill',role.color);
-      p.setAttribute('fill-rule','evenodd');
-      g.appendChild(p);
-
-      g.addEventListener('mouseenter',()=>{
-        const t=$('tip');
-        t.innerHTML=`<b>${role.label}</b> · ${role.desc}<br>≈ ${fmt(perFig)} people`;
-        t.classList.add('on');
-      });
-      g.addEventListener('mousemove',e=>{
-        const t=$('tip');
-        t.style.left=e.clientX+'px'; t.style.top=e.clientY+'px';
-      });
-      g.addEventListener('mouseleave',()=>$('tip').classList.remove('on'));
-      body.appendChild(g);
-    }
-  }
-
-  /* ground line */
-  const gl=document.createElementNS(NS,'line');
-  gl.setAttribute('x1',apexX-baseHalf-24);gl.setAttribute('x2',apexX+baseHalf+24);
-  gl.setAttribute('y1',baseY+6);gl.setAttribute('y2',baseY+6);
-  gl.setAttribute('stroke','var(--gold-2)');gl.setAttribute('stroke-width','1.5');
-  labels.appendChild(gl);
-
-  const lab=(x,y,t,a,size,col)=>{
-    const el=document.createElementNS(NS,'text');
-    el.setAttribute('x',x);el.setAttribute('y',y);
-    el.setAttribute('text-anchor',a||'middle');
-    el.setAttribute('font-family','ui-monospace,monospace');
-    el.setAttribute('font-size',size||11);
-    el.setAttribute('fill',col||'var(--dim)');
-    el.textContent=t;
-    labels.appendChild(el);
-  };
-  lab(apexX,baseY+28,'230.33 m base');
-  lab(apexX+baseHalf+22,apexY+74,'146.6 m','start');
-  lab(apexX-baseHalf-22,baseY-6,'bedrock','end');
-
-  $('stageTitle').textContent=scale===1?'Each piece is one worker':`Each piece = ${fmt(scale)} people`;
-  $('stageRead').textContent=`${fmt(assigned)} pieces × ${fmt(scale)} = ${fmt(r.grand)} people`;
+  $('colFoot').innerHTML=`1 piece ≈ <b>${fmt(scale)}</b> people<br>${units.length} pieces · ${visible.length}/6 crews`;
+  LAST_SIG=sig;
 }
 
 /* ── ROSTER ─────────────────────────────────────────────── */
@@ -1023,7 +965,7 @@ function renderRoster(r){
   const vals={prep:r.prepWorkers, cut:r.cutters, trans:r.transport, haul:r.haul, supp:r.support, farm:r.farmers};
   $('roster').innerHTML=ROLES.map(role=>{
     const v=vals[role.key];
-    const pct=(v/(r.grand||1))*100;
+    const pct=(v/(r.grandAll||1))*100;
     return `<div class="piece-card" style="--pc:${role.color}">
       <svg viewBox="0 0 24 30" aria-hidden="true">
         <path d="${PIECES[role.piece](0,0,24,30)}" fill="${role.color}" fill-rule="evenodd"/>
@@ -1038,9 +980,9 @@ function renderRoster(r){
 
 function renderHero(r){
   const big=$('totalBig');
-  big.textContent=fmt(r.grand);
-  big.className='big'+(r.grand>400000?' hot':r.grand>120000?' warn':'');
-  const share=r.grand/POP*100;
+  big.textContent=fmt(r.grandAll);
+  big.className='big'+(r.grandAll>400000?' hot':r.grandAll>120000?' warn':'');
+  const share=r.grandAll/POP*100;
   $('totalSub').innerHTML=`That is <b>${fmt1(share)}%</b> of late Old Kingdom Egypt (est. 1.55M) — `+
     `for one building, over ${r.years} years, of which <b>${r.prepMonths} months</b> is site prep. `+
     `Cutting alone eats <b>${fmtS(r.totalManYears)}</b> worker-years.`;
@@ -1056,8 +998,8 @@ function renderHero(r){
 
 function renderSticky(r){
   const n=$('stickyNum');
-  n.textContent=fmt(r.grand);
-  n.className='num'+(r.grand>400000?' hot':r.grand>120000?' warn':'');
+  n.textContent=fmt(r.grandAll);
+  n.className='num'+(r.grandAll>400000?' hot':r.grandAll>120000?' warn':'');
   $('chC').textContent=fmt(r.cutters);
   $('chCu').textContent=fmt(r.copperTonnes)+' t';
   $('chP').textContent=fmt1(r.minutesPerBlock)+' min';
@@ -1199,22 +1141,22 @@ function renderFeeding(r){
 }
 
 function renderVerdict(r){
-  const share=r.grand/POP*100, ratio=r.grand/25000, needRate=r.rate*ratio;
+  const share=r.grandAll/POP*100, ratio=r.grandAll/25000, needRate=r.rate*ratio;
   let body;
   if(ratio>=1.5){
-    body=`At the mainstream timeline and a measured cutting rate you need <em>${fmt(r.grand)} people</em> — `+
+    body=`At the mainstream timeline and a measured cutting rate you need <em>${fmt(r.grandAll)} people</em> — `+
       `<em>${fmt1(share)}%</em> of the country — for ${r.years} straight years, of which ${r.prepMonths} months `+
       `is just the hole in the ground. Archaeology says 20,000–30,000. The arithmetic says `+
       `<em>${fmt1(ratio)}×</em> that, wants <em>${fmt(r.copperTonnes)} tonnes</em> of copper, and needs `+
       `<em>${fmt(r.farmers)} farmers</em> feeding them. Getting back to 25,000 would need a cutting rate of `+
       `<em>${fmt1(needRate)} mm/hr</em> — nobody has demonstrated that with copper and sand.`;
   } else if(ratio>=0.8){
-    body=`At these settings the workforce lands at <em>${fmt(r.grand)} people</em>, inside the mainstream window. `+
+    body=`At these settings the workforce lands at <em>${fmt(r.grandAll)} people</em>, inside the mainstream window. `+
       `That took ${fmt1(r.rate)} mm/hr cutting, ${r.hours}-hour days, ${r.days} days a year, ${r.prepMonths} months `+
       `of prep and a support ratio of ${fmt1(r.support)} — the optimistic end of every assumption at once. `+
       `The mainstream number is reachable; it is just not reachable robustly.`;
   } else {
-    body=`At these settings you need only <em>${fmt(r.grand)} people</em> — <em>${fmt1(1/ratio)}×</em> cheaper `+
+    body=`At these settings you need only <em>${fmt(r.grandAll)} people</em> — <em>${fmt1(1/ratio)}×</em> cheaper `+
       `than the mainstream estimate. That is suspicious in the other direction. A figure this low means something `+
       `has been given away, usually a cutting rate far beyond anything measured.`;
   }
@@ -1234,7 +1176,7 @@ function update(){
   Object.keys(outs).forEach(k=>{const el=$(k+'Out');if(el)el.textContent=fmt1(o[k])+outs[k];});
 
   const r=compute(o);
-  renderHero(r); renderSticky(r); renderPyramid(r); renderRoster(r); renderBars(r);
+  renderHero(r); renderSticky(r); renderRoster(r); renderBars(r); renderColumn(r,CURRENT_TAB,false);
   renderGround(r); renderCutting(r); renderCopper(r); renderMoving(r);
   renderFeeding(r); renderVerdict(r);
 
@@ -1245,16 +1187,19 @@ function update(){
 }
 
 const ORDER=['overview','ground','cutting','copper','moving','feeding','verdict','sources'];
-function showTab(name){
+function showTab(name,animate){
+  const changed = name!==CURRENT_TAB;
+  CURRENT_TAB=name;
   ORDER.forEach(t=>{
     $('p-'+t).classList.toggle('on', t===name);
     document.querySelector(`.tab[data-t="${t}"]`).classList.toggle('on', t===name);
   });
   history.replaceState(null,'','#'+name);
+  if(changed) renderColumn(compute(read()),name,!!animate);
   window.scrollTo({top:0,behavior:'smooth'});
 }
-document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.t)));
-document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.t,true)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go,true)));
 
 CTRLS.forEach(k=>$(k).addEventListener('input',update));
 document.querySelectorAll('[data-preset]').forEach(b=>{
@@ -1267,7 +1212,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
     const cur=ORDER.findIndex(t=>$('p-'+t).classList.contains('on'));
     const next=cur+(e.key==='ArrowRight'?1:-1);
-    if(next>=0&&next<ORDER.length){showTab(ORDER[next]);e.preventDefault();}
+    if(next>=0&&next<ORDER.length){showTab(ORDER[next],true);e.preventDefault();}
   }
 });
 
