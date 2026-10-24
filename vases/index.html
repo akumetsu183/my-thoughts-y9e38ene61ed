@@ -245,6 +245,31 @@
   .kpi.prep{--kc:var(--prep)} .kpi.cut{--kc:var(--cut)} .kpi.trans{--kc:var(--trans)}
   .kpi.haul{--kc:var(--haul)} .kpi.supp{--kc:var(--support)} .kpi.farm{--kc:var(--farmer)}
 
+  /* ── TOOLING ── */
+  .tooling{margin:26px 0 30px}
+  .tooling h3{font-size:1.05rem;margin-bottom:10px}
+  .tooling > p{font-size:.87rem;color:var(--muted);max-width:74ch;line-height:1.65}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:12px;margin-top:18px}
+  .tool-card{background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:15px 16px}
+  .tc-k{font:600 .64rem/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:8px}
+  .tc-v{font:700 1.15rem/1.2 var(--serif);color:var(--gold);margin-bottom:9px}
+  .tool-card p{font-size:.78rem;color:var(--muted);line-height:1.55;margin:0}
+  .tool-card b{color:var(--text)}
+  .tool-hours{margin-top:16px;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:16px 18px}
+  .th-row{display:flex;justify-content:space-between;align-items:baseline;
+    font-size:.84rem;color:var(--muted);padding:5px 0}
+  .th-row b{font-family:var(--mono);color:var(--gold);font-size:.95rem}
+  .th-bar{height:7px;background:var(--bg-2);border-radius:4px;overflow:hidden;
+    margin:6px 0 12px}
+  .th-bar span{display:block;height:100%;background:linear-gradient(90deg,
+    var(--gold),var(--ochre));transition:width .4s ease}
+  .note.warn p{font-size:.84rem;color:var(--muted);line-height:1.6;margin:8px 0 0}
+  .note.warn p b{color:var(--text)}
+
   /* ── CROSS-SECTION DIAGRAM ───────────────────────── */
   .xsec{display:grid;grid-template-columns:240px 1fr;gap:22px;margin-top:16px;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
@@ -598,9 +623,9 @@
       <p style="margin:0"><b>And the hard-stone penalty is brutal.</b> With a bow-driven copper tube in sand, Stocks cut limestone at <b>6 cm³/hour</b>. In granite and diorite the same tube managed <b>2 cm³/hour</b>, and the twist-reverse-twist rig only <b>0.4 cm³/hour</b> — a <b>15× penalty</b> for the hardest stones. That is the whole reason most surviving vases are not granite.</p>
     </div>
 
-    <p style="margin-top:16px">Now scale that — and here the arithmetic goes somewhere unexpected. Forty thousand vessels at those rates is roughly <b>2 million person-hours</b>. Spread over the century or so in which they were amassed, that is about <b>ten craftsmen</b>.</p>
+    <p style="margin-top:16px">Now scale that — and the answer depends almost entirely on what you assume about the tooling. A hard-stone vessel is not 22.5 hours of work. Stocks measured granite hollowing at <b>2 cm³/h</b> with a bow-driven tube, and the chamber is about 362 cm³, so <b>hollowing alone is roughly 180 hours</b>; the whole vessel lands near <b>326 hours</b>.</p>
 
-    <p><b>So the hand-made story is affordable.</b> That is not the weak point, and anyone arguing against the mainstream should stop pretending otherwise. A few dozen skilled people can account for the entire corpus, and the excavated workshop evidence fits that perfectly.</p>
+    <p>Forty thousand vessels at that rate is over <b>five million person-hours</b> — about <b>40 people</b> in and around the workshops, given the stone mix below. Still affordable. Still a workshop, not an industry.</p>
 
     <p>The problem is not <em>how many</em>. It is <em>how straight</em> — and that is where the rest of this page goes.</p>
   </section>
@@ -613,8 +638,8 @@
     <h3 style="margin-top:24px">The sequence, per Stocks</h3>
     <div class="steps">
       <div class="step"><span class="sn">1</span><div><b>Rough out the exterior.</b> Stone hand-axes and pounders shape the block. Flint is harder than granite and will cut it, slowly.</div></div>
-      <div class="step"><span class="sn">2</span><div><b>Drill the mouth.</b> A copper tube spun with a bow, fed with quartz sand. The sand does the cutting; the copper only carries it.</div></div>
-      <div class="step"><span class="sn">3</span><div><b>Hollow the body.</b> Successive tubes of increasing size, then figure-of-eight borers worked by hand. This is where the hours go.</div></div>
+      <div class="step"><span class="sn">2</span><div><b>Drill the mouth.</b> A copper tube spun with a bow, with an abrasive slurry underneath. The abrasive does the cutting; the copper only carries it. <em>Which</em> abrasive is disputed — sand is the usual assumption, but see the tooling panel: sand leaves no concentric lines, and Petrie's cores have them.</div></div>
+      <div class="step"><span class="sn">3</span><div><b>Hollow the body.</b> Successive tubes, then shaped borers worked by hand. This is where the hours go — <b>roughly 180 of the 326</b> at the measured bow-drill rate, because a wider tube is twisted more slowly and does not cut faster.</div></div>
       <div class="step"><span class="sn">4</span><div><b>Remove the cores.</b> The drilled cylinders are snapped out with a chisel.</div></div>
       <div class="step"><span class="sn">5</span><div><b>Smooth the cusps.</b> Each borer leaves a raised ridge inside. These are ground away with hand-held sandstone rubbers through the narrow mouth.</div></div>
       <div class="step"><span class="sn">6</span><div><b>Polish.</b> The final surface, inside and out, worked down to the finish you see in a museum case.</div></div>
@@ -702,6 +727,47 @@
     <h2>The workforce</h2>
     <p class="lede">Now the arithmetic. Corpus size × hours per vase, spread over the production span and the working year, gives the number of people who had to be doing this at once.</p>
 
+    <div class="tooling">
+      <h3 style="margin-top:0">The tooling, before the arithmetic</h3>
+      <p>An earlier version of this page assumed copper tubes and quartz sand, full stop. That was too thin. The experimental and pictorial record is more specific — and in one place it cuts against the standard reconstruction rather than supporting it.</p>
+
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tc-k">Rig</div>
+          <div class="tc-v" id="tRig">—</div>
+          <p>Stocks built and timed two rigs. The bow-driven tube reached <b>2 cm³/h</b> in granite; his twist/reverse-twist rig (TRTD) managed <b>0.4 cm³/h</b> — five times slower, because the operator reverses the motion every half-turn.</p>
+        </div>
+        <div class="tool-card">
+          <div class="tc-k">Hollowing rate</div>
+          <div class="tc-v" id="tRate">—</div>
+          <p>Measured on granite and diorite. The chamber is about 362 cm³, so hollowing alone is <b id="tHollow">—</b> at this rate.</p>
+        </div>
+        <div class="tool-card">
+          <div class="tc-k">Drills per worker</div>
+          <div class="tc-v" id="tMult">—</div>
+          <p>New Kingdom tomb scenes show craftworkers operating two, three and four drills at once — Puyemre, Rekhmire, Sebekhotep. Modelled here as a throughput multiplier, not extra people.</p>
+        </div>
+        <div class="tool-card">
+          <div class="tc-k">Abrasive</div>
+          <div class="tc-v" id="tAbr">—</div>
+          <p id="tLineNote">—</p>
+        </div>
+      </div>
+
+      <div class="tool-hours">
+        <div class="th-row"><span>Hollowing the chamber</span><b id="tHollow2">—</b></div>
+        <div class="th-bar"><span id="tBar"></span></div>
+        <div class="th-row"><span>Total per hard-stone vessel</span><b id="tPer">—</b></div>
+        <div class="th-row"><span>Total per soft-stone vessel</span><b id="tSoft">—</b></div>
+      </div>
+
+      <div class="note warn" style="margin-top:22px">
+        <div class="nt">Two things this corrects</div>
+        <p><b>A bigger tube does not cut faster.</b> It is tempting to assume a wider drill buys throughput. Stocks measured the opposite: a larger tube needs more weight, gains inertia and friction, and is twisted more slowly, so <b>volumetric removal stays roughly constant across every tube diameter</b>. The levers are the rig and the number of drills, which is what the sliders above control.</p>
+        <p><b>The abrasive is a problem for the orthodox account, not a detail.</b> Gorelick &amp; Gwinnett drilled granite with beach sand, crushed quartz, garnet, emery, corundum, silicon carbide and diamond, wet and dry. Sand and quartz <b>left no concentric lines</b>. Emery and corundum did, but only in water or oil. Petrie's cores carry those lines. So the standard "quartz sand" reconstruction does not reproduce the very feature that provoked the argument — and emery is not native to Egypt.</p>
+      </div>
+    </div>
+
     <div class="controls">
       <div class="ctl">
         <label for="corpus">Vessels in the corpus <output id="corpusOut">—</output></label>
@@ -709,14 +775,19 @@
         <div class="hint">Over 40,000 under Djoser's Step Pyramid; Petrie found 10,000–20,000 fragments in the First Dynasty royal tombs at Abydos. <a href="https://www.worldhistory.org/article/862/the-step-pyramid-of-djoser-at-saqqara/" target="_blank" rel="noopener">source</a></div>
       </div>
       <div class="ctl">
-        <label for="hours">Hours per vase <output id="hoursOut">—</output></label>
-        <input type="range" id="hours" min="4" max="200" step="0.5" value="22.5">
-        <div class="hint">Stocks' timed limestone replica: 22.5 h. Hard-stone vessels take far longer. <a href="https://anarkia333data.center/sites/default/files/2020-01/stocks_experiments_in_egyptian_2003.pdf" target="_blank" rel="noopener">Stocks 2003</a></div>
+        <label for="drill">Drilling rig <output id="drillOut">—</output></label>
+        <input type="range" id="drill" min="0" max="3" step="1" value="1">
+        <div class="hint">Stocks measured two rigs on granite and diorite. <b>Bow-driven copper tube: 2 cm³/h.</b> His twist/reverse-twist rig (TRTD): 0.4 cm³/h — five times slower, because the same hands have to reverse the motion every half-turn. Slider steps: TRTD → bow-driven → bow with two drills → bow with three. Tomb scenes show craftworkers running up to <b>four</b> drills at once. <a href="https://anarkia333data.center/sites/default/files/2020-01/stocks_experiments_in_egyptian_2003.pdf" target="_blank" rel="noopener">Stocks 2003</a></div>
+      </div>
+      <div class="ctl">
+        <label for="abrasive">Abrasive <output id="abrasiveOut">—</output></label>
+        <input type="range" id="abrasive" min="0" max="2" step="1" value="0">
+        <div class="hint">This one cuts against the orthodox reading. Gorelick &amp; Gwinnett drilled granite with every plausible abrasive: <b>sand and crushed quartz produced no concentric lines at all</b>, while emery and corundum did — but only in water or oil. Petrie's cores carry those lines, which points to emery, not the quartz sand most reconstructions assume. Emery is not native to Egypt. <a href="https://www.penn.museum/sites/expedition/ancient-egyptian-stone-drilling" target="_blank" rel="noopener">Gorelick &amp; Gwinnett</a></div>
       </div>
       <div class="ctl">
         <label for="hardPct">Share in hard stone <output id="hardPctOut">—</output></label>
         <input type="range" id="hardPct" min="0" max="100" step="1" value="35">
-        <div class="hint">Granite, diorite, basalt cut at 0.4–2 cm³/h against limestone's 6 cm³/h — up to 15× slower. This slider applies that penalty. <a href="https://anarkia333data.center/sites/default/files/2020-01/stocks_experiments_in_egyptian_2003.pdf" target="_blank" rel="noopener">rates</a></div>
+        <div class="hint">Most vessels were soft travertine or calcite; hard stone was an elite subset. Wikipedia's survey says <b>hundreds of thousands</b> were made overall but the majority from soft calcareous rock. This slider sets how much of the corpus you treat as granite, diorite or basalt — the only part where the slow rates apply. <a href="https://en.wikipedia.org/wiki/Stone_vessels_in_Ancient_Egypt" target="_blank" rel="noopener">corpus survey</a></div>
       </div>
       <div class="ctl">
         <label for="span">Concentration window <output id="spanOut">—</output></label>
@@ -824,6 +895,20 @@
     </div>
     <p style="margin-top:14px">Fomitchev-Zamilov found the <b>first</b> signature on the 19 provenanced Petrie vessels. That is a strong, specific result — not a shrug about "hand tools are good enough", but a testable prediction that came out the way the hand-made model requires.</p>
 
+    <h3 style="margin-top:26px">What the mainstream already concedes</h3>
+    <p>This is worth stating plainly, because it is often left out of both sides of the argument: <b>the rotation is not the heterodox part.</b> Mainstream Egyptology has long accepted that these vessels were turned.</p>
+    <div class="duo" style="margin-top:12px">
+      <div class="card">
+        <b style="font-size:.9rem">The evidence for rotary work</b>
+        <p style="font-size:.82rem;color:var(--muted);margin:8px 0 0">Rotary abrasion striations appear on vessel exteriors from the Old Kingdom onward. Preserved Egyptian wheel bearings — an upper pivot in a lower basalt or granodiorite socket — were shown experimentally to spin at <b>over 100 rpm</b> when polished and oiled. Production peaks in the Early Dynastic period coincide with the adoption of a turning device.</p>
+      </div>
+      <div class="card">
+        <b style="font-size:.9rem">What a specialist concluded in 1961</b>
+        <p style="font-size:.82rem;color:var(--muted);margin:8px 0 0">Walter Emery, on early dynastic vessels: <em>"it would appear almost certain that the craftsman had some method of rotating the material against a fixed tool, for it would be impossible to obtain such accuracy purely by hand chiselling and grinding by measurements, no matter how numerous or how painstakingly done."</em> That is not a fringe claim. It is in <em>Archaic Egypt</em>.</p>
+      </div>
+    </div>
+    <p style="margin-top:14px">So the honest framing is not "hand tools versus machines". It is: <b>everyone agrees something rotated.</b> The dispute is whether the rotation was a potter's-wheel-like aid that steadied the work while hands supplied the cutting, or a lathe that held the workpiece on a <b>fixed, single axis</b> and let the tooling reference it. Only the second one predicts coaxiality — inner and outer surfaces agreeing to 25 µm — because only the second one gives both surfaces the same datum. That is the narrow, specific question the metrology is really asking.</p>
+
     <div class="note warn" style="margin-top:22px">
       <div class="nt">The honest complication — and it is large</div>
       <p>Nearly all the most impressive scanned vases are <b>unprovenanced</b>. They were bought on the antiquities market, without excavation context. For a lot of archaeologists that means their date — and possibly their Egyptian origin — <b>cannot be established at all</b>. Meanwhile Egyptian craft workshops today demonstrably make hard-stone replicas good enough to fool authentication. A precision measurement on an object of unknown date is not yet a claim about ancient Egypt. <b>This is the single biggest weakness in the case, and it is not a small one.</b></p>
@@ -913,7 +998,9 @@
     <h2>Sources</h2>
     <p class="lede">Every figure on this page traces to one of these. The strongest anchor is Stocks' own book, which is where the timings and cutting rates come from.</p>
     <ul class="sources">
-      <li><a href="https://anarkia333data.center/sites/default/files/2020-01/stocks_experiments_in_egyptian_2003.pdf" target="_blank" rel="noopener">Stocks, D. — Experiments in Egyptian Archaeology (2003)</a> — 22.5 h limestone vase; granite 0.4–2 cm³/h vs limestone 6 cm³/h; the 20-hour/6 cm bow-drill hole; Lehner's foreword on the 40,000 Saqqara vessels.</li>
+      <li><a href="https://anarkia333data.center/sites/default/files/2020-01/stocks_experiments_in_egyptian_2003.pdf" target="_blank" rel="noopener">Stocks, D. — Experiments in Egyptian Archaeology (2003)</a> — 22.5 h limestone vase; <b>granite/diorite 2 cm³/h bow-driven vs 0.4 cm³/h TRTD</b>; calcite 30 vs 6; the finding that volumetric removal is roughly constant across tube diameters; New Kingdom tomb scenes of workers running two, three and four drills simultaneously; Lehner's foreword on the 40,000 Saqqara vessels.</li>
+      <li><a href="https://www.penn.museum/sites/expedition/ancient-egyptian-stone-drilling" target="_blank" rel="noopener">Gorelick, L. &amp; Gwinnett, A.J. — "Ancient Egyptian Stone-Drilling" (Expedition 25:3, 1983)</a> — experimental drilling of granite with sand, quartz, garnet, emery, corundum, silicon carbide and diamond. <b>Sand and quartz produced no concentric lines</b>; emery and corundum did, but only wet or in oil. This is the paper that puts the "quartz sand" reconstruction in doubt.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Stone_vessels_in_Ancient_Egypt" target="_blank" rel="noopener">Stone vessels in ancient Egypt (survey, with primary citations)</a> — corpus scale ("hundreds of thousands", majority soft calcareous rock); rotary abrasion striations from the Old Kingdom; reconstructed wheel bearings spinning over 100 rpm; Emery's 1961 conclusion on rotation.</li>
       <li><a href="https://www.nature.com/articles/s40494-025-02196-7" target="_blank" rel="noopener">Fomitchev-Zamilov, M. — A metrological method... (npj Heritage Science, 2025)</a> — 19 Petrie vessels vs 25 machine-made and 24 hand-made comparators; ancient vessels match hand grinding.</li>
       <li><a href="https://www.worldhistory.org/article/862/the-step-pyramid-of-djoser-at-saqqara/" target="_blank" rel="noopener">World History Encyclopedia — Step Pyramid of Djoser</a> — over 40,000 vessels in the 6th and 7th shafts.</li>
       <li><a href="https://www.gizapyramids.org/static/pdf%20library/reisner_gn_books/mycerinus/ch_8_pp130to140.pdf" target="_blank" rel="noopener">Reisner, G. — Mycerinus, ch. VIII: Stone Vessels</a> — the Menkaure corpus.</li>
@@ -953,8 +1040,46 @@ const fmt1 = n => (Math.round(n*10)/10).toLocaleString('en-US');
    limestone.  We take the middle of that range (5x) as the
    default penalty so the slider is a single meaningful number.
    ────────────────────────────────────────────────────────────── */
-const CTRLS = ['corpus','hours','hardPct','span','days','dayLen'];
-const HARD_PENALTY = 5;   // granite/diorite vs limestone, geometric middle
+const CTRLS = ['corpus','drill','abrasive','hardPct','span','days','dayLen'];
+
+/* ──────────────────────────────────────────────────────────────
+   Measured rates, all from Stocks (2003) unless noted.
+
+   Granite / diorite hollowing:
+     bow-driven copper tube ....... 2.0 cm3/h
+     twist/reverse-twist (TRTD) ... 0.4 cm3/h
+   Calcite (soft) bow-driven ...... 30 cm3/h
+   Calcite TRTD ................... 6.0 cm3/h
+
+   Stocks also found the volumetric rate is roughly CONSTANT for every
+   tube diameter: a wider tube has more contact area but needs more
+   weight, gains inertia and friction, and is twisted more slowly. So
+   "use a bigger drill" does not buy throughput. That is why the rig
+   and the drill count are the levers, not the tube bore.
+
+   Multi-drill: New Kingdom tomb scenes (Puyemre, Rekhmire, Sebekhotep,
+   Amenhotep-si-se) show craftworkers running two, three and four drills
+   simultaneously. Modelled as a throughput multiplier.
+   ────────────────────────────────────────────────────────────── */
+const RATE = {
+  hard: { trtd: 0.4, bow: 2.0 },
+  soft: { trtd: 6.0, bow: 30.0 }
+};
+const RIGS = [
+  {label:'TRTD, one drill',      hard:RATE.hard.trtd, soft:RATE.soft.trtd, mult:1},
+  {label:'Bow-driven, one drill',hard:RATE.hard.bow,  soft:RATE.soft.bow,  mult:1},
+  {label:'Bow, two drills',      hard:RATE.hard.bow,  soft:RATE.soft.bow,  mult:2},
+  {label:'Bow, three drills',    hard:RATE.hard.bow,  soft:RATE.soft.bow,  mult:3}
+];
+/* abrasive affects SPEED, and only emery-class abrasives produce the
+   striations Petrie recorded. Sand is slower AND leaves no lines. */
+const ABRASIVES = [
+  {label:'Emery, wet',      hardMult:1.00, lines:true},
+  {label:'Corundum, wet',   hardMult:1.00, lines:true},
+  {label:'Quartz sand',     hardMult:0.45, lines:false}
+];
+
+const V_HOLLOW_CM3 = 362;   // 8 cm dia x 10 cm deep chamber, ~72% fill
 
 function read(){
   const o={};
@@ -962,35 +1087,41 @@ function read(){
   return o;
 }
 
+function hoursPerVessel(hard, rig, abr){
+  const r = rig.hard ? rig.hard : RATE.hard.bow;
+  const rate = (hard ? rig.hard : rig.soft) * (hard ? abr.hardMult : 1);
+  const hollow = V_HOLLOW_CM3 / rate;          // drilling dominates
+  const exterior = hollow * 0.45;              // roughing the outside
+  const finish = hollow * 0.35;                // cusp smoothing + polish
+  const total = (hollow + exterior + finish) / rig.mult;
+  return {total, hollow: hollow/rig.mult, rate};
+}
+
 function compute(o){
-  const hardShare   = o.hardPct/100;
+  const rig = RIGS[Math.round(o.drill)] || RIGS[1];
+  const abr = ABRASIVES[Math.round(o.abrasive)] || ABRASIVES[0];
+  const hardShare = o.hardPct/100;
 
-  /* average hours per vessel, blending soft and hard stone */
-  const avgHours = o.hours * (1 - hardShare)
-                 + o.hours * HARD_PENALTY * hardShare;
+  const hard = hoursPerVessel(true, rig, abr);
+  const soft = hoursPerVessel(false, rig, abr);
 
-  /* total skilled person-hours for the whole corpus */
-  const totalHours   = avgHours * o.corpus;
-  const workerYears  = totalHours / (o.dayLen * o.days);
-  const crew         = totalHours / (o.span * o.days * o.dayLen);
+  const avgHours = hard.total*hardShare + soft.total*(1-hardShare);
+  const totalHours = avgHours * o.corpus;
+  const workerYears = totalHours / (o.dayLen * o.days);
+  const crew = totalHours / (o.span * o.days * o.dayLen);
 
-  /* specialists needed alongside the drillers:
-     stone-getters, borer makers (borers wear out), polishers,
-     fitment of benches, plus food/water provisioning. */
-  const borerMakers  = crew * 0.10;
-  const polishers    = crew * 0.25;
-  const provision    = crew * 0.40;   // bakers, brewers, water carriers
-  const grandAll     = crew + borerMakers + polishers + provision;
+  const borerMakers = crew * 0.10;
+  const polishers   = crew * 0.25;
+  const provision   = crew * 0.40;
+  const grandAll    = crew + borerMakers + polishers + provision;
 
-  /* supporting figures */
   const vesselsPerYear = o.corpus / o.span;
-  const vesselsPerDay  = vesselsPerYear / o.days;
-  const hoursPerYear   = o.corpus * avgHours / o.span;
-  const hardHours      = o.corpus * hardShare * o.hours * HARD_PENALTY;
+  const hardHours = hard.total * o.corpus * hardShare;
 
-  return {...o, hardShare, avgHours, totalHours, workerYears, crew,
-          borerMakers, polishers, provision, grandAll,
-          vesselsPerYear, vesselsPerDay, hoursPerYear, hardHours};
+  return {...o, hardShare, avgHours, hardHoursTotal:hard.total, softHoursTotal:soft.total,
+          totalHours, workerYears, crew, borerMakers, polishers, provision, grandAll,
+          vesselsPerYear, hardHours, rig, abr,
+          hollowHours: hard.hollow, rate: hard.rate};
 }
 
 /* ── render ─────────────────────────────────────────────────── */
@@ -998,15 +1129,38 @@ const NS='http://www.w3.org/2000/svg';
 
 function renderHero(r){
   $('bigNum').textContent = fmt(r.grandAll);
-  const perCrewDay = r.crew ? r.crew : 1;
   $('bigSub').textContent =
-    `That is ${fmt(r.grandAll)} people in and around the workshops — ` +
+    `${fmt(r.grandAll)} people in and around the workshops — ` +
     `${fmt(r.crew)} hands on stone, the rest making borers, polishing and feeding them — ` +
-    `to produce ${fmt(r.corpus)} vessels over ${fmt(r.span)} years at ${fmt1(r.avgHours)} hours each.`;
-  $('chPer').textContent   = fmt1(r.avgHours)+' h';
+    `to produce ${fmt(r.corpus)} vessels over ${fmt(r.span)} years. ` +
+    `Hard-stone vessels take ${fmt(r.hardHoursTotal)} h each on this rig; soft stone ${fmt(r.softHoursTotal)} h.`;
+  $('chPer').textContent   = fmt1(r.hardHoursTotal)+' h';
   $('chHard').textContent  = fmt(r.hardPct)+'%';
   $('chCorpus').textContent= fmt(r.corpus);
   $('chTol').textContent   = '0.001"';
+}
+
+function renderTooling(r){
+  const set=(id,v)=>{const e=$(id); if(e) e.textContent=v;};
+  set('tRig',   r.rig.label);
+  set('tRate',  fmt1(r.rate)+' cm³/h');
+  set('tHollow',fmt(r.hollowHours)+' h');
+  set('tHollow2',fmt(r.hollowHours)+' h');
+  set('tPer',   fmt(r.hardHoursTotal)+' h');
+  set('tSoft',  fmt(r.softHoursTotal)+' h');
+  set('tMult',  r.rig.mult+'×');
+  set('tAbr',   r.abr.label);
+  const note=$('tLineNote');
+  if(note){
+    note.innerHTML = r.abr.lines
+      ? 'This abrasive produces the <b>concentric lines</b> Petrie found inside Egyptian drill cores — the observation that started the whole argument in 1883.'
+      : 'Quartz sand drills granite, but Gorelick &amp; Gwinnett found it produces <b>no concentric lines</b>. If the ancient borers used sand, Petrie\'s striations need another explanation.';
+  }
+  const bar=$('tBar');
+  if(bar){
+    const frac = Math.min(1, r.hollowHours / Math.max(1, r.hardHoursTotal));
+    bar.style.width = (frac*100).toFixed(1)+'%';
+  }
 }
 
 function renderRail(r){
@@ -1067,7 +1221,7 @@ function renderRail(r){
     }
   });
   const icons = box.querySelectorAll('svg').length;
-  $('railFoot').textContent = `${fmt(icons)} icons · ${groups.filter(g=>g.n>0).length} of ${groups.length} groups`;
+  $('railFoot').textContent = `${fmt(icons)} ${icons===1?'icon':'icons'} · ${groups.filter(g=>g.n>0).length} of ${groups.length} groups`;
 }
 
 function renderBars(r){
@@ -1092,16 +1246,15 @@ function renderBars(r){
 function renderVerdict(r){
   const rate = r.crew;
   $('verdict').innerHTML =
-    `At <b>${fmt1(r.avgHours)} hours</b> per vessel and <b>${fmt(r.corpus)}</b> vessels, ` +
-    `the corpus is <b>${fmt(r.totalHours)} person-hours</b> — ${fmt(r.workerYears)} worker-years — ` +
-    `and needs about <b>${fmt(r.crew)}</b> craftsmen actually cutting stone, ` +
-    `<b>${fmt(r.grandAll)}</b> people in and around the workshops in total. ` +
-    `That is <b>${fmt(r.vesselsPerYear)} vessels a year</b> from ${fmt(r.crew)} hands. ` +
-    (rate <= 30
-      ? `<b>The hand-made account survives this test comfortably.</b> A few dozen people over a century can produce the whole corpus, and the excavated benches and borers are exactly what you would expect to find. The quantity problem is not a problem.`
-      : `That is a large workshop, but still within what a palace production system could organise — the quantity alone does not break the mainstream account.`)
-    + ` <b>The hard question is not how many hands. It is what those hands could hold.</b>`;
-
+    `On this rig a hard-stone vessel is <b>${fmt(r.hardHoursTotal)} hours</b> — ` +
+    `${fmt(r.hollowHours)} of them spent hollowing a ${fmt(362)} cm³ chamber at ${fmt1(r.rate)} cm³/h. ` +
+    `Across ${fmt(r.corpus)} vessels that is <b>${fmt(r.totalHours)} person-hours</b> ` +
+    `(${fmt(r.workerYears)} worker-years), needing about <b>${fmt(r.crew)}</b> craftsmen on the stone ` +
+    `and <b>${fmt(r.grandAll)}</b> people in total — ${fmt(r.vesselsPerYear)} vessels a year. ` +
+    (rate <= 60
+      ? `<b>The hand-made account survives this comfortably.</b> A workshop of this size matches what was actually excavated: benches, sockets, hundreds of drill-bits, unfinished pieces at every stage. The quantity was never the problem.`
+      : `That is a large workshop, but still within what a palace production system could organise. The quantity alone does not break the account.`)
+    + ` <b>What does not survive is the assumption that hand work produced the measured geometry.</b>`;
   $('v1Hrs').textContent=fmt1(r.avgHours);
   $('v1Corpus').textContent=fmt(r.corpus);
   $('v1Total').textContent=fmt(r.totalHours);
@@ -1120,12 +1273,23 @@ function renderVerdict(r){
 
 function update(){
   const o=read();
-  const outs={corpus:'', hours:' h', hardPct:'%', span:' yr', days:' d', dayLen:' h'};
+  const rig=RIGS[Math.round(o.drill)]||RIGS[1];
+  const abr=ABRASIVES[Math.round(o.abrasive)]||ABRASIVES[0];
+  const outs={
+    corpus: n=>fmt(n),
+    drill:  ()=>rig.label,
+    abrasive: ()=>abr.label,
+    hardPct: n=>fmt(n)+'%',
+    span:   n=>fmt(n)+' yr',
+    days:   n=>fmt(n)+' d',
+    dayLen: n=>fmt(n)+' h'
+  };
   Object.keys(outs).forEach(k=>{
-    const el=$(k+'Out'); if(el) el.textContent=fmt(o[k])+outs[k];
+    const el=$(k+'Out');
+    if(el) el.textContent=outs[k](o[k]);
   });
   const r=compute(o);
-  renderHero(r); renderRail(r); renderBars(r); renderVerdict(r);
+  renderHero(r); renderRail(r); renderBars(r); renderVerdict(r); renderTooling(r);
 }
 
 /* ── tabs ───────────────────────────────────────────────────── */
@@ -1164,10 +1328,10 @@ const XS_STAGES = [
    d:'Stone hand-axes and pounders shape the block. Flint is harder than granite and will cut it — slowly. The outside is worked first because you need something to hold while the inside is drilled.',
    time:'~2 h', removed:'~15%', voidScale:0,   coreH:0,  tool:0, cusps:0},
   {t:'Drill the mouth',
-   d:'A copper tube spun with a bow, fed with quartz sand. The sand does the cutting; the copper only carries it. The tube is guided by hand, and the mouth is the only entry you will ever get.',
+   d:'A copper tube spun with a bow and an abrasive slurry. The abrasive cuts; the copper only carries it. Whether that abrasive was quartz sand or emery is genuinely disputed, and it matters — only emery reproduces the concentric lines found in real drill cores.',
    time:'~4 h', removed:'~5%', voidScale:.22, coreH:0,  tool:1, cusps:0},
   {t:'Hollow the body',
-   d:'Successive tubes of increasing diameter, then figure-of-eight borers worked by hand. This is where the hours go: the chamber has to reach 8 cm through a 4.5 cm opening, so you are cutting blind.',
+   d:'Successive tubes, then shaped borers worked by hand. This is where the hours go — about 180 of the 326. The chamber has to reach 8 cm through a 4.5 cm opening, so you are cutting blind, and a wider tube is twisted more slowly, not faster.',
    time:'~11 h', removed:'~60%', voidScale:.78, coreH:0, tool:1, cusps:0},
   {t:'Break out the cores',
    d:'The drilled cylinders are snapped free with a chisel and lifted out through the mouth — each one a tapered plug of granite with the spiral striations Petrie found so puzzling.',
