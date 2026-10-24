@@ -49,9 +49,23 @@ Colours are CSS variables at the top of `index.html`:
 | `--line` | borders |
 | `--measure` | line length (`68ch`) |
 
-## Privacy
+# Privacy
 
-The page is marked `noindex` and the repo URL includes a random suffix, so it's not discoverable by search or by browsing the account's repos. It is still **public** — anyone with the URL can read it. Don't put anything here you wouldn't hand to a stranger.
+The page is built to stay out of search engines:
+
+- `<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache">`
+- the same directives repeated for `googlebot` and `bingbot` specifically
+- `robots.txt` at the root with `Disallow: /` for all agents
+- `<meta name="referrer" content="no-referrer">` so outbound clicks don't leak the URL
+
+Caveats worth knowing:
+
+- `robots.txt` and meta tags are **honoured voluntarily** — well-behaved crawlers obey, scrapers don't.
+- Pages served by GitHub Pages cannot set custom HTTP headers, so an `X-Robots-Tag` response header is not possible. The meta tags are the equivalent.
+- If a URL was already indexed before these tags existed, it can linger in results for a while. Request removal at [Google Search Console](https://search.google.com/search-console) if it matters.
+- The repo name includes a random suffix, so the page is not discoverable by browsing the account.
+
+It is still **public** — anyone with the URL can read it. Don't put anything here you wouldn't hand to a stranger.
 
 To take it down: delete the repo, or disable Pages in Settings → Pages.
 

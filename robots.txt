@@ -1,0 +1,3 @@
+# Not for indexing. Everything here is private-ish writing shared by link only.
+User-agent: *
+Disallow: /
