@@ -14,152 +14,111 @@
     --bg:#0f1512;
     --surface:#161e1a;
     --surface-2:#1c2620;
+    --surface-3:#223029;
     --line:#2a3730;
+    --line-strong:#3a4b42;
     --text:#e6ece8;
     --muted:#94a89d;
     --accent:#8FBFA0;
     --accent-dim:#5f8a71;
     --radius:14px;
-    --measure:68ch;
+    --measure:70ch;
   }
   @media (prefers-color-scheme: light){
     :root{
-      --bg:#f7f9f7;
-      --surface:#ffffff;
-      --surface-2:#eef3ef;
-      --line:#dbe5de;
-      --text:#1a2320;
-      --muted:#5d7168;
-      --accent:#4e8a68;
-      --accent-dim:#6fa585;
+      --bg:#f7f9f7; --surface:#ffffff; --surface-2:#eef3ef; --surface-3:#e3ebe5;
+      --line:#dbe5de; --line-strong:#c3d2c9;
+      --text:#1a2320; --muted:#5d7168;
+      --accent:#4e8a68; --accent-dim:#6fa585;
     }
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
+    margin:0;background:var(--bg);color:var(--text);
     font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:var(--measure);margin:0 auto;padding:48px 22px 96px}
-  header{margin-bottom:44px;padding-bottom:26px;border-bottom:1px solid var(--line)}
-  h1{
-    font-size:clamp(1.9rem,5vw,2.6rem);
-    line-height:1.12;
-    margin:0 0 10px;
-    letter-spacing:-.02em;
-    font-weight:650;
+  header{margin-bottom:34px;padding-bottom:26px;border-bottom:1px solid var(--line)}
+  h1{font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.12;margin:0 0 10px;letter-spacing:-.02em;font-weight:650}
+  .tagline{color:var(--muted);margin:0;font-size:1.02rem;max-width:58ch}
+
+  .topics{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 30px}
+  .chip{
+    font:inherit;font-size:.79rem;letter-spacing:.02em;color:var(--muted);
+    background:var(--surface);border:1px solid var(--line);
+    padding:6px 13px;border-radius:999px;cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s;
   }
-  .tagline{color:var(--muted);margin:0;font-size:1.02rem}
-  .entries{display:grid;gap:14px}
+  .chip:hover{color:var(--text);border-color:var(--accent-dim)}
+  .chip.on{color:var(--bg);background:var(--accent);border-color:var(--accent);font-weight:600}
+  .chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .entries{display:grid;gap:12px}
+
+  a.feature{
+    display:block;text-decoration:none;color:inherit;
+    background:linear-gradient(155deg,var(--surface-2),var(--surface));
+    border:1px solid var(--line-strong);border-radius:var(--radius);
+    padding:24px 24px 22px;transition:border-color .18s,transform .18s;
+  }
+  a.feature:hover{border-color:var(--accent);transform:translateY(-2px)}
+  a.feature:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .fmeta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
+  .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}
+  .ftitle{font-size:1.32rem;font-weight:640;line-height:1.3;margin:0 0 9px;letter-spacing:-.011em}
+  .fdesc{font-size:.94rem;color:var(--muted);margin:0;max-width:56ch}
+  .fgo{margin-top:15px;font-size:.85rem;color:var(--accent);font-weight:560}
+
   details.entry{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    overflow:hidden;
-    transition:border-color .18s ease, background .18s ease;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);overflow:hidden;
+    transition:border-color .18s,background .18s;
   }
   details.entry[open]{border-color:var(--accent-dim);background:var(--surface-2)}
   details.entry:hover{border-color:var(--accent-dim)}
-  summary{
-    cursor:pointer;
-    padding:18px 20px;
-    list-style:none;
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    user-select:none;
-  }
+  summary{cursor:pointer;padding:17px 20px;list-style:none;display:flex;flex-direction:column;gap:6px;user-select:none}
   summary::-webkit-details-marker{display:none}
-  .meta{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:.78rem;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    color:var(--muted);
-  }
-  .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}
+  .meta{display:flex;align-items:center;gap:10px;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
   .title-row{display:flex;align-items:baseline;gap:12px;justify-content:space-between}
-  .entry-title{font-size:1.12rem;font-weight:600;line-height:1.35}
-  .chev{
-    flex:none;
-    width:9px;height:9px;
-    border-right:2px solid var(--muted);
-    border-bottom:2px solid var(--muted);
-    transform:rotate(45deg);
-    transition:transform .2s ease;
-    margin-top:6px;
-    margin-bottom:4px;
-  }
+  .entry-title{font-size:1.1rem;font-weight:600;line-height:1.35}
+  .chev{flex:none;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s;margin-top:6px}
   details[open] .chev{transform:rotate(-135deg);margin-top:10px}
-  .body{
-    padding:0 20px 22px;
-    color:var(--text);
-    border-top:1px solid transparent;
-  }
-  details[open] .body{border-top-color:var(--line);padding-top:18px}
-  .body p{margin:0 0 14px}
+  .body{padding:0 20px 20px;border-top:1px solid transparent}
+  details[open] .body{border-top-color:var(--line);padding-top:16px}
+  .body p{margin:0 0 13px}
   .body p:last-child{margin-bottom:0}
-  .body ul{margin:0 0 14px;padding-left:1.25em}
-  .body li{margin-bottom:8px}
+  .body ul{margin:0 0 13px;padding-left:1.25em}
+  .body li{margin-bottom:7px}
   .body blockquote{
-    margin:18px 0;
-    padding:12px 18px;
-    border-left:3px solid var(--accent);
-    background:var(--surface);
-    border-radius:0 8px 8px 0;
-    color:var(--muted);
-    font-style:italic;
-  }
-  .body code{
-    font:0.9em/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    background:var(--surface-2);
-    padding:2px 6px;
-    border-radius:5px;
-    border:1px solid var(--line);
+    margin:16px 0;padding:11px 17px;border-left:3px solid var(--accent);
+    background:var(--surface);border-radius:0 8px 8px 0;color:var(--muted);font-style:italic;
   }
   .tag{
-    display:inline-block;
-    font-size:.72rem;
-    letter-spacing:.05em;
-    text-transform:uppercase;
-    color:var(--accent);
-    background:color-mix(in srgb, var(--accent) 12%, transparent);
-    border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-    padding:2px 9px;
-    border-radius:999px;
-    margin:0 6px 8px 0;
+    display:inline-block;font-size:.71rem;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);
+    border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+    padding:2px 9px;border-radius:999px;margin:0 5px 7px 0;
   }
-  .controls{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
-  button{
-    font:inherit;
-    font-size:.86rem;
-    color:var(--muted);
-    background:var(--surface);
-    border:1px solid var(--line);
-    padding:8px 15px;
-    border-radius:9px;
-    cursor:pointer;
-    transition:color .15s, border-color .15s, background .15s;
+  .controls{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+  button.ctl{
+    font:inherit;font-size:.84rem;color:var(--muted);background:var(--surface);
+    border:1px solid var(--line);padding:8px 15px;border-radius:9px;cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s;
   }
-  button:hover{color:var(--text);border-color:var(--accent-dim);background:var(--surface-2)}
-  button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-  footer{
-    margin-top:56px;
-    padding-top:22px;
-    border-top:1px solid var(--line);
-    color:var(--muted);
-    font-size:.86rem;
-  }
+  button.ctl:hover{color:var(--text);border-color:var(--accent-dim);background:var(--surface-2)}
+  button.ctl:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+  .empty{color:var(--muted);font-size:.9rem;padding:18px 0;display:none}
   @media (max-width:520px){
     .wrap{padding:32px 16px 72px}
-    summary{padding:16px 16px}
-    .body{padding:0 16px 18px}
+    summary{padding:15px 16px}
+    .body{padding:0 16px 17px}
+    a.feature{padding:20px 18px}
   }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -167,12 +126,26 @@
 
   <header>
     <h1>My Thoughts</h1>
-    <p class="tagline">Notes, ideas and half-formed opinions. Updated whenever something sticks.</p>
+    <p class="tagline">Notes, ideas and half-formed opinions across whatever I happen to be pulling at. Updated whenever something sticks.</p>
   </header>
+
+  <div class="topics" id="topics">
+    <button class="chip on" type="button" data-topic="all">All</button>
+    <button class="chip" type="button" data-topic="pyramids">Pyramids</button>
+    <button class="chip" type="button" data-topic="tools">Tools</button>
+    <button class="chip" type="button" data-topic="notes">Notes</button>
+  </div>
 
   <main class="entries" id="entries">
 
-    <details class="entry" open>
+    <a class="feature" href="pyramids/" data-topics="pyramids">
+      <div class="fmeta"><span class="dot"></span><span>Deep dive</span><span>·</span><span>Pyramids</span></div>
+      <div class="ftitle">The Great Pyramid: how many people?</div>
+      <p class="fdesc">Mainstream archaeology says 20 years and 20,000–30,000 workers. Put the experimentally measured copper-saw cutting rates into that, and the arithmetic does not close. An interactive calculator you can pull apart.</p>
+      <div class="fgo">Open the calculator →</div>
+    </a>
+
+    <details class="entry" open data-topics="notes">
       <summary>
         <span class="meta"><span class="dot"></span><span>23 October 2026</span></span>
         <span class="title-row">
@@ -193,7 +166,7 @@
       </div>
     </details>
 
-    <details class="entry">
+    <details class="entry" data-topics="tools">
       <summary>
         <span class="meta"><span class="dot"></span><span>Example entry</span></span>
         <span class="title-row">
@@ -209,7 +182,7 @@
       </div>
     </details>
 
-    <details class="entry">
+    <details class="entry" data-topics="notes">
       <summary>
         <span class="meta"><span class="dot"></span><span>Example entry</span></span>
         <span class="title-row">
@@ -226,9 +199,11 @@
 
   </main>
 
+  <p class="empty" id="empty">No entries in this topic yet.</p>
+
   <div class="controls">
-    <button type="button" id="expandAll">Expand all</button>
-    <button type="button" id="collapseAll">Collapse all</button>
+    <button class="ctl" type="button" id="expandAll">Expand all</button>
+    <button class="ctl" type="button" id="collapseAll">Collapse all</button>
   </div>
 
   <footer>
@@ -238,15 +213,34 @@
 </div>
 
 <script>
+(() => {
   const entries = [...document.querySelectorAll('details.entry')];
+  const features = [...document.querySelectorAll('a.feature')];
+  const all = [...features, ...entries];
+
   document.getElementById('expandAll').addEventListener('click', () => entries.forEach(e => e.open = true));
   document.getElementById('collapseAll').addEventListener('click', () => entries.forEach(e => e.open = false));
 
-  // Open every entry when arriving from a #anchor targeting one.
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const topic = chip.dataset.topic;
+      document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === chip));
+      let shown = 0;
+      all.forEach(el => {
+        const topics = (el.dataset.topics || '').split(/\s+/);
+        const match = topic === 'all' || topics.includes(topic);
+        el.style.display = match ? '' : 'none';
+        if (match) shown++;
+      });
+      document.getElementById('empty').style.display = shown ? 'none' : 'block';
+    });
+  });
+
   if (location.hash) {
-    const target = document.querySelector(location.hash);
-    if (target) target.open = true;
+    const t = document.querySelector(location.hash);
+    if (t) t.open = true;
   }
+})();
 </script>
 </body>
 </html>
