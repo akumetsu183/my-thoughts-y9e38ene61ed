@@ -11,35 +11,25 @@
 <title>The Great Pyramid — How Many People? · My Thoughts</title>
 <style>
   :root{
-    --bg:#0f1512;
-    --surface:#161e1a;
-    --surface-2:#1c2620;
-    --surface-3:#223029;
-    --line:#2a3730;
-    --line-strong:#3a4b42;
-    --text:#e6ece8;
-    --muted:#94a89d;
-    --accent:#8FBFA0;
-    --accent-dim:#5f8a71;
-    --fig-transport:#7fa8c4;
-    --fig-haul:#c4a97f;
-    --fig-support:#8d8fa8;
-    --warn:#d9a05b;
-    --hot:#c76b52;
-    --radius:14px;
-    --measure:74ch;
+    --bg:#0a0f0d; --bg-2:#0e1512;
+    --surface:#131b18; --surface-2:#19231f; --surface-3:#202d27;
+    --line:#243029; --line-2:#33443b;
+    --text:#e9efea; --muted:#8ba196; --dim:#647669;
+    --accent:#8FBFA0; --accent-2:#5f8a71;
+    --cut:#8FBFA0; --trans:#7FA8C4; --haul:#C9A961; --support:#9B8FB5; --farmer:#C97F5C;
+    --warn:#D9A05B; --hot:#C9573F;
+    --radius:18px;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   }
-  @media (prefers-color-scheme: light){
+  @media (prefers-color-scheme:light){
     :root{
-      --bg:#f7f9f7; --surface:#ffffff; --surface-2:#eef3ef; --surface-3:#e3ebe5;
-      --line:#dbe5de; --line-strong:#c3d2c9;
-      --text:#1a2320; --muted:#5d7168;
-      --accent:#4e8a68; --accent-dim:#6fa585;
-      --fig-transport:#4a7fa5;
-      --fig-haul:#a07840;
-      --fig-support:#6b6f92;
-      --warn:#b4761f; --hot:#a8452b;
+      --bg:#f2f6f3; --bg-2:#e8efe9;
+      --surface:#fff; --surface-2:#edf3ee; --surface-3:#dfe9e2;
+      --line:#d5e0d8; --line-2:#b9cbbf;
+      --text:#0f1714; --muted:#54655b; --dim:#74857b;
+      --accent:#356e51; --accent-2:#55907a;
+      --cut:#356e51; --trans:#326a8c; --haul:#85631a; --support:#5f5180; --farmer:#9c5029;
+      --warn:#8f5c12; --hot:#983720;
     }
   }
   *{box-sizing:border-box}
@@ -48,150 +38,219 @@
     margin:0;background:var(--bg);color:var(--text);
     font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(ellipse 1000px 560px at 50% -10%, color-mix(in srgb,var(--accent) 9%,transparent), transparent),
+                     linear-gradient(180deg,var(--bg-2),var(--bg) 50%);
+    background-attachment:fixed;
   }
-  .wrap{max-width:960px;margin:0 auto;padding:40px 22px 110px}
-  a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
   a:hover{border-bottom-color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+  .wrap{max-width:1080px;margin:0 auto;padding:30px 22px 110px}
 
-  .back{font-size:.84rem;color:var(--muted);border:0;display:inline-block;margin-bottom:26px}
+  .back{font-size:.81rem;color:var(--muted);border:0;display:inline-block;margin-bottom:26px}
   .back:hover{color:var(--accent)}
 
-  h1{font-size:clamp(1.9rem,5.2vw,2.9rem);line-height:1.1;margin:0 0 14px;letter-spacing:-.025em;font-weight:660}
-  .standfirst{font-size:1.06rem;color:var(--muted);max-width:62ch;margin:0 0 8px}
-  .standfirst strong{color:var(--text)}
-  h2{font-size:1.28rem;margin:52px 0 16px;letter-spacing:-.01em;font-weight:620;display:flex;align-items:center;gap:11px}
-  h2 .num{
-    font:600 .78rem/1 var(--mono);color:var(--accent);
-    background:color-mix(in srgb,var(--accent) 13%,transparent);
-    border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);
-    padding:5px 8px;border-radius:7px;flex:none;
-  }
-  h3{font-size:.96rem;margin:26px 0 10px;color:var(--text);font-weight:610}
-  p{margin:0 0 14px;max-width:var(--measure)}
-  ul{margin:0 0 16px;padding-left:1.2em;max-width:var(--measure)}
-  li{margin-bottom:7px}
-  code{font:0.89em/1.4 var(--mono);background:var(--surface-2);padding:2px 6px;border-radius:5px;border:1px solid var(--line)}
+  h1{font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.07;margin:0 0 14px;letter-spacing:-.03em;font-weight:690}
+  .standfirst{font-size:1.04rem;color:var(--muted);max-width:66ch;margin:0}
+  .standfirst b{color:var(--text)}
+  h2{font-size:1.22rem;margin:0 0 10px;letter-spacing:-.012em;font-weight:650}
+  h3{font-size:.97rem;margin:0 0 10px;font-weight:620}
+  p{margin:0 0 14px;max-width:74ch}
+  .lede{color:var(--muted);font-size:.93rem;margin:0 0 20px;max-width:74ch}
 
-  /* ── headline number ─────────────────────────────── */
-  .hero{
-    margin:34px 0 8px;padding:34px 30px;border-radius:var(--radius);
-    background:linear-gradient(160deg,var(--surface-2),var(--surface));
-    border:1px solid var(--line-strong);
-  }
-  .hero .label{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-  .hero .big{
-    font:680 clamp(3rem,11vw,5.6rem)/1 var(--mono);
-    letter-spacing:-.045em;color:var(--accent);
-    font-variant-numeric:tabular-nums;
-    transition:color .3s;
-  }
-  .hero .big.warn{color:var(--warn)}
-  .hero .big.hot{color:var(--hot)}
-  .hero .sub{font-size:1.03rem;color:var(--muted);margin-top:12px;max-width:58ch}
+  /* TABS */
+  .tabs{display:flex;gap:6px;margin:26px 0 0;overflow-x:auto;padding-bottom:2px;
+    scrollbar-width:none;-ms-overflow-style:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;font:inherit;font-size:.82rem;color:var(--muted);
+    background:transparent;border:1px solid transparent;padding:9px 15px;border-radius:10px;
+    cursor:pointer;white-space:nowrap;transition:color .16s,background .16s,border-color .16s}
+  .tab .n{font:600 .68rem var(--mono);color:var(--dim);margin-right:7px}
+  .tab:hover{color:var(--text);background:var(--surface)}
+  .tab.on{color:var(--text);background:var(--surface-2);border-color:var(--line-2)}
+  .tab.on .n{color:var(--accent)}
+  .tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .panel{display:none;animation:fade .28s ease}
+  .panel.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* STICKY */
+  .sticky{position:sticky;top:0;z-index:30;margin:14px -22px 0;padding:10px 22px;
+    background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .sticky .lbl{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+  .sticky .num{font:700 1.35rem/1 var(--mono);color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+  .sticky .num.warn{color:var(--warn)} .sticky .num.hot{color:var(--hot)}
+  .sticky .chips{display:flex;gap:12px;flex-wrap:wrap;margin-left:auto;font-size:.75rem;color:var(--muted)}
+  .sticky .chips b{font-family:var(--mono);color:var(--text);font-weight:600}
+  @media(max-width:700px){.sticky .chips{display:none}}
+
+  /* HERO */
+  .hero{margin:26px 0 0;padding:34px 30px;border-radius:var(--radius);
+    background:linear-gradient(155deg,var(--surface-2),var(--surface));
+    border:1px solid var(--line-2);
+    box-shadow:0 26px 64px -34px rgba(0,0,0,.7), inset 0 1px 0 color-mix(in srgb,#fff 6%,transparent);
+    position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(620px 240px at 10% 0%, color-mix(in srgb,var(--accent) 12%,transparent), transparent 70%)}
+  .hero .lbl{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .hero .big{font:700 clamp(3rem,11vw,5.8rem)/0.94 var(--mono);letter-spacing:-.05em;
+    color:var(--accent);font-variant-numeric:tabular-nums;transition:color .35s}
+  .hero .big.warn{color:var(--warn)} .hero .big.hot{color:var(--hot)}
+  .hero .sub{font-size:.98rem;color:var(--muted);margin-top:15px;max-width:66ch;position:relative}
   .hero .sub b{color:var(--text);font-weight:620}
 
-  /* ── stat grid ───────────────────────────────────── */
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:11px;margin:18px 0 8px}
-  .stat{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:15px 16px}
-  .stat .k{font-size:.71rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;line-height:1.3}
-  .stat .v{font:600 1.35rem/1.2 var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-  .stat .n{font-size:.76rem;color:var(--muted);margin-top:5px;line-height:1.35}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px;margin-top:24px}
+  .kpi{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:14px 15px;
+    transition:border-color .2s,transform .2s}
+  .kpi:hover{border-color:var(--line-2);transform:translateY(-2px)}
+  .kpi .k{font-size:.67rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;line-height:1.3}
+  .kpi .v{font:650 1.2rem/1.1 var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .kpi .n{font-size:.71rem;color:var(--dim);margin-top:5px;line-height:1.35}
+  .kpi.cut .v{color:var(--cut)} .kpi.trans .v{color:var(--trans)} .kpi.haul .v{color:var(--haul)}
+  .kpi.supp .v{color:var(--support)} .kpi.farm .v{color:var(--farmer)} .kpi.prep .v{color:var(--warn)}
 
-  /* ── pyramid filled by people ─────────────────────── */
-  .viz{
-    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-    padding:22px;margin:22px 0 8px;overflow:hidden;position:relative;
-  }
-  .viz-head{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;justify-content:space-between;margin-bottom:16px}
-  .viz-title{font-size:.83rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-  .viz-read{font:600 .95rem var(--mono);color:var(--accent);font-variant-numeric:tabular-nums}
-  .field{position:relative;width:100%;max-width:620px;margin:0 auto}
-  svg{display:block;width:100%;height:auto}
-  .fig{font:600 12px var(--mono);fill:var(--bg);font-variant-numeric:tabular-nums}
-  .rowlabel{font:500 11px var(--mono);fill:var(--muted)}
-  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:.78rem;color:var(--muted)}
-  .legend span{display:flex;align-items:center;gap:7px}
-  .sw{width:11px;height:11px;border-radius:3px;flex:none}
-  .sw.a{background:var(--accent)}
-  .sw.b{background:var(--fig-transport)}
-  .sw.c{background:var(--fig-haul)}
-  .sw.d{background:var(--fig-support)}
+  /* PYRAMID */
+  .stage{margin:20px 0 0;background:linear-gradient(180deg,var(--surface),var(--bg-2));
+    border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .stage-head{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;justify-content:space-between;margin-bottom:4px}
+  .stage-title{font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+  .stage-read{font:600 .88rem var(--mono);color:var(--accent);font-variant-numeric:tabular-nums}
+  #pyr{display:block;width:100%;height:auto;max-width:800px;margin:0 auto}
+  #pyrBody g{cursor:pointer;transition:opacity .12s}
+  #pyrBody g:hover{opacity:.5}
+  .legend{display:flex;gap:7px 16px;flex-wrap:wrap;margin-top:16px;font-size:.76rem;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .sw{width:10px;height:10px;border-radius:2px;flex:none}
+  .sw.c{background:var(--cut)} .sw.t{background:var(--trans)} .sw.h{background:var(--haul)}
+  .sw.s{background:var(--support)} .sw.f{background:var(--farmer)} .sw.p{background:var(--warn)}
 
-  /* ── controls ─────────────────────────────────────── */
-  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin:20px 0}
-  .ctl{margin-bottom:22px}
-  .ctl:last-child{margin-bottom:0}
-  .ctl-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:9px}
-  .ctl label{font-size:.88rem;font-weight:560;line-height:1.35}
-  .ctl output{font:600 .9rem var(--mono);color:var(--accent);font-variant-numeric:tabular-nums;flex:none}
-  .ctl .hint{font-size:.76rem;color:var(--muted);margin-top:7px;line-height:1.45;max-width:60ch}
-  input[type=range]{
-    -webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:3px;
-    background:var(--line-strong);outline:none;cursor:pointer;
-  }
-  input[type=range]::-webkit-slider-thumb{
-    -webkit-appearance:none;appearance:none;width:19px;height:19px;border-radius:50%;
-    background:var(--accent);border:2px solid var(--bg);cursor:pointer;
-    box-shadow:0 0 0 1px var(--accent-dim);
-  }
-  input[type=range]::-moz-range-thumb{
-    width:17px;height:17px;border-radius:50%;background:var(--accent);
-    border:2px solid var(--bg);cursor:pointer;box-shadow:0 0 0 1px var(--accent-dim);
-  }
-  input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 35%,transparent)}
-  .presets{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
-  button{
-    font:inherit;font-size:.82rem;color:var(--muted);background:var(--surface-2);
-    border:1px solid var(--line);padding:7px 13px;border-radius:8px;cursor:pointer;
-    transition:color .15s,border-color .15s,background .15s;
-  }
-  button:hover{color:var(--text);border-color:var(--accent-dim);background:var(--surface-3)}
-  button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  button.on{color:var(--bg);background:var(--accent);border-color:var(--accent);font-weight:600}
+  #tip{position:fixed;pointer-events:none;z-index:60;opacity:0;transition:opacity .12s;
+    background:var(--surface-3);border:1px solid var(--line-2);border-radius:9px;
+    padding:8px 12px;font-size:.79rem;color:var(--text);box-shadow:0 10px 30px -8px rgba(0,0,0,.7);
+    white-space:nowrap;transform:translate(-50%,-140%)}
+  #tip.on{opacity:1}
 
-  /* ── breakdown bars ──────────────────────────────── */
-  .breakdown{display:grid;gap:9px;margin-top:6px}
-  .bd{display:grid;grid-template-columns:150px 1fr auto;gap:12px;align-items:center}
-  .bd .nm{font-size:.84rem;color:var(--muted)}
-  .bd .track{height:22px;background:var(--surface-2);border-radius:6px;overflow:hidden;position:relative;border:1px solid var(--line)}
-  .bd .fill{height:100%;background:linear-gradient(90deg,var(--accent-dim),var(--accent));border-radius:5px 0 0 5px;transition:width .45s cubic-bezier(.4,0,.2,1)}
-  .bd .val{font:600 .84rem var(--mono);font-variant-numeric:tabular-nums;min-width:76px;text-align:right}
+  /* CONTROLS */
+  .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:19px 26px;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .ctl label{display:block;font-size:.84rem;font-weight:560;margin-bottom:2px}
+  .ctl .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
+  .ctl output{font:600 .84rem var(--mono);color:var(--accent);font-variant-numeric:tabular-nums;flex:none}
+  .ctl .hint{font-size:.72rem;color:var(--dim);margin-top:7px;line-height:1.5}
+  .ctl .hint em{color:var(--muted);font-style:normal}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:3px;
+    background:var(--line-2);outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;
+    border-radius:50%;background:var(--accent);border:2px solid var(--bg);cursor:pointer;
+    box-shadow:0 0 0 1px var(--accent-2);transition:transform .12s}
+  input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--accent);
+    border:2px solid var(--bg);cursor:pointer;box-shadow:0 0 0 1px var(--accent-2)}
 
-  /* ── table ───────────────────────────────────────── */
-  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.87rem}
-  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line)}
-  th{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:560}
+  .presets{display:flex;gap:7px;flex-wrap:wrap;margin-top:20px}
+  button.preset{font:inherit;font-size:.78rem;color:var(--muted);background:var(--surface-2);
+    border:1px solid var(--line);padding:8px 13px;border-radius:9px;cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s,transform .12s}
+  button.preset:hover{color:var(--text);border-color:var(--line-2);background:var(--surface-3);transform:translateY(-1px)}
+  button.preset.on{color:var(--bg);background:var(--accent);border-color:var(--accent);font-weight:620}
+  button.preset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  /* BARS */
+  .bars{display:grid;gap:11px;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:22px}
+  .bar{display:grid;grid-template-columns:180px 1fr 92px;gap:13px;align-items:center}
+  .bar .nm{font-size:.81rem;line-height:1.3}
+  .bar .nm small{display:block;color:var(--dim);font-size:.7rem;margin-top:2px}
+  .bar .track{height:25px;background:var(--surface-2);border-radius:7px;overflow:hidden;border:1px solid var(--line)}
+  .bar .fill{height:100%;border-radius:6px 0 0 6px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+  .bar .val{font:600 .82rem var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+  .bar.cut .fill{background:var(--cut)} .bar.trans .fill{background:var(--trans)}
+  .bar.haul .fill{background:var(--haul)} .bar.supp .fill{background:var(--support)}
+  .bar.farm .fill{background:var(--farmer)} .bar.prep .fill{background:var(--warn)}
+
+  /* CARDS */
+  .duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .card .big2{font:690 1.9rem/1 var(--mono);color:var(--accent);letter-spacing:-.03em;
+    font-variant-numeric:tabular-nums;margin:10px 0 4px}
+  .card .unit{font-size:.78rem;color:var(--muted)}
+  .card p{font-size:.83rem;color:var(--muted);margin-top:11px;margin-bottom:0}
+  .card p b{color:var(--text)}
+
+  /* TIMELINE */
+  .tl{margin:18px 0 0;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:26px 24px}
+  .tl-bar{position:relative;height:54px;border-radius:10px;overflow:hidden;display:flex;
+    background:var(--surface-2);border:1px solid var(--line)}
+  .tl-seg{height:100%;display:flex;align-items:center;justify-content:center;
+    font:600 .72rem var(--mono);color:var(--bg);overflow:hidden;white-space:nowrap;
+    transition:flex-basis .5s cubic-bezier(.4,0,.2,1)}
+  .tl-seg.prep{background:var(--warn);color:#1a1205}
+  .tl-seg.build{background:linear-gradient(90deg,var(--accent-2),var(--accent))}
+  .tl-ticks{display:flex;justify-content:space-between;margin-top:8px;
+    font:500 .7rem var(--mono);color:var(--dim)}
+  .tl-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:.76rem;color:var(--muted)}
+  .tl-legend span{display:flex;align-items:center;gap:7px}
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.85rem;
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line)}
+  th{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+    font-weight:560;background:var(--surface-2)}
   td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
   tr:last-child td{border-bottom:0}
+  tr:hover td{background:color-mix(in srgb,var(--accent) 4%,transparent)}
 
-  /* ── callouts ────────────────────────────────────── */
-  .note{
-    border-left:3px solid var(--accent);background:var(--surface);
-    padding:15px 19px;border-radius:0 9px 9px 0;margin:20px 0;
-  }
+  /* NOTES */
+  .note{border-left:3px solid var(--accent);background:var(--surface);padding:15px 19px;
+    border-radius:0 10px 10px 0;margin:18px 0}
   .note.warn{border-left-color:var(--warn)}
+  .note.hot{border-left-color:var(--hot)}
+  .note .nt{font-size:.69rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
   .note p:last-child{margin-bottom:0}
-  .note .nt{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .note b{color:var(--text)}
 
-  .verdict{
-    margin:44px 0 10px;padding:32px 30px;border-radius:var(--radius);
-    background:var(--surface-2);border:1px solid var(--line-strong);
-  }
-  .verdict h2{margin-top:0}
-  .verdict .punch{font-size:1.16rem;line-height:1.5;color:var(--text);max-width:66ch}
-  .verdict .punch em{color:var(--accent);font-style:normal;font-weight:620}
+  /* VERDICT */
+  .verdict{padding:32px 30px;border-radius:var(--radius);
+    background:linear-gradient(155deg,var(--surface-2),var(--surface));border:1px solid var(--line-2)}
+  .verdict .punch{font-size:1.1rem;line-height:1.58;max-width:74ch}
+  .verdict .punch em{color:var(--accent);font-style:normal;font-weight:640}
 
-  .src{font-size:.83rem;color:var(--muted);margin-top:9px;max-width:var(--measure)}
-  .src li{margin-bottom:9px}
-  footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem}
+  /* SOURCES */
+  .sources{list-style:none;padding:0;margin:0;display:grid;gap:11px}
+  .sources li{background:var(--surface);border:1px solid var(--line);border-radius:11px;
+    padding:14px 17px;font-size:.84rem;color:var(--muted);line-height:1.55}
+  .sources li b{color:var(--text);font-weight:600}
+  .sources .what{display:block;color:var(--dim);font-size:.77rem;margin-top:6px}
+  .sources a{word-break:break-word;font-size:.8rem}
+  .sources a + a::before{content:' · ';color:var(--dim);border:0}
 
-  @media (max-width:620px){
-    .wrap{padding:28px 15px 80px}
-    .hero{padding:26px 20px}
-    .panel,.viz,.verdict{padding:18px 16px}
-    .bd{grid-template-columns:1fr auto;gap:6px 10px}
-    .bd .nm{grid-column:1/-1;font-size:.79rem}
-    .bd .track{height:18px}
+  /* NAV */
+  .navbtns{display:flex;justify-content:space-between;gap:12px;margin-top:36px;
+    padding-top:22px;border-top:1px solid var(--line)}
+  .navbtns button{font:inherit;font-size:.84rem;color:var(--muted);background:var(--surface);
+    border:1px solid var(--line);padding:11px 18px;border-radius:10px;cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s,transform .12s}
+  .navbtns button:hover{color:var(--text);border-color:var(--accent);background:var(--surface-2);transform:translateY(-1px)}
+  .navbtns button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .navbtns button:disabled{opacity:.3;cursor:default;transform:none}
+  .navbtns button.primary{color:var(--bg);background:var(--accent);border-color:var(--accent);font-weight:620}
+  .navbtns button.primary:hover{background:var(--accent);color:var(--bg)}
+
+  footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:var(--dim);font-size:.8rem}
+
+  @media (max-width:680px){
+    .wrap{padding:22px 15px 80px}
+    .hero{padding:24px 19px}
+    .stage,.card,.controls,.bars,.tl,.verdict{padding:16px 15px}
+    .bar{grid-template-columns:1fr auto;gap:5px 12px}
+    .bar .nm{grid-column:1/-1}
+    .bar .track{height:19px}
+    .sticky{margin:14px -15px 0;padding:9px 15px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -201,156 +260,418 @@
 
   <a class="back" href="../">← All thoughts</a>
 
-  <h1>The Great Pyramid: how many people?</h1>
-  <p class="standfirst">Mainstream archaeology's own numbers, pushed through the arithmetic of copper-tool stone cutting. Change the assumptions and watch the workforce. <strong>The answer is uncomfortable.</strong></p>
+  <h1>The Great Pyramid:<br>how many people?</h1>
+  <p class="standfirst">Mainstream archaeology's numbers, pushed through the arithmetic of copper cutting, copper supply, site preparation and the farming that fed everyone. <b>Move the sliders anywhere — every panel updates.</b></p>
 
-  <!-- ───────────── HERO ───────────── -->
-  <div class="hero">
-    <div class="label">Total workforce required</div>
-    <div class="big" id="totalBig">—</div>
-    <div class="sub" id="totalSub"></div>
-  </div>
+  <nav class="tabs" role="tablist" id="tabs">
+    <button class="tab on" role="tab" data-t="overview"><span class="n">01</span>Overview</button>
+    <button class="tab" role="tab" data-t="ground"><span class="n">02</span>Breaking ground</button>
+    <button class="tab" role="tab" data-t="cutting"><span class="n">03</span>Cutting</button>
+    <button class="tab" role="tab" data-t="copper"><span class="n">04</span>Copper</button>
+    <button class="tab" role="tab" data-t="moving"><span class="n">05</span>Moving</button>
+    <button class="tab" role="tab" data-t="feeding"><span class="n">06</span>Feeding</button>
+    <button class="tab" role="tab" data-t="verdict"><span class="n">07</span>Verdict</button>
+    <button class="tab" role="tab" data-t="sources"><span class="n">08</span>Sources</button>
+  </nav>
 
-  <div class="stats">
-    <div class="stat"><div class="k">Blocks to cut</div><div class="v" id="sBlocks">—</div><div class="n">2.3 million, mainstream estimate</div></div>
-    <div class="stat"><div class="k">Labour-years of cutting</div><div class="v" id="sCutYears">—</div><div class="n">just sawing the blocks</div></div>
-    <div class="stat"><div class="k">Cutters needed</div><div class="v" id="sCutters">—</div><div class="n">to finish in the timeline</div></div>
-    <div class="stat"><div class="k">Transported per day</div><div class="v" id="sPerDay">—</div><div class="n">blocks arriving at the site</div></div>
-  </div>
-
-  <!-- ───────────── THE VIZ ───────────── -->
-  <div class="viz">
-    <div class="viz-head">
-      <span class="viz-title" id="vizTitle">Each figure is one worker</span>
-      <span class="viz-read" id="vizRead">—</span>
+  <div class="sticky">
+    <div>
+      <div class="lbl">Total people</div>
+      <div class="num" id="stickyNum">—</div>
     </div>
-    <div class="field">
-      <svg id="pyr" viewBox="0 0 640 400" role="img" aria-label="Pyramid cross-section filled with figures representing workers">
-        <defs>
-          <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="var(--accent)" stop-opacity=".95"/>
-            <stop offset="100%" stop-color="var(--accent-dim)" stop-opacity=".75"/>
-          </linearGradient>
-        </defs>
+    <div class="chips">
+      <span>cutters <b id="chC">—</b></span>
+      <span>copper <b id="chCu">—</b></span>
+      <span>block pace <b id="chP">—</b></span>
+      <span>grain <b id="chG">—</b></span>
+    </div>
+  </div>
+
+  <!-- 01 OVERVIEW -->
+  <section class="panel on" id="p-overview">
+    <div class="hero">
+      <div class="lbl">Total people required</div>
+      <div class="big" id="totalBig">—</div>
+      <div class="sub" id="totalSub"></div>
+      <div class="kpis" id="kpis"></div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-head">
+        <span class="stage-title" id="stageTitle">Each figure = 1 worker</span>
+        <span class="stage-read" id="stageRead">—</span>
+      </div>
+      <svg id="pyr" viewBox="0 0 800 480" role="img" aria-label="Pyramid filled with figures representing the workforce">
         <g id="pyrBody"></g>
         <g id="pyrLabels"></g>
       </svg>
+      <div class="legend">
+        <span><i class="sw c"></i>cutting</span>
+        <span><i class="sw t"></i>quarry → site</span>
+        <span><i class="sw h"></i>up the ramps</span>
+        <span><i class="sw s"></i>support trades</span>
+        <span><i class="sw f"></i>farmers</span>
+      </div>
     </div>
-    <div class="legend">
-      <span><i class="sw a"></i>cutting</span>
-      <span><i class="sw b"></i>quarry → site</span>
-      <span><i class="sw c"></i>up the ramps</span>
-      <span><i class="sw d"></i>support</span>
-      <span style="color:var(--muted)">·</span>
-      <span id="legScale">each figure ≈ 250 people</span>
+
+    <div class="bars" style="margin-top:16px" id="barsOverview"></div>
+
+    <div class="navbtns">
+      <button disabled>← Back</button>
+      <button class="primary" data-go="ground">Breaking ground →</button>
     </div>
-  </div>
+  </section>
 
-  <!-- ───────────── CONTROLS ───────────── -->
-  <h2><span class="num">01</span>The inputs</h2>
-  <p>Every default is the mainstream or experimentally-measured value. Nothing is exaggerated to make the point — the point is that the honest numbers produce it.</p>
+  <!-- 02 GROUND -->
+  <section class="panel" id="p-ground">
+    <h2>The hole you dig first</h2>
+    <p class="lede">Before a single block is cut, the site itself is a construction project — and it comes out of the same 20 years, it does not run alongside them.</p>
 
-  <div class="panel">
+    <p>Khufu did something his predecessors hadn't: he put his pyramid on a base carved <em>into</em> the bedrock, terraced down by what Lehner calls <b>successive approximation</b> — levelling a bit, re-shooting the cardinal alignment, levelling further, checking again. The final surface was a platform of fine Tura limestone slabs about <b>0.52 m thick</b>, and the north side ended up off true level from the south by less than 1.5 cm.</p>
+
+    <p>Around it, a court was paved in interlocking jigsaw slabs, and the bedrock was cut with corner sockets for the casing, lever sockets for manoeuvring stones, and a long row of post-holes that probably carried the reference lines. AERA's survey has logged <b>over 3,000</b> of these rock-cut features around the base.</p>
+
+    <div class="duo" style="margin-top:18px">
+      <div class="card">
+        <h3>Site prep crew</h3>
+        <div class="big2" id="prepCrew">—</div>
+        <div class="unit" id="prepCrewNote"></div>
+        <p>Rock cut down and platform laid over <b id="prepMonthsTxt">—</b> before block-laying begins. Every month spent here is a month the cutters and hauliers don't get.</p>
+      </div>
+      <div class="card">
+        <h3>Rock &amp; stone moved</h3>
+        <div class="big2" id="prepVolume">—</div>
+        <div class="unit" id="prepVolumeNote"></div>
+        <p>Base area is <b>53,052 m²</b>; the paved court adds <b id="courtAreaTxt">—</b>. The platform alone is <b id="platVolTxt">—</b> of dressed Tura — roughly 1% of the pyramid's volume, but cut and laid as a precision surface.</p>
+      </div>
+    </div>
+
+    <div class="tl">
+      <h3 style="margin-bottom:16px">Where the years go</h3>
+      <div class="tl-bar" id="tlBar"></div>
+      <div class="tl-ticks"><span id="tl0">0</span><span id="tlMid">—</span><span id="tlEnd">—</span></div>
+      <div class="tl-legend">
+        <span><i class="sw p"></i>site preparation</span>
+        <span><i class="sw c"></i>block-laying</span>
+      </div>
+    </div>
+
+    <div class="note warn">
+      <div class="nt">Why this matters to the headline</div>
+      <p id="prepNote">—</p>
+    </div>
+
+    <div class="navbtns">
+      <button data-go="overview">← Overview</button>
+      <button class="primary" data-go="cutting">Cutting →</button>
+    </div>
+  </section>
+
+  <!-- 03 CUTTING -->
+  <section class="panel" id="p-cutting">
+    <h2>Cutting the stone</h2>
+    <p class="lede">Copper is softer than limestone and far softer than granite. It doesn't cut — it drags quartz sand through the stone, and the sand does the work.</p>
+
+    <p>The anchor is Denys Stocks' 1999 field trial at Aswan. He took a <b>1.8 m copper blade weighing 14.5 kg</b> to a rose-granite quarry and set two Egyptian quarrymen to work it with sand. Dry sand with a flat edge: a <b>95 cm slot, 3 cm deep, in 14 hours</b>. That's <b>7.5 mm per hour</b> — and granite is the hard case. Giza's limestone should cut faster.</p>
+
+    <p>Every block needs five faces freed — the base stays attached to bedrock until it's levered out. So one block costs five saw-cuts, each by a two-person crew.</p>
+
+    <div class="duo" style="margin-top:16px">
+      <div class="card">
+        <h3>Cutters needed</h3>
+        <div class="big2" id="cutCrew">—</div>
+        <div class="unit" id="cutCrewNote"></div>
+        <p>Working <b id="cutHours">—</b> hour days for <b id="cutYears">—</b> years, with no other job.</p>
+      </div>
+      <div class="card">
+        <h3>Total sawing effort</h3>
+        <div class="big2" id="cutManYears">—</div>
+        <div class="unit">worker-years</div>
+        <p>At <b id="cutPerFace">—</b> per face and <b id="cutPerBlock">—</b> per block for a two-person team.</p>
+      </div>
+    </div>
+
+    <table>
+      <thead><tr><th>Quantity</th><th class="num">Value</th><th>Derivation</th></tr></thead>
+      <tbody id="cutTable"></tbody>
+    </table>
+
+    <div class="navbtns">
+      <button data-go="ground">← Breaking ground</button>
+      <button class="primary" data-go="copper">Copper →</button>
+    </div>
+  </section>
+
+  <!-- 04 COPPER -->
+  <section class="panel" id="p-copper">
+    <h2>The copper bill</h2>
+    <p class="lede">Copper doesn't last. It grinds away into the slurry, the blade thins, and eventually it has to be reforged.</p>
+
+    <p>Stocks measured the loss: <b>52 cm³ of copper</b> gone in that 14-hour cut, against 170 cm³ of granite removed. An independent replication by Vasyutin, using corundum abrasive, found a copper-to-granite volume ratio of <b>1 : 5.8</b>. Different experiment, same order of magnitude.</p>
+
+    <div class="duo" style="margin-top:16px">
+      <div class="card">
+        <h3>Saw lifespan</h3>
+        <div class="big2" id="sawLife">—</div>
+        <div class="unit" id="sawLifeNote"></div>
+        <p>A 14.5 kg blade is about <b>1,620 cm³</b> of copper. Allow it to lose <b>20%</b> and it is too thin to hold a straight cut. At 3.7 cm³ burned per hour, that is the number above.</p>
+      </div>
+      <div class="card">
+        <h3>Total copper throughput</h3>
+        <div class="big2" id="copperTotal">—</div>
+        <div class="unit" id="copperNote"></div>
+        <p>Blades worn through, added together. Much of it is reforged and reused, so read this as <b>metal throughput</b>, not metal destroyed.</p>
+      </div>
+    </div>
+
+    <div class="note hot">
+      <div class="nt">Reality check</div>
+      <p id="copperReality">—</p>
+    </div>
+
+    <table>
+      <thead><tr><th>Copper quantity</th><th class="num">Value</th><th>Note</th></tr></thead>
+      <tbody id="cuTable"></tbody>
+    </table>
+
+    <div class="navbtns">
+      <button data-go="cutting">← Cutting</button>
+      <button class="primary" data-go="moving">Moving →</button>
+    </div>
+  </section>
+
+  <!-- 05 MOVING -->
+  <section class="panel" id="p-moving">
+    <h2>Moving the stone</h2>
+    <p class="lede">Cutters don't carry. The delivery rate is fixed by the pyramid's volume divided by the available days — it doesn't care how many people you have.</p>
+
+    <p>The main quarry sits about <b>500 m</b> south of the pyramid, so most blocks travel a short distance by sledge, then go up a ramp. Each is a separate crew working a relay: a block leaves the quarry every few minutes, for years, and nothing about adding workers makes that faster.</p>
+
+    <div class="duo" style="margin-top:16px">
+      <div class="card">
+        <h3>Quarry → site crews</h3>
+        <div class="big2" id="moveCrew">—</div>
+        <div class="unit" id="moveCrewNote"></div>
+        <p><b id="movePullers">—</b> people per sledge. Stocks estimated 45 to start a 16-tonne block on lubricated runners, 8 for a 2.75-tonne one.</p>
+      </div>
+      <div class="card">
+        <h3>Up the ramps</h3>
+        <div class="big2" id="haulCrew">—</div>
+        <div class="unit" id="haulCrewNote"></div>
+        <p>Incline crews are larger and slower — this is the term most reconstructions quietly leave out.</p>
+      </div>
+    </div>
+
+    <table>
+      <thead><tr><th>Quantity</th><th class="num">Value</th><th>Derivation</th></tr></thead>
+      <tbody id="moveTable"></tbody>
+    </table>
+
+    <div class="note warn">
+      <div class="nt">The pace</div>
+      <p id="paceNote">—</p>
+    </div>
+
+    <div class="navbtns">
+      <button data-go="copper">← Copper</button>
+      <button class="primary" data-go="feeding">Feeding →</button>
+    </div>
+  </section>
+
+  <!-- 06 FEEDING -->
+  <section class="panel" id="p-feeding">
+    <h2>Feeding everyone</h2>
+    <p class="lede">Every worker eats. In a grain economy that means farmers — and the farmers don't appear in anyone's pyramid workforce estimate, because they never left their fields.</p>
+
+    <p>Ramesside basin land yielded about <b>2,700–2,900 litres per hectare</b>. One man working roughly a hectare produced about <b>3,000 litres</b>. Administrative records describe an ideal where a single cultivator's output fed <b>four nuclear families</b> — so one farm worker feeding several people is the documented best case, not a fantasy.</p>
+
+    <div class="duo" style="margin-top:16px">
+      <div class="card">
+        <h3>Farmers required</h3>
+        <div class="big2" id="farmCrew">—</div>
+        <div class="unit" id="farmCrewNote"></div>
+        <p>Behind the pyramid workforce, producing <b id="grainTotal">—</b> of grain a year.</p>
+      </div>
+      <div class="card">
+        <h3>Support trades</h3>
+        <div class="big2" id="suppCrew">—</div>
+        <div class="unit" id="suppCrewNote"></div>
+        <p>Smiths re-annealing blades, sand carriers, water, bakers, brewers, butchers, laundry, housing, scribes, overseers.</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="nt">The multiplication you don't see</div>
+      <p id="farmNote">—</p>
+    </div>
+
+    <table>
+      <thead><tr><th>Provisions</th><th class="num">Value</th><th>Note</th></tr></thead>
+      <tbody id="farmTable"></tbody>
+    </table>
+
+    <div class="navbtns">
+      <button data-go="moving">← Moving</button>
+      <button class="primary" data-go="verdict">Verdict →</button>
+    </div>
+  </section>
+
+  <!-- 07 VERDICT -->
+  <section class="panel" id="p-verdict">
+    <h2>So what?</h2>
+    <div class="verdict">
+      <div class="punch" id="verdict">—</div>
+    </div>
+
+    <div class="bars" style="margin-top:18px" id="barsVerdict"></div>
+
+    <div class="note" style="margin-top:18px">
+      <div class="nt">The load-bearing assumption</div>
+      <p id="weakPoint">—</p>
+    </div>
+
+    <div class="navbtns">
+      <button data-go="feeding">← Feeding</button>
+      <button class="primary" data-go="sources">Sources →</button>
+    </div>
+  </section>
+
+  <!-- 08 SOURCES -->
+  <section class="panel" id="p-sources">
+    <h2>Sources</h2>
+    <p class="lede">Every number on this page traces to one of these. Measured values and estimated values are kept distinct.</p>
+    <ul class="sources">
+      <li><b>Denys A. Stocks — Aswan sawing &amp; drilling trials (1999)</b>, <i>Antiquity</i> 73 and <i>Experiments in Egyptian Archaeology</i> (Routledge, 2003).
+        <span class="what">The anchor for the whole model. 1.8 m copper blade, 14.5 kg. Dry sand, flat edge: 95 cm slot, 3 cm deep, <b>14 hours</b>; 52 cm³ copper lost; 170 cm³ granite removed. Wet notched variant: 3.2 cm in 30 h for 360 cm³ copper.</span>
+        <span class="what"><a href="https://www.cambridge.org/core/journals/antiquity/article/abs/testing-ancient-egyptian-graniteworking-methods-in-aswan-upper-egypt/35CC66DD0DEB499F1C6E805C1347BF68" target="_blank" rel="noopener">Cambridge Core</a><a href="https://www.pbs.org/wgbh/nova/lostempires/obelisk/cutting05.html" target="_blank" rel="noopener">NOVA obelisk test</a><a href="https://www.science-frontiers.com/sf137/sf137p01.htm" target="_blank" rel="noopener">Science Frontiers</a></span>
+      </li>
+      <li><b>Lehner — “Some Observations on the Layout of the Khufu and Khafre Pyramids”</b>, <i>JARCE</i> 20 (1983).
+        <span class="what">The foundation evidence: bedrock core massif left in place, only a narrow perimeter panel levelled, true baseline laid on a <b>0.52 m platform of fine white Tura limestone</b>; north side off true level by under 1.5 cm. Layout by successive approximation.</span>
+        <span class="what"><a href="https://www.jstor.org/stable/40000898" target="_blank" rel="noopener">JSTOR 40000898</a><a href="https://gizamedia.rc.fas.harvard.edu/documents/lehner_jarce_20_1983.pdf" target="_blank" rel="noopener">PDF (Giza Archives)</a></span>
+      </li>
+      <li><b>AERA — Giza Plateau Mapping Project</b>, laser scanning of the Great Pyramid floor (2015–16, 2024–25).
+        <span class="what">2,898 postholes, lever sockets and quarry channels surveyed on three sides, plus 170 new features on the south. Documents how the bedrock was levelled and the court paved.</span>
+        <span class="what"><a href="https://aeraweb.org/wp-content/uploads/2026/05/AERAgram25_1-2.pdf" target="_blank" rel="noopener">AERAGRAM 25.1–2</a><a href="https://isac.uchicago.edu/sites/default/files/uploads/shared/docs/Publications/Annual-Reports/2024-2025/AR2024-25_Giza_Plateau.pdf" target="_blank" rel="noopener">ISAC annual report</a></span>
+      </li>
+      <li><b>Cole — Determination of the Exact Size and Orientation of the Great Pyramid</b> (Survey of Egypt, 1925).
+        <span class="what">The definitive base survey: 230.33 m side, pavement levelled to within centimetres, corner sockets cut into bedrock.</span>
+        <span class="what"><a href="https://watchtowerdocuments.org/wp-content/documents/1925_DETERMINATION_OF_THE_EXACT_SIZE_AND_ORIENTATION_OF_THE_GREAT_PYRAMID_OF_GIZA.pdf" target="_blank" rel="noopener">PDF</a></span>
+      </li>
+      <li><b>Vasyutin &amp; Kruglyakov — tubular abrasive drilling experiments</b>, Antropogenez.
+        <span class="what">Independent replication with corundum abrasive: copper-to-granite <b>volume wear ratio 1 : 5.8</b>, mass ratio 1 : 1.8, over 9 hours. Shows Egyptian drillers used corundum (Mohs 9) from Wadi Hafafit.</span>
+        <span class="what"><a href="https://antropogenez.ru/drilling" target="_blank" rel="noopener">antropogenez.ru/drilling</a></span>
+      </li>
+      <li><b>IEEE Spectrum — “How Many People Did It Take to Build the Great Pyramid?”</b> (2020).
+        <span class="what">Physics floor: 2.4 TJ potential energy, 450 kJ useful work per man-day, ≈5.3M man-days, ≈3,300 workers total, under 7,000 with everything doubled.</span>
+        <span class="what"><a href="https://spectrum.ieee.org/how-many-people-did-it-take-to-build-the-great-pyramid" target="_blank" rel="noopener">spectrum.ieee.org</a></span>
+      </li>
+      <li><b>Scheuring — <i>npj Heritage Science</i> 13:473 (2025)</b>.
+        <span class="what">2.3 million blocks, mean ~2.5 t, ~16 h days, one block every 1–3 minutes; ~3,000 m³ Aswan granite up to 60 t.</span>
+        <span class="what"><a href="https://doi.org/10.1038/s40494-025-02018-w" target="_blank" rel="noopener">doi.org/10.1038/s40494-025-02018-w</a></span>
+      </li>
+      <li><b>Lehner &amp; Hawass</b> — Giza workers' city and cemetery (AERA / NOVA).
+        <span class="what">20,000–30,000 peak labour estimate; the settlement could not have housed more than ~20,000.</span>
+        <span class="what"><a href="https://www.pbs.org/wgbh/nova/article/lehner-giza/" target="_blank" rel="noopener">NOVA — Lost City</a><a href="https://www.pbs.org/wgbh/nova/pyramid/explore/builders.html" target="_blank" rel="noopener">Who Built the Pyramids?</a></span>
+      </li>
+      <li><b>Wadi al-Jarf papyri — logbook of Merer</b> (Tallet, IFAO).
+        <span class="what">Regnal year 27 of Khufu: a crew of ~200 ferrying Tura limestone, with accounting of food, tools and goods issued.</span>
+        <span class="what"><a href="https://www.smithsonianmag.com/history/ancient-egypt-shipping-mining-farming-economy-pyramids-180956619/" target="_blank" rel="noopener">Smithsonian</a><a href="https://doi.org/10.1002/9781444338386.wbeah55265" target="_blank" rel="noopener">Wiley</a></span>
+      </li>
+      <li><b>Grain rations and agricultural yield</b> — Deir el-Medina tables; Ramesside norms; UCLA Encyclopedia of Egyptology.
+        <span class="what">~13.7 l grain/day per worker, feeding a household; 2,700–2,900 l/ha on basin land; one cultivator documented as sufficing for four nuclear families.</span>
+        <span class="what"><a href="https://escholarship.org/content/qt2t01s4qj/qt2t01s4qj.pdf" target="_blank" rel="noopener">UCLA Encyclopedia</a><a href="http://beer-studies.com/en/world-history/First-kingdoms/Egypt-Old-Kingdom/Beer-bread-rations" target="_blank" rel="noopener">Deir el-Medina rations</a></span>
+      </li>
+      <li><b>Old Kingdom population</b> — ~1.6 million at 2500 BC.
+        <span class="what"><a href="https://en.wikipedia.org/wiki/Old_Kingdom_of_Egypt" target="_blank" rel="noopener">Wikipedia — Old Kingdom of Egypt</a></span>
+      </li>
+    </ul>
+
+    <div class="navbtns">
+      <button data-go="verdict">← Verdict</button>
+      <button disabled>End</button>
+    </div>
+  </section>
+
+  <h2 style="margin-top:52px;font-size:1.05rem">Adjust the assumptions</h2>
+  <p class="lede">These control every panel. Changing one here changes the numbers everywhere.</p>
+
+  <div class="controls">
+    <div class="ctl">
+      <div class="row"><label for="rate">Cutting rate — copper saw, quartz sand</label><output id="rateOut">—</output></div>
+      <input type="range" id="rate" min="0.5" max="25" step="0.1" value="7.5">
+      <div class="hint">Depth per hour per face, two-person team. <em>Stocks' 1999 Aswan trial: 95 cm slot 3 cm deep in 14 h on granite = 7.5 mm/hr.</em></div>
+    </div>
 
     <div class="ctl">
-      <div class="ctl-top">
-        <label for="block">Block size (side of a cube)</label>
-        <output id="blockOut">—</output>
-      </div>
+      <div class="row"><label for="block">Block edge length</label><output id="blockOut">—</output></div>
       <input type="range" id="block" min="0.7" max="1.4" step="0.05" value="1.05">
-      <div class="hint">The mean block at Giza is usually quoted as ~1 m³ and ~2.5 tonnes. Sliders use a cube of this edge length.</div>
+      <div class="hint">Treated as a cube. Mean block at Giza is quoted as ~1 m³ / ~2.5 t.</div>
     </div>
 
     <div class="ctl">
-      <div class="ctl-top">
-        <label for="rate">Cutting rate — copper saw + quartz sand</label>
-        <output id="rateOut">—</output>
-      </div>
-      <input type="range" id="rate" min="0.5" max="8" step="0.1" value="2.0">
-      <div class="hint">Depth cut per hour, per side, by a <b>two-person</b> sawing team. Calibrated to Denys Stocks' 1999 Aswan experiments: a 1.8 m copper blade with sand cut a 75–95 cm long slot to <b>3 cm deep in 14 hours</b> (≈2.1 mm/hr). Granite was the test stone — limestone cuts faster, which is what the upper end of this slider allows.</div>
-    </div>
-
-    <div class="ctl">
-      <div class="ctl-top">
-        <label for="years">Construction time</label>
-        <output id="yearsOut">—</output>
-      </div>
+      <div class="row"><label for="years">Total construction span</label><output id="yearsOut">—</output></div>
       <input type="range" id="years" min="10" max="40" step="1" value="20">
-      <div class="hint">20 years is the mainstream figure, matching Khufu's reign (23 years on the Turin king list). Herodotus says 20. The Wadi al-Jarf papyri put work running to the end of the reign.</div>
+      <div class="hint">20 years matches Khufu's reign (23 on the Turin king list) and Herodotus. Wadi al-Jarf shows work running in regnal year 27.</div>
     </div>
 
     <div class="ctl">
-      <div class="ctl-top">
-        <label for="hours">Working hours per day</label>
-        <output id="hoursOut">—</output>
-      </div>
+      <div class="row"><label for="prepMonths">Site prep time, before block-laying</label><output id="prepMonthsOut">—</output></div>
+      <input type="range" id="prepMonths" min="3" max="36" step="1" value="12">
+      <div class="hint">Subtracted from the total span. The bedrock terracing, Tura platform and court paving all had to finish first.</div>
+    </div>
+
+    <div class="ctl">
+      <div class="row"><label for="prepM3PerDay">Rock removal per worker per day</label><output id="prepM3PerDayOut">—</output></div>
+      <input type="range" id="prepM3PerDay" min="0.05" max="0.6" step="0.01" value="0.15">
+      <div class="hint">Cubic metres of limestone freed and dressed with copper chisels and dolerite pounders. 0.15 is deliberately cautious for soft limestone.</div>
+    </div>
+
+    <div class="ctl">
+      <div class="row"><label for="hours">Hours per day</label><output id="hoursOut">—</output></div>
       <input type="range" id="hours" min="6" max="12" step="0.5" value="9">
-      <div class="hint">Daylight-bound labour: 12 h is the maximum anyone quotes. 9 h is a generous real-world average with sand replenishment, tool re-annealing and rest. Copper work-hardens and has to be re-annealed constantly.</div>
+      <div class="hint">Daylight-bound. Copper work-hardens and needs constant re-annealing.</div>
     </div>
 
     <div class="ctl">
-      <div class="ctl-top">
-        <label for="days">Working days per year</label>
-        <output id="daysOut">—</output>
-      </div>
-      <input type="range" id="days" min="120" max="360" step="5" value="300">
-      <div class="hint">The flood season (Akhet) swallowed months of the year. 120 days = inundation-only labour; 300–360 = year-round corvée. Mainstream models need year-round work, so the default is generous.</div>
+      <div class="row"><label for="days">Working days per year</label><output id="daysOut">—</output></div>
+      <input type="range" id="days" min="60" max="360" step="5" value="300">
+      <div class="hint">The flood (Akhet) drowns fields and roads. <em>120 days = inundation-season labour only; 300–360 = year-round corvée.</em></div>
     </div>
 
     <div class="ctl">
-      <div class="ctl-top">
-        <label for="support">Support workers per skilled worker</label>
-        <output id="supportOut">—</output>
-      </div>
+      <div class="row"><label for="support">Support workers per skilled worker</label><output id="supportOut">—</output></div>
       <input type="range" id="support" min="0" max="3" step="0.1" value="1.0">
-      <div class="hint">Everyone who doesn't cut stone: sand carriers, water, tool re-annealing, food preparation, bakers, brewers, housing, laundry, medical, scribes, overseers. A ratio of 1.0 means one support person per cutter — conservative against most reconstructions.</div>
+      <div class="hint">Sand, water, smiths, bakers, brewers, laundry, housing, scribes, overseers. Cutters don't haul — transport is counted separately.</div>
     </div>
 
-    <h3>Load a scenario</h3>
-    <div class="presets">
-      <button type="button" data-preset="mainstream" class="on">Mainstream (20 yr)</button>
-      <button type="button" data-preset="generous">Maximally generous</button>
-      <button type="button" data-preset="granite">Granite-rate cutting</button>
-      <button type="button" data-preset="fast">10-year build</button>
+    <div class="ctl">
+      <div class="row"><label for="tripMin">Round-trip time, quarry → site</label><output id="tripMinOut">—</output></div>
+      <input type="range" id="tripMin" min="30" max="180" step="5" value="90">
+      <div class="hint">Sledge relay. The quarry is ~500 m south, so most of this is loading, unloading and the walk back.</div>
+    </div>
+
+    <div class="ctl">
+      <div class="row"><label for="kgPerDay">Grain per worker per day</label><output id="kgPerDayOut">—</output></div>
+      <input type="range" id="kgPerDay" min="0.4" max="1.6" step="0.05" value="0.75">
+      <div class="hint">Deir el-Medina's ~13.7 l/day ration fed a whole household. 0.75 kg covers one working adult.</div>
+    </div>
+
+    <div class="ctl">
+      <div class="row"><label for="tPerFarmer">Grain one farm worker produces</label><output id="tPerFarmerOut">—</output></div>
+      <input type="range" id="tPerFarmer" min="0.8" max="6" step="0.1" value="2.4">
+      <div class="hint">Basin land yielded ~2,700–2,900 l/ha; a man on ~1 ha produced ~3,000 l. The documented ideal is one cultivator feeding four households.</div>
     </div>
   </div>
 
-  <!-- ───────────── BREAKDOWN ───────────── -->
-  <h2><span class="num">02</span>Where the people go</h2>
-  <div class="panel">
-    <div class="breakdown" id="breakdown"></div>
+  <div class="presets">
+    <button class="preset on" data-preset="mainstream">Mainstream (20 yr)</button>
+    <button class="preset" data-preset="flood">Flood season only</button>
+    <button class="preset" data-preset="granite">Granite cutting rate</button>
+    <button class="preset" data-preset="generous">Maximally generous</button>
+    <button class="preset" data-preset="fast">10-year build</button>
   </div>
 
-  <!-- ───────────── RATE TABLE ───────────── -->
-  <h2><span class="num">03</span>The transport problem</h2>
-  <p>Cutting is only half of it. The blocks still have to arrive, and the arrival rate is fixed by the pyramid's volume divided by the time available. It does not care how many people you have.</p>
-
-  <table>
-    <thead><tr><th>Quantity</th><th class="num">Value</th><th>Source</th></tr></thead>
-    <tbody id="rateTable"></tbody>
-  </table>
-
-  <div class="note warn">
-    <div class="nt">The uncomfortable comparison</div>
-    <p id="arcNote">—</p>
-  </div>
-
-  <!-- ───────────── VERDICT ───────────── -->
-  <div class="verdict">
-    <h2><span class="num">04</span>So what?</h2>
-    <div class="punch" id="verdict">—</div>
-    <p class="src" style="margin-top:22px">The arithmetic above does not prove anything about who built the pyramid. It shows something narrower and more useful: <b>the mainstream numbers, taken at face value and combined with the experimentally measured cutting rates, do not close.</b> Something in the model is wrong — the cutting rate, the timeline, the block count, or the labour assumption. Those are the only options.</p>
-  </div>
-
-  <!-- ───────────── SOURCES ───────────── -->
-  <h2><span class="num">05</span>Where the numbers come from</h2>
-  <ul class="src">
-    <li><b>Denys A. Stocks</b>, <i>Experiments in Egyptian Archaeology: Stoneworking Technology in Ancient Egypt</i> (Routledge, 2003) and "Stone sarcophagus manufacture in ancient Egypt", <i>Antiquity</i> 73 (1999) — the Aswan copper saw/drill trials: 1.8 m blade, 15 cm deep, 6 mm thick, 14.5 kg; 3 cm deep slot in 14 hours; blade lost 7.5 mm of depth; copper tube + dry quartz sand drilled granite at 5.2 cm³/hr with a three-person crew.</li>
-    <li><b>Mark Lehner / Zahi Hawass</b> — 20,000–30,000 peak labour force; NOVA and AERA excavation reports on the workers' city and cemetery at Giza.</li>
-    <li><b>IEEE Spectrum</b>, "How Many People Did It Take to Build the Great Pyramid?" (June 2020) — the physics-based floor of ~3,300 construction workers, doubling to under 7,000 with support; 2.6 million m³ volume, ~6.75 Mt mass.</li>
-    <li><b>Scheuring</b>, <i>npj Heritage Science</i> 13:473 (2025) — 2.3 million blocks, mean block ~2.5 t, ~16-hour workdays, pace of one block per 1–3 minutes; ~3,000 m³ of Aswan granite (~0.1% of volume) up to 60 t.</li>
-    <li><b>Wadi al-Jarf papyri</b> — the logbook of the inspector Merer's boat crew, ferrying Tura limestone; documents year 27 of Khufu's reign.</li>
-  </ul>
+  <div id="tip"></div>
 
   <footer>
     <p>Private page. Not indexed. All arithmetic runs in your browser — nothing is sent anywhere.</p>
@@ -359,393 +680,402 @@
 
 <script>
 (() => {
-  'use strict';
+'use strict';
+const $ = id => document.getElementById(id);
+const fmt  = n => Math.round(n).toLocaleString('en-US');
+const fmt1 = n => n.toLocaleString('en-US',{maximumFractionDigits:1});
+const fmtS = n => n>=1e9 ? (n/1e9).toFixed(1)+'B' : n>=1e6 ? (n/1e6).toFixed(1)+'M'
+                 : n>=1e3 ? (n/1e3).toFixed(0)+'k' : Math.round(n).toString();
 
-  const $ = id => document.getElementById(id);
-  const fmt = n => n.toLocaleString('en-US', {maximumFractionDigits: 0});
-  const fmt1 = n => n.toLocaleString('en-US', {maximumFractionDigits: 1});
+const TOTAL_BLOCKS=2_300_000, STONE_D=2600, CU_G_CM3=8.96;
+const SAW_KG=14.5, CU_CM3_HR=52/14, USABLE_FRAC=0.20, POP=1_550_000;
 
-  // ── fixed physical constants (mainstream figures) ──────────────
-  const TOTAL_BLOCKS = 2_300_000;   // Scheuring 2025 / mainstream
-  const DENSITY      = 2600;        // kg/m³, Giza nummulitic limestone
+const CTRLS=['rate','block','years','hours','days','support','tripMin','kgPerDay','tPerFarmer','prepMonths','prepM3PerDay'];
 
-  // ── presets ───────────────────────────────────────────────────
-  const PRESETS = {
-    mainstream: { block: 1.05, rate: 2.0, years: 20, hours: 9,  days: 300, support: 1.0 },
-    generous:   { block: 1.05, rate: 8.0, years: 40, hours: 12, days: 360, support: 0.5 },
-    granite:    { block: 1.05, rate: 0.6, years: 20, hours: 9,  days: 300, support: 1.0 },
-    fast:       { block: 1.05, rate: 2.0, years: 10, hours: 9,  days: 300, support: 1.0 }
-  };
+const PRESETS={
+  mainstream:{rate:7.5,block:1.05,years:20,hours:9,days:300,support:1.0,tripMin:90,kgPerDay:0.75,tPerFarmer:2.4,prepMonths:12,prepM3PerDay:0.15},
+  flood:{rate:7.5,block:1.05,years:20,hours:9,days:120,support:1.0,tripMin:90,kgPerDay:0.75,tPerFarmer:2.4,prepMonths:12,prepM3PerDay:0.15},
+  granite:{rate:2.1,block:1.05,years:20,hours:9,days:300,support:1.0,tripMin:90,kgPerDay:0.75,tPerFarmer:2.4,prepMonths:12,prepM3PerDay:0.15},
+  generous:{rate:20,block:1.05,years:40,hours:12,days:360,support:0.3,tripMin:45,kgPerDay:0.7,tPerFarmer:3.6,prepMonths:24,prepM3PerDay:0.4},
+  fast:{rate:7.5,block:1.05,years:10,hours:9,days:300,support:1.0,tripMin:90,kgPerDay:0.75,tPerFarmer:2.4,prepMonths:12,prepM3PerDay:0.15}
+};
 
-  const controls = ['block','rate','years','hours','days','support'];
+function read(){const o={};CTRLS.forEach(k=>o[k]=parseFloat($(k).value));return o;}
 
-  function read() {
-    const o = {};
-    controls.forEach(k => o[k] = parseFloat($(k).value));
-    return o;
+function compute(o){
+  const sideCm=o.block*100, rateCmH=o.rate/10;
+  const buildMonths=Math.max(6,o.years*12-o.prepMonths);
+  const buildYears=buildMonths/12;
+
+  const hoursPerFace=sideCm/rateCmH;
+  const hoursPerBlock=hoursPerFace*5;
+  const manHoursBlock=hoursPerBlock*2;
+  const totalManYears=manHoursBlock*TOTAL_BLOCKS/o.hours/o.days;
+  const cutters=totalManYears/buildYears;
+
+  const workDays=buildYears*o.days;
+  const blocksPerDay=TOTAL_BLOCKS/workDays;
+  const minutesPerBlock=(o.hours*60)/blocksPerDay;
+  const blocksPerHour=blocksPerDay/o.hours;
+
+  const totalSawHours=hoursPerBlock*TOTAL_BLOCKS;
+  const copperCm3=totalSawHours*CU_CM3_HR;
+  const copperTonnes=copperCm3/1e6*CU_G_CM3;
+  const sawCm3=SAW_KG*1000/CU_G_CM3;
+  const sawLifeHours=(sawCm3*USABLE_FRAC)/CU_CM3_HR;
+  const sawsConsumed=totalSawHours/sawLifeHours;
+  const bladesInUse=Math.max(1,Math.round(cutters/2));
+  const cuPerYear=copperTonnes/(o.years||1);
+
+  const blockTonnes=o.block**3*STONE_D/1000;
+  const pullers=Math.max(8,Math.round(blockTonnes*8));
+  const transport=(o.tripMin/minutesPerBlock)*pullers;
+  const haul=(o.tripMin*1.5/minutesPerBlock)*Math.round(pullers*1.5);
+
+  const support=(cutters+transport+haul)*o.support;
+  const total=cutters+transport+haul+support;
+
+  const baseSide=230.33, platThick=0.52, courtW=10;
+  const platArea=baseSide*baseSide;
+  const courtArea=(baseSide+courtW*2)**2-platArea;
+  const platVol=platArea*platThick;
+  const rockCut=platArea*1.0+courtArea*0.3;
+  const prepManDays=(rockCut+platVol)/o.prepM3PerDay;
+  const prepWorkDays=o.prepMonths*30*0.8;
+  const prepWorkers=prepManDays/prepWorkDays;
+
+  const grainT=total*365*o.kgPerDay/1000;
+  const farmers=grainT/o.tPerFarmer;
+
+  return {...o, buildMonths,buildYears,sideCm,rateCmH,hoursPerFace,hoursPerBlock,totalManYears,cutters,
+    workDays,blocksPerDay,minutesPerBlock,blocksPerHour,totalSawHours,copperCm3,copperTonnes,
+    sawCm3,sawLifeHours,sawsConsumed,bladesInUse,cuPerYear,blockTonnes,pullers,transport,haul,
+    support,total,grainT,farmers,grand:total+farmers,
+    baseSide,platThick,platArea,courtArea,platVol,rockCut,prepManDays,prepWorkers,prepWorkDays};
+}
+
+const NICE=[1,2,5,10,25,50,100,250,500,1000,2500,5000,10000,25000,50000,100000,250000,500000,1000000];
+function pickScale(n,t){let b=0,e=Infinity;for(let i=0;i<NICE.length;i++){const d=Math.abs(n/NICE[i]-t);if(d<e){e=d;b=i;}}return NICE[b];}
+
+function renderPyramid(r){
+  const body=$('pyrBody'), labels=$('pyrLabels'), NS='http://www.w3.org/2000/svg';
+  body.textContent=''; labels.textContent='';
+  const W=800, baseHalf=330, apexY=56, baseY=418, apexX=W/2;
+  const slope=(baseY-apexY)/baseHalf;
+  const rowH=19, figW=6.6, figH=14, gapX=2.3;
+  const nRows=Math.floor((baseY-apexY)/rowH);
+
+  const poly=document.createElementNS(NS,'polygon');
+  poly.setAttribute('points',`${apexX},${apexY} ${apexX+baseHalf},${baseY} ${apexX-baseHalf},${baseY}`);
+  poly.setAttribute('fill','var(--surface-2)'); poly.setAttribute('stroke','var(--line-2)');
+  poly.setAttribute('stroke-width','1.5'); labels.appendChild(poly);
+
+  const rows=[];
+  for(let row=0;row<nRows;row++){
+    const y=baseY-row*rowH-figH, midY=y+figH/2;
+    const widthAtY=(midY-apexY)/slope*2;
+    if(widthAtY<figW*2) break;
+    rows.push({y,cap:Math.max(1,Math.floor(widthAtY/(figW+gapX))),count:0});
+  }
+  if(rows.length===0) return;
+
+  const capacity=rows.reduce((s,x)=>s+x.cap,0);
+  const scale=pickScale(r.grand, capacity*0.55);
+  const target=Math.min(Math.max(1,Math.round(r.grand/scale)),capacity);
+
+  rows.forEach(row=>row.count=Math.min(row.cap,Math.floor(target*row.cap/capacity)));
+  let assigned=rows.reduce((s,x)=>s+x.count,0), guard=0;
+  while(assigned<target&&guard++<rows.length*60){
+    const row=rows[guard%rows.length];
+    if(row.count<row.cap){row.count++;assigned++;}
   }
 
-  // ── the model ─────────────────────────────────────────────────
-  function compute(o) {
-    // A block is "extracted" by freeing 5 faces (base stays attached to bedrock
-    // until the block is levered out). Each face = one two-person saw cut.
-    const faces = 5;
-    // Cut time for one face: the saw must traverse the block's width, and to
-    // free a face it must reach the full side depth. Depth per hour is the
-    // measured rate; the saw crew works a slot length equal to the side.
-    // Hours per face = side / rate  (side in cm, rate in cm/hour)
-    const sideCm = o.block * 100;
-    const hoursPerFace = sideCm / o.rate;
-    const hoursPerBlock = hoursPerFace * faces;
-    const crewPerSaw = 2;                       // two-person saw team
-    const manHoursPerBlock = hoursPerBlock * crewPerSaw;
+  const sum=r.total||1;
+  const eC=r.cutters/sum, eT=(r.cutters+r.transport)/sum,
+        eH=(r.cutters+r.transport+r.haul)/sum, eS=(r.cutters+r.transport+r.haul+r.support)/sum;
+  const roleOf=i=>{const f=assigned>1?i/(assigned-1):0;
+    if(f<eC)return{c:'var(--cut)',n:'cutting'};
+    if(f<eT)return{c:'var(--trans)',n:'quarry → site'};
+    if(f<eH)return{c:'var(--haul)',n:'up the ramps'};
+    if(f<eS)return{c:'var(--support)',n:'support trades'};
+    return{c:'var(--farmer)',n:'farmers'};};
 
-    // Total cutting effort over the whole project
-    const totalManHours = manHoursPerBlock * TOTAL_BLOCKS;
-    const totalManDays  = totalManHours / o.hours;
-    const totalManYears = totalManDays / o.days;
-
-    // Cutters needed to burn through that effort inside the timeline
-    const cutters = totalManYears / o.years;
-
-    // Blocks per day that must arrive at the site
-    const totalWorkDays = o.years * o.days;
-    const blocksPerDay  = TOTAL_BLOCKS / totalWorkDays;
-    const blocksPerHour = blocksPerDay / o.hours;
-    const minutesPerBlock = (o.hours * 60) / blocksPerDay;
-
-    // Transport: sledge crews. A 2.5 t block on a lubricated sledge needs
-    // roughly 20 people (well-documented reconstruction figure). Crews work in
-    // relays: one block arrives every `minutesPerBlock`, so the people tied up
-    // hauling is the crew size scaled by how long a trip takes.
-    const tonnes = o.block ** 3 * DENSITY / 1000;
-    const pullersPerBlock = Math.max(8, Math.round(tonnes * 8));
-    // One round trip from the quarry to the pyramid (≈500 m) and back, at
-    // walking pace with a loaded sledge, takes about 45 minutes each way.
-    const tripMinutes = 90;
-    const transportPeople = (tripMinutes / minutesPerBlock) * pullersPerBlock;
-
-    // Hauling up the structure — the same relay logic on the ramps, at roughly
-    // double the crew because it's an incline and needs placement.
-    const haulPeople = (tripMinutes * 1.5 / minutesPerBlock) * Math.round(pullersPerBlock * 1.5);
-
-    const support = (cutters + transportPeople + haulPeople) * o.support;
-    const total = cutters + transportPeople + haulPeople + support;
-
-    return {
-      ...o, sideCm, hoursPerFace, hoursPerBlock, manHoursPerBlock,
-      totalManHours, totalManDays, totalManYears,
-      cutters, blocksPerDay, blocksPerHour, minutesPerBlock,
-      tonnes, pullersPerBlock, transportPeople, haulPeople, support, total,
-      totalWorkDays
-    };
-  }
-
-  // ── render: hero + stats ──────────────────────────────────────
-  function renderHero(r) {
-    const big = $('totalBig');
-    big.textContent = fmt(r.total);
-    big.className = 'big' + (r.total > 500000 ? ' hot' : r.total > 150000 ? ' warn' : '');
-
-    const pop = 1_550_000; // late Old Kingdom population, low estimate
-    const share = r.total / pop * 100;
-
-    $('totalSub').innerHTML =
-      `That is <b>${fmt1(share)}% of the entire population of late Old Kingdom Egypt</b> ` +
-      `(est. 1.5–1.6 million), working on one building for ${r.years} years. ` +
-      `Cutting alone consumes <b>${fmt(r.totalManYears)} worker-years</b> — ` +
-      `at ${fmt1(r.hoursPerFace)} hours per face and ${fmt1(r.hoursPerBlock)} hours per block by a two-person team.`;
-
-    $('sBlocks').textContent   = fmt(TOTAL_BLOCKS);
-    $('sCutYears').textContent = fmt(r.totalManYears);
-    $('sCutters').textContent  = fmt(r.cutters);
-    $('sPerDay').textContent   = fmt1(r.blocksPerDay);
-  }
-
-  // ── render: the pyramid of people ─────────────────────────────
-  // Pyramid cross-section: base 230 m, height 146.6 m on a 640×400 canvas.
-  // Layout as horizontal courses; each figure = a nice round number of people;
-  // figures stack from the base up so the shape fills the way the argument does.
-  const NICE_SCALES = [10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000,
-                       25000, 50000, 100000, 250000, 500000, 1000000];
-  let scaleIdx = 0;
-
-  function pickScale(total, target) {
-    // pick the scale whose figure count lands closest to `target`
-    let best = 0, bestErr = Infinity;
-    for (let i = 0; i < NICE_SCALES.length; i++) {
-      const err = Math.abs(total / NICE_SCALES[i] - target);
-      if (err < bestErr) { bestErr = err; best = i; }
-    }
-    return best;
-  }
-
-  function renderPyramid(r) {
-    const svgBody = $('pyrBody'), svgLab = $('pyrLabels');
-    svgBody.textContent = ''; svgLab.textContent = '';
-
-    const W = 640, H = 400;
-    const baseHalf = 268, apexY = 30, baseY = 356;
-    const apexX = W / 2;
-    const slope = (baseY - apexY) / baseHalf;   // px vertical per px horizontal
-
-    // rows from base upward
-    const rowH = 18;
-    const nRows = Math.floor((baseY - apexY) / rowH);
-
-    // figure geometry: a simple standing person, clearly legible
-    const figW = 7.6, figH = 15;
-    const gapX = 2.4;
-
-    // how many people total, and per-figure value
-    scaleIdx = pickScale(r.total, 200);
-    const scale = NICE_SCALES[scaleIdx];
-    const figs = Math.max(1, Math.round(r.total / scale));
-    $('legScale').textContent = `each figure ≈ ${fmt(scale)} ${scale === 1 ? 'person' : 'people'}`;
-    $('vizTitle').textContent = scale === 1
-      ? 'Each figure is one worker'
-      : `Each figure = ${fmt(scale)} workers`;
-
-    // distribute figures across rows, base-weighted: the pyramid's actual
-    // cross-section area grows toward the bottom, so weight row capacity the
-    // same way. Walk rows bottom→top allocating figures proportionally to row width.
-    const rows = [];
-    for (let row = 0; row < nRows; row++) {
-      const y = baseY - row * rowH - figH;          // top edge of this row's figures
-      const midY = y + figH / 2;                     // vertical centre of the glyphs
-      const widthAtY = (midY - apexY) / slope * 2;   // width grows downward from the apex
-      if (widthAtY < figW * 2) break;
-      const n = Math.max(1, Math.floor(widthAtY / (figW + gapX)));
-      rows.push({ y, widthAtY, cap: n, count: 0 });
-    }
-    const capacity = rows.reduce((s, x) => s + x.cap, 0);
-    let remaining = Math.min(figs, capacity);
-
-    // fill proportional to capacity, then hand out leftovers deterministically
-    rows.forEach(row => {
-      row.count = Math.min(row.cap, Math.floor(remaining * row.cap / capacity));
-    });
-    let assigned = rows.reduce((s, x) => s + x.count, 0);
-    let i = 0;
-    while (assigned < remaining && i < rows.length * 40) {
-      const row = rows[i % rows.length];
-      if (row.count < row.cap) { row.count++; assigned++; }
-      i++;
-    }
-
-    // split figures by role so colour tells the story
-    const totC = r.cutters, totT = r.transportPeople, totH = r.haulPeople, totS = r.support;
-    const sumAll = totC + totT + totH + totS || 1;
-    const cutEdge = totC / sumAll;
-    const transEdge = (totC + totT) / sumAll;
-    const haulEdge = (totC + totT + totH) / sumAll;
-    const roleOf = idx => {
-      const f = assigned > 1 ? idx / (assigned - 1) : 0;
-      if (f < cutEdge) return 'a';
-      if (f < transEdge) return 'b';
-      if (f < haulEdge) return 'h';
-      return 's';
-    };
-
-    // draw a rounded person silhouette
-    const fig = (x, y, role, delay) => {
-      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-      // Figures render at full opacity immediately — the pyramid must read
-      // instantly, not fade in. Animation only on first paint, subtle.
-      g.setAttribute('opacity', '1');
-      const fill = role === 'a' ? 'var(--accent)'
-                 : role === 'b' ? 'var(--fig-transport)'
-                 : role === 'h' ? 'var(--fig-haul)'
-                 : 'var(--fig-support)';
-      // head
-      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-      c.setAttribute('cx', x + figW/2); c.setAttribute('cy', y + 2.6); c.setAttribute('r', 2.6);
-      c.setAttribute('fill', fill);
-      // body — shoulders taper to feet so it reads as a person, not a dot
-      const b = document.createElementNS('http://www.w3.org/2000/svg','path');
-      const bx = x + figW/2, top = y + 5.8, bot = y + figH;
-      b.setAttribute('d',
-        `M${bx-2.4},${top} L${bx+2.4},${top} L${bx+2.9},${bot-1.4} ` +
-        `Q${bx},${bot} ${bx-2.9},${bot-1.4} Z`);
-      b.setAttribute('fill', fill);
-      g.appendChild(c); g.appendChild(b);
-      svgBody.appendChild(g);
-    };
-
-    // pyramid outline (stone silhouette behind the figures, subtle)
-    const outline = document.createElementNS('http://www.w3.org/2000/svg','polygon');
-    outline.setAttribute('points', `${apexX},${apexY} ${apexX + baseHalf},${baseY} ${apexX - baseHalf},${baseY}`);
-    outline.setAttribute('fill', 'var(--surface-2)');
-    outline.setAttribute('stroke', 'var(--line-strong)');
-    outline.setAttribute('stroke-width', '1.5');
-    svgLab.appendChild(outline);
-
-    let idx = 0;
-    rows.forEach(row => {
-      const total = row.count;
-      const startX = apexX - (total * (figW + gapX) - gapX) / 2;
-      for (let k = 0; k < total; k++) {
-        const x = startX + k * (figW + gapX);
-        fig(x, row.y, roleOf(idx), Math.min(idx * 0.004, 1.6));
-        idx++;
-      }
-    });
-
-    // ground line
-    const g = document.createElementNS('http://www.w3.org/2000/svg','line');
-    g.setAttribute('x1', apexX - baseHalf - 14); g.setAttribute('x2', apexX + baseHalf + 14);
-    g.setAttribute('y1', baseY + 4); g.setAttribute('y2', baseY + 4);
-    g.setAttribute('stroke', 'var(--line-strong)'); g.setAttribute('stroke-width', '1.5');
-    svgLab.appendChild(g);
-
-    // dimension labels
-    const lab = (x, y, text, anchor) => {
-      const t = document.createElementNS('http://www.w3.org/2000/svg','text');
-      t.setAttribute('x', x); t.setAttribute('y', y);
-      t.setAttribute('text-anchor', anchor || 'middle');
-      t.setAttribute('class','rowlabel');
-      t.textContent = text;
-      svgLab.appendChild(t);
-    };
-    lab(apexX, baseY + 26, '230 m base');
-    lab(apexX + baseHalf + 10, apexY + 46, '146.6 m', 'start');
-
-    $('vizRead').textContent = `${fmt(figs)} figures × ${fmt(scale)} = ${fmt(r.total)} people`;
-  }
-
-  // ── render: breakdown bars ────────────────────────────────────
-  function renderBreakdown(r) {
-    const parts = [
-      ['Cutters', r.cutters, 'sawing 5 faces, 2 per saw'],
-      ['Quarry → site', r.transportPeople, `${fmt(r.pullersPerBlock)} per sled, ${fmt(90)} min round trip`],
-      ['Up the ramps', r.haulPeople, `${fmt(Math.round(r.pullersPerBlock*1.5))} per block, incline`],
-      ['Support', r.support, `${fmt1(r.support/(r.total-r.support)*100)}% on top`]
-    ];
-    const max = Math.max(...parts.map(p => p[1])) || 1;
-    $('breakdown').innerHTML = parts.map(([nm, v, hint]) => `
-      <div class="bd">
-        <div class="nm">${nm}<br><span style="font-size:.72rem;opacity:.75">${hint}</span></div>
-        <div class="track"><div class="fill" style="width:${(v/max*100).toFixed(1)}%"></div></div>
-        <div class="val">${fmt(v)}</div>
-      </div>`).join('');
-  }
-
-  // ── render: rate table + arc note ─────────────────────────────
-  function renderRates(r) {
-    const rows = [
-      ['Total blocks', fmt(TOTAL_BLOCKS), 'mainstream estimate'],
-      ['Mean block weight', `${fmt1(r.tonnes)} t`, `${fmt1(r.block)} m cube @ ${fmt(DENSITY)} kg/m³`],
-      ['Construction window', `${r.years} yr × ${r.days} d`, `${fmt(r.totalWorkDays)} working days`],
-      ['Blocks per working day', fmt1(r.blocksPerDay), `${fmt1(r.blocksPerHour)}/hour`],
-      ['Interval per block', `${fmt1(r.minutesPerBlock)} min`, 'arrival and placement, averaged'],
-      ['Saw team per face', `${fmt1(r.hoursPerFace)} hr`, `${fmt1(r.rate*10)/10} mm/hr over ${fmt0(r.sideCm)} cm`],
-      ['Five faces per block', `${fmt1(r.hoursPerBlock)} hr`, '2 workers on the saw']
-    ];
-    $('rateTable').innerHTML = rows.map(([k,v,s]) =>
-      `<tr><td>${k}</td><td class="num">${v}</td><td style="color:var(--muted);font-size:.82rem">${s}</td></tr>`
-    ).join('');
-
-    const arcNote = $('arcNote');
-    const ratio = r.total / 25000;
-    if (ratio >= 1.5) {
-      arcNote.innerHTML =
-        `The workforce needed is <b>${fmt(r.total)}</b>. Mainstream archaeology's most-quoted ` +
-        `figure is <b>20,000–30,000</b>. The gap is roughly <b>${fmt1(ratio)}×</b>. ` +
-        `You can close it only by assuming a cutting rate about that many times faster than ` +
-        `anything measured in experiment — or by moving one of the other sliders a very long way.`;
-    } else if (ratio >= 0.8) {
-      arcNote.innerHTML =
-        `At these settings the workforce lands at <b>${fmt(r.total)}</b>, which is ` +
-        `inside the 20,000–30,000 mainstream window. ` +
-        `Note what had to be true for that: ${fmt1(r.rate)} mm/hr cutting, ${r.hours} h days, ` +
-        `${r.days} days a year, and a support ratio of ${fmt1(r.support)}.`;
-    } else {
-      arcNote.innerHTML =
-        `At these settings the workforce is only <b>${fmt(r.total)}</b> — well <i>under</i> the ` +
-        `mainstream window. Each block arrives every <b>${fmt1(r.minutesPerBlock)} minutes</b>, ` +
-        `which is the number to be suspicious of: it implies a pace of work nobody has modelled ` +
-        `for copper-and-sand tools.`;
+  const perFig=r.grand/assigned;
+  let idx=0;
+  for(const row of rows){
+    const totalW=row.count*(figW+gapX)-gapX, startX=apexX-totalW/2;
+    for(let k=0;k<row.count;k++){
+      const x=startX+k*(figW+gapX), role=roleOf(idx++);
+      const g=document.createElementNS(NS,'g');
+      const head=document.createElementNS(NS,'circle');
+      head.setAttribute('cx',x+figW/2);head.setAttribute('cy',row.y+2.6);head.setAttribute('r',2.6);
+      head.setAttribute('fill',role.c);
+      const bx=x+figW/2,top=row.y+5.8,bot=row.y+figH;
+      const path=document.createElementNS(NS,'path');
+      path.setAttribute('d',`M${bx-2.4},${top} L${bx+2.4},${top} L${bx+2.9},${bot-1.4} Q${bx},${bot} ${bx-2.9},${bot-1.4} Z`);
+      path.setAttribute('fill',role.c);
+      g.appendChild(head);g.appendChild(path);
+      g.addEventListener('mouseenter',()=>{const t=$('tip');t.textContent=`${role.n} · ≈${fmt(perFig)} people`;t.classList.add('on');});
+      g.addEventListener('mousemove',e=>{const t=$('tip');t.style.left=e.clientX+'px';t.style.top=e.clientY+'px';});
+      g.addEventListener('mouseleave',()=>$('tip').classList.remove('on'));
+      body.appendChild(g);
     }
   }
-  const fmt0 = n => Math.round(n).toLocaleString('en-US');
 
-  // ── verdict text ──────────────────────────────────────────────
-  function renderVerdict(r) {
-    const pop = 1_550_000;
-    const share = r.total / pop * 100;
-    const ratio = r.total / 25000;          // vs the mainstream 20k–30k citation
-    const rateNeeded = r.rate * ratio;
+  const gl=document.createElementNS(NS,'line');
+  gl.setAttribute('x1',apexX-baseHalf-16);gl.setAttribute('x2',apexX+baseHalf+16);
+  gl.setAttribute('y1',baseY+5);gl.setAttribute('y2',baseY+5);
+  gl.setAttribute('stroke','var(--line-2)');gl.setAttribute('stroke-width','1.5');labels.appendChild(gl);
 
-    let body;
-    if (ratio >= 1.5) {
-      body =
-        `At these settings you need <em>${fmt(r.total)} people</em> — about ` +
-        `<em>${fmt1(share)}%</em> of the country's population — for ${r.years} straight years. ` +
-        `Mainstream archaeology's most-quoted figure is 20,000–30,000. ` +
-        `The arithmetic is <em>${fmt1(ratio)}×</em> that. To close the gap you would need a cutting ` +
-        `rate of about <em>${fmt1(rateNeeded)} mm/hr</em> per face — roughly ` +
-        `<em>${fmt1(ratio)}×</em> what Stocks measured with copper and quartz sand. ` +
-        `Nobody has demonstrated that rate.`;
-    } else if (ratio >= 0.8) {
-      body =
-        `At these settings the workforce is <em>${fmt(r.total)} people</em>, which lands inside ` +
-        `the mainstream 20,000–30,000 window. Worth noticing what it took to get there: ` +
-        `${fmt1(r.rate)} mm/hr cutting, ${r.hours}-hour days, ${r.days} days a year, and a support ` +
-        `ratio of ${fmt1(r.support)}. Move any of those to a more defensible value and the number climbs fast. ` +
-        `The mainstream figure is reachable — but only at the optimistic end of every assumption at once.`;
-    } else {
-      body =
-        `At these settings you only need <em>${fmt(r.total)} people</em>. ` +
-        `That is <em>${fmt1(1/ratio)}×</em> cheaper than the mainstream 20,000–30,000 talking point — ` +
-        `which is suspicious in the other direction. Figures below the mainstream estimate usually mean ` +
-        `something has been given away: a very fast cutting rate, year-round labour, or near-zero support staff. ` +
-        `Check which assumptions are carrying the weight here.`;
-    }
-    $('verdict').innerHTML = body;
+  const lab=(x,y,t,a)=>{const el=document.createElementNS(NS,'text');
+    el.setAttribute('x',x);el.setAttribute('y',y);el.setAttribute('text-anchor',a||'middle');
+    el.setAttribute('font-family','ui-monospace,monospace');el.setAttribute('font-size','11');
+    el.setAttribute('fill','var(--dim)');el.textContent=t;labels.appendChild(el);};
+  lab(apexX,baseY+28,'230 m base');
+  lab(apexX+baseHalf+14,apexY+56,'146.6 m','start');
+
+  $('stageTitle').textContent=scale===1?'Each figure is one worker':`Each figure = ${fmt(scale)} people`;
+  $('stageRead').textContent=`${fmt(assigned)} figures × ${fmt(scale)} = ${fmt(r.grand)} people`;
+}
+
+function renderHero(r){
+  const big=$('totalBig');
+  big.textContent=fmt(r.grand);
+  big.className='big'+(r.grand>400000?' hot':r.grand>120000?' warn':'');
+  const share=r.grand/POP*100;
+  $('totalSub').innerHTML=`That is <b>${fmt1(share)}%</b> of late Old Kingdom Egypt (est. 1.55M) — `+
+    `for one building, over ${r.years} years, of which <b>${r.prepMonths} months</b> is site prep. `+
+    `Cutting alone eats <b>${fmtS(r.totalManYears)}</b> worker-years.`;
+  const cards=[['prep','Site prep', r.prepWorkers, 'levelling + platform'],
+    ['cut','Cutters', r.cutters, 'saw crews, 2 per blade'],
+    ['trans','Quarry → site', r.transport, 'sledge relay'],
+    ['haul','Up the ramps', r.haul, 'incline drag'],
+    ['supp','Support', r.support, 'smiths, bakers, scribes'],
+    ['farm','Farmers', r.farmers, 'grain behind it all']];
+  $('kpis').innerHTML=cards.map(([c,k,v,n])=>
+    `<div class="kpi ${c}"><div class="k">${k}</div><div class="v">${fmt(v)}</div><div class="n">${n}</div></div>`).join('');
+}
+
+function renderSticky(r){
+  const n=$('stickyNum');
+  n.textContent=fmt(r.grand);
+  n.className='num'+(r.grand>400000?' hot':r.grand>120000?' warn':'');
+  $('chC').textContent=fmt(r.cutters);
+  $('chCu').textContent=fmt(r.copperTonnes)+' t';
+  $('chP').textContent=fmt1(r.minutesPerBlock)+' min';
+  $('chG').textContent=fmt(r.grainT)+' t';
+}
+
+function renderBars(r){
+  const rows=[['prep','Site prep', r.prepWorkers, `${r.prepMonths} months, ${fmt(r.prepManDays)} man-days`],
+    ['cut','Cutters', r.cutters, 'two-person saw team, five faces'],
+    ['trans','Quarry → site', r.transport, `${fmt(r.pullers)} per sledge`],
+    ['haul','Up the ramps', r.haul, `${fmt(Math.round(r.pullers*1.5))} per block, incline`],
+    ['supp','Support trades', r.support, 'sand, water, smithing, food, records'],
+    ['farm','Farmers', r.farmers, `${fmt1(r.grainT)} t grain a year`]];
+  const max=Math.max(...rows.map(x=>x[2]))||1;
+  const html=rows.map(([c,k,v,n])=>
+    `<div class="bar ${c}"><div class="nm">${k}<small>${n}</small></div>
+      <div class="track"><div class="fill" style="width:${(v/max*100).toFixed(1)}%"></div></div>
+      <div class="val">${fmt(v)}</div></div>`).join('');
+  $('barsOverview').innerHTML=html;
+  $('barsVerdict').innerHTML=html;
+}
+
+function renderGround(r){
+  $('prepCrew').textContent=fmt(r.prepWorkers);
+  $('prepCrewNote').textContent=`workers for ${r.prepMonths} months straight`;
+  $('prepMonthsTxt').textContent=`${r.prepMonths} months`;
+  $('prepVolume').textContent=fmt(r.rockCut+r.platVol)+' m³';
+  $('prepVolumeNote').textContent=`${fmt(r.rockCut)} m³ bedrock cut · ${fmt(r.platVol)} m³ platform laid`;
+  $('courtAreaTxt').textContent=fmt(r.courtArea)+' m²';
+  $('platVolTxt').textContent=fmt(r.platVol)+' m³';
+
+  const prepPct=(r.prepMonths/(r.years*12))*100;
+  $('tlBar').innerHTML=
+    `<div class="tl-seg prep" style="flex-basis:${prepPct}%">${r.prepMonths} mo prep</div>`+
+    `<div class="tl-seg build" style="flex-basis:${100-prepPct}%">${fmt1(r.buildYears)} yr building</div>`;
+  $('tl0').textContent='year 0';
+  $('tlMid').textContent=`year ${fmt1(r.prepMonths/12)}`;
+  $('tlEnd').textContent=`year ${fmt(r.years)}`;
+
+  $('prepNote').innerHTML=`Site prep takes <b>${fmt(r.prepManDays)} man-days</b> — about `+
+    `<b>${fmt(r.prepManDays/300)} worker-years</b>. Because it eats <b>${r.prepMonths} months</b> of the ${r.years} years available, `+
+    `the cutters and hauliers have only <b>${fmt1(r.buildYears)} years</b> to do their work instead of ${r.years}. `+
+    `Push prep to 36 months and watch the cutter count climb.`;
+}
+
+function renderCutting(r){
+  $('cutCrew').textContent=fmt(r.cutters);
+  $('cutCrewNote').textContent=`cutting only, ${fmt1(r.buildYears)} yr window`;
+  $('cutHours').textContent=fmt1(r.hours);
+  $('cutYears').textContent=fmt1(r.buildYears);
+  $('cutManYears').textContent=fmtS(r.totalManYears);
+  $('cutPerFace').textContent=fmt1(r.hoursPerFace)+' h';
+  $('cutPerBlock').textContent=fmt1(r.hoursPerBlock)+' h';
+
+  const rows=[['Blocks cut',fmt(TOTAL_BLOCKS),'mainstream estimate'],
+    ['Faces per block','5','base stays attached until levered out'],
+    ['Block edge',fmt1(r.block)+' m',`${fmt1(r.sideCm)} cm`],
+    ['Cutting rate',fmt1(r.rate)+' mm/hr','Stocks, Aswan dry sand'],
+    ['Hours per face',fmt1(r.hoursPerFace)+' h',`${fmt1(r.sideCm)} cm ÷ ${fmt1(r.rateCmH)} cm/hr`],
+    ['Hours per block',fmt1(r.hoursPerBlock)+' h','5 faces'],
+    ['Total saw-hours',fmtS(r.totalSawHours),'one blade, continuously']];
+  $('cutTable').innerHTML=rows.map(([k,v,d])=>
+    `<tr><td>${k}</td><td class="num">${v}</td><td style="color:var(--dim);font-size:.79rem">${d}</td></tr>`).join('');
+}
+
+function renderCopper(r){
+  $('sawLife').textContent=fmt(r.sawLifeHours)+' hours';
+  $('sawLifeNote').textContent=`≈ ${fmt1(r.sawLifeHours/r.hours)} working days before reforging`;
+  $('copperTotal').textContent=fmt(r.copperTonnes)+' t';
+  $('copperNote').textContent=`${fmtS(r.sawsConsumed)} blade-lives · ${fmt(r.bladesInUse)} in use at once`;
+
+  const el=$('copperReality');
+  if(r.copperTonnes>2000){
+    el.innerHTML=`That is <b>${fmt(r.copperTonnes)} tonnes</b> — <b>${fmt(r.cuPerYear)} t a year</b> for ${r.years} years. `+
+      `Bronze Age Sinai copper production is estimated in the low thousands of tonnes <i>across centuries</i>. `+
+      `The metal can be reforged and reused, so this is throughput rather than loss — but the smiths, the fuel and `+
+      `the recycling loop all have to exist, and none of them are in a 20,000-worker estimate.`;
+  } else {
+    el.innerHTML=`At these settings the project wears through <b>${fmt(r.copperTonnes)} tonnes</b> — ${fmt(r.cuPerYear)} t a year. `+
+      `Within reach of Egyptian supply, provided blades are reforged rather than replaced. `+
+      `Note what bought you that: ${fmt1(r.rate)} mm/hr cutting.`;
   }
 
-  // ── the loop ──────────────────────────────────────────────────
-  function update() {
-    const o = read();
-    $('blockOut').textContent   = `${o.block.toFixed(2)} m`;
-    $('rateOut').textContent    = `${o.rate.toFixed(1)} mm/hr`;
-    $('yearsOut').textContent   = `${o.years} yr`;
-    $('hoursOut').textContent   = `${o.hours} hr`;
-    $('daysOut').textContent    = `${o.days} d`;
-    $('supportOut').textContent = `${o.support.toFixed(1)}×`;
+  const rows=[['Blade mass',SAW_KG+' kg','Stocks 1999'],
+    ['Blade volume',fmt(r.sawCm3)+' cm³','at 8.96 g/cm³'],
+    ['Usable wear',fmt(r.sawCm3*USABLE_FRAC)+' cm³',`${USABLE_FRAC*100}% before too thin`],
+    ['Wear rate',fmt1(CU_CM3_HR)+' cm³/hr','52 cm³ in 14 h'],
+    ['Blade life',fmt(r.sawLifeHours)+' h',`${fmt1(r.sawLifeHours/r.hours)} working days`],
+    ['Blades consumed',fmtS(r.sawsConsumed),'across the project'],
+    ['Copper throughput',fmt(r.copperTonnes)+' t',`${fmt(r.cuPerYear)} t/yr`]];
+  $('cuTable').innerHTML=rows.map(([k,v,d])=>
+    `<tr><td>${k}</td><td class="num">${v}</td><td style="color:var(--dim);font-size:.79rem">${d}</td></tr>`).join('');
+}
 
-    const r = compute(o);
-    renderHero(r);
-    renderPyramid(r);
-    renderBreakdown(r);
-    renderRates(r);
-    renderVerdict(r);
+function renderMoving(r){
+  $('moveCrew').textContent=fmt(r.transport);
+  $('moveCrewNote').textContent=`${fmt1(r.tripMin)} min round trip`;
+  $('movePullers').textContent=fmt(r.pullers);
+  $('haulCrew').textContent=fmt(r.haul);
+  $('haulCrewNote').textContent=`${fmt(Math.round(r.pullers*1.5))} per block on the incline`;
 
-    // highlight matching preset
-    document.querySelectorAll('[data-preset]').forEach(b => {
-      const p = PRESETS[b.dataset.preset];
-      const match = p && controls.every(k => Math.abs(p[k] - o[k]) < 1e-6);
-      b.classList.toggle('on', !!match);
-    });
+  const rows=[['Mean block weight',fmt1(r.blockTonnes)+' t',`${fmt1(r.block)} m cube at ${STONE_D} kg/m³`],
+    ['Working days',fmt(r.workDays),`${fmt1(r.buildYears)} yr × ${r.days} d`],
+    ['Blocks per day',fmt1(r.blocksPerDay),`${fmt1(r.blocksPerHour)} per hour`],
+    ['Interval per block',fmt1(r.minutesPerBlock)+' min','arrival and placement'],
+    ['Pullers per sledge',fmt(r.pullers),'Stocks: 45 for 16 t, 8 for 2.75 t'],
+    ['Round trip',fmt1(r.tripMin)+' min','quarry → site → back']];
+  $('moveTable').innerHTML=rows.map(([k,v,d])=>
+    `<tr><td>${k}</td><td class="num">${v}</td><td style="color:var(--dim);font-size:.79rem">${d}</td></tr>`).join('');
+
+  const ratio=r.total/25000;
+  $('paceNote').innerHTML=`A block must leave the quarry every <b>${fmt1(r.minutesPerBlock)} minutes</b>, `+
+    `every working day, for <b>${fmt1(r.buildYears)} years</b>. That pace doesn't change when you add workers — `+
+    `it is set by the pyramid's volume and the calendar. `+
+    (ratio>=1.5?`Right now that requires <b>${fmt(r.total)}</b> people in total, <b>${fmt1(ratio)}×</b> the mainstream figure.`
+      :`At these settings it needs <b>${fmt(r.total)}</b> people in total.`);
+}
+
+function renderFeeding(r){
+  $('farmCrew').textContent=fmt(r.farmers);
+  $('farmCrewNote').textContent=`at ${fmt1(r.tPerFarmer)} t per farm worker`;
+  $('grainTotal').textContent=fmt(r.grainT)+' t';
+  $('suppCrew').textContent=fmt(r.support);
+  $('suppCrewNote').textContent=`${fmt1(r.support)}× the skilled workforce`;
+
+  const rows=[['Workers to feed',fmt(r.total),'cutters + hauliers + support'],
+    ['Grain per worker/day',fmt1(r.kgPerDay)+' kg','a working adult'],
+    ['Total grain per year',fmt(r.grainT)+' t',`${fmt(r.total)} × 365 × ${fmt1(r.kgPerDay)} kg`],
+    ['Grain one worker produces',fmt1(r.tPerFarmer)+' t','~1 ha at 2,700–2,900 l/ha'],
+    ['Farmers required',fmt(r.farmers),'grain total ÷ per-farmer output'],
+    ['Farmers as % of workforce',fmt1(r.farmers/r.total*100)+'%','']];
+  $('farmTable').innerHTML=rows.map(([k,v,d])=>
+    `<tr><td>${k}</td><td class="num">${v}</td><td style="color:var(--dim);font-size:.79rem">${d}</td></tr>`).join('');
+
+  $('farmNote').innerHTML=`Feeding <b>${fmt(r.total)}</b> workers takes <b>${fmt(r.farmers)}</b> farm workers — `+
+    `<b>${fmt1(r.farmers/r.total*100)}%</b> on top of the pyramid workforce itself. Those farmers are invisible in `+
+    `every labour estimate, because they never leave their fields. But the pyramids sat inside an agricultural `+
+    `economy that had to produce their food, and that economy had its own people.`;
+}
+
+function renderVerdict(r){
+  const share=r.grand/POP*100, ratio=r.grand/25000, needRate=r.rate*ratio;
+  let body;
+  if(ratio>=1.5){
+    body=`At the mainstream timeline and a measured cutting rate you need <em>${fmt(r.grand)} people</em> — `+
+      `<em>${fmt1(share)}%</em> of the country — for ${r.years} straight years, of which ${r.prepMonths} months `+
+      `is just the hole in the ground. Archaeology says 20,000–30,000. The arithmetic says `+
+      `<em>${fmt1(ratio)}×</em> that, wants <em>${fmt(r.copperTonnes)} tonnes</em> of copper, and needs `+
+      `<em>${fmt(r.farmers)} farmers</em> feeding them. Getting back to 25,000 would need a cutting rate of `+
+      `<em>${fmt1(needRate)} mm/hr</em> — nobody has demonstrated that with copper and sand.`;
+  } else if(ratio>=0.8){
+    body=`At these settings the workforce lands at <em>${fmt(r.grand)} people</em>, inside the mainstream window. `+
+      `That took ${fmt1(r.rate)} mm/hr cutting, ${r.hours}-hour days, ${r.days} days a year, ${r.prepMonths} months `+
+      `of prep and a support ratio of ${fmt1(r.support)} — the optimistic end of every assumption at once. `+
+      `The mainstream number is reachable; it is just not reachable robustly.`;
+  } else {
+    body=`At these settings you need only <em>${fmt(r.grand)} people</em> — <em>${fmt1(1/ratio)}×</em> cheaper `+
+      `than the mainstream estimate. That is suspicious in the other direction. A figure this low means something `+
+      `has been given away, usually a cutting rate far beyond anything measured.`;
   }
+  $('verdict').innerHTML=body;
 
-  controls.forEach(k => $(k).addEventListener('input', update));
+  $('weakPoint').innerHTML=`Everything scales off the <b>cutting rate</b>. The default (${fmt1(r.rate)} mm/hr) is `+
+    `Stocks' measurement on <i>granite</i> — the hardest stone in the pyramid, and only 0.1% of its volume. `+
+    `Most of the pyramid is soft limestone, which cuts faster. If real limestone rates were <b>2–3×</b> higher, `+
+    `the cutter count drops by the same factor. That single unknown moves the answer more than any other slider, `+
+    `and no experiment has been run on Giza limestone with a copper saw.`;
+}
 
-  document.querySelectorAll('[data-preset]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const p = PRESETS[btn.dataset.preset];
-      if (!p) return;
-      controls.forEach(k => $(k).value = p[k]);
-      update();
-    });
+function update(){
+  const o=read();
+  const outs={rate:' mm/hr',block:' m',years:' yr',hours:' h',days:' d',support:'×',tripMin:' min',
+    kgPerDay:' kg',tPerFarmer:' t',prepMonths:' mo',prepM3PerDay:' m³/d'};
+  Object.keys(outs).forEach(k=>{const el=$(k+'Out');if(el)el.textContent=fmt1(o[k])+outs[k];});
+
+  const r=compute(o);
+  renderHero(r); renderSticky(r); renderPyramid(r); renderBars(r);
+  renderGround(r); renderCutting(r); renderCopper(r); renderMoving(r);
+  renderFeeding(r); renderVerdict(r);
+
+  document.querySelectorAll('[data-preset]').forEach(b=>{
+    const p=PRESETS[b.dataset.preset];
+    b.classList.toggle('on', !!p && CTRLS.every(k=>Math.abs(p[k]-o[k])<1e-6));
   });
+}
 
-  // keyframes for the figure draw-in (injected so we don't need a stylesheet rule)
-  const style = document.createElement('style');
-  style.textContent = '@keyframes fadein{to{opacity:1}}';
-  document.head.appendChild(style);
+const ORDER=['overview','ground','cutting','copper','moving','feeding','verdict','sources'];
+function showTab(name){
+  ORDER.forEach(t=>{
+    $('p-'+t).classList.toggle('on', t===name);
+    document.querySelector(`.tab[data-t="${t}"]`).classList.toggle('on', t===name);
+  });
+  history.replaceState(null,'','#'+name);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.t)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
 
-  update();
+CTRLS.forEach(k=>$(k).addEventListener('input',update));
+document.querySelectorAll('[data-preset]').forEach(b=>{
+  b.addEventListener('click',()=>{const p=PRESETS[b.dataset.preset];if(!p)return;
+    CTRLS.forEach(k=>$(k).value=p[k]);update();});
+});
+
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('input,textarea,select')) return;
+  if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+    const cur=ORDER.findIndex(t=>$('p-'+t).classList.contains('on'));
+    const next=cur+(e.key==='ArrowRight'?1:-1);
+    if(next>=0&&next<ORDER.length){showTab(ORDER[next]);e.preventDefault();}
+  }
+});
+
+const initial=location.hash.replace('#','');
+showTab(ORDER.includes(initial)?initial:'overview');
+update();
 })();
 </script>
 </body>
