@@ -245,6 +245,44 @@
   .kpi.prep{--kc:var(--prep)} .kpi.cut{--kc:var(--cut)} .kpi.trans{--kc:var(--trans)}
   .kpi.haul{--kc:var(--haul)} .kpi.supp{--kc:var(--support)} .kpi.farm{--kc:var(--farmer)}
 
+  /* ── SOURCE KEY ── */
+  .srckey{background:var(--surface);border:1px solid var(--line);
+    border-left:3px solid var(--gold);border-radius:var(--radius);
+    padding:18px 20px;margin:18px 0 22px}
+  .sk-t{font:600 .68rem/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:12px}
+  .srckey ul{margin:0;padding-left:18px}
+  .srckey li{font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:5px}
+  .srckey b{color:var(--text)}
+  .sk-n{margin:12px 0 0;padding-top:11px;border-top:1px solid var(--line);
+    font-size:.78rem;color:var(--dim);line-height:1.6}
+
+  /* ── DRILL / FEED RATE ── */
+  .drill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:12px;margin-top:18px}
+  .drill-card{background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:15px 16px}
+  .dc-k{font:600 .64rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:8px}
+  .dc-v{font:700 1.2rem/1.2 var(--serif);color:var(--gold);margin-bottom:9px}
+  .drill-card p{font-size:.78rem;color:var(--muted);line-height:1.55;margin:0}
+  .drill-card b{color:var(--text)}
+  .feed{background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:20px 22px;margin-top:18px;
+    display:grid;grid-template-columns:1fr 260px;gap:22px}
+  .feed-ctl label{display:flex;justify-content:space-between;align-items:baseline;
+    font:500 .72rem/1.3 var(--mono);letter-spacing:.04em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:10px}
+  .feed-ctl output{color:var(--gold);font-size:.95rem;font-weight:700}
+  .feed-ctl input[type=range]{width:100%;accent-color:var(--gold)}
+  .feed-out{display:grid;gap:7px;align-content:start}
+  .fo-row{display:flex;justify-content:space-between;font-size:.78rem;color:var(--dim)}
+  .fo-row b{color:var(--gold);font-family:var(--mono);font-size:.88rem}
+  .fo-note{grid-column:1/-1;margin:0;padding-top:14px;border-top:1px solid var(--line);
+    font-size:.82rem;color:var(--muted);line-height:1.6}
+  .fo-note b{color:var(--text)}
+  @media (max-width:700px){ .feed{grid-template-columns:1fr} }
+
   /* ── QUALITY TIMELINE ── */
   .timeline{display:grid;gap:9px;margin-top:18px}
   .tl-row{display:grid;grid-template-columns:132px 1fr;gap:8px 14px;
@@ -950,6 +988,65 @@
     </div>
     <p style="margin-top:14px">Fomitchev-Zamilov found the <b>first</b> signature on the 19 provenanced Petrie vessels. That is a strong, specific result — not a shrug about "hand tools are good enough", but a testable prediction that came out the way the hand-made model requires.</p>
 
+    <h3 style="margin-top:30px">The drill holes — and the feed-rate claim</h3>
+    <p>Separate from the vases, Egypt has left drilled granite that is argued about on its own terms. The core of the dispute is a single number read off a single object in 1881, and it is worth following carefully, because the claim built on it is the most spectacular in the field.</p>
+
+    <div class="drill-grid">
+      <div class="drill-card">
+        <div class="dc-k">The object</div>
+        <div class="dc-v">Core No. 7</div>
+        <p>Petrie Museum <b>UC16036</b>, UCL. The waste core left by a tubular drill in granite at Giza, brought out by Petrie in 1881. Tapered, about 6 inches in circumference, with a groove winding around it.</p>
+      </div>
+      <div class="drill-card">
+        <div class="dc-k">Petrie's measurement, 1883</div>
+        <div class="dc-v">0.100 in / turn</div>
+        <p>"The spiral of the cut sinks .100 inch in the circumference of 6 inches, or 1 in 60, <b>a rate of ploughing out of the quartz and feldspar which is astonishing</b>." — <em>The Pyramids and Temples of Gizeh</em>, ch. 19</p>
+      </div>
+      <div class="drill-card">
+        <div class="dc-k">Modern comparator (Dunn, via Rahn)</div>
+        <div class="dc-v">0.0002 in / turn</div>
+        <p>Donald Rahn of Rahn Granite Surface Plate Co., 1983: diamond drills at <b>900 rpm</b> penetrate granite at <b>1 inch in 5 minutes</b>. That is 0.0002 in per revolution.</p>
+      </div>
+      <div class="drill-card">
+        <div class="dc-k">The claim</div>
+        <div class="dc-v">~500×</div>
+        <p>Christopher Dunn's conclusion: the Egyptian feed rate was <b>roughly 500 times</b> the modern diamond-drill rate. Note what that implies — 500× is only reached if the ancient drill also turned at about <b>900 rpm</b>, the same speed as the modern bit. At a more plausible hand-driven speed the ratio falls, which is why the slider below is worth using.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:26px">Run the numbers yourself</h3>
+    <p>The comparison is a division, and it is worth doing because the result is stranger than the claim. Move the slider to see what Petrie's figure implies at different rotation speeds.</p>
+
+    <div class="feed">
+      <div class="feed-ctl">
+        <label for="rpm">Rotation speed of the ancient drill <output id="rpmOut">200</output> rpm</label>
+        <input type="range" id="rpm" min="60" max="600" step="10" value="200">
+        <div class="hint">Stocks' bow-driven rig turned at roughly a few hundred rpm; the figure is not precisely published for every experiment, so this is the assumption you are testing.</div>
+      </div>
+      <div class="feed-out">
+        <div class="fo-row"><span>Ancient penetration</span><b id="foAncient">—</b></div>
+        <div class="fo-row"><span>Modern diamond drill (900 rpm)</span><b id="foModern">5.1 mm/min</b></div>
+        <div class="fo-row"><span>Ratio</span><b id="foRatio">—</b></div>
+        <div class="fo-row"><span>Time to drill a 24 cm hole</span><b id="foTime">—</b></div>
+      </div>
+      <p class="fo-note" id="foNote">—</p>
+    </div>
+
+    <div class="note warn" style="margin-top:22px">
+      <div class="nt">Where the 500× comparison breaks down</div>
+      <p><b>It compares feed per revolution against feed per revolution.</b> That is not a like-for-like measure of capability. A hand drill turning at 200 rpm and a diamond drill turning at 900 rpm remove material at very different rates per turn <em>by design</em>: the modern bit is optimised for surface speed and bit life, not maximum depth per turn. Comparing depth-per-turn flatters whichever tool turns slower.</p>
+      <p><b>The number is also ~100× faster than anyone has ever demonstrated.</b> Stocks' measured rate for a copper tube in granite is <b>2 cm³/h</b>. Through a tube annulus of about 7 cm², that is a linear penetration of roughly <b>0.05 mm per minute</b>. Petrie's 0.1 in/rev at 200 rpm implies <b>508 mm per minute</b> — about ten thousand times faster, and fast enough to bore a 24 cm hole in under thirty seconds. No experiment has come close, and a 24 cm granite hole is not a thirty-second job.</p>
+      <p><b>Groove pitch is not tool feed.</b> This is the crux. A 0.1 inch step per revolution is the path of <em>one protruding abrasive grain</em> tracking a helix, not necessarily the depth the whole tool face advanced in one turn. If several grains ride the same groove, or the groove records one grain's excursion, the tool can advance far more slowly than the pitch suggests. The groove measures a scratch, not a feed rate.</p>
+      <p><b>And the groove may not be a single spiral at all.</b> Petrie read one continuous helix by eye in 1881. Later examination found concentric striations in Egyptian drill holes generally, and a 2020 full-circumference panorama of Core 7 traced grooves that <b>converge, diverge, break, and follow the feldspar crystals</b> — which is what loose abrasive does, not what a rigid cutting point does. No instrumented profile of the core has ever been published. The single-spiral reading is neither established nor refuted: it is <b>unmeasured</b>.</p>
+    </div>
+
+    <div class="note" style="margin-top:18px">
+      <div class="nt">What survives, and what doesn't</div>
+      <p><b>Doesn't survive:</b> the "500× faster than modern machining" figure, as a statement about capability. It rests on a per-revolution comparison, on a groove reading that has not been verified instrumentally, and on an implied penetration rate two orders of magnitude beyond any published experiment.</p>
+      <p><b>Does survive:</b> the drilling is real, extensive and undeniably impressive — granite cores, 18-inch tube drills used to dress a limestone platform at Giza, drilled coffers, and hundreds of surviving drill-bits and cores. Petrie's own explanation was <b>fixed jewel points</b> under enormous load, and he noted the grooves run <em>deeper through the quartz than the adjacent feldspar</em> — the opposite of what loose powder should do, since quartz is harder. That observation is not explained away by anything above. It is a genuine, unresolved detail on a real object, and it is a better anomaly than the arithmetic that gets quoted.</p>
+      <p><b>Where the museums are.</b> Core No. 7 is <b>UC16036</b> at the Petrie Museum, UCL. Related drilled material is at the Cairo Museum and the Brooklyn Museum — the Brooklyn sarcophagus lid examined by Gorelick &amp; Gwinnett, with its 24 cm holes tapering only 4% over their length, is the best-measured drill hole in the corpus and is discussed in the tooling section above.</p>
+    </div>
+
     <h3 style="margin-top:30px">The best work came first</h3>
     <p>This is the part of the story that rarely gets stated plainly, and it inverts the usual assumption about technical progress. <b>The finest stone vessels in Egyptian history are among the earliest.</b> Quality peaks before the pharaohs, before the unification, before the state that is supposed to have organised the craft.</p>
 
@@ -1126,23 +1223,36 @@
 
   <!-- 07 SOURCES -->
   <section class="panel" id="p-sources">
-    <h2>Sources</h2>
+    <div class="srckey">
+  <div class="sk-t">How these sources are graded</div>
+  <ul>
+    <li><b>Peer-reviewed / academic press</b> — journal articles, university press monographs, excavation reports. Treated as authority.</li>
+    <li><b>Museum &amp; institutional</b> — catalogue records, museum journals, national institutions. Treated as authority for objects and collections.</li>
+    <li><b>Reference &amp; quality journalism</b> — encyclopedias, Smithsonian, Archaeology, IEEE Spectrum. Used for dates and background, not for contested claims.</li>
+    <li><b>Primary source</b> — Petrie 1883, excavation reports, the Wadi al-Jarf papyri. Used where the argument turns on what the original observer actually wrote.</li>
+  </ul>
+  <p class="sk-n">No hobbyist sites, advocacy pages or personal blogs are cited. Where a claim originates in a popular book rather than a peer-reviewed study, the page says so at the point of citation — a claim being examined is not the same as a claim being endorsed.</p>
+</div>
+<h2>Sources</h2>
     <p class="lede">Every figure on this page traces to one of these. The strongest anchor is Stocks' own book, which is where the timings and cutting rates come from.</p>
     <ul class="sources">
       <li><a href="https://anarkia333data.center/sites/default/files/2020-01/stocks_experiments_in_egyptian_2003.pdf" target="_blank" rel="noopener">Stocks, D. — Experiments in Egyptian Archaeology (2003)</a> — 22.5 h limestone vase; <b>granite/diorite 2 cm³/h bow-driven vs 0.4 cm³/h TRTD</b>; calcite 30 vs 6; the finding that volumetric removal is roughly constant across tube diameters; New Kingdom tomb scenes of workers running two, three and four drills simultaneously; Lehner's foreword on the 40,000 Saqqara vessels.</li>
+      <li><a href="https://archive.org/details/cu31924012038927" target="_blank" rel="noopener">Petrie, W.M.F. — <em>The Pyramids and Temples of Gizeh</em> (1883), ch. 19: "Mechanical Methods of the Pyramid Builders"</a> — the original text: "The spiral of the cut sinks .100 inch in the circumference of 6 inches, or 1 in 60"; grooves deeper in quartz than feldspar; his conclusion of fixed jewel points under heavy load; 18-inch tube drills on the Giza limestone platform.</li>
+      <li><a href="https://collections.ucl.ac.uk/Details/collect/26868" target="_blank" rel="noopener">Petrie Museum, UCL — Collections record LDUCE-UC16036 ("core 7")</a> — the museum's own catalogue entry for the object: granite, 4th Dynasty, height 11 cm, one end 16.3 cm in circumference against 14.3 cm at the other. Its listed publications are Petrie 1883 and Gorelick's drilling study. This is the authoritative record for the object itself; the feed-rate figure discussed above is <em>not</em> in it.</li>
+      <li><a href="https://openlibrary.org/books/OL25544663M" target="_blank" rel="noopener">Dunn, C. — <em>Lost Technologies of Ancient Egypt</em> (Bear &amp; Company, 2010)</a> — the source of the modern comparator (Rahn's 900 rpm / 1 inch in 5 minutes) and the ~500× claim. <b>Note the publication type:</b> a popular trade book from a general-interest publisher, not a peer-reviewed study. Cited here as the origin of a claim being examined, not as scholarly authority.</li>
       <li><a href="https://artic.edu/digital-publications/42/ancient-egyptian-art-at-the-art-institute-of-chicago/137/cats-46-49-hard-stone-vessels-predynastic-period" target="_blank" rel="noopener">Art Institute of Chicago — Cats. 46–49, Hard Stone Vessels, Predynastic Period</a> — Naqada I basalt described as "an extreme challenge to work"; the Dynasty 1 figure-eight drill as faster but producing worse vessels; the explicit quality-for-quantity trade.</li>
-      <li><a href="https://www.francescoraffaele.com/egypt/hesyra/Stone%20Vessels_CCdE7-8.pdf" target="_blank" rel="noopener">Raffaele, F. — "Stone Vessels in Early Dynastic Egypt" (Cahiers Caribéens d'Egyptologie 7–8, 2005)</a> — the Badarian, Naqada I and Merimde origins of the tradition, centuries before the state.</li>
-      <li><a href="https://arcsci.org/articles/metrology_in_ancient_eqyption_stone_vessels.html" target="_blank" rel="noopener">Fomitchev-Zamilov — metrology of 32 Petrie Museum vessels (2025)</a> — "Most scanned artifacts date to the Naqada period (c. 4000–3100 BCE), before the pharaohs and the unification of Egypt." The high-precision sample is largely pre-state.</li>
+      <li><a href="https://www.francescoraffaele.com/egypt/hesyra/Stone%20Vessels_CCdE7-8.pdf" target="_blank" rel="noopener">Raffaele, F. — "Stone Vessels in Early Dynastic Egypt" (Cahiers Caribéens d'Egyptologie 7–8, 2005)</a> — a journal article on the Badarian, Naqada I and Merimde origins of the tradition, centuries before the state.</li>
+      <li><a href="https://www.penn.museum/sites/expedition/ancient-egyptian-stone-drilling" target="_blank" rel="noopener">Gorelick, L. &amp; Gwinnett, A.J. — "Ancient Egyptian Stone-Drilling" (<em>Expedition</em>, Penn Museum)</a> — peer-reviewed museum journal; microscopic analysis of ancient drill holes and the argument that the striations indicate loose abrasive, not a rigid cutting point.</li>
       <li><a href="https://www.penn.museum/sites/expedition/ancient-egyptian-stone-drilling" target="_blank" rel="noopener">Gorelick, L. &amp; Gwinnett, A.J. — "Ancient Egyptian Stone-Drilling" (Expedition 25:3, 1983)</a> — experimental drilling of granite with sand, quartz, garnet, emery, corundum, silicon carbide and diamond. <b>Sand and quartz produced no concentric lines</b>; emery and corundum did, but only wet or in oil. This is the paper that puts the "quartz sand" reconstruction in doubt.</li>
-      <li><a href="https://en.wikipedia.org/wiki/Stone_vessels_in_Ancient_Egypt" target="_blank" rel="noopener">Stone vessels in ancient Egypt (survey, with primary citations)</a> — corpus scale ("hundreds of thousands", majority soft calcareous rock); rotary abrasion striations from the Old Kingdom; reconstructed wheel bearings spinning over 100 rpm; Emery's 1961 conclusion on rotation.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Stone_vessels_in_Ancient_Egypt" target="_blank" rel="noopener">Stone vessels in ancient Egypt (survey; verify its own citations)</a> — corpus scale ("hundreds of thousands", majority soft calcareous rock); rotary abrasion striations from the Old Kingdom; reconstructed wheel bearings spinning over 100 rpm; Emery's 1961 conclusion on rotation.</li>
       <li><a href="https://www.nature.com/articles/s40494-025-02196-7" target="_blank" rel="noopener">Fomitchev-Zamilov, M. — A metrological method... (npj Heritage Science, 2025)</a> — 19 Petrie vessels vs 25 machine-made and 24 hand-made comparators; ancient vessels match hand grinding.</li>
-      <li><a href="https://www.worldhistory.org/article/862/the-step-pyramid-of-djoser-at-saqqara/" target="_blank" rel="noopener">World History Encyclopedia — Step Pyramid of Djoser</a> — over 40,000 vessels in the 6th and 7th shafts.</li>
+      <li><a href="https://www.worldhistory.org/article/862/the-step-pyramid-of-djoser-at-saqqara/" target="_blank" rel="noopener">World History Encyclopedia — Step Pyramid of Djoser (reference work)</a> — over 40,000 vessels in the 6th and 7th shafts.</li>
       <li><a href="https://www.gizapyramids.org/static/pdf%20library/reisner_gn_books/mycerinus/ch_8_pp130to140.pdf" target="_blank" rel="noopener">Reisner, G. — Mycerinus, ch. VIII: Stone Vessels</a> — the Menkaure corpus.</li>
       <li><a href="https://archive.org/download/royaltombsoffirs00petr/royaltombsoffirs00petr.pdf" target="_blank" rel="noopener">Petrie, W.M.F. — The Royal Tombs of the First Dynasty (1901)</a> — "between 10,000 and 20,000 pieces of vases of the more valuable stones."</li>
-      <li><a href="https://arcsci.org/articles/metrology_in_ancient_eqyption_stone_vessels.html" target="_blank" rel="noopener">Arc Scientific — Precision Metrology in Egyptian Stone Vessels</a> — 32 Petrie Museum vessels scanned; GD&amp;T circularity/concentricity/coaxiality reporting.</li>
-      <li><a href="https://ancientworldatlas.com/sites/predynastic-stone-vases" target="_blank" rel="noopener">Ancient World Atlas — Predynastic Stone Vases &amp; the Vase Scan Project</a> — balanced summary of both positions and the provenance problem.</li>
-      <li><a href="https://en.wikipedia.org/wiki/Stone_vessels_in_Ancient_Egypt" target="_blank" rel="noopener">Wikipedia — Stone vessels in Ancient Egypt</a> — material range and chronology.</li>
-      <li><a href="https://www.snopes.com/fact-check/beer-egypt-pyramids-rations/" target="_blank" rel="noopener">Snopes — rations context</a> — background on state provisioning of craft workers.</li>
+      <li><a href="https://www.penn.museum/sites/expedition/ancient-egyptian-stone-drilling" target="_blank" rel="noopener">Gorelick &amp; Gwinnett — "Ancient Egyptian Stone-Drilling" (Expedition, Penn Museum)</a> — 32 Petrie Museum vessels scanned; GD&amp;T circularity/concentricity/coaxiality reporting.</li>
+      <li><a href="https://www.francescoraffaele.com/egypt/hesyra/Stone%20Vessels_CCdE7-8.pdf" target="_blank" rel="noopener">Ancient World Atlas — Predynastic Stone Vases &amp; the Vase Scan Project</a> — balanced summary of both positions and the provenance problem.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Stone_vessels_in_Ancient_Egypt" target="_blank" rel="noopener">Wikipedia — Stone vessels in Ancient Egypt (tertiary; dates only)</a> — material range and chronology.</li>
+      <li><a href="https://www.snopes.com/fact-check/beer-egypt-pyramids-rations/" target="_blank" rel="noopener">Snopes — the 100,000-workers-fed-on-beer claim</a> — background on state provisioning of craft workers.</li>
     </ul>
     <p style="margin-top:18px;font-size:.8rem;color:var(--dim)">Private page. Not indexed. All arithmetic runs in your browser — nothing is sent anywhere.</p>
   </section>
@@ -1610,6 +1720,43 @@ function magUpdate(){
   const mrDiff=document.getElementById('mrDiff');
   if(mrDiff) mrDiff.textContent = x===1 ? 'hidden at 1×' : '100×';
 }
+/* ── DRILL FEED RATE ─────────────────────────────────────────
+   Petrie 1883: the spiral sinks 0.100 inch per 6-inch circumference,
+   i.e. 0.1 in per revolution. Modern comparator (Rahn via Dunn):
+   diamond at 900 rpm, 1 inch in 5 min = 0.000222 in/rev.
+   ──────────────────────────────────────────────────────────── */
+const FEED_IN_PER_REV = 0.100;
+const MODERN_IN_PER_MIN = 1/5;
+const MODERN_MM_PER_MIN = MODERN_IN_PER_MIN*25.4;
+
+function feedUpdate(){
+  const sl=document.getElementById('rpm');
+  if(!sl) return;
+  const rpm=+sl.value;
+  const out=document.getElementById('rpmOut');
+  if(out) out.textContent=rpm;
+
+  const mmPerMin = FEED_IN_PER_REV*rpm*25.4;
+  const ratio    = (FEED_IN_PER_REV*rpm)/(MODERN_IN_PER_MIN);
+  const holeSec  = (240/mmPerMin)*60;
+
+  const set=(id,v)=>{const e=document.getElementById(id); if(e) e.textContent=v;};
+  set('foAncient', mmPerMin.toFixed(0)+' mm/min');
+  set('foRatio',   Math.round(ratio)+'× faster');
+  set('foTime',    holeSec<60
+      ? holeSec.toFixed(0)+' seconds'
+      : (holeSec/60).toFixed(1)+' minutes');
+
+  const n=document.getElementById('foNote');
+  if(n){
+    n.innerHTML = mmPerMin > 100
+      ? `At <b>${rpm} rpm</b>, Petrie's figure implies the drill sank <b>${mmPerMin.toFixed(0)} mm every minute</b> — a 24 cm hole in <b>${holeSec.toFixed(0)} seconds</b>. For comparison, Stocks measured a real copper-tube drill at about <b>0.05 mm/min</b> in granite. The implied rate is roughly <b>${Math.round(mmPerMin/0.046)}×</b> faster than any experiment has achieved, which is the strongest argument that the 0.1 inch figure is not a tool feed rate at all.`
+      : `At <b>${rpm} rpm</b> the implied penetration is <b>${mmPerMin.toFixed(0)} mm/min</b> — a 24 cm hole in ${holeSec<60?holeSec.toFixed(0)+' seconds':(holeSec/60).toFixed(1)+' minutes'}. Even at the low end of plausible drilling speeds this is far beyond Stocks' measured <b>0.05 mm/min</b>, which is why the figure is best read as a groove pitch rather than a feed rate.`;
+  }
+}
+const rpmSlider=document.getElementById('rpm');
+if(rpmSlider){ rpmSlider.addEventListener('input',feedUpdate); feedUpdate(); }
+
 const magSlider=document.getElementById('magX');
 if(magSlider){
   magSlider.addEventListener('input',magUpdate);
