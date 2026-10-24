@@ -665,6 +665,13 @@
     border-left:2px solid transparent}
   .crawlmap a:hover{background:var(--surface);color:var(--gold);
     border-left-color:var(--gold)}
+  /* ── VISIT COUNTER ── */
+  .visits{display:flex;align-items:center;gap:8px;justify-content:center;
+    padding:26px 0 34px;opacity:.55;transition:opacity .2s}
+  .visits:hover{opacity:.9}
+  .visits img{height:20px;width:auto;border-radius:3px;filter:saturate(.55) brightness(.95)}
+  .visits span{font:500 .68rem var(--mono);letter-spacing:.09em;
+    text-transform:uppercase;color:var(--dim)}
 </style>
 <div class="wrap">
   <a class="back" href="../">— All thoughts</a>
@@ -1881,5 +1888,9 @@ update();
 <li><a href="?s=verdict#verdict">Verdict: affordable to make, hard to explain</a></li>
 <li><a href="?s=sources#sources">Sources</a></li>
 </ul></nav>
-</body>
+<div class="visits">
+      <img src="https://hits.sh/github.com/akumetsu183/my-thoughts-y9e38ene61ed/vases.svg?label=visits&amp;color=B08D57" alt="visit count">
+      <span>page views</span>
+    </div>
+    </body>
 </html>

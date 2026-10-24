@@ -126,6 +126,13 @@
     .td{-webkit-line-clamp:2}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  /* ── VISIT COUNTER ── */
+  .visits{display:flex;align-items:center;gap:8px;justify-content:center;
+    padding:26px 0 34px;opacity:.55;transition:opacity .2s}
+  .visits:hover{opacity:.9}
+  .visits img{height:20px;width:auto;border-radius:3px;filter:saturate(.55) brightness(.95)}
+  .visits span{font:500 .68rem var(--mono);letter-spacing:.09em;
+    text-transform:uppercase;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -171,5 +178,9 @@
   /* single topic for now — nothing to filter */
 })();
 </script>
-</body>
+<div class="visits">
+      <img src="https://hits.sh/github.com/akumetsu183/my-thoughts-y9e38ene61ed.svg?label=visits&amp;color=B08D57" alt="visit count">
+      <span>page views</span>
+    </div>
+    </body>
 </html>

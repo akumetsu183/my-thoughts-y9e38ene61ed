@@ -485,6 +485,13 @@
   .srckey b{color:var(--text)}
   .sk-n{margin:12px 0 0;padding-top:11px;border-top:1px solid var(--line);
     font-size:.78rem;color:var(--dim);line-height:1.6}
+  /* ── VISIT COUNTER ── */
+  .visits{display:flex;align-items:center;gap:8px;justify-content:center;
+    padding:26px 0 34px;opacity:.55;transition:opacity .2s}
+  .visits:hover{opacity:.9}
+  .visits img{height:20px;width:auto;border-radius:3px;filter:saturate(.55) brightness(.95)}
+  .visits span{font:500 .68rem var(--mono);letter-spacing:.09em;
+    text-transform:uppercase;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -1585,5 +1592,9 @@ update();
 <li><a href="?s=verdict#verdict">Verdict: does the mainstream arithmetic close?</a></li>
 <li><a href="?s=sources#sources">Sources</a></li>
 </ul></nav>
-</body>
+<div class="visits">
+      <img src="https://hits.sh/github.com/akumetsu183/my-thoughts-y9e38ene61ed/pyramids.svg?label=visits&amp;color=B08D57" alt="visit count">
+      <span>page views</span>
+    </div>
+    </body>
 </html>
