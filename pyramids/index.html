@@ -186,6 +186,11 @@
   .ctl output{font:600 .82rem var(--mono);color:var(--gold);font-variant-numeric:tabular-nums;flex:none}
   .ctl .hint{font-size:.72rem;color:var(--dim);margin-top:7px;line-height:1.5}
   .ctl .hint em{color:var(--muted);font-style:italic}
+  .ctl .hint a{color:var(--gold);border-bottom:1px dotted color-mix(in srgb,var(--gold) 60%,transparent);
+    text-decoration:none;font-size:.95em}
+  .ctl .hint a:hover{border-bottom-style:solid}
+  p a.cite, .lede a.cite{color:var(--gold);border-bottom:1px dotted color-mix(in srgb,var(--gold) 55%,transparent)}
+  p a.cite:hover, .lede a.cite:hover{border-bottom-style:solid}
   input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:3px;
     background:linear-gradient(90deg,var(--gold-2),var(--line-2));outline:none;cursor:pointer}
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;
@@ -194,6 +199,17 @@
   input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.22)}
   input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--gold);
     border:2px solid var(--bg);cursor:pointer;box-shadow:0 0 0 1px var(--gold-2)}
+
+  .why{margin-top:30px;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:24px}
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(266px,1fr));gap:16px 24px}
+  .why-item{border-left:2px solid var(--gold-2);padding-left:13px}
+  .why-k{font:600 .7rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:5px}
+  .why-item p{font-size:.81rem;color:var(--muted);margin:0;line-height:1.55}
+  .why-item p b{color:var(--text)}
+  .why-item a{color:var(--gold);border-bottom:1px dotted color-mix(in srgb,var(--gold) 55%,transparent);font-size:.95em}
+  .why-item a:hover{border-bottom-style:solid}
 
   .presets{display:flex;gap:7px;flex-wrap:wrap;margin-top:20px}
   button.preset{font:inherit;font-family:var(--mono);font-size:.74rem;color:var(--muted);background:var(--surface-2);
@@ -312,7 +328,7 @@
   <a class="back" href="../">← All thoughts</a>
 
   <h1>The Great Pyramid:<br>how many people?</h1>
-  <p class="standfirst">Mainstream archaeology's numbers, pushed through the arithmetic of copper cutting, copper supply, site preparation and the farming that fed everyone. <b>Move the sliders anywhere — every panel updates.</b></p>
+  <p class="standfirst">Mainstream archaeology's numbers — <a class="cite" href="https://www.britannica.com/question/How-did-the-Egyptians-build-the-pyramids" target="_blank" rel="noopener">20 years</a>, <a class="cite" href="https://www.pbs.org/wgbh/nova/pyramid/explore/builders.html" target="_blank" rel="noopener">20,000–30,000 workers</a>, <a class="cite" href="https://doi.org/10.1038/s40494-025-02018-w" target="_blank" rel="noopener">2.3 million blocks</a> — pushed through the arithmetic of copper cutting, copper supply, site preparation and the farming that fed everyone. <b>Move the sliders anywhere — every panel updates.</b></p>
 
   <nav class="tabs" role="tablist" id="tabs">
     <button class="tab on" role="tab" data-t="overview"><span class="n">01</span>Overview</button>
@@ -371,9 +387,9 @@
     <h2>The hole you dig first</h2>
     <p class="lede">Before a single block is cut, the site itself is a construction project — and it comes out of the same 20 years, it does not run alongside them.</p>
 
-    <p>Khufu did something his predecessors hadn't: he put his pyramid on a base carved <em>into</em> the bedrock, terraced down by what Lehner calls <b>successive approximation</b> — levelling a bit, re-shooting the cardinal alignment, levelling further, checking again. The final surface was a platform of fine Tura limestone slabs about <b>0.52 m thick</b>, and the north side ended up off true level from the south by less than 1.5 cm.</p>
+    <p>Khufu did something his predecessors hadn't: he put his pyramid on a base carved <em>into</em> the bedrock, terraced down by what Lehner calls <b>successive approximation</b> — levelling a bit, re-shooting the cardinal alignment, levelling further, checking again. The final surface was a platform of fine Tura limestone slabs about <b>0.52 m thick</b>, and the north side ended up off true level from the south by less than 1.5 cm. <a class="cite" href="https://www.jstor.org/stable/40000898" target="_blank" rel="noopener">Lehner, JARCE 20 (1983)</a></p>
 
-    <p>Around it, a court was paved in interlocking jigsaw slabs, and the bedrock was cut with corner sockets for the casing, lever sockets for manoeuvring stones, and a long row of post-holes that probably carried the reference lines. AERA's survey has logged <b>over 3,000</b> of these rock-cut features around the base.</p>
+    <p>Around it, a court was paved in interlocking jigsaw slabs, and the bedrock was cut with corner sockets for the casing, lever sockets for manoeuvring stones, and a long row of post-holes that probably carried the reference lines. AERA's survey has logged <b>over 3,000</b> of these rock-cut features around the base. <a class="cite" href="https://aeraweb.org/wp-content/uploads/2026/05/AERAgram25_1-2.pdf" target="_blank" rel="noopener">AERAGRAM 25.1–2</a></p>
 
     <div class="duo" style="margin-top:18px">
       <div class="card">
@@ -416,7 +432,7 @@
     <h2>Cutting the stone</h2>
     <p class="lede">Copper is softer than limestone and far softer than granite. It doesn't cut — it drags quartz sand through the stone, and the sand does the work.</p>
 
-    <p>The anchor is Denys Stocks' 1999 field trial at Aswan. He took a <b>1.8 m copper blade weighing 14.5 kg</b> to a rose-granite quarry and set two Egyptian quarrymen to work it with sand. Dry sand with a flat edge: a <b>95 cm slot, 3 cm deep, in 14 hours</b>. That's <b>7.5 mm per hour</b> — and granite is the hard case. Giza's limestone should cut faster.</p>
+    <p>The anchor is <a class="cite" href="https://www.cambridge.org/core/journals/antiquity/article/abs/testing-ancient-egyptian-graniteworking-methods-in-aswan-upper-egypt/35CC66DD0DEB499F1C6E805C1347BF68" target="_blank" rel="noopener">Denys Stocks' 1999 field trial at Aswan</a>. He took a <b>1.8 m copper blade weighing 14.5 kg</b> to a rose-granite quarry and set two Egyptian quarrymen to work it with sand. Dry sand with a flat edge: a <b>95 cm slot, 3 cm deep, in 14 hours</b>. That's <b>7.5 mm per hour</b> — and granite is the hard case. Giza's limestone should cut faster. <a class="cite" href="https://www.science-frontiers.com/sf137/sf137p01.htm" target="_blank" rel="noopener">trial summary</a></p>
 
     <p>Every block needs five faces freed — the base stays attached to bedrock until it's levered out. So one block costs five saw-cuts, each by a two-person crew.</p>
 
@@ -451,7 +467,7 @@
     <h2>The copper bill</h2>
     <p class="lede">Copper doesn't last. It grinds away into the slurry, the blade thins, and eventually it has to be reforged.</p>
 
-    <p>Stocks measured the loss: <b>52 cm³ of copper</b> gone in that 14-hour cut, against 170 cm³ of granite removed. An independent replication by Vasyutin, using corundum abrasive, found a copper-to-granite volume ratio of <b>1 : 5.8</b>. Different experiment, same order of magnitude.</p>
+    <p>Stocks measured the loss: <b>52 cm³ of copper</b> gone in that 14-hour cut, against 170 cm³ of granite removed <a class="cite" href="https://www.science-frontiers.com/sf137/sf137p01.htm" target="_blank" rel="noopener">Stocks 1999</a>. An independent replication by Vasyutin, using corundum abrasive, found a copper-to-granite volume ratio of <b>1 : 5.8</b>. Different experiment, same order of magnitude. <a class="cite" href="https://antropogenez.ru/drilling" target="_blank" rel="noopener">Vasyutin &amp; Kruglyakov</a></p>
 
     <div class="duo" style="margin-top:16px">
       <div class="card">
@@ -489,7 +505,7 @@
     <h2>Moving the stone</h2>
     <p class="lede">Cutters don't carry. The delivery rate is fixed by the pyramid's volume divided by the available days — it doesn't care how many people you have.</p>
 
-    <p>The main quarry sits about <b>500 m</b> south of the pyramid, so most blocks travel a short distance by sledge, then go up a ramp. Each is a separate crew working a relay: a block leaves the quarry every few minutes, for years, and nothing about adding workers makes that faster.</p>
+    <p>The main quarry sits about <b>500 m</b> south of the pyramid, so most blocks travel a short distance by sledge, then go up a ramp. <a class="cite" href="https://www.pbs.org/wgbh/nova/pyramid/explore/builders.html" target="_blank" rel="noopener">NOVA — quarrying</a> Each is a separate crew working a relay: a block leaves the quarry every few minutes, for years, and nothing about adding workers makes that faster.</p>
 
     <div class="duo" style="margin-top:16px">
       <div class="card">
@@ -527,7 +543,7 @@
     <h2>Feeding everyone</h2>
     <p class="lede">Every worker eats. In a grain economy that means farmers — and the farmers don't appear in anyone's pyramid workforce estimate, because they never left their fields.</p>
 
-    <p>Ramesside basin land yielded about <b>2,700–2,900 litres per hectare</b>. One man working roughly a hectare produced about <b>3,000 litres</b>. Administrative records describe an ideal where a single cultivator's output fed <b>four nuclear families</b> — so one farm worker feeding several people is the documented best case, not a fantasy.</p>
+    <p>Ramesside basin land yielded about <b>2,700–2,900 litres per hectare</b>. One man working roughly a hectare produced about <b>3,000 litres</b>. Administrative records describe an ideal where a single cultivator's output fed <b>four nuclear families</b> — so one farm worker feeding several people is the documented best case, not a fantasy. <a class="cite" href="https://escholarship.org/content/qt2t01s4qj/qt2t01s4qj.pdf" target="_blank" rel="noopener">UCLA Encyclopedia of Egyptology</a> · <a class="cite" href="https://en.wikipedia.org/wiki/Wilbour_Papyrus" target="_blank" rel="noopener">Wilbour Papyrus</a></p>
 
     <div class="duo" style="margin-top:16px">
       <div class="card">
@@ -636,6 +652,9 @@
     </div>
   </section>
 
+    </div>
+  </div>
+
   <h2 style="margin-top:52px;font-size:1.08rem">Adjust the assumptions</h2>
   <p class="lede">These control every panel. Changing one here changes the numbers everywhere.</p>
 
@@ -643,78 +662,116 @@
     <div class="ctl">
       <div class="row"><label for="rate">Cutting rate — copper saw, quartz sand</label><output id="rateOut">—</output></div>
       <input type="range" id="rate" min="0.5" max="25" step="0.1" value="7.5">
-      <div class="hint">Depth per hour per face, two-person team. <em>Stocks' 1999 Aswan trial: 95 cm slot 3 cm deep in 14 h on granite = 7.5 mm/hr.</em></div>
+      <div class="hint">Depth per hour per face, two-person team. <em>Stocks' 1999 Aswan trial: a 95 cm slot 3 cm deep in 14 h on granite = 7.5 mm/hr.</em> <a href="https://www.science-frontiers.com/sf137/sf137p01.htm" target="_blank" rel="noopener">source</a> · <a href="https://www.pbs.org/wgbh/nova/lostempires/obelisk/cutting05.html" target="_blank" rel="noopener">NOVA</a></div>
     </div>
 
     <div class="ctl">
       <div class="row"><label for="block">Block edge length</label><output id="blockOut">—</output></div>
       <input type="range" id="block" min="0.7" max="1.4" step="0.05" value="1.05">
-      <div class="hint">Treated as a cube. Mean block at Giza is quoted as ~1 m³ / ~2.5 t.</div>
+      <div class="hint">Treated as a cube. Mean block at Giza is quoted as ~1 m³ / ~2.5 t. <a href="https://doi.org/10.1038/s40494-025-02018-w" target="_blank" rel="noopener">Scheuring 2025</a></div>
     </div>
 
     <div class="ctl">
       <div class="row"><label for="years">Total construction span</label><output id="yearsOut">—</output></div>
       <input type="range" id="years" min="10" max="40" step="1" value="20">
-      <div class="hint">20 years matches Khufu's reign (23 on the Turin king list) and Herodotus. Wadi al-Jarf shows work running in regnal year 27.</div>
+      <div class="hint">20 years is Herodotus' figure, and it has to fit Khufu's reign (c. 23–29 yr). Wadi al-Jarf shows work still running in regnal year 27. <a href="https://www.britannica.com/question/How-did-the-Egyptians-build-the-pyramids" target="_blank" rel="noopener">Britannica</a> · <a href="https://en.wikipedia.org/wiki/Khufu" target="_blank" rel="noopener">reign length</a> · <a href="https://en.wikipedia.org/wiki/Diary_of_Merer" target="_blank" rel="noopener">Merer</a></div>
     </div>
 
     <div class="ctl">
       <div class="row"><label for="prepMonths">Site prep time, before block-laying</label><output id="prepMonthsOut">—</output></div>
       <input type="range" id="prepMonths" min="3" max="36" step="1" value="12">
-      <div class="hint">Subtracted from the total span. The bedrock terracing, Tura platform and court paving all had to finish first.</div>
+      <div class="hint">Subtracted from the total span. The bedrock terracing, Tura platform and court paving all had to finish first. <a href="https://www.jstor.org/stable/40000898" target="_blank" rel="noopener">Lehner 1983</a> · <a href="https://aeraweb.org/wp-content/uploads/2026/05/AERAgram25_1-2.pdf" target="_blank" rel="noopener">AERA</a></div>
     </div>
 
     <div class="ctl">
       <div class="row"><label for="prepM3PerDay">Rock removal per worker per day</label><output id="prepM3PerDayOut">—</output></div>
       <input type="range" id="prepM3PerDay" min="0.05" max="0.6" step="0.01" value="0.15">
-      <div class="hint">Cubic metres of limestone freed and dressed with copper chisels and dolerite pounders. 0.15 is deliberately cautious for soft limestone.</div>
+      <div class="hint">Cubic metres of limestone freed and dressed with copper chisels and dolerite pounders. 0.15 is deliberately cautious — this one is my own estimate, not a published measurement.</div>
     </div>
 
     <div class="ctl">
       <div class="row"><label for="hours">Hours per day</label><output id="hoursOut">—</output></div>
       <input type="range" id="hours" min="6" max="12" step="0.5" value="9">
-      <div class="hint">Daylight-bound. Copper work-hardens and needs constant re-annealing.</div>
+      <div class="hint">Daylight-bound. Copper work-hardens and needs constant re-annealing. <a href="https://www.cambridge.org/core/journals/antiquity/article/abs/testing-ancient-egyptian-graniteworking-methods-in-aswan-upper-egypt/35CC66DD0DEB499F1C6E805C1347BF68" target="_blank" rel="noopener">Stocks 1999</a></div>
     </div>
 
     <div class="ctl">
       <div class="row"><label for="days">Working days per year</label><output id="daysOut">—</output></div>
-      <input type="range" id="days" min="60" max="360" step="5" value="300">
-      <div class="hint">The flood (Akhet) drowns fields and roads. <em>120 days = inundation-season labour only; 300–360 = year-round corvée.</em></div>
+      <input type="range" id="days" min="60" max="360" step="5" value="120">
+      <div class="hint">The flood (Akhet) drowns fields and roads. <em>120 days = inundation-season labour only; 300–360 = year-round corvée.</em> Merer's logbook runs July–November, i.e. the flood season. <a href="https://en.wikipedia.org/wiki/Diary_of_Merer" target="_blank" rel="noopener">Diary of Merer</a> · <a href="https://www.pbs.org/wgbh/nova/pyramid/explore/builders.html" target="_blank" rel="noopener">seasonal surge</a></div>
     </div>
 
     <div class="ctl">
       <div class="row"><label for="support">Support workers per skilled worker</label><output id="supportOut">—</output></div>
       <input type="range" id="support" min="0" max="3" step="0.1" value="1.0">
-      <div class="hint">Sand, water, smiths, bakers, brewers, laundry, housing, scribes, overseers. Cutters don't haul — transport is counted separately.</div>
+      <div class="hint">Sand, water, smiths, bakers, brewers, laundry, housing, scribes, overseers. Cutters don't haul — transport is counted separately. <a href="https://www.pbs.org/wgbh/nova/article/lehner-giza/" target="_blank" rel="noopener">Lehner — workers' city</a></div>
     </div>
 
     <div class="ctl">
       <div class="row"><label for="tripMin">Round-trip time, quarry → site</label><output id="tripMinOut">—</output></div>
       <input type="range" id="tripMin" min="30" max="180" step="5" value="90">
-      <div class="hint">Sledge relay. The quarry is ~500 m south, so most of this is loading, unloading and the walk back.</div>
+      <div class="hint">Sledge relay. The quarry is ~500 m south, so most of this is loading, unloading and the walk back. <a href="https://www.pbs.org/wgbh/nova/pyramid/explore/builders.html" target="_blank" rel="noopener">NOVA — quarrying</a></div>
     </div>
 
     <div class="ctl">
       <div class="row"><label for="kgPerDay">Grain per worker per day</label><output id="kgPerDayOut">—</output></div>
       <input type="range" id="kgPerDay" min="0.4" max="1.6" step="0.05" value="0.75">
-      <div class="hint">Deir el-Medina's ~13.7 l/day ration fed a whole household. 0.75 kg covers one working adult.</div>
+      <div class="hint">Deir el-Medina's ~13.7 l/day ration fed a whole household, not one man. 0.75 kg covers one working adult. <a href="http://beer-studies.com/en/world-history/First-kingdoms/Egypt-Old-Kingdom/Beer-bread-rations" target="_blank" rel="noopener">ration tables</a></div>
     </div>
 
     <div class="ctl">
       <div class="row"><label for="tPerFarmer">Grain one farm worker produces</label><output id="tPerFarmerOut">—</output></div>
       <input type="range" id="tPerFarmer" min="0.8" max="6" step="0.1" value="2.4">
-      <div class="hint">Basin land yielded ~2,700–2,900 l/ha; a man on ~1 ha produced ~3,000 l. The documented ideal is one cultivator feeding four households.</div>
+      <div class="hint">Basin land yielded ~2,700–2,900 l/ha; a man on ~1 ha produced ~3,000 l. One documented ideal: a single cultivator feeding four households. <a href="https://en.wikipedia.org/wiki/Wilbour_Papyrus" target="_blank" rel="noopener">Wilbour Papyrus</a></div>
     </div>
   </div>
 
   <div class="presets">
-    <button class="preset on" data-preset="mainstream">Mainstream (20 yr)</button>
-    <button class="preset" data-preset="flood">Flood season only</button>
-    <button class="preset" data-preset="granite">Granite cutting rate</button>
-    <button class="preset" data-preset="generous">Maximally generous</button>
-    <button class="preset" data-preset="fast">10-year build</button>
+    <button class="preset on" data-preset="mainstream">Mainstream</button>
+    <button class="preset" data-preset="yearround">Year-round corvée</button>
+    <button class="preset" data-preset="granite">Slowest cutting rate</button>
+    <button class="preset" data-preset="surfacetrue">Harsh</button>
   </div>
 
+  <div class="why">
+    <h3 style="margin-bottom:6px">Why these values</h3>
+    <p class="lede" style="margin-bottom:16px">Each default is the position mainstream archaeology actually holds. Where archaeologists disagree I say so, and pick the reading that is hardest on my own argument.</p>
+
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-k">20 years</div>
+        <p>Herodotus states 20 years and reference works still quote it. It also has to fit Khufu's reign, which modern estimates put at <b>c. 23–29 years</b>. <a href="https://www.britannica.com/question/How-did-the-Egyptians-build-the-pyramids" target="_blank" rel="noopener">Britannica</a> · <a href="https://en.wikipedia.org/wiki/Khufu" target="_blank" rel="noopener">Khufu's reign</a></p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-k">Two-person saw teams</div>
+        <p>The experimental literature is explicit: two people, one saw, a steady supply of quartz sand. The sand is the cutting agent — copper only transmits the force. <a href="https://www.science-frontiers.com/sf137/sf137p01.htm" target="_blank" rel="noopener">Stocks trial</a></p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-k">Five faces per block</div>
+        <p>The base is left attached to the bedrock so the block sits on rock rather than loose debris, then levered free last. That is five cut faces, not six.</p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-k">Where 20,000–30,000 comes from</div>
+        <p>Lehner and Hawass put peak labour at <b>20,000–30,000</b>, and the workers' city they excavated could not have housed more than about 20,000. That is an archaeological limit from living space, not an engineering calculation. <a href="https://www.pbs.org/wgbh/nova/pyramid/explore/builders.html" target="_blank" rel="noopener">NOVA — Lehner &amp; Hawass</a></p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-k">Seasonal, not year-round</div>
+        <p>Merer's logbook runs <b>July to November</b> — the Akhet flood, when fields were underwater and farmers were free. NOVA describes a year-round skeleton crew plus a large seasonal surge in exactly those months. The seasonal reading is the better-evidenced one, so the mainstream preset uses <b>120 working days</b>. <a href="https://en.wikipedia.org/wiki/Diary_of_Merer" target="_blank" rel="noopener">Diary of Merer</a> · <a href="https://www.pbs.org/wgbh/nova/pyramid/explore/builders.html" target="_blank" rel="noopener">seasonal surge</a></p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-k">The other three scenarios</div>
+        <p><b>Year-round corvée</b> — every mainstream value, but 300 working days. This is the assumption that most shelters the 20,000 figure, so it is worth seeing. <b>Slowest cutting rate</b> — Stocks' wet-sand result on hard stone, still seasonal. <b>Harsh</b> — slow rate plus a 23-year span plus year-round corvée. Same model throughout; only the load-bearing assumptions move.</p>
+      </div>
+    </div>
+
+    <div class="note warn" style="margin-top:18px">
+      <div class="nt">What was removed, and why</div>
+      <p>The old "maximally generous" preset (20 mm/hr, 40 years, 12-hour days, 360 days) is gone: no source supports those figures together, so it was a foil rather than a scenario. The 10-year build is gone too — it does not fit Khufu's reign and no Egyptologist argues for it.</p>
     </div>
   </div>
 
@@ -741,11 +798,26 @@ const SAW_KG=14.5, CU_CM3_HR=52/14, USABLE_FRAC=0.20, POP=1_550_000;
 const CTRLS=['rate','block','years','hours','days','support','tripMin','kgPerDay','tPerFarmer','prepMonths','prepM3PerDay'];
 
 const PRESETS={
-  mainstream:{rate:7.5,block:1.05,years:20,hours:9,days:300,support:1.0,tripMin:90,kgPerDay:0.75,tPerFarmer:2.4,prepMonths:12,prepM3PerDay:0.15},
-  flood:{rate:7.5,block:1.05,years:20,hours:9,days:120,support:1.0,tripMin:90,kgPerDay:0.75,tPerFarmer:2.4,prepMonths:12,prepM3PerDay:0.15},
-  granite:{rate:2.1,block:1.05,years:20,hours:9,days:300,support:1.0,tripMin:90,kgPerDay:0.75,tPerFarmer:2.4,prepMonths:12,prepM3PerDay:0.15},
-  generous:{rate:20,block:1.05,years:40,hours:12,days:360,support:0.3,tripMin:45,kgPerDay:0.7,tPerFarmer:3.6,prepMonths:24,prepM3PerDay:0.4},
-  fast:{rate:7.5,block:1.05,years:10,hours:9,days:300,support:1.0,tripMin:90,kgPerDay:0.75,tPerFarmer:2.4,prepMonths:12,prepM3PerDay:0.15}
+  /* ── MAINSTREAM: the position archaeology actually holds ──────────
+     rate 7.5 : Stocks measured 7.5 mm/hr on GRANITE at Aswan, dry sand.
+                Granite is the hardest stone present, so this is a
+                conservative floor, not a flattering figure.
+     days 120 : Merer's logbook runs July-November - the Akhet flood,
+                when fields were underwater and farm labour was free.
+     years 20 : Herodotus' figure, and it must fit Khufu's 23-29 yr reign.
+     hours 9  : daylight-bound field day.                              */
+  mainstream: {rate:7.5, block:1.05, years:20, hours:9,  days:120, support:1.0, tripMin:90,  kgPerDay:0.75, tPerFarmer:2.4, prepMonths:12, prepM3PerDay:0.15},
+
+  /* Mainstream values but year-round corvée: no flood downtime. This is
+     the assumption that actually shelters a 20,000-worker figure. */
+  yearround:  {rate:7.5, block:1.05, years:20, hours:9,  days:300, support:1.0, tripMin:90,  kgPerDay:0.75, tPerFarmer:2.4, prepMonths:12, prepM3PerDay:0.15},
+
+  /* Slowest defensible rate: Stocks' wet-sand notched-blade result,
+     applied to the whole build. Seasonal labour, as mainstream. */
+  granite:    {rate:2.1, block:1.05, years:20, hours:9,  days:120, support:1.0, tripMin:90,  kgPerDay:0.75, tPerFarmer:2.4, prepMonths:12, prepM3PerDay:0.15},
+
+  /* Slow rate + longest plausible reign + year-round corvée. */
+  surfacetrue:{rate:2.1, block:1.05, years:23, hours:9,  days:300, support:1.0, tripMin:90,  kgPerDay:0.75, tPerFarmer:2.4, prepMonths:12, prepM3PerDay:0.15}
 };
 
 /* ── FIGURE SILHOUETTES ────────────────────────────────────
@@ -915,9 +987,18 @@ function renderColumn(r,tab,animate){
   const shown=visible.reduce((s,k)=>s+vals[k],0);
   const full=Object.values(vals).reduce((a,b)=>a+b,0)||1;
 
-  /* Fixed scale: one icon always stands for 100 people, on every page,
-     so the count only ever grows as crews are revealed. */
-  const scale=100;
+  /* Default scale is 1 icon = 100 people. If a scenario pushes the total
+     past what the rail can legibly hold, step the scale up so the grid
+     stays readable — and say so, rather than silently changing it. */
+  let scale=100;
+  const MAX_ICONS=1200;
+  if(shown/scale > MAX_ICONS){
+    scale=250;
+    for(const s of [250,500,1000,2500,5000]){
+      scale=s;
+      if(shown/s <= MAX_ICONS) break;
+    }
+  }
 
   const icons=[];
   visible.forEach(key=>{
@@ -928,7 +1009,7 @@ function renderColumn(r,tab,animate){
 
   $('railHead').textContent = visible.length===6 ? 'Total workforce' : 'Workforce so far';
   $('railTotal').textContent = fmt(shown);
-  $('railScale').innerHTML = `one icon = <b>100</b> people`;
+  $('railScale').innerHTML = `one icon = <b>${fmt(scale)}</b> people`;
 
   $('railIcons').innerHTML = icons.map(u=>
     `<i class="${animate&&u.key===added?'fresh':''}">
