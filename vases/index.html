@@ -245,6 +245,19 @@
   .kpi.prep{--kc:var(--prep)} .kpi.cut{--kc:var(--cut)} .kpi.trans{--kc:var(--trans)}
   .kpi.haul{--kc:var(--haul)} .kpi.supp{--kc:var(--support)} .kpi.farm{--kc:var(--farmer)}
 
+  /* ── QUALITY TIMELINE ── */
+  .timeline{display:grid;gap:9px;margin-top:18px}
+  .tl-row{display:grid;grid-template-columns:132px 1fr;gap:8px 14px;
+    align-items:center}
+  .tl-date{font:600 .74rem var(--mono);color:var(--gold);
+    font-variant-numeric:tabular-nums}
+  .tl-bar{display:block;height:9px;border-radius:5px;grid-column:2}
+  .tl-lab{grid-column:2;font-size:.78rem;color:var(--muted);line-height:1.45}
+  .tl-lab b{color:var(--text)}
+  .tl-note{margin:12px 0 0;font:500 .7rem var(--mono);color:var(--dim)}
+  @media (max-width:620px){ .tl-row{grid-template-columns:1fr}
+    .tl-bar,.tl-lab{grid-column:1} }
+
   /* ── CORPUS SPLIT ── */
   .split{background:var(--surface);border:1px solid var(--line);
     border-radius:var(--radius);padding:20px 22px;margin:24px 0 8px}
@@ -937,6 +950,56 @@
     </div>
     <p style="margin-top:14px">Fomitchev-Zamilov found the <b>first</b> signature on the 19 provenanced Petrie vessels. That is a strong, specific result — not a shrug about "hand tools are good enough", but a testable prediction that came out the way the hand-made model requires.</p>
 
+    <h3 style="margin-top:30px">The best work came first</h3>
+    <p>This is the part of the story that rarely gets stated plainly, and it inverts the usual assumption about technical progress. <b>The finest stone vessels in Egyptian history are among the earliest.</b> Quality peaks before the pharaohs, before the unification, before the state that is supposed to have organised the craft.</p>
+
+    <div class="timeline">
+      <div class="tl-row">
+        <span class="tl-date">c. 4000–3800 BC</span>
+        <span class="tl-bar" style="width:100%;background:linear-gradient(90deg,var(--carnelian),var(--clay))"></span>
+        <span class="tl-lab">Naqada I — <b>hard black basalt</b>, decorative conical bases</span>
+      </div>
+      <div class="tl-row">
+        <span class="tl-date">c. 3800–3300 BC</span>
+        <span class="tl-bar" style="width:86%;background:linear-gradient(90deg,var(--clay),var(--ochre))"></span>
+        <span class="tl-lab">Naqada II — vessels increasingly common in tombs</span>
+      </div>
+      <div class="tl-row">
+        <span class="tl-date">c. 3100–2686 BC</span>
+        <span class="tl-bar" style="width:70%;background:linear-gradient(90deg,var(--ochre),var(--gold))"></span>
+        <span class="tl-lab">Early Dynastic — volume peaks; <b>figure-eight drill</b> speeds things up</span>
+      </div>
+      <div class="tl-row">
+        <span class="tl-date">c. 2650 BC</span>
+        <span class="tl-bar" style="width:44%;background:linear-gradient(90deg,var(--gold),var(--dim))"></span>
+        <span class="tl-lab">Djoser — 40,000 older vessels <b>reburied</b>, not newly made</span>
+      </div>
+      <div class="tl-row">
+        <span class="tl-date">after c. 2500 BC</span>
+        <span class="tl-bar" style="width:18%;background:var(--line-2)"></span>
+        <span class="tl-lab">Old Kingdom onward — focus moves to pyramids, statues, sarcophagi</span>
+      </div>
+    </div>
+    <p class="tl-note">Bar length is qualitative — a rough impression of relative craft quality, not a measurement.</p>
+
+    <div class="duo" style="margin-top:20px">
+      <div class="card">
+        <b style="font-size:.9rem">The earliest are the hardest to make</b>
+        <p style="font-size:.82rem;color:var(--muted);margin:8px 0 0">The Art Institute of Chicago, on its Naqada I pieces: <em>"Many of the earliest examples, dated to Naqada I (about 4000–3800 BCE), are made of hard, black basalt, a material that must have been an extreme challenge to work. Even at that time, these vessels were more ornamental than utilitarian."</em></p>
+      </div>
+      <div class="card">
+        <b style="font-size:.9rem">And then the method got faster, and worse</b>
+        <p style="font-size:.82rem;color:var(--muted);margin:8px 0 0">Same catalogue, on the Dynasty 1 change: the figure-eight drill <em>"was a quicker, more efficient method, and although the quality of the vessels may not have been as good, as demand for these objects increased, it allowed a greater number of people to own these prestigious and desirable items."</em> A mainstream museum, stating the quality-for-quantity trade in one sentence.</p>
+      </div>
+    </div>
+
+    <div class="note warn" style="margin-top:20px">
+      <div class="nt">Why this matters more than it looks</div>
+      <p>The ordinary story of technology is that things get better as states, specialisation and accumulated skill grow. Here the sequence runs the other way: <b>the hardest material is worked earliest, the method then gets faster and the product gets worse, and by the Old Kingdom the craft is being wound down</b> — Djoser's 40,000 are largely <em>inherited</em> vessels, buried rather than produced.</p>
+      <p>That does not prove anything exotic. It has a perfectly ordinary explanation: <b>scarcity and status.</b> In the Predynastic period these vessels were the rarest of luxury goods, made by a handful of specialists for an elite with no cheaper substitute. Once the state could mass-produce them, they became common, and commonness destroyed the reason to spend a thousand hours on one. Elite taste moved to pyramids and statues instead.</p>
+      <p>But note what that explanation concedes. It means <b>the most demanding work was done by the smallest, least institutionalised society in the sequence</b> — before the workshops, the monopoly, and the state control that the conventional account credits with the achievement. Whatever produced that early quality, it was not scale.</p>
+    </div>
+
     <h3 style="margin-top:28px">The thin walls — a harder problem than roundness</h3>
     <p>Most of this section is about <em>roundness</em>, because that is what the scanners report. But there is a second anomaly that is arguably harder to explain, and it is sitting in the mainstream literature the whole time.</p>
 
@@ -1067,6 +1130,9 @@
     <p class="lede">Every figure on this page traces to one of these. The strongest anchor is Stocks' own book, which is where the timings and cutting rates come from.</p>
     <ul class="sources">
       <li><a href="https://anarkia333data.center/sites/default/files/2020-01/stocks_experiments_in_egyptian_2003.pdf" target="_blank" rel="noopener">Stocks, D. — Experiments in Egyptian Archaeology (2003)</a> — 22.5 h limestone vase; <b>granite/diorite 2 cm³/h bow-driven vs 0.4 cm³/h TRTD</b>; calcite 30 vs 6; the finding that volumetric removal is roughly constant across tube diameters; New Kingdom tomb scenes of workers running two, three and four drills simultaneously; Lehner's foreword on the 40,000 Saqqara vessels.</li>
+      <li><a href="https://artic.edu/digital-publications/42/ancient-egyptian-art-at-the-art-institute-of-chicago/137/cats-46-49-hard-stone-vessels-predynastic-period" target="_blank" rel="noopener">Art Institute of Chicago — Cats. 46–49, Hard Stone Vessels, Predynastic Period</a> — Naqada I basalt described as "an extreme challenge to work"; the Dynasty 1 figure-eight drill as faster but producing worse vessels; the explicit quality-for-quantity trade.</li>
+      <li><a href="https://www.francescoraffaele.com/egypt/hesyra/Stone%20Vessels_CCdE7-8.pdf" target="_blank" rel="noopener">Raffaele, F. — "Stone Vessels in Early Dynastic Egypt" (Cahiers Caribéens d'Egyptologie 7–8, 2005)</a> — the Badarian, Naqada I and Merimde origins of the tradition, centuries before the state.</li>
+      <li><a href="https://arcsci.org/articles/metrology_in_ancient_eqyption_stone_vessels.html" target="_blank" rel="noopener">Fomitchev-Zamilov — metrology of 32 Petrie Museum vessels (2025)</a> — "Most scanned artifacts date to the Naqada period (c. 4000–3100 BCE), before the pharaohs and the unification of Egypt." The high-precision sample is largely pre-state.</li>
       <li><a href="https://www.penn.museum/sites/expedition/ancient-egyptian-stone-drilling" target="_blank" rel="noopener">Gorelick, L. &amp; Gwinnett, A.J. — "Ancient Egyptian Stone-Drilling" (Expedition 25:3, 1983)</a> — experimental drilling of granite with sand, quartz, garnet, emery, corundum, silicon carbide and diamond. <b>Sand and quartz produced no concentric lines</b>; emery and corundum did, but only wet or in oil. This is the paper that puts the "quartz sand" reconstruction in doubt.</li>
       <li><a href="https://en.wikipedia.org/wiki/Stone_vessels_in_Ancient_Egypt" target="_blank" rel="noopener">Stone vessels in ancient Egypt (survey, with primary citations)</a> — corpus scale ("hundreds of thousands", majority soft calcareous rock); rotary abrasion striations from the Old Kingdom; reconstructed wheel bearings spinning over 100 rpm; Emery's 1961 conclusion on rotation.</li>
       <li><a href="https://www.nature.com/articles/s40494-025-02196-7" target="_blank" rel="noopener">Fomitchev-Zamilov, M. — A metrological method... (npj Heritage Science, 2025)</a> — 19 Petrie vessels vs 25 machine-made and 24 hand-made comparators; ancient vessels match hand grinding.</li>
@@ -1288,10 +1354,21 @@ function renderRail(r){
     {key:'polish',  n:r.polishers,   c:'var(--turquoise)'},
     {key:'food',    n:r.provision,   c:'var(--farmer)'}
   ];
+  /* Largest-remainder rounding: rounding each group independently loses
+     icons (23 people at 1:1 drew 22), so the rail disagreed with its own
+     headline. Distribute the target count instead. */
+  const target = Math.max(1, Math.round(shown/scale));
+  const exact = groups.map(g=>g.n/scale);
+  const floor = exact.map(e=>Math.floor(e));
+  let rem = target - floor.reduce((a,b)=>a+b,0);
+  const order = exact.map((e,i)=>({i, frac:e-Math.floor(e)}))
+                      .sort((a,b)=>b.frac-a.frac);
+  for(let k=0; k<order.length && rem>0; k++){ floor[order[k].i]++; rem--; }
+
   const box=$('railIcons');
   box.textContent='';
-  groups.forEach(g=>{
-    const count=Math.round(g.n/scale);
+  groups.forEach((g,gi)=>{
+    const count=floor[gi];
     for(let i=0;i<count;i++){
       const s=document.createElementNS(NS,'svg');
       s.setAttribute('viewBox','0 0 20 26');
