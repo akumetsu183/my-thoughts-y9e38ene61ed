@@ -133,6 +133,38 @@
   .kpi.prep{--kc:var(--prep)} .kpi.cut{--kc:var(--cut)} .kpi.trans{--kc:var(--trans)}
   .kpi.haul{--kc:var(--haul)} .kpi.supp{--kc:var(--support)} .kpi.farm{--kc:var(--farmer)}
 
+  /* ── ONBOARDING ──────────────────────────────────── */
+  .onboard{background:linear-gradient(160deg,var(--surface-2),var(--surface));
+    border:1px solid var(--line-2);border-left:3px solid var(--gold);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:24px 26px;margin:0 0 26px}
+  .onboard p{font-size:.94rem;color:var(--muted);margin:0 0 13px;line-height:1.68;max-width:70ch}
+  .onboard p:last-child{margin-bottom:0}
+  .onboard b{color:var(--text);font-weight:600}
+  .ob-lede{font-size:1.02rem!important;color:var(--text)!important}
+  .ob-lede b{color:var(--gold)}
+  .ob-turn{font-style:italic;border-top:1px solid var(--line);padding-top:13px;
+    margin-top:16px!important;font-size:.88rem!important}
+  .ob-turn em{color:var(--gold);font-style:normal;font-weight:600}
+  .onboard a{color:var(--gold);border-bottom:1px dotted color-mix(in srgb,var(--gold) 55%,transparent)}
+  .onboard a:hover{border-bottom-style:solid}
+
+  /* ── OBJECTIONS ──────────────────────────────────── */
+  .obj{display:grid;gap:12px;margin-top:16px}
+  .obj-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:19px 21px;border-left:3px solid var(--carnelian)}
+  .obj-q{font-size:.95rem;font-weight:600;color:var(--text);margin:0 0 9px;
+    display:flex;gap:9px;align-items:baseline}
+  .obj-q .qn{font:700 .72rem var(--mono);color:var(--carnelian);flex:none}
+  .obj-card p{font-size:.85rem;color:var(--muted);margin:0 0 10px;line-height:1.62}
+  .obj-card p:last-child{margin-bottom:0}
+  .obj-card b{color:var(--text)}
+  .obj-card .verdict-line{font-size:.83rem;padding:10px 13px;border-radius:7px;
+    background:color-mix(in srgb,var(--gold) 8%,transparent);
+    border-left:2px solid var(--gold);color:var(--muted)}
+  .obj-card a{color:var(--gold);border-bottom:1px dotted color-mix(in srgb,var(--gold) 55%,transparent)}
+  .obj-num{font:700 1.3rem/1 var(--mono);color:var(--carnelian);font-variant-numeric:tabular-nums}
+
   /* ── SHELL: persistent workforce rail + content ──── */
   .shell{display:grid;grid-template-columns:232px minmax(0,1fr);gap:34px;align-items:start}
   .shell-main{min-width:0}
@@ -367,6 +399,16 @@
     <div class="shell-main">
   <!-- 01 OVERVIEW -->
   <section class="panel on" id="p-overview">
+    <div class="onboard">
+      <p class="ob-lede">Archaeologists generally agree the Great Pyramid was built in about <b>20 years</b> by roughly <b>20,000–25,000 people</b>. Those two numbers are quoted everywhere. This page takes them seriously and asks a simple question: <b>what would it actually take?</b></p>
+
+      <p>Start from a measurement rather than a guess. In 1999 Denys Stocks took a <b>1.8-metre copper saw</b> to a granite quarry at Aswan and set two quarrymen to work it with quartz sand. In fourteen hours they cut a slot 95 cm long and 3 cm deep. That is <b>7.5 mm an hour</b> — a real figure, from a real experiment, on the hardest stone in the pyramid.</p>
+
+      <p>Now multiply it out. 2.3 million blocks, five cut faces each, at that rate. The answer is large enough that you can see the shape of the problem in a single number.</p>
+
+      <p class="ob-turn">Nothing here is tuned to produce a particular answer. Every default is a published measurement or the mainstream consensus — and where a default pushes <em>against</em> the argument, that is deliberate. Move any slider and the page recomputes honestly; it will happily tell you the mainstream figure is fine if you give it the assumptions that make it so.</p>
+    </div>
+
     <div class="hero">
       <div class="lbl">Total people required</div>
       <div class="big" id="totalBig">—</div>
@@ -581,6 +623,44 @@
     <h2>So what?</h2>
     <div class="verdict">
       <div class="punch" id="verdict">—</div>
+    </div>
+
+    <h2 style="margin-top:34px;font-size:1.12rem">Four things that don't quite fit</h2>
+    <p class="lede">The arithmetic gives a number. These are the questions the number raises — and what the evidence currently says about each.</p>
+
+    <div class="obj">
+      <div class="obj-card">
+        <div class="obj-q"><span class="qn">01</span>Where is all the copper?</div>
+        <p>The project needs <b id="obj1Cu">—</b> of copper on the quarry floor at any moment, and wears through about <b id="obj1CuYr">—</b> a year replacing it. Blades were reforged rather than thrown away, so the metal circulated — but circulation still needs a standing stock, plus a smelting and reforging industry running continuously beside the work.</p>
+        <p>The only major Sinai source is <b>Bir Nasib</b>, estimated at about <b>5,000 tonnes across roughly 1,300 years</b> — an average of <b>~3.85 tonnes a year</b>, much of it from periods later than Khufu. Annual make-up demand here runs at <b id="obj1Mult">—</b> that average.</p>
+        <p class="verdict-line" id="obj1Verdict">—</p>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-q"><span class="qn">02</span>Does the farmer count fit what we know?</div>
+        <p>Feeding the workforce takes <b id="obj2Farm">—</b> farm workers, on the assumptions built into this model. Egypt's population is estimated at about <b>1.6 million</b>, so that is <b id="obj2Pct">—</b> of everyone in the country working to feed the pyramid crews.</p>
+        <p>The question is not whether that is physically possible — it is whether the rest of the economy still functions while <b id="obj2Pct2">—</b> of everyone grows grain for one building. Ancient agriculture was not a high-surplus economy; most output was eaten by the people who grew it.</p>
+        <p class="verdict-line" id="obj2Verdict">—</p>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-q"><span class="qn">03</span>Is the total workforce even feasible?</div>
+        <p>The model wants <b id="obj3Total">—</b> people — <b id="obj3Pct">—</b> of the Old Kingdom population, sustained for <b id="obj3Years">—</b> years. The mainstream figure is <b>20,000–25,000</b>: roughly 4,000 primary labourers and 16,000–20,000 secondary workers, of whom about 5,000 were permanent and up to 20,000 arrived on three-to-four-month shifts.</p>
+        <p>That is a coherent picture — but notice that it is an archaeological argument from <i>housing and provisioning</i>, not from cutting rates. The workers' camp is sized for that population. There is no known camp for a hundred thousand.</p>
+        <p class="verdict-line" id="obj3Verdict">—</p>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-q"><span class="qn">04</span>Or was it built with fewer people?</div>
+        <p>Everything above scales off one number: <b id="obj4Rate">—</b> mm per hour. That figure comes from <i>granite</i>, which is about 0.1% of the pyramid. If limestone cut two or three times faster — which is plausible, and has never been tested with a copper saw — the cutter count falls by the same factor.</p>
+        <p>There is also a structural question the model cannot answer: whether the block was cut with a saw at all, or split along natural bedding planes with wooden wedges and water, which would sidestep most of the copper problem entirely.</p>
+        <p class="verdict-line" id="obj4Verdict">—</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:22px">
+      <div class="nt">What this page is actually claiming</div>
+      <p>Not that the mainstream numbers are wrong, and not that aliens built it. Only this: <b>the published cutting rate, applied to the published block count over the published timeline, does not produce the published workforce</b>. Something in that chain is wrong — the rate, the timeline, the method, or the headcount. Each of those is a real, arguable position, and the sliders let you test which one you would have to give up.</p>
     </div>
 
     <div class="bars" style="margin-top:18px" id="barsVerdict"></div>
@@ -1204,6 +1284,55 @@ function renderVerdict(r){
       `has been given away, usually a cutting rate far beyond anything measured.`;
   }
   $('verdict').innerHTML=body;
+
+  /* ── live objection figures ─────────────────────────── */
+  const BIR_NASIB_TOTAL=5000, BIR_NASIB_YEARS=1300;
+  const birPerYear=BIR_NASIB_TOTAL/BIR_NASIB_YEARS;   // ~3.85 t/yr
+
+  /* Throughput is the wrong headline on its own: blades were reforged, so
+     metal circulated. The binding constraint is the STANDING STOCK of
+     copper in simultaneous use, plus the make-up metal worn away each year.
+     Stock = blades in use x mass per blade; make-up = annual wear. */
+  const bladesInUse=r.bladesInUse;
+  const stockTonnes=bladesInUse*SAW_KG/1000;
+  const makeupPerYear=r.copperTonnes/(r.years||1);
+  /* annual make-up against what one Sinai year produced */
+  const makeupMult=makeupPerYear/birPerYear;
+  /* stock against the entire known Bir Nasib output */
+  const stockVsAll=stockTonnes/BIR_NASIB_TOTAL*100;
+
+  $('obj1Cu').textContent=fmt(stockTonnes)+' tonnes';
+  $('obj1CuYr').textContent=fmt(makeupPerYear)+' t';
+  $('obj1Mult').textContent=fmt1(makeupMult)+'×';
+  $('obj1Verdict').innerHTML =
+    `The real requirement is <b>${fmt(bladesInUse)} blades in simultaneous use</b> — a standing stock of about <b>${fmt(stockTonnes)} tonnes</b>, or <b>${fmt1(stockVsAll)}%</b> of every tonne Bir Nasib is estimated to have produced in 1,300 years. On top of that, the wear has to be replaced at <b>${fmt(makeupPerYear)} t a year</b>, which is <b>${fmt1(makeupMult)}×</b> an average Sinai year. ` +
+    (makeupMult>=5
+      ? `Recycling keeps the <i>stock</i> in play, but the make-up demand alone exceeds Sinai's whole average output several times over — that metal has to come from somewhere, and no Egyptian copper source of that scale is known.`
+      : makeupMult>=2
+        ? `That is a stretch for known Sinai output, though tight recycling and reuse would soften it considerably.`
+        : `That is within what a tightly recycled Sinai supply could plausibly sustain.`);
+
+  const popShare=r.farmers/1_550_000*100;
+  $('obj2Farm').textContent=fmt(r.farmers);
+  $('obj2Pct').textContent=fmt1(popShare)+'%';
+  $('obj2Pct2').textContent=fmt1(popShare)+'%';
+  $('obj2Verdict').innerHTML = popShare>=8
+    ? `<b>${fmt1(popShare)}%</b> of the entire population in the fields feeding one project is not a subsistence economy with spare capacity — it is a command economy. That is a strong claim about how the Old Kingdom was actually organised.`
+    : `<b>${fmt1(popShare)}%</b> of the population on pyramid grain is demanding but not impossible for a state that could conscript labour and redistribute harvests.`;
+
+  const totalShare=r.grandAll/1_550_000*100;
+  $('obj3Total').textContent=fmt(r.grandAll);
+  $('obj3Pct').textContent=fmt1(totalShare)+'%';
+  $('obj3Years').textContent=fmt(r.years);
+  $('obj3Verdict').innerHTML = totalShare>=15
+    ? `At <b>${fmt1(totalShare)}%</b> of the population the figure is difficult to defend on housing alone: Giza's excavated workers' settlement is sized for roughly 20,000, not for ${fmt(r.grandAll)}.`
+    : `At <b>${fmt1(totalShare)}%</b> of the population this is large but sits near what the excavated settlement could plausibly have housed.`;
+
+  $('obj4Rate').textContent=fmt1(r.rate);
+  const ratioToMainstream=r.grandAll/22500;
+  $('obj4Verdict').innerHTML = ratioToMainstream<=2
+    ? `At these settings the model is already within <b>${fmt1(ratioToMainstream)}×</b> of the mainstream headcount. Getting all the way there needs only <b>${fmt1(r.rate*ratioToMainstream)} mm/hr</b> — a modest margin over the granite figure, and plausible for softer limestone.`
+    : `To reach 22,500 the model must fall <b>${fmt1(ratioToMainstream)}×</b>. If that came from cutting speed alone, limestone would need to cut at <b>${fmt1(r.rate*ratioToMainstream)} mm/hr</b> — implausible. In practice the gap would have to be closed by several assumptions at once: faster limestone, a longer span, more working days, and a quarrying method that does not use saws at all. That is the honest shape of the problem.`;
 
   $('weakPoint').innerHTML=`Everything scales off the <b>cutting rate</b>. The default (${fmt1(r.rate)} mm/hr) is `+
     `Stocks' measurement on <i>granite</i> — the hardest stone in the pyramid, and only 0.1% of its volume. `+
