@@ -47,7 +47,74 @@
       radial-gradient(ellipse 1100px 600px at 50% -12%, color-mix(in srgb,var(--gold) 11%,transparent), transparent 65%),
       linear-gradient(180deg,var(--bg-2),var(--bg) 45%);
     background-attachment:fixed;
+    position:relative;
   }
+
+  /* ── PYRAMID BACKDROP ─────────────────────────────────────────────
+     Three pyramids + a low horizon, drawn purely in CSS with
+     conic-gradients for the faces (lit face vs shadow face), plus a
+     faint course-lines overlay. Fixed, non-interactive, behind all
+     content, and dimmed so text contrast is unaffected.
+     ───────────────────────────────────────────────────────────────── */
+  .backdrop{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;
+    opacity:.85}
+  .backdrop i{position:absolute;display:block}
+
+  /* each pyramid: two triangles meeting at the apex */
+  .pyrwrap{position:absolute;display:block}
+  .pyrwrap > .pyr{position:absolute;inset:0;width:100%;height:100%}
+  /* capstone: 10% of the pyramid, apex exactly on the pyramid apex */
+  .pyrwrap > .cap{position:absolute;top:0;left:45%;width:10%;height:10%;
+    background:linear-gradient(155deg,
+      color-mix(in srgb,var(--gold) 88%,transparent) 0 46%,
+      color-mix(in srgb,var(--gold-2) 52%,transparent) 46% 100%);
+    clip-path:polygon(50% 0%, 100% 100%, 0% 100%);
+    filter:drop-shadow(0 0 16px color-mix(in srgb,var(--gold) 45%,transparent));}
+
+  .pyr{background:
+      linear-gradient(to bottom right,
+        color-mix(in srgb,var(--gold) 26%,transparent) 0 50%,
+        transparent 50%),
+      linear-gradient(to bottom left,
+        color-mix(in srgb,var(--clay) 22%,transparent) 0 50%,
+        transparent 50%);
+    clip-path:polygon(50% 0%, 100% 100%, 0% 100%);
+    filter:blur(.2px);
+  }
+  /* sunlit right face is brighter than the shadowed left */
+  .pyr.lit{background:
+      linear-gradient(to bottom left,
+        color-mix(in srgb,var(--gold) 34%,transparent) 0 50%,
+        transparent 50%),
+      linear-gradient(to bottom right,
+        color-mix(in srgb,var(--clay) 14%,transparent) 0 50%,
+        transparent 50%);
+  }
+
+  /* horizontal courses, so it reads as masonry not a flat triangle */
+  .pyr::after{content:'';position:absolute;inset:0;
+    background:repeating-linear-gradient(to bottom,
+      color-mix(in srgb,#000 38%,transparent) 0 1px,
+      transparent 1px 13px);
+    clip-path:polygon(50% 0%, 100% 100%, 0% 100%);
+    opacity:.55;
+  }
+
+  /* gilded capstone */
+
+
+  /* horizon haze */
+  .backdrop::after{content:'';position:absolute;left:0;right:0;bottom:0;height:34vh;
+    background:linear-gradient(to top,var(--bg) 6%,transparent 100%)}
+
+  /* keep content above the backdrop */
+  .wrap{position:relative;z-index:1}
+
+  @media (prefers-reduced-motion:no-preference){
+    .backdrop{transition:opacity .4s ease}
+  }
+  /* drop the backdrop where it would crowd the layout */
+  @media (max-width:900px){ .backdrop{opacity:.3} }
   body::before{
     content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
     background-image:
@@ -148,6 +215,14 @@
   .ob-turn em{color:var(--gold);font-style:normal;font-weight:600}
   .onboard a{color:var(--gold);border-bottom:1px dotted color-mix(in srgb,var(--gold) 55%,transparent)}
   .onboard a:hover{border-bottom-style:solid}
+
+  /* ── WHO WERE THEY ──────────────────────────────── */
+  .who{margin-top:20px;border-top:1px solid var(--line);padding-top:17px}
+  .who h4{font:600 .72rem/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 11px}
+  .who p{font-size:.85rem!important;margin:0 0 11px!important;line-height:1.62!important}
+  .who-caveat{border-left:2px solid var(--carnelian);padding-left:12px;
+    color:var(--muted)!important;font-style:italic;margin-top:14px!important}
 
   /* ── OBJECTIONS ──────────────────────────────────── */
   .obj{display:grid;gap:12px;margin-top:16px}
@@ -355,6 +430,11 @@
 </style>
 </head>
 <body>
+<div class="backdrop" aria-hidden="true">
+  <i class="pyrwrap" style="width:46vw;height:46vw;left:-6%;bottom:-6%"><i class="pyr"></i><i class="cap"></i></i>
+  <i class="pyr lit" style="width:30vw;height:30vw;right:-4%;bottom:-2%"></i>
+
+</div>
 <div class="wrap">
 
   <a class="back" href="../">← All thoughts</a>
@@ -405,6 +485,17 @@
       <p>Start from a measurement rather than a guess. In 1999 Denys Stocks took a <b>1.8-metre copper saw</b> to a granite quarry at Aswan and set two quarrymen to work it with quartz sand. In fourteen hours they cut a slot 95 cm long and 3 cm deep. That is <b>7.5 mm an hour</b> — a real figure, from a real experiment, on the hardest stone in the pyramid.</p>
 
       <p>Now multiply it out. 2.3 million blocks, five cut faces each, at that rate. The answer is large enough that you can see the shape of the problem in a single number.</p>
+
+      <div class="who">
+        <h4>Who were they, according to the mainstream?</h4>
+        <p><b>Not slaves.</b> That idea comes from Herodotus writing 2,000 years later, and from Hollywood — not from the archaeology. What has actually been excavated is a state-organised workforce that was <b>housed, fed and paid</b>. Lehner's team found barracks flanking bakeries large enough for <b>1,600–2,000 rotating workers</b>, plus the bakeries to feed them, and crew graffiti naming work gangs. Rations came by role: ten loaves and a measure of beer for an ordinary labourer, more for the skilled. <a href="https://www.harvardmagazine.com/2003/07/who-built-the-pyramids-html" target="_blank" rel="noopener">Harvard Magazine</a> · <a href="https://www.snopes.com/fact-check/beer-egypt-pyramids-rations/" target="_blank" rel="noopener">Kemp's ration figures</a></p>
+
+        <p>The workforce was <b>mixed, and that matters for this model</b>. A permanent core of roughly <b>5,000</b> lived at Giza year-round — quarrymen, masons, tool-makers, bakers, brewers, scribes and overseers. On top of them came up to <b>20,000 temporary workers on three-to-four-month shifts</b>, drawn by the corvée: a labour obligation owed to the state, most heavily drawn on farmers <b>during the inundation</b>, when their fields were under water anyway. <a href="https://www.bbc.co.uk/history/ancient/egyptians/pyramid_builders_01.shtml" target="_blank" rel="noopener">BBC — permanent core and rotating shifts</a></p>
+
+        <p>So the seasonal assumption on this page is not a modelling convenience — it is the documented system. Merer's logbook records his crew arriving by boat in the flood season and being <b>sent elsewhere once the flood ebbed</b>, when hauling became impractical. And the harvest calendar is precisely why farmers are in this model twice: <b>some as the labour that built the pyramid, the rest as the labour that fed it</b>. <a href="https://archaeology.org/issues/july-august-2022/features/egypt-wadi-el-jarf-port-papyri/" target="_blank" rel="noopener">Archaeology — Wadi al-Jarf</a></p>
+
+        <p class="who-caveat">One thing the mainstream does <i>not</i> claim: that the pyramid was built by an army of slaves. If the arithmetic on this page pushes the workforce into the hundreds of thousands, that is already far outside what the archaeological record describes — and a workforce that size would strain the corvée system itself, because it would mean mass conscription during the one season agriculture cannot spare anyone.</p>
+      </div>
 
       <p class="ob-turn">Nothing here is tuned to produce a particular answer. Every default is a published measurement or the mainstream consensus — and where a default pushes <em>against</em> the argument, that is deliberate. Move any slider and the page recomputes honestly; it will happily tell you the mainstream figure is fine if you give it the assumptions that make it so.</p>
     </div>
@@ -655,6 +746,12 @@
         <p>Everything above scales off one number: <b id="obj4Rate">—</b> mm per hour. That figure comes from <i>granite</i>, which is about 0.1% of the pyramid. If limestone cut two or three times faster — which is plausible, and has never been tested with a copper saw — the cutter count falls by the same factor.</p>
         <p>There is also a structural question the model cannot answer: whether the block was cut with a saw at all, or split along natural bedding planes with wooden wedges and water, which would sidestep most of the copper problem entirely.</p>
         <p class="verdict-line" id="obj4Verdict">—</p>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q"><span class="qn">05</span>Could the corvée even supply them?</div>
+        <p>The mainstream model is a permanent core of ~5,000 plus up to 20,000 on three-to-four-month shifts. This model wants <b id="obj5Total">—</b> at once, over <b id="obj5Days">—</b> working days a year.</p>
+        <p>If those are rotating shifts of four months, the total number of individuals drawn in is roughly <b id="obj5Pool">—</b>. Set against a population of 1.6 million that is <b id="obj5PoolPct">—</b> — a large share of the able-bodied men, every flood season, for two decades.</p>
+        <p class="verdict-line" id="obj5Verdict">—</p>
       </div>
     </div>
 
@@ -1329,6 +1426,21 @@ function renderVerdict(r){
     : `At <b>${fmt1(totalShare)}%</b> of the population this is large but sits near what the excavated settlement could plausibly have housed.`;
 
   $('obj4Rate').textContent=fmt1(r.rate);
+
+  /* 05 - corvee supply */
+  const shiftMonths = r.days/30;
+  const shiftsPerYear = 12/Math.max(shiftMonths,1);
+  const pool = r.grandAll*shiftsPerYear;
+  const poolShare = pool/1_550_000*100;
+  $('obj5Total').textContent=fmt(r.grandAll);
+  $('obj5Days').textContent=fmt(r.days);
+  $('obj5Pool').textContent=fmt(pool);
+  $('obj5PoolPct').textContent=fmt1(poolShare)+'%';
+  $('obj5Verdict').innerHTML = poolShare>=40
+    ? `Drawing <b>${fmt1(poolShare)}%</b> of the entire population — men, women and children — into two decades of seasonal construction is not a labour levy, it is a full mobilisation. Egypt's agriculture would have to run on whoever was left.`
+    : poolShare>=20
+      ? `At <b>${fmt1(poolShare)}%</b> of the whole population this assumes nearly every able-bodied man works the pyramid every year for two decades. Possible for a strong state; very hard on the farms.`
+      : `<b>${fmt1(poolShare)}%</b> of the population over two decades is a serious but sustainable levy — this is roughly the regime the mainstream model describes.`;
   const ratioToMainstream=r.grandAll/22500;
   $('obj4Verdict').innerHTML = ratioToMainstream<=2
     ? `At these settings the model is already within <b>${fmt1(ratioToMainstream)}×</b> of the mainstream headcount. Getting all the way there needs only <b>${fmt1(r.rate*ratioToMainstream)} mm/hr</b> — a modest margin over the granite figure, and plausible for softer limestone.`
