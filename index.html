@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>My Thoughts</title>
+<style>
+  :root{
+    --bg:#0f1512;
+    --surface:#161e1a;
+    --surface-2:#1c2620;
+    --line:#2a3730;
+    --text:#e6ece8;
+    --muted:#94a89d;
+    --accent:#8FBFA0;
+    --accent-dim:#5f8a71;
+    --radius:14px;
+    --measure:68ch;
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg:#f7f9f7;
+      --surface:#ffffff;
+      --surface-2:#eef3ef;
+      --line:#dbe5de;
+      --text:#1a2320;
+      --muted:#5d7168;
+      --accent:#4e8a68;
+      --accent-dim:#6fa585;
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--measure);margin:0 auto;padding:48px 22px 96px}
+  header{margin-bottom:44px;padding-bottom:26px;border-bottom:1px solid var(--line)}
+  h1{
+    font-size:clamp(1.9rem,5vw,2.6rem);
+    line-height:1.12;
+    margin:0 0 10px;
+    letter-spacing:-.02em;
+    font-weight:650;
+  }
+  .tagline{color:var(--muted);margin:0;font-size:1.02rem}
+  .entries{display:grid;gap:14px}
+  details.entry{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:border-color .18s ease, background .18s ease;
+  }
+  details.entry[open]{border-color:var(--accent-dim);background:var(--surface-2)}
+  details.entry:hover{border-color:var(--accent-dim)}
+  summary{
+    cursor:pointer;
+    padding:18px 20px;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    user-select:none;
+  }
+  summary::-webkit-details-marker{display:none}
+  .meta{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:.78rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}
+  .title-row{display:flex;align-items:baseline;gap:12px;justify-content:space-between}
+  .entry-title{font-size:1.12rem;font-weight:600;line-height:1.35}
+  .chev{
+    flex:none;
+    width:9px;height:9px;
+    border-right:2px solid var(--muted);
+    border-bottom:2px solid var(--muted);
+    transform:rotate(45deg);
+    transition:transform .2s ease;
+    margin-top:6px;
+    margin-bottom:4px;
+  }
+  details[open] .chev{transform:rotate(-135deg);margin-top:10px}
+  .body{
+    padding:0 20px 22px;
+    color:var(--text);
+    border-top:1px solid transparent;
+  }
+  details[open] .body{border-top-color:var(--line);padding-top:18px}
+  .body p{margin:0 0 14px}
+  .body p:last-child{margin-bottom:0}
+  .body ul{margin:0 0 14px;padding-left:1.25em}
+  .body li{margin-bottom:8px}
+  .body blockquote{
+    margin:18px 0;
+    padding:12px 18px;
+    border-left:3px solid var(--accent);
+    background:var(--surface);
+    border-radius:0 8px 8px 0;
+    color:var(--muted);
+    font-style:italic;
+  }
+  .body code{
+    font:0.9em/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:var(--surface-2);
+    padding:2px 6px;
+    border-radius:5px;
+    border:1px solid var(--line);
+  }
+  .tag{
+    display:inline-block;
+    font-size:.72rem;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--accent);
+    background:color-mix(in srgb, var(--accent) 12%, transparent);
+    border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    padding:2px 9px;
+    border-radius:999px;
+    margin:0 6px 8px 0;
+  }
+  .controls{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+  button{
+    font:inherit;
+    font-size:.86rem;
+    color:var(--muted);
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:8px 15px;
+    border-radius:9px;
+    cursor:pointer;
+    transition:color .15s, border-color .15s, background .15s;
+  }
+  button:hover{color:var(--text);border-color:var(--accent-dim);background:var(--surface-2)}
+  button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  footer{
+    margin-top:56px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:.86rem;
+  }
+  @media (max-width:520px){
+    .wrap{padding:32px 16px 72px}
+    summary{padding:16px 16px}
+    .body{padding:0 16px 18px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>My Thoughts</h1>
+    <p class="tagline">Notes, ideas and half-formed opinions. Updated whenever something sticks.</p>
+  </header>
+
+  <main class="entries" id="entries">
+
+    <details class="entry" open>
+      <summary>
+        <span class="meta"><span class="dot"></span><span>23 October 2026</span></span>
+        <span class="title-row">
+          <span class="entry-title">Why this page exists</span>
+          <span class="chev" aria-hidden="true"></span>
+        </span>
+      </summary>
+      <div class="body">
+        <p>I keep thinking about things and then losing them. A conversation ends, a good idea goes into a chat window somewhere, and six months later it's gone. Writing things down in public — or semi-public — forces a different kind of attention. You can't hand-wave at something you have to actually write.</p>
+        <p>So this is the attempt. Not a blog with a publishing schedule, not a portfolio. Just a place where thoughts get parked once they're sticky enough to survive a day.</p>
+        <p>The rules I'm giving myself:</p>
+        <ul>
+          <li>Short is fine. A paragraph counts.</li>
+          <li>Unfinished is fine. Mark it unfinished.</li>
+          <li>Being wrong in public is fine. Being vague is not.</li>
+        </ul>
+        <blockquote>The test for whether an idea is real: can I explain it to someone who disagrees without getting defensive?</blockquote>
+      </div>
+    </details>
+
+    <details class="entry">
+      <summary>
+        <span class="meta"><span class="dot"></span><span>Example entry</span></span>
+        <span class="title-row">
+          <span class="entry-title">On owning your tools</span>
+          <span class="chev" aria-hidden="true"></span>
+        </span>
+      </summary>
+      <div class="body">
+        <p>Every tool you depend on is a small bet that someone else keeps caring about it. Usually that's fine — that's how software works. But the bet gets expensive when the thing you've built on top becomes the thing you can't leave.</p>
+        <p>I've started asking a boring question about tools: <em>what happens to my work if this disappears tomorrow?</em> If the answer is "I lose everything", the tool is doing more than I agreed to.</p>
+        <p>This is a placeholder to show what an entry looks like. Replace it with something you actually think.</p>
+        <p><span class="tag">tools</span><span class="tag">ownership</span><span class="tag">unfinished</span></p>
+      </div>
+    </details>
+
+    <details class="entry">
+      <summary>
+        <span class="meta"><span class="dot"></span><span>Example entry</span></span>
+        <span class="title-row">
+          <span class="entry-title">A note on notes</span>
+          <span class="chev" aria-hidden="true"></span>
+        </span>
+      </summary>
+      <div class="body">
+        <p>Most note-taking systems fail at retrieval, not capture. Capture is solved — anything can capture. The problem is that a year later the notes exist but the context that made them meaningful is gone.</p>
+        <p>What seems to work instead: write the note as if to a stranger, and date it. Both cost almost nothing at write time and save an enormous amount at read time.</p>
+        <p>Second placeholder entry. Yours to overwrite.</p>
+      </div>
+    </details>
+
+  </main>
+
+  <div class="controls">
+    <button type="button" id="expandAll">Expand all</button>
+    <button type="button" id="collapseAll">Collapse all</button>
+  </div>
+
+  <footer>
+    <p>Private page. Not indexed, not linked. If you're reading this without being given the link, nothing here is meant for you.</p>
+  </footer>
+
+</div>
+
+<script>
+  const entries = [...document.querySelectorAll('details.entry')];
+  document.getElementById('expandAll').addEventListener('click', () => entries.forEach(e => e.open = true));
+  document.getElementById('collapseAll').addEventListener('click', () => entries.forEach(e => e.open = false));
+
+  // Open every entry when arriving from a #anchor targeting one.
+  if (location.hash) {
+    const target = document.querySelector(location.hash);
+    if (target) target.open = true;
+  }
+</script>
+</body>
+</html>
