@@ -245,6 +245,28 @@
   .kpi.prep{--kc:var(--prep)} .kpi.cut{--kc:var(--cut)} .kpi.trans{--kc:var(--trans)}
   .kpi.haul{--kc:var(--haul)} .kpi.supp{--kc:var(--support)} .kpi.farm{--kc:var(--farmer)}
 
+  /* ── CORPUS SPLIT ── */
+  .split{background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:20px 22px;margin:24px 0 8px}
+  .sp-head h3{margin:0 0 6px;font-size:1rem}
+  .sp-head p{font-size:.84rem;color:var(--muted);margin:0 0 16px;line-height:1.55}
+  .sp-bars{display:grid;gap:13px}
+  .sp-row{display:grid;grid-template-columns:190px 1fr 130px;gap:14px;align-items:center}
+  .sp-l{font-size:.8rem;color:var(--muted)}
+  .sp-n{display:block;font:600 .78rem var(--mono);color:var(--text);
+    font-variant-numeric:tabular-nums;margin-top:2px}
+  .sp-track{height:12px;background:var(--bg-2);border-radius:6px;overflow:hidden}
+  .sp-fill{display:block;height:100%;transition:width .45s ease;border-radius:6px}
+  .sp-fill.hard{background:linear-gradient(90deg,var(--carnelian),var(--clay))}
+  .sp-fill.soft{background:linear-gradient(90deg,var(--gold),var(--ochre))}
+  .sp-v{text-align:right;font-size:.74rem;color:var(--dim)}
+  .sp-v b{display:block;font:700 1.05rem var(--mono);color:var(--text)}
+  .sp-note{margin:16px 0 0;padding-top:13px;border-top:1px solid var(--line);
+    font-size:.82rem;color:var(--muted);line-height:1.6}
+  .sp-note b{color:var(--text)}
+  @media (max-width:700px){ .sp-row{grid-template-columns:1fr;gap:6px}
+    .sp-v{text-align:left} }
+
   /* ── TOOLING ── */
   .tooling{margin:26px 0 30px}
   .tooling h3{font-size:1.05rem;margin-bottom:10px}
@@ -608,7 +630,7 @@
     <div class="onboard">
       <p class="ob-lede">Egypt produced <b>tens of thousands</b> of stone vessels before the first pyramid was finished — not pottery, but granite, diorite, basalt, porphyry, rock crystal. More than <b>40,000</b> were sealed in the galleries beneath Djoser's Step Pyramid alone.</p>
 
-      <p>Archaeology's answer is not in dispute: they were made <b>by hand</b>, with flint borers, copper tubes and quartz sand, ground and drilled over days or weeks each. That answer is well-evidenced and experimental work has reproduced it.</p>
+      <p>Archaeology's answer is not in dispute: they were made <b>by hand</b>, with flint borers, copper tubes and an abrasive slurry, ground and drilled over days or weeks each — <b>months</b>, for the hard stones. That answer is well-evidenced and experimental work has reproduced it.</p>
 
       <p>So this page does two things. First it takes the hand-made explanation at its word and asks what it costs: <b>how long is one vase, and how many people is the whole corpus?</b> Then it looks hard at the one thing that does not fit — a handful of vessels measured to <b>thousandths of an inch</b>, and what that measurement does and does not prove.</p>
 
@@ -620,12 +642,12 @@
 
     <div class="card" style="margin-top:14px">
       <p style="margin:0 0 10px"><b>22.5 hours</b> — a complete limestone vase, drilled and bored to a finished interior: 8 cm maximum internal diameter, 5.5 cm minimum, a <b>4.5 cm mouth</b> and <b>10 cm depth</b>. Every stage documented, every tool reconstructed from tomb reliefs. <a href="https://anarkia333data.center/sites/default/files/2020-01/stocks_experiments_in_egyptian_2003.pdf" target="_blank" rel="noopener">Stocks, Experiments in Egyptian Archaeology (2003)</a></p>
-      <p style="margin:0"><b>And the hard-stone penalty is brutal.</b> With a bow-driven copper tube in sand, Stocks cut limestone at <b>6 cm³/hour</b>. In granite and diorite the same tube managed <b>2 cm³/hour</b>, and the twist-reverse-twist rig only <b>0.4 cm³/hour</b> — a <b>15× penalty</b> for the hardest stones. That is the whole reason most surviving vases are not granite.</p>
+      <p style="margin:0"><b>And the hard-stone penalty is brutal.</b> With a bow-driven copper tube, Stocks cut <b>calcite</b> at <b>30 cm³/hour</b>. In granite and diorite the same tube managed <b>2 cm³/hour</b>, and his twist-reverse-twist rig only <b>0.4 cm³/hour</b> — a <b>75× spread</b> on the drilling rate alone between calcite on the bow and granite on the slower rig. Once the whole vessel is costed out, a finished hard-stone piece is about <b>15×</b> a soft-stone one. The 22.5-hour figure above is a <b>soft-stone</b> number, and it is not the one that matters: the vessels everyone argues about are granite, diorite, basalt and rock crystal.</p>
     </div>
 
     <p style="margin-top:16px">Now scale that — and the answer depends almost entirely on what you assume about the tooling. A hard-stone vessel is not 22.5 hours of work. Stocks measured granite hollowing at <b>2 cm³/h</b> with a bow-driven tube, and the chamber is about 362 cm³, so <b>hollowing alone is roughly 180 hours</b>; the whole vessel lands near <b>326 hours</b>.</p>
 
-    <p>Forty thousand vessels at that rate is over <b>five million person-hours</b> — about <b>40 people</b> in and around the workshops, given the stone mix below. Still affordable. Still a workshop, not an industry.</p>
+    <p>Forty thousand vessels at that rate is over <b>five million person-hours</b> — about <b>40 people</b> in and around the workshops at the excavated stone mix. Affordable <em>as an average</em> — but that average is doing something dishonest, and the workforce page now splits it. The hard-stone minority carries almost all the labour, and the thin-walled pieces carry a difficulty no average can express.</p>
 
     <p>The problem is not <em>how many</em>. It is <em>how straight</em> — and that is where the rest of this page goes.</p>
   </section>
@@ -727,6 +749,26 @@
     <h2>The workforce</h2>
     <p class="lede">Now the arithmetic. Corpus size × hours per vase, spread over the production span and the working year, gives the number of people who had to be doing this at once.</p>
 
+    <div class="split">
+      <div class="sp-head">
+        <h3>The corpus is not one material</h3>
+        <p>Averaging the whole corpus into a single "hours per vase" hides the only part that is hard. Split it:</p>
+      </div>
+      <div class="sp-bars">
+        <div class="sp-row">
+          <div class="sp-l">Hard stone <span class="sp-n" id="spHardN">—</span></div>
+          <div class="sp-track"><span id="spHardBar" class="sp-fill hard"></span></div>
+          <div class="sp-v"><b id="spHardCrew">—</b> <span>people</span></div>
+        </div>
+        <div class="sp-row">
+          <div class="sp-l">Soft stone <span class="sp-n" id="spSoftN">—</span></div>
+          <div class="sp-track"><span id="spSoftBar" class="sp-fill soft"></span></div>
+          <div class="sp-v"><b id="spSoftCrew">—</b> <span>people</span></div>
+        </div>
+      </div>
+      <p class="sp-note" id="spNote">—</p>
+    </div>
+
     <div class="tooling">
       <h3 style="margin-top:0">The tooling, before the arithmetic</h3>
       <p>An earlier version of this page assumed copper tubes and quartz sand, full stop. That was too thin. The experimental and pictorial record is more specific — and in one place it cuts against the standard reconstruction rather than supporting it.</p>
@@ -786,8 +828,8 @@
       </div>
       <div class="ctl">
         <label for="hardPct">Share in hard stone <output id="hardPctOut">—</output></label>
-        <input type="range" id="hardPct" min="0" max="100" step="1" value="35">
-        <div class="hint">Most vessels were soft travertine or calcite; hard stone was an elite subset. Wikipedia's survey says <b>hundreds of thousands</b> were made overall but the majority from soft calcareous rock. This slider sets how much of the corpus you treat as granite, diorite or basalt — the only part where the slow rates apply. <a href="https://en.wikipedia.org/wiki/Stone_vessels_in_Ancient_Egypt" target="_blank" rel="noopener">corpus survey</a></div>
+        <input type="range" id="hardPct" min="0" max="100" step="1" value="17">
+        <div class="hint">The excavated counts: the First Dynasty cemetery at Abydos yielded <b>50,000–100,000</b> fragments of travertine and metasiltstone against <b>10,000–20,000</b> of hard stone — roughly <b>9–29% hard, 17% at the midpoint</b>, which is the default here. But the hard minority is where every hard problem lives: it is the whole of the 75× penalty and the whole of the precision anomaly. Averaging it away is how a page talks itself out of its own subject. <a href="https://en.wikipedia.org/wiki/Stone_vessels_in_Ancient_Egypt" target="_blank" rel="noopener">Abydos counts</a></div>
       </div>
       <div class="ctl">
         <label for="span">Concentration window <output id="spanOut">—</output></label>
@@ -895,12 +937,38 @@
     </div>
     <p style="margin-top:14px">Fomitchev-Zamilov found the <b>first</b> signature on the 19 provenanced Petrie vessels. That is a strong, specific result — not a shrug about "hand tools are good enough", but a testable prediction that came out the way the hand-made model requires.</p>
 
+    <h3 style="margin-top:28px">The thin walls — a harder problem than roundness</h3>
+    <p>Most of this section is about <em>roundness</em>, because that is what the scanners report. But there is a second anomaly that is arguably harder to explain, and it is sitting in the mainstream literature the whole time.</p>
+
+    <div class="note" style="margin-top:14px">
+      <div class="nt">Emery, <em>Archaic Egypt</em>, 1961 — p. 214</div>
+      <p style="font-style:italic">"How did they cut rock crystal tubular jars with walls not more than a millimetre thick?"</p>
+      <p style="margin-top:10px">A millimetre. In <b>rock crystal</b> — quartz, Mohs 7, and <b>translucent</b>, so every internal flaw and every uneven wall is visible in a way it never is in opaque granite.</p>
+    </div>
+
+    <p style="margin-top:16px">Why this is a different and in some ways worse problem than tolerance:</p>
+    <div class="duo" style="margin-top:12px">
+      <div class="card">
+        <b style="font-size:.9rem">Roundness errors are invisible; wall errors are fatal</b>
+        <p style="font-size:.82rem;color:var(--muted);margin:8px 0 0">Being 25 µm out of round is a measurement you have to go looking for. Being 0.3 mm too thin in one place is a vessel that shatters on the bench — or worse, a decade later, having already been buried with a king. The tolerance is the error you can't see; the wall thickness is the error that destroys the object.</p>
+      </div>
+      <div class="card">
+        <b style="font-size:.9rem">You are cutting blind, to a thickness you cannot measure</b>
+        <p style="font-size:.82rem;color:var(--muted);margin:8px 0 0">The inside is worked through a narrow mouth. You cannot see the wall. You cannot caliper it. The only feedback is sound, feel, and the faint change in translucency as the crystal thins — on a material that gives no second chance. This is where the "just use good hands" account stops being an explanation and becomes an assertion.</p>
+      </div>
+    </div>
+
+    <div class="note warn" style="margin-top:20px">
+      <div class="nt">Do we do this today?</div>
+      <p>Not by hand, no. Modern lapidary will happily turn a thin-walled vessel — on a lathe, in a workshop with abrasives, coolant, and the ability to stop and measure. A <b>1 mm translucent rock-crystal wall, produced blind through a narrow mouth with hand-held abrasives</b>, is not a routine achievement in any modern craft tradition. That does not make it impossible, and it does not by itself prove anything about ancient equipment. But it is a stronger anomaly than the circularity figure, and the page would be dishonest to keep leading with the easier number.</p>
+    </div>
+
     <h3 style="margin-top:26px">What the mainstream already concedes</h3>
     <p>This is worth stating plainly, because it is often left out of both sides of the argument: <b>the rotation is not the heterodox part.</b> Mainstream Egyptology has long accepted that these vessels were turned.</p>
     <div class="duo" style="margin-top:12px">
       <div class="card">
         <b style="font-size:.9rem">The evidence for rotary work</b>
-        <p style="font-size:.82rem;color:var(--muted);margin:8px 0 0">Rotary abrasion striations appear on vessel exteriors from the Old Kingdom onward. Preserved Egyptian wheel bearings — an upper pivot in a lower basalt or granodiorite socket — were shown experimentally to spin at <b>over 100 rpm</b> when polished and oiled. Production peaks in the Early Dynastic period coincide with the adoption of a turning device.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin:8px 0 0">Rotary abrasion striations appear on vessel exteriors from the Old Kingdom onward. Reconstructed Egyptian wheel bearings — an upper pivot in a lower basalt socket — were shown experimentally to spin at <b>over 100 rpm</b> when polished and oiled. <b>But note the dates:</b> those bearings and the earliest potter's-wheel depiction (tomb of Ty, c. 2450 BC) are <b>later than the vase peak</b>. See the timing problem below.</p>
       </div>
       <div class="card">
         <b style="font-size:.9rem">What a specialist concluded in 1961</b>
@@ -1118,10 +1186,18 @@ function compute(o){
   const vesselsPerYear = o.corpus / o.span;
   const hardHours = hard.total * o.corpus * hardShare;
 
+  /* the hard-stone subset, costed on its own — this is where the difficulty
+     actually lives, and averaging it into the corpus hides it */
+  const hardCount   = o.corpus * hardShare;
+  const hardSubHours = hard.total * hardCount;
+  const hardSubCrew  = hardSubHours / (o.span * o.days * o.dayLen);
+  const softCrew     = (soft.total * o.corpus * (1-hardShare)) / (o.span * o.days * o.dayLen);
+
   return {...o, hardShare, avgHours, hardHoursTotal:hard.total, softHoursTotal:soft.total,
           totalHours, workerYears, crew, borerMakers, polishers, provision, grandAll,
           vesselsPerYear, hardHours, rig, abr,
-          hollowHours: hard.hollow, rate: hard.rate};
+          hollowHours: hard.hollow, rate: hard.rate,
+          hardCount, hardSubHours, hardSubCrew, softCrew};
 }
 
 /* ── render ─────────────────────────────────────────────────── */
@@ -1156,6 +1232,25 @@ function renderTooling(r){
       ? 'This abrasive produces the <b>concentric lines</b> Petrie found inside Egyptian drill cores — the observation that started the whole argument in 1883.'
       : 'Quartz sand drills granite, but Gorelick &amp; Gwinnett found it produces <b>no concentric lines</b>. If the ancient borers used sand, Petrie\'s striations need another explanation.';
   }
+  /* corpus split */
+  const sh=$('spHardN'), ss=$('spSoftN'), hb=$('spHardBar'), sb=$('spSoftBar');
+  if(sh) sh.textContent = fmt(r.hardCount)+' vessels at '+fmt(r.hardHoursTotal)+' h';
+  if(ss) ss.textContent = fmt(r.corpus-r.hardCount)+' vessels at '+fmt(r.softHoursTotal)+' h';
+  const totCrew = Math.max(1, r.hardSubCrew + r.softCrew);
+  if(hb) hb.style.width = (r.hardSubCrew/totCrew*100).toFixed(1)+'%';
+  if(sb) sb.style.width = (r.softCrew/totCrew*100).toFixed(1)+'%';
+  set('spHardCrew', fmt(r.hardSubCrew));
+  set('spSoftCrew', fmt(r.softCrew));
+  const spn=$('spNote');
+  if(spn){
+    const pct = r.hardSubCrew/totCrew*100;
+    spn.innerHTML =
+      `<b>${fmt(r.hardCount)} hard-stone vessels</b> — ${fmt(r.hardShare*100)}% of the corpus — ` +
+      `absorb <b>${pct.toFixed(0)}%</b> of the workshop labour, because each one costs ` +
+      `<b>${(r.hardHoursTotal/r.softHoursTotal).toFixed(0)}×</b> what a soft-stone vessel does once roughing, hollowing and polishing are all counted. ` +
+      `The headline figure is an average across two industries that happened to share a storeroom.`;
+  }
+
   const bar=$('tBar');
   if(bar){
     const frac = Math.min(1, r.hollowHours / Math.max(1, r.hardHoursTotal));
