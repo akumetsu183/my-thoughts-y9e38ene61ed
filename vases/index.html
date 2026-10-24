@@ -3,12 +3,64 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache">
-<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache">
-<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
-<meta name="referrer" content="no-referrer">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="data:,">
-<title>The Stone Vases — how many hands?</title>
+<title>Egyptian stone vases: 40,000 and a precision problem</title>
+<meta name="description" content="Forty thousand granite vessels under Djoser's Step Pyramid. Hand tools can make that many — the measured circularity is the real puzzle.">
+<meta name="author" content="Milan Kuba">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/vases/">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/vases/?s=overview">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/vases/?s=carving">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/vases/?s=workforce">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/vases/?s=precision">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/vases/?s=debate">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/vases/?s=verdict">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/vases/?s=sources">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="My Thoughts">
+<meta property="og:title" content="Egyptian stone vases: 40,000 and a precision problem">
+<meta property="og:description" content="Forty thousand granite vessels under Djoser's Step Pyramid. Hand tools can make that many — the measured circularity is the real puzzle.">
+<meta property="og:url" content="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/vases/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/og-vases.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How were Egyptian stone vases made? 40,000 vessels and the precision problem">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Egyptian stone vases: 40,000 and a precision problem">
+<meta name="twitter:description" content="Forty thousand granite vessels under Djoser's Step Pyramid. Hand tools can make that many — the measured circularity is the real puzzle.">
+<meta name="twitter:image" content="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/og-vases.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Stone Vases: how many hands?",
+  "description": "An interactive examination of Egypt's predynastic hard-stone vase corpus: how many were made, how long each took with copper tools, and the metrology that does not fit.",
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Egyptian stone vessels"
+    },
+    {
+      "@type": "Thing",
+      "name": "Precision measurement"
+    }
+  ],
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "My Thoughts",
+    "url": "https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/"
+  }
+}
+</script>
+
 </head>
 <body>
 <div class="backdrop" aria-hidden="true">
@@ -471,6 +523,18 @@
     .sticky{margin:0 -15px;padding:9px 15px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  /* ── CRAWLABLE SECTION MAP ── */
+  .crawlmap{margin:56px auto 0;max-width:760px;padding:0 24px 40px}
+  .crawlmap h2{font:600 .7rem/1 var(--mono);letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim);margin:0 0 12px;
+    padding-bottom:10px;border-bottom:1px solid var(--line)}
+  .crawlmap ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+  .crawlmap a{display:block;padding:8px 10px;color:var(--muted);
+    text-decoration:none;font-size:.84rem;border-radius:6px;
+    border-left:2px solid transparent}
+  .crawlmap a:hover{background:var(--surface);color:var(--gold);
+    border-left-color:var(--gold)}
 </style>
 <div class="wrap">
   <a class="back" href="../">— All thoughts</a>
@@ -1216,10 +1280,22 @@ if(magSlider){
   magUpdate();
 }
 
-const initial=decodeURIComponent(location.hash.replace(/^#/,'')).trim();
+const qs=new URLSearchParams(location.search).get('s');
+const initial=(qs||decodeURIComponent(location.hash.replace(/^#/,''))).trim();
 showTab(ORDER.includes(initial)?initial:'overview');
 update();
 })();
 </script>
+<nav class="crawlmap" aria-label="All sections">
+<h2>All sections</h2>
+<ul>
+<li><a href="?s=overview#overview">Egyptian stone vases: what this page tests</a></li>
+<li><a href="?s=carving#carving">Carving one vase with copper tools, stage by stage</a></li>
+<li><a href="?s=workforce#workforce">How many people made 40,000 vases?</a></li>
+<li><a href="?s=precision#precision">The precision problem: 25 microns in granite</a></li>
+<li><a href="?s=debate#debate">Both sides of the machining argument</a></li>
+<li><a href="?s=verdict#verdict">Verdict: affordable to make, hard to explain</a></li>
+<li><a href="?s=sources#sources">Sources</a></li>
+</ul></nav>
 </body>
 </html>

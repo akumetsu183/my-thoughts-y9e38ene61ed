@@ -3,12 +3,59 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache">
-<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache">
-<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
-<meta name="referrer" content="no-referrer">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="data:,">
-<title>The Great Pyramid — How Many People? · My Thoughts</title>
+<title>How many people built the Great Pyramid?</title>
+<meta name="description" content="Mainstream says 20 years and 20,000–30,000 workers. Enter the published cutting rates and block counts and see whether that arithmetic closes.">
+<meta name="author" content="Milan Kuba">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=overview">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=ground">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=cutting">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=copper">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=moving">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=feeding">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=verdict">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=sources">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="My Thoughts">
+<meta property="og:title" content="How many people built the Great Pyramid?">
+<meta property="og:description" content="Mainstream says 20 years and 20,000–30,000 workers. Enter the published cutting rates and block counts and see whether that arithmetic closes.">
+<meta property="og:url" content="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/og-pyramids.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How many people built the Great Pyramid? A workforce calculator">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How many people built the Great Pyramid?">
+<meta name="twitter:description" content="Mainstream says 20 years and 20,000–30,000 workers. Enter the published cutting rates and block counts and see whether that arithmetic closes.">
+<meta name="twitter:image" content="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/og-pyramids.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Great Pyramid: how many people?",
+  "description": "An interactive audit of the Great Pyramid workforce using published cutting rates, block counts and the 20-year timeline.",
+  "about": {
+    "@type": "Thing",
+    "name": "Great Pyramid of Giza"
+  },
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "My Thoughts",
+    "url": "https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/"
+  }
+}
+</script>
+
 <style>
   :root{
     --bg:#14100b; --bg-2:#1a150f;
@@ -1501,10 +1548,23 @@ document.addEventListener('keydown',e=>{
   }
 });
 
-const initial=decodeURIComponent(location.hash.replace(/^#/,'')).trim();
+const qs=new URLSearchParams(location.search).get('s');
+const initial=(qs||decodeURIComponent(location.hash.replace(/^#/,''))).trim();
 showTab(ORDER.includes(initial)?initial:'overview');
 update();
 })();
 </script>
+<nav class="crawlmap" aria-label="All sections">
+<h2>All sections</h2>
+<ul>
+<li><a href="?s=overview#overview">The Great Pyramid workforce: what this page tests</a></li>
+<li><a href="?s=ground#ground">Levelling the plateau and laying the foundation</a></li>
+<li><a href="?s=cutting#cutting">Cutting 2.3 million blocks with copper saws</a></li>
+<li><a href="?s=copper#copper">Where would the copper have come from?</a></li>
+<li><a href="?s=moving#moving">Hauling and raising the blocks</a></li>
+<li><a href="?s=feeding#feeding">Feeding and housing the workforce</a></li>
+<li><a href="?s=verdict#verdict">Verdict: does the mainstream arithmetic close?</a></li>
+<li><a href="?s=sources#sources">Sources</a></li>
+</ul></nav>
 </body>
 </html>

@@ -1,3 +1,4 @@
-# Not for indexing. Everything here is private-ish writing shared by link only.
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/sitemap.xml
