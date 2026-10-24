@@ -193,6 +193,47 @@
   .kpi.prep{--kc:var(--prep)} .kpi.cut{--kc:var(--cut)} .kpi.trans{--kc:var(--trans)}
   .kpi.haul{--kc:var(--haul)} .kpi.supp{--kc:var(--support)} .kpi.farm{--kc:var(--farmer)}
 
+  /* ── CROSS-SECTION DIAGRAM ───────────────────────── */
+  .xsec{display:grid;grid-template-columns:240px 1fr;gap:22px;margin-top:16px;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px}
+  .xsec-stage{display:flex;align-items:center;justify-content:center;
+    background:var(--bg-2);border-radius:10px;padding:12px 8px 16px}
+  .xsec-stage svg{width:100%;height:auto;max-height:340px;overflow:visible}
+  .xsec-panel{display:flex;flex-direction:column;min-width:0}
+  .xsec-tabs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+  .xs{font:500 .7rem/1 var(--mono);letter-spacing:.03em;padding:6px 9px;
+    background:transparent;border:1px solid var(--line-2);color:var(--muted);
+    border-radius:20px;cursor:pointer;transition:.15s}
+  .xs:hover{border-color:var(--gold);color:var(--gold)}
+  .xs.on{background:var(--gold);border-color:var(--gold);color:#1a150f;font-weight:700}
+  .xsec-panel h4{margin:0 0 8px;font-size:.95rem;color:var(--text)}
+  .xsec-panel p{font-size:.84rem;color:var(--muted);margin:0;line-height:1.6;flex:1}
+  .xsec-meta{display:flex;gap:18px;margin-top:14px;padding-top:12px;
+    border-top:1px solid var(--line);font:500 .72rem var(--mono);color:var(--dim)}
+  .xsec-meta b{color:var(--gold);font-weight:700}
+  @media (max-width:720px){ .xsec{grid-template-columns:1fr} }
+
+  /* ── MAGNIFIER ───────────────────────────────────── */
+  .mag{display:grid;grid-template-columns:1fr 300px;gap:22px;margin-top:16px;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px}
+  .mag-stage{background:var(--bg-2);border-radius:10px;padding:8px;display:flex}
+  .mag-stage svg{width:100%;height:auto}
+  .mag-ctl{display:flex;flex-direction:column;gap:10px;min-width:0}
+  .mag-ctl label{font:500 .72rem/1.3 var(--mono);letter-spacing:.05em;
+    text-transform:uppercase;color:var(--muted);display:flex;
+    justify-content:space-between;align-items:baseline}
+  .mag-ctl output{color:var(--gold);font-size:.95rem;font-weight:700;
+    font-variant-numeric:tabular-nums}
+  .mag-ctl input[type=range]{width:100%;accent-color:var(--gold)}
+  .mag-read{display:grid;gap:6px;margin-top:auto;padding-top:12px;
+    border-top:1px solid var(--line)}
+  .mag-read div{display:flex;justify-content:space-between;font-size:.76rem}
+  .mr-k{color:var(--dim);font-family:var(--mono);font-size:.68rem}
+  .mr-v{color:var(--gold);font-weight:700;font-family:var(--mono)}
+  @media (max-width:720px){ .mag{grid-template-columns:1fr} }
+
   /* ── SCALE LIST ── */
   .scale-list{display:grid;gap:9px;margin-top:14px}
   .sl{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:start;
@@ -515,6 +556,77 @@
       <div class="step"><span class="sn">6</span><div><b>Polish.</b> The final surface, inside and out, worked down to the finish you see in a museum case.</div></div>
     </div>
 
+    <h3 style="margin-top:28px">The cross-section, to scale</h3>
+    <p>This is Stocks' vase drawn as a section: 8 cm across at the widest point inside, 4.5 cm at the mouth, 10 cm deep. <b>Click any stage</b> to see what the tool is doing and what the stone looks like at that moment.</p>
+
+    <div class="xsec">
+      <div class="xsec-stage">
+        <svg viewBox="0 0 320 340" id="xsecSvg" role="img" aria-label="Cross-section of a stone vase">
+          <!-- stone body: foot at y=300, mouth at y=46 -->
+          <path id="xBody" d="M136 46 L184 46 L190 64
+            C232 84, 258 132, 258 180
+            C258 240, 236 282, 210 298
+            L208 306 L112 306 L110 298
+            C84 282, 62 240, 62 180
+            C62 132, 88 84, 130 64 Z"
+            fill="none" stroke="var(--line-2)" stroke-width="1.5"/>
+          <!-- interior void -->
+          <path id="xVoid" d="M144 62 L176 62 L181 78
+            C214 100, 226 140, 226 180
+            C226 232, 208 264, 188 276
+            L132 276
+            C112 264, 94 232, 94 180
+            C94 140, 106 100, 139 78 Z"
+            fill="var(--bg)" stroke="none"/>
+          <rect id="xCore" x="152" y="62" width="16" height="0"
+                fill="var(--surface-3)" opacity=".9"/>
+          <g id="xCusps" opacity="0"></g>
+          <g id="xTool" opacity="0">
+            <rect x="150" y="14" width="20" height="52" rx="2" fill="var(--gold)"/>
+            <path d="M145 66 L175 66 L170 78 L150 78 Z" fill="var(--gold-2)"/>
+          </g>
+
+          <!-- dimension annotations, kept inside the viewBox -->
+          <g id="xDims" stroke="var(--gold)" stroke-width="1" fill="var(--gold)"
+             font-family="ui-monospace,monospace" font-size="10">
+            <!-- internal diameter -->
+            <line x1="62" y1="322" x2="258" y2="322"/>
+            <line x1="62" y1="316" x2="62" y2="328"/>
+            <line x1="258" y1="316" x2="258" y2="328"/>
+            <text x="160" y="337" text-anchor="middle" stroke="none">8 cm internal</text>
+            <!-- mouth diameter -->
+            <line x1="136" y1="36" x2="184" y2="36"/>
+            <line x1="136" y1="30" x2="136" y2="42"/>
+            <line x1="184" y1="30" x2="184" y2="42"/>
+            <text x="160" y="24" text-anchor="middle" stroke="none">4.5 cm mouth</text>
+            <!-- depth -->
+            <line x1="284" y1="46" x2="284" y2="306"/>
+            <line x1="278" y1="46" x2="290" y2="46"/>
+            <line x1="278" y1="306" x2="290" y2="306"/>
+            <text x="298" y="180" text-anchor="middle" stroke="none"
+              transform="rotate(90 298 180)">10 cm deep</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="xsec-panel">
+        <div class="xsec-tabs" role="tablist">
+          <button class="xs on" data-s="0">1 · Rough out</button>
+          <button class="xs" data-s="1">2 · Drill mouth</button>
+          <button class="xs" data-s="2">3 · Hollow</button>
+          <button class="xs" data-s="3">4 · Break cores</button>
+          <button class="xs" data-s="4">5 · Smooth cusps</button>
+          <button class="xs" data-s="5">6 · Polish</button>
+        </div>
+        <h4 id="xsTitle">Rough out the exterior</h4>
+        <p id="xsText">Stone hand-axes and pounders shape the block. Flint is harder than granite and will cut it — slowly. The outside is worked first because you need something to hold while the inside is drilled.</p>
+        <div class="xsec-meta">
+          <span>time at this stage <b id="xsTime">—</b></span>
+          <span>stone removed <b id="xsRemoved">—</b></span>
+        </div>
+      </div>
+    </div>
+
     <div class="note" style="margin-top:20px">
       <div class="nt">What this costs the worker</div>
       <p>Stocks is blunt about the physical toll: years of this work caused <b>repetitive strain injury</b> in the hands, wrists and forearms, and the constant fine dust meant <b>vessel drillers probably died young</b>. This was not a prestige craft at the bench. It was a sentence.</p>
@@ -599,6 +711,39 @@
       <div class="sl"><span class="slv">0.001"</span><span class="sld">= 25 µm. About <b>a quarter of the width of a human hair</b>, or a fifth of a grain of table salt. This is the tolerance being reported on a granite jar.</span></div>
       <div class="sl"><span class="slv">0.01"</span><span class="sld">= 254 µm. Roughly <b>the thickness of a piece of paper</b>. Even at this looser number, a hand-ground interior would be remarkable inside an 8 cm chamber reached through a 4.5 cm hole.</span></div>
       <div class="sl"><span class="slv">0.1"</span><span class="sld">= 2.5 mm. <b>What you would naively expect from skilled hand grinding</b> at this scale. The reported measurements are 100× tighter than this, which is the whole puzzle in one line.</span></div>
+    </div>
+
+    <h3 style="margin-top:28px">See the tolerance for yourself</h3>
+    <p>Two circles, both supposedly "round". One is what skilled hand grinding typically delivers; the other is the reported measurement. <b>Drag the magnifier</b> to exaggerate the deviation — at 1× the hand-ground circle looks perfectly round, which is exactly why nobody noticed for a century.</p>
+
+    <div class="mag">
+      <div class="mag-stage">
+        <svg viewBox="0 0 400 260" id="magSvg" role="img" aria-label="Comparison of hand-ground and precision circularity">
+          <!-- perfect reference circle -->
+          <circle cx="100" cy="130" r="70" fill="none" stroke="var(--line-2)"
+                  stroke-width="1" stroke-dasharray="3 4"/>
+          <text x="100" y="228" text-anchor="middle" fill="var(--muted)"
+                font-family="ui-monospace,monospace" font-size="10">HAND-GROUND</text>
+          <!-- hand ground: wobbly -->
+          <path id="magHand" fill="none" stroke="var(--clay)" stroke-width="2.5"/>
+          <circle cx="300" cy="130" r="70" fill="none" stroke="var(--line-2)"
+                  stroke-width="1" stroke-dasharray="3 4"/>
+          <text x="300" y="228" text-anchor="middle" fill="var(--muted)"
+                font-family="ui-monospace,monospace" font-size="10">MEASURED</text>
+          <!-- precision: near perfect, deviation scales with slider -->
+          <path id="magPrec" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="mag-ctl">
+        <label for="magX">Deviation exaggeration <output id="magXOut">1×</output></label>
+        <input type="range" id="magX" min="1" max="400" step="1" value="1">
+        <div class="hint">At <b>1×</b> neither looks wrong. At <b>400×</b> the hand-ground circle visibly wanders while the measured one stays true — which is the difference between 2.5 mm and 25 µm.</div>
+        <div class="mag-read">
+          <div><span class="mr-k">hand-ground wobble</span><span class="mr-v" id="mrHand">2.5 mm</span></div>
+          <div><span class="mr-k">measured deviation</span><span class="mr-v" id="mrPrec">25 µm</span></div>
+          <div><span class="mr-k">difference</span><span class="mr-v" id="mrDiff">100×</span></div>
+        </div>
+      </div>
     </div>
 
     <h3 style="margin-top:26px">The signature argument, in plain terms</h3>
@@ -942,6 +1087,134 @@ document.addEventListener('keydown',e=>{
   }
 });
 CTRLS.forEach(k=>{ const el=$(k); if(el) el.addEventListener('input',update); });
+
+/* ── CROSS-SECTION DIAGRAM ────────────────────────────────────
+   Each stage reveals part of the interior and moves the tool, so the
+   reader sees the hollowing proceed from a 4.5 cm mouth outward to an
+   8 cm chamber. Geometry is drawn in the same coordinate space as the
+   inline SVG above.
+   ───────────────────────────────────────────────────────────── */
+const XS_TOTAL_H = 22.5;
+const XS_STAGES = [
+  {t:'Rough out the exterior',
+   d:'Stone hand-axes and pounders shape the block. Flint is harder than granite and will cut it — slowly. The outside is worked first because you need something to hold while the inside is drilled.',
+   time:'~2 h', removed:'~15%', voidScale:0,   coreH:0,  tool:0, cusps:0},
+  {t:'Drill the mouth',
+   d:'A copper tube spun with a bow, fed with quartz sand. The sand does the cutting; the copper only carries it. The tube is guided by hand, and the mouth is the only entry you will ever get.',
+   time:'~4 h', removed:'~5%', voidScale:.22, coreH:0,  tool:1, cusps:0},
+  {t:'Hollow the body',
+   d:'Successive tubes of increasing diameter, then figure-of-eight borers worked by hand. This is where the hours go: the chamber has to reach 8 cm through a 4.5 cm opening, so you are cutting blind.',
+   time:'~11 h', removed:'~60%', voidScale:.78, coreH:0, tool:1, cusps:0},
+  {t:'Break out the cores',
+   d:'The drilled cylinders are snapped free with a chisel and lifted out through the mouth — each one a tapered plug of granite with the spiral striations Petrie found so puzzling.',
+   time:'~1 h', removed:'—', voidScale:.82, coreH:1, tool:0, cusps:0},
+  {t:'Smooth the cusps',
+   d:'Every borer leaves a raised ridge inside where two grooves met. These cusps are ground away with hand-held sandstone rubbers reached down through the narrow neck. You cannot see them; you feel for them.',
+   time:'~3 h', removed:'—', voidScale:.88, coreH:0, tool:0, cusps:1},
+  {t:'Polish',
+   d:'The final surface, inside and out, worked down to a museum finish. This is the last chance to correct any asymmetry — and the point at which a hand-made vessel either comes good or does not.',
+   time:'~1.5 h', removed:'—', voidScale:1, coreH:0, tool:0, cusps:0}
+];
+
+function xsSetStage(i){
+  const s = XS_STAGES[i];
+  document.querySelectorAll('.xs').forEach((b,j)=>b.classList.toggle('on', j===i));
+  const title=document.getElementById('xsTitle');
+  const text=document.getElementById('xsText');
+  const time=document.getElementById('xsTime');
+  const rem=document.getElementById('xsRemoved');
+  if(title) title.textContent=s.t;
+  if(text)  text.textContent=s.d;
+  if(time)  time.textContent=s.time;
+  if(rem)   rem.textContent=s.removed;
+
+  const voidEl=document.getElementById('xVoid');
+  const coreEl=document.getElementById('xCore');
+  const toolEl=document.getElementById('xTool');
+  const cuspEl=document.getElementById('xCusps');
+
+  /* scale the interior about its own centre so it opens outward from the mouth */
+  if(voidEl){
+    voidEl.style.transition='transform .45s ease, opacity .45s ease';
+    const sc = 0.05 + s.voidScale*0.95;
+    voidEl.style.transformOrigin='160px 180px';
+    voidEl.style.transform=`scale(${sc})`;
+    voidEl.style.opacity = s.voidScale>0 ? 1 : 0;
+  }
+  if(coreEl){
+    coreEl.setAttribute('height', s.coreH ? 214 : 0);
+    coreEl.style.transition='height .4s ease';
+  }
+  if(toolEl){
+    toolEl.style.transition='opacity .3s ease, transform .45s ease';
+    toolEl.style.opacity = s.tool ? 1 : 0;
+    /* tool sinks deeper as hollowing proceeds */
+    const depth = i===1 ? 30 : (i===2 ? 130 : 10);
+    toolEl.style.transform=`translateY(${depth}px)`;
+  }
+  if(cuspEl){
+    cuspEl.style.transition='opacity .4s ease';
+    cuspEl.style.opacity = s.cusps ? 1 : 0;
+    if(s.cusps && !cuspEl.dataset.built){
+      /* three cusps on each inner wall */
+      const NSx='http://www.w3.org/2000/svg';
+      [[110,170],[108,204],[114,238],[210,170],[212,204],[206,238]].forEach(([x,y])=>{
+        const c=document.createElementNS(NSx,'circle');
+        c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r',4);
+        c.setAttribute('fill','var(--carnelian)'); c.setAttribute('opacity','.75');
+        cuspEl.appendChild(c);
+      });
+      cuspEl.dataset.built='1';
+    }
+  }
+}
+document.querySelectorAll('.xs').forEach(b=>{
+  b.addEventListener('click',()=>xsSetStage(+b.dataset.s));
+});
+if(document.getElementById('xsecSvg')) xsSetStage(0);
+
+/* ── PRECISION MAGNIFIER ──────────────────────────────────────
+   Draws two circles from the same generator. `wobble` is the radial
+   error in units of the drawing; the slider scales it so a 100x
+   difference in real tolerance becomes visible.
+   ───────────────────────────────────────────────────────────── */
+function circlePath(cx, cy, r, wobble, lobes, phase){
+  const N=360, pts=[];
+  for(let i=0;i<=N;i++){
+    const a = i/N*Math.PI*2;
+    const rr = r + wobble*Math.sin(lobes*a + phase)
+                 + wobble*0.4*Math.sin(lobes*2.3*a + phase*1.7);
+    pts.push([cx + rr*Math.cos(a), cy + rr*Math.sin(a)]);
+  }
+  return 'M' + pts.map(p=>p[0].toFixed(2)+','+p[1].toFixed(2)).join(' L') + 'Z';
+}
+
+function magUpdate(){
+  const slider=document.getElementById('magX');
+  if(!slider) return;
+  const x=+slider.value;
+  const out=document.getElementById('magXOut');
+  if(out) out.textContent=x+'×';
+
+  /* Real-world ratio: hand-ground ~2.5 mm vs measured 0.025 mm = 100x.
+     Base wobble is expressed in pixels at the drawing scale. */
+  const BASE=0.55;                       // px of wobble per unit exaggeration
+  const handWobble = BASE * x * 0.020;   // hand-ground is the wobbly one
+  const precWobble = BASE * x * 0.0002;  // measured, 100x tighter
+
+  const h=document.getElementById('magHand');
+  const p=document.getElementById('magPrec');
+  if(h) h.setAttribute('d', circlePath(100,130,70,handWobble,7,0.4));
+  if(p) p.setAttribute('d', circlePath(300,130,70,precWobble,7,0.4));
+
+  const mrDiff=document.getElementById('mrDiff');
+  if(mrDiff) mrDiff.textContent = x===1 ? 'hidden at 1×' : '100×';
+}
+const magSlider=document.getElementById('magX');
+if(magSlider){
+  magSlider.addEventListener('input',magUpdate);
+  magUpdate();
+}
 
 const initial=decodeURIComponent(location.hash.replace(/^#/,'')).trim();
 showTab(ORDER.includes(initial)?initial:'overview');
