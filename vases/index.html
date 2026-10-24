@@ -257,6 +257,38 @@
   .sk-n{margin:12px 0 0;padding-top:11px;border-top:1px solid var(--line);
     font-size:.78rem;color:var(--dim);line-height:1.6}
 
+  /* ── LIMESTONE vs HARD-STONE COMPARISON ── */
+  .cmp{background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:20px 22px;margin:20px 0}
+  .cmp-head h3{margin:0 0 6px;font-size:1rem}
+  .cmp-head p{font-size:.84rem;color:var(--muted);margin:0 0 15px;line-height:1.55}
+  .cmp-tabs{display:flex;gap:7px;margin-bottom:17px;flex-wrap:wrap}
+  .cmp-tab{background:var(--bg-2);border:1px solid var(--line);color:var(--muted);
+    font:500 .76rem var(--mono);letter-spacing:.03em;padding:7px 14px;
+    border-radius:99px;cursor:pointer;transition:.18s}
+  .cmp-tab:hover{border-color:var(--line-2);color:var(--text)}
+  .cmp-tab.on{background:var(--gold);border-color:var(--gold);color:#221a10;font-weight:700}
+  .cmp-rows{display:grid;gap:11px}
+  .cmp-row{display:grid;grid-template-columns:230px 1fr 74px;gap:12px;align-items:center}
+  .cr-l{font-size:.77rem;color:var(--muted);line-height:1.35}
+  .cr-bar{height:11px;background:var(--bg-2);border-radius:6px;overflow:hidden}
+  .cr-bar>span{display:block;height:100%;border-radius:6px;transition:width .4s ease}
+  .cw{background:linear-gradient(90deg,var(--carnelian),var(--clay))}
+  .cr-v{text-align:right;font:700 .84rem var(--mono);color:var(--gold)}
+  .cmp-note{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);
+    font-size:.82rem;color:var(--muted);line-height:1.65}
+  .cmp-note b{color:var(--text)}
+  .prec-scale{display:grid;gap:13px}
+  .ps-row{display:grid;grid-template-columns:230px 1fr 96px;gap:12px;align-items:center}
+  .ps-l{font-size:.77rem;color:var(--muted)}
+  .ps-bar{height:11px;background:var(--bg-2);border-radius:6px;overflow:hidden}
+  .ps-bar>span{display:block;height:100%;border-radius:6px}
+  .ps-v{text-align:right;font:700 .84rem var(--mono);color:var(--gold)}
+  @media (max-width:700px){
+    .cmp-row,.ps-row{grid-template-columns:1fr;gap:5px}
+    .cr-v,.ps-v{text-align:left}
+  }
+
   /* ── DRILL / FEED RATE ── */
   .drill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
     gap:12px;margin-top:18px}
@@ -988,6 +1020,60 @@
     </div>
     <p style="margin-top:14px">Fomitchev-Zamilov found the <b>first</b> signature on the 19 provenanced Petrie vessels. That is a strong, specific result — not a shrug about "hand tools are good enough", but a testable prediction that came out the way the hand-made model requires.</p>
 
+    <h3 style="margin-top:30px">What the 22.5-hour vase proves — and what it doesn't</h3>
+    <p>Stocks' experiment is the single most-cited number on this page, and it is worth being exact about what he actually made. He built a complete vase by the ancient method, every stage timed, and the total was <b>22.5 hours</b>. That is a real result. But it was <b>limestone</b>, and it was judged on <b>time and form</b>, not on the thing the argument is about.</p>
+
+    <div class="cmp">
+      <div class="cmp-head">
+        <h3>Two different claims, one experiment</h3>
+        <p>The reproduction settles the first and says nothing about the second. Toggle between them.</p>
+      </div>
+      <div class="cmp-tabs">
+        <button class="cmp-tab on" data-cmp="time">How long it took</button>
+        <button class="cmp-tab" data-cmp="prec">How precise it was</button>
+      </div>
+
+      <div class="cmp-pane" id="cmpTime">
+        <div class="cmp-rows">
+          <div class="cmp-row">
+            <span class="cr-l">Limestone — Stocks' reproduction</span>
+            <span class="cr-bar"><span style="width:6.7%;background:linear-gradient(90deg,var(--gold),var(--ochre))"></span></span>
+            <span class="cr-v">22.5 h</span>
+          </div>
+          <div class="cmp-row">
+            <span class="cr-l">Hard stone — stage-by-stage scaling</span>
+            <span class="cr-bar"><span class="cw" id="cwA" style="width:76%"></span></span>
+            <span class="cr-v" id="cvA">258 h</span>
+          </div>
+          <div class="cmp-row">
+            <span class="cr-l">Hard stone — volumetric (362 cm³ ÷ 2 cm³/h)</span>
+            <span class="cr-bar"><span class="cw" id="cwB" style="width:96%"></span></span>
+            <span class="cr-v" id="cvB">326 h</span>
+          </div>
+          <div class="cmp-row">
+            <span class="cr-l">Hard stone — naive 15× on the whole vessel</span>
+            <span class="cr-bar"><span class="cw" id="cwC" style="width:100%"></span></span>
+            <span class="cr-v" id="cvC">338 h</span>
+          </div>
+        </div>
+        <p class="cmp-note"><b>Three routes, one answer within a factor of 1.3.</b> Scaling the drilled stages of Stocks' own timings by the measured 15× rate gap gives <b>≈258 h</b>. Costing the chamber bottom-up from his volumetric rate gives <b>≈326 h</b>. Applying 15× to the entire vessel naively gives <b>≈338 h</b> — too high, because roughing-out and polishing are not drilling and do not slow by the same factor. The honest estimate is a hard-stone vessel of the same size at <b>roughly 260–340 hours</b>, call it <b>11–15×</b> the limestone figure. The page uses 326 h, the top of that range.</p>
+      </div>
+
+      <div class="cmp-pane" id="cmpPrec" hidden>
+        <div class="prec-scale">
+          <div class="ps-row"><span class="ps-l">Stocks-style hand work, freehand</span><span class="ps-bar"><span style="width:100%;background:linear-gradient(90deg,var(--carnelian),var(--clay))"></span></span><span class="ps-v">~2,500 µm</span></div>
+          <div class="ps-row"><span class="ps-l">Best ancient vessels, measured</span><span class="ps-bar"><span style="width:1%;background:var(--gold)"></span></span><span class="ps-v">25 µm</span></div>
+        </div>
+        <p class="cmp-note"><b>That is a 100× gap, and no experiment has closed it.</b> The measured 25 µm comes from laser scans of surviving <em>originals</em>. Stocks' reproduction established that the <em>shape</em> is achievable in the stated hours; it did not establish that the <em>tolerance</em> is. Nothing in the experimental literature claims otherwise — which is exactly why time and precision have to be kept apart. The time is reproduced. The precision is not.</p>
+      </div>
+    </div>
+
+    <div class="note warn" style="margin-top:20px">
+      <div class="nt">Why the limestone experiment cannot simply be multiplied</div>
+      <p><b>Only the drilled stages scale with the rate gap.</b> Hollowing is 15× slower in granite, so it dominates everything — but roughing out the exterior is percussion work with stone tools, and polishing is abrasion. Both get harder, neither gets 15× harder. Applying one blanket multiplier to 22.5 hours is the error the earlier version of this page made: it produced 112.5 h, which understated the real work by about <b>3×</b>.</p>
+      <p><b>The limestone experiment also cannot be compared on precision at all</b>, because limestone is opaque, soft enough to correct as you go, and forgiving of a wall a tenth of a millimetre off. The vessels that raise the question are the opposite in all three respects. A 22.5-hour calcite vase is evidence that the <em>workflow</em> was understood. It is not evidence about the <em>tolerance</em> of a diorite one.</p>
+    </div>
+
     <h3 style="margin-top:30px">The drill holes — and the feed-rate claim</h3>
     <p>Separate from the vases, Egypt has left drilled granite that is argued about on its own terms. The core of the dispute is a single number read off a single object in 1881, and it is worth following carefully, because the claim built on it is the most spectacular in the field.</p>
 
@@ -995,7 +1081,7 @@
       <div class="drill-card">
         <div class="dc-k">The object</div>
         <div class="dc-v">Core No. 7</div>
-        <p>Petrie Museum <b>UC16036</b>, UCL. The waste core left by a tubular drill in granite at Giza, brought out by Petrie in 1881. Tapered, about 6 inches in circumference, with a groove winding around it.</p>
+        <p>Petrie Museum <b>UC16036</b>, UCL. The waste core left by a tubular drill in granite at Giza, brought out by Petrie in 1881. Tapered — the museum measures <b>16.3 cm</b> circumference at one end against <b>14.3 cm</b> at the other, 11 cm tall — with a groove winding around it. Petrie gave its circumference as about 6 inches.</p>
       </div>
       <div class="drill-card">
         <div class="dc-k">Petrie's measurement, 1883</div>
@@ -1280,9 +1366,11 @@ const fmt1 = n => (Math.round(n*10)/10).toLocaleString('en-US');
      - 6 cm3/h : limestone drilling rate, bow-driven copper tube
      - 2 cm3/h : granite/diorite, bow-driven tube
      - 0.4 cm3/h: granite/diorite, twist-reverse-twist rig
-   Hard stone therefore cuts between 3x and 15x slower than
-   limestone.  We take the middle of that range (5x) as the
-   default penalty so the slider is a single meaningful number.
+   Hard stone cuts about 15x slower than limestone on the measured
+   rates (2.0 vs 30 cm3/h, bow-driven). There is NO blanket penalty
+   any more: hollowing is costed bottom-up from the chamber volume and
+   only the drilled stages scale with the rate gap. An earlier version
+   applied 22.5 x 5 = 112.5 h, understating hard-stone work by ~3x.
    ────────────────────────────────────────────────────────────── */
 const CTRLS = ['corpus','drill','abrasive','hardPct','span','days','dayLen'];
 
@@ -1604,6 +1692,8 @@ CTRLS.forEach(k=>{ const el=$(k); if(el) el.addEventListener('input',update); })
    8 cm chamber. Geometry is drawn in the same coordinate space as the
    inline SVG above.
    ───────────────────────────────────────────────────────────── */
+/* NB: these stage timings are STOCKS' LIMESTONE vase (22.5 h total).
+   Scaling them for hard stone is done in the comparison section. */
 const XS_TOTAL_H = 22.5;
 const XS_STAGES = [
   {t:'Rough out the exterior',
@@ -1613,7 +1703,7 @@ const XS_STAGES = [
    d:'A copper tube spun with a bow and an abrasive slurry. The abrasive cuts; the copper only carries it. Whether that abrasive was quartz sand or emery is genuinely disputed, and it matters — only emery reproduces the concentric lines found in real drill cores.',
    time:'~4 h', removed:'~5%', voidScale:.22, coreH:0,  tool:1, cusps:0},
   {t:'Hollow the body',
-   d:'Successive tubes, then shaped borers worked by hand. This is where the hours go — about 180 of the 326. The chamber has to reach 8 cm through a 4.5 cm opening, so you are cutting blind, and a wider tube is twisted more slowly, not faster.',
+   d:'Successive tubes, then shaped borers worked by hand. This is where the hours go — about half the total in limestone, and roughly 180 of the 326 in granite. The chamber has to reach 8 cm through a 4.5 cm opening, so you are cutting blind, and a wider tube is twisted more slowly, not faster.',
    time:'~11 h', removed:'~60%', voidScale:.78, coreH:0, tool:1, cusps:0},
   {t:'Break out the cores',
    d:'The drilled cylinders are snapped free with a chisel and lifted out through the mouth — each one a tapered plug of granite with the spiral striations Petrie found so puzzling.',
@@ -1756,6 +1846,17 @@ function feedUpdate(){
 }
 const rpmSlider=document.getElementById('rpm');
 if(rpmSlider){ rpmSlider.addEventListener('input',feedUpdate); feedUpdate(); }
+
+/* ── limestone vs hard-stone comparison toggle ── */
+document.querySelectorAll('.cmp-tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const which=btn.dataset.cmp;
+    document.querySelectorAll('.cmp-tab').forEach(b=>b.classList.toggle('on',b===btn));
+    const t=document.getElementById('cmpTime'), pr=document.getElementById('cmpPrec');
+    if(t)  t.hidden  = (which!=='time');
+    if(pr) pr.hidden = (which!=='prec');
+  });
+});
 
 const magSlider=document.getElementById('magX');
 if(magSlider){
