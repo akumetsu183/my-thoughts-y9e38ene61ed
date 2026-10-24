@@ -1150,6 +1150,7 @@ function update(){
 
 const ORDER=['overview','ground','cutting','copper','moving','feeding','verdict','sources'];
 function showTab(name,animate){
+  if(!ORDER.includes(name)) name='overview';
   const changed = name!==CURRENT_TAB;
   CURRENT_TAB=name;
   ORDER.forEach(t=>{
@@ -1178,7 +1179,7 @@ document.addEventListener('keydown',e=>{
   }
 });
 
-const initial=location.hash.replace('#','');
+const initial=decodeURIComponent(location.hash.replace(/^#/,'')).trim();
 showTab(ORDER.includes(initial)?initial:'overview');
 update();
 })();
