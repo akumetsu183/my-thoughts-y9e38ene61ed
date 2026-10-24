@@ -46,14 +46,6 @@
     letter-spacing:-.02em;font-weight:600}
   .tagline{color:var(--muted);margin:0;font-size:.94rem}
 
-  .filters{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 26px}
-  .chip{font:inherit;font-family:var(--mono);font-size:.7rem;letter-spacing:.03em;
-    color:var(--muted);background:transparent;border:1px solid var(--line);
-    padding:5px 11px;border-radius:999px;cursor:pointer;
-    transition:color .15s,border-color .15s,background .15s}
-  .chip:hover{color:var(--text);border-color:var(--line-2)}
-  .chip.on{color:var(--bg);background:var(--gold);border-color:var(--gold);font-weight:600}
-  .chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 
   /* ── compact topic list ─────────────────────────────── */
   .topics{display:grid;gap:2px}
@@ -82,26 +74,6 @@
   .meta{font-family:var(--mono);font-size:.63rem;letter-spacing:.07em;text-transform:uppercase;
     color:var(--dim);margin-bottom:2px}
 
-  /* ── note entries ───────────────────────────────────── */
-  details.note{border-bottom:1px solid var(--line)}
-  details.note summary{
-    cursor:pointer;list-style:none;padding:14px 4px;
-    display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;
-    transition:padding .16s,background .16s;
-  }
-  details.note summary::-webkit-details-marker{display:none}
-  details.note summary:hover{background:color-mix(in srgb,var(--gold) 5%,transparent);padding-left:10px}
-  details.note summary:hover .nt{color:var(--gold)}
-  .nt{font-size:.94rem;font-weight:600;transition:color .16s}
-  .chev{flex:none;width:7px;height:7px;border-right:1.5px solid var(--dim);border-bottom:1.5px solid var(--dim);
-    transform:rotate(45deg);transition:transform .2s;margin-right:4px}
-  details[open] .chev{transform:rotate(-135deg)}
-  details.note .body{padding:0 4px 18px;color:var(--muted);font-size:.9rem;line-height:1.65}
-  details.note .body p{margin:0 0 11px}
-  details.note .body p:last-child{margin-bottom:0}
-
-  .empty{color:var(--dim);font-size:.85rem;padding:22px 0;display:none;font-family:var(--mono)}
-
   footer{margin-top:46px;padding-top:18px;border-top:1px solid var(--line);
     color:var(--dim);font-size:.72rem;font-family:var(--mono);line-height:1.6}
 
@@ -121,13 +93,6 @@
     <p class="tagline">Notes and ideas. Updated when something sticks.</p>
   </header>
 
-  <div class="filters" id="filters">
-    <button class="chip on" type="button" data-topic="all">All</button>
-    <button class="chip" type="button" data-topic="pyramids">Pyramids</button>
-    <button class="chip" type="button" data-topic="tools">Tools</button>
-    <button class="chip" type="button" data-topic="notes">Notes</button>
-  </div>
-
   <main class="topics" id="topics">
 
     <a class="topic" href="pyramids/" data-topics="pyramids">
@@ -140,51 +105,7 @@
       <span class="arrow">→</span>
     </a>
 
-    <details class="note" data-topics="notes">
-      <summary>
-        <span>
-          <span class="meta">Note · 23 Oct 2026</span>
-          <div class="nt">Why this page exists</div>
-        </span>
-        <span class="chev" aria-hidden="true"></span>
-      </summary>
-      <div class="body">
-        <p>I keep thinking about things and then losing them. A conversation ends, a good idea goes into a chat window somewhere, and six months later it's gone. Writing things down in public — or semi-public — forces a different kind of attention.</p>
-        <p>So this is the attempt. Not a blog with a publishing schedule, not a portfolio. Just a place where thoughts get parked once they're sticky enough to survive a day.</p>
-      </div>
-    </details>
-
-    <details class="note" data-topics="tools">
-      <summary>
-        <span>
-          <span class="meta">Note · example</span>
-          <div class="nt">On owning your tools</div>
-        </span>
-        <span class="chev" aria-hidden="true"></span>
-      </summary>
-      <div class="body">
-        <p>Every tool you depend on is a small bet that someone else keeps caring about it. The bet gets expensive when the thing you've built on top becomes the thing you can't leave.</p>
-        <p>The question worth asking: <em>what happens to my work if this disappears tomorrow?</em></p>
-      </div>
-    </details>
-
-    <details class="note" data-topics="notes">
-      <summary>
-        <span>
-          <span class="meta">Note · example</span>
-          <div class="nt">A note on notes</div>
-        </span>
-        <span class="chev" aria-hidden="true"></span>
-      </summary>
-      <div class="body">
-        <p>Most note-taking systems fail at retrieval, not capture. Capture is solved — anything can capture. A year later the notes exist but the context that made them meaningful is gone.</p>
-        <p>Write the note as if to a stranger, and date it. Both cost almost nothing at write time and save an enormous amount at read time.</p>
-      </div>
-    </details>
-
   </main>
-
-  <p class="empty" id="empty">Nothing in this topic yet.</p>
 
   <footer>
     Private page. Not indexed, not linked.
@@ -194,21 +115,7 @@
 
 <script>
 (() => {
-  const all = [...document.querySelectorAll('[data-topics]')];
-  document.querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const topic = chip.dataset.topic;
-      document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === chip));
-      let shown = 0;
-      all.forEach(el => {
-        const topics = (el.dataset.topics || '').split(/\s+/);
-        const match = topic === 'all' || topics.includes(topic);
-        el.style.display = match ? '' : 'none';
-        if (match) shown++;
-      });
-      document.getElementById('empty').style.display = shown ? 'none' : 'block';
-    });
-  });
+  /* single topic for now — nothing to filter */
 })();
 </script>
 </body>

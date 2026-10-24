@@ -133,53 +133,36 @@
   .kpi.prep{--kc:var(--prep)} .kpi.cut{--kc:var(--cut)} .kpi.trans{--kc:var(--trans)}
   .kpi.haul{--kc:var(--haul)} .kpi.supp{--kc:var(--support)} .kpi.farm{--kc:var(--farmer)}
 
-  /* ── LAYOUT: content + sticky piece column ───────── */
-  .layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:34px;align-items:start;
+  /* ── LAYOUT: workforce rail on the left + content ── */
+  .layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:36px;align-items:start;
     margin-top:22px}
-  @media (max-width:1080px){ .layout{grid-template-columns:minmax(0,1fr)} .colwrap{display:none} }
+  @media (max-width:1000px){ .layout{grid-template-columns:1fr} .rail{display:none} }
 
-  .colwrap{position:sticky;top:52px;align-self:start;
+  .rail{position:sticky;top:54px;align-self:start;
     background:linear-gradient(180deg,var(--surface),var(--bg-2));
-    border:1px solid var(--line);border-radius:var(--radius);padding:16px 14px 14px;
-    box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 4%,transparent)}
-  .colhead{font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
-    font-family:var(--mono);margin-bottom:4px}
-  .coltotal{font:700 1.28rem/1.1 var(--mono);color:var(--gold);font-variant-numeric:tabular-nums;
-    letter-spacing:-.02em;margin-bottom:2px}
-  .colsub{font-size:.64rem;color:var(--dim);font-family:var(--mono);margin-bottom:14px;line-height:1.4}
-  .colrule{height:1px;background:var(--line);margin:0 0 14px}
+    border:1px solid var(--line-2);border-radius:var(--radius);
+    padding:20px 16px 18px;
+    box-shadow:0 20px 50px -30px rgba(0,0,0,.7), inset 0 1px 0 color-mix(in srgb,#fff 5%,transparent)}
 
-  .stack{display:flex;flex-direction:column-reverse;gap:3px}
-  .unit{display:flex;gap:7px;align-items:flex-start;transition:opacity .3s}
-  .unit svg{flex:none;width:19px;height:24px;display:block}
-  .unit .meta{min-width:0;padding-top:1px}
-  .unit .nm{font-size:.63rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);
-    font-family:var(--mono);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .unit .ct{font:600 .66rem/1.2 var(--mono);color:var(--dim);font-variant-numeric:tabular-nums}
-  .unit.fresh{animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
-  @keyframes pop{0%{opacity:0;transform:translateX(14px) scale(.82)}100%{opacity:1;transform:none}}
+  .railhead{font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);font-family:var(--mono);line-height:1.4}
+  .railtotal{font:700 2rem/1 var(--mono);color:var(--gold);font-variant-numeric:tabular-nums;
+    letter-spacing:-.04em;margin:8px 0 4px;
+    text-shadow:0 0 32px color-mix(in srgb,var(--gold) 32%,transparent)}
+  .railscale{font-size:.64rem;color:var(--dim);font-family:var(--mono);line-height:1.45}
+  .railscale b{color:var(--muted)}
+  .railrule{height:1px;background:var(--line);margin:15px 0 13px}
 
-  .colfoot{margin-top:14px;padding-top:11px;border-top:1px solid var(--line);
-    font-size:.61rem;color:var(--dim);font-family:var(--mono);line-height:1.5}
-  .colfoot b{color:var(--muted)}
+  .icons{display:flex;flex-wrap:wrap;gap:2px;align-content:flex-start}
+  .icons i{display:block;width:17px;height:22px;flex:none}
+  .icons i svg{width:100%;height:100%;display:block}
+  .icons i.fresh{animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes pop{0%{opacity:0;transform:scale(.4)}100%{opacity:1;transform:none}}
 
-  /* per-piece hover tooltip */
-  .unit{cursor:default}
-  .unit:hover .nm{color:var(--text)}
+  .railfoot{margin-top:14px;padding-top:11px;border-top:1px solid var(--line);
+    font-size:.6rem;color:var(--dim);font-family:var(--mono);line-height:1.5}
 
   /* ── piece key (overview only) ─────────────────────── */
-  .roster{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px;margin-top:16px}
-  .piece-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;
-    padding:13px 12px;text-align:center;transition:border-color .2s,transform .2s;position:relative;overflow:hidden}
-  .piece-card::after{content:'';position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(circle at 50% 0%, color-mix(in srgb,var(--pc) 12%,transparent), transparent 70%)}
-  .piece-card:hover{border-color:var(--pc);transform:translateY(-2px)}
-  .piece-card svg{width:34px;height:43px;display:block;margin:0 auto 8px;position:relative}
-  .piece-card .pn{font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--pc);
-    font-family:var(--mono);margin-bottom:5px}
-  .piece-card .pv{font:700 1.02rem/1 var(--mono);color:var(--text);font-variant-numeric:tabular-nums;
-    margin-bottom:3px;letter-spacing:-.02em}
-  .piece-card .pd{font-size:.66rem;color:var(--dim);line-height:1.35}
 
   #tip{position:fixed;pointer-events:none;z-index:60;opacity:0;transition:opacity .12s;
     background:var(--surface-3);border:1px solid var(--gold-2);border-radius:8px;
@@ -358,26 +341,19 @@
     </div>
 
     <div class="layout">
-      <div class="content">
-        <h3 style="font-size:1rem">The six crews</h3>
-        <p class="lede" style="margin-bottom:0">Every role has its own piece, in its own colour. The column on the right builds up as you move through the pages — the last tab shows the same total as this one.</p>
-        <div class="roster" id="roster"></div>
-        <div class="bars" style="margin-top:18px" id="barsOverview"></div>
-      </div>
-
-      <aside class="colwrap">
-        <div class="colhead" id="colHead">Total workforce</div>
-        <div class="coltotal" id="colTotal">—</div>
-        <div class="colsub" id="colSub">—</div>
-        <div class="colrule"></div>
-        <div class="stack" id="colStack"></div>
-        <div class="colfoot" id="colFoot">—</div>
+      <aside class="rail" aria-live="polite">
+        <div class="railhead" id="railHead">Total workforce</div>
+        <div class="railtotal" id="railTotal">—</div>
+        <div class="railscale" id="railScale">—</div>
+        <div class="railrule"></div>
+        <div class="icons" id="railIcons"></div>
+        <div class="railfoot" id="railFoot">—</div>
       </aside>
-    </div>
 
-    <h3 style="margin-top:26px;font-size:.98rem">The six crews — one chess piece each</h3>
-    <p class="lede" style="margin-bottom:0">Every role gets its own silhouette so you can read the composition of the workforce at a glance. Hover any piece in the pyramid above to see what it represents.</p>
-    <div class="roster" id="roster"></div>
+      <div class="content">
+        <div class="bars" id="barsOverview"></div>
+      </div>
+    </div>
 
     <div class="navbtns">
       <button disabled>← Back</button>
@@ -764,9 +740,9 @@ const PRESETS={
   fast:{rate:7.5,block:1.05,years:10,hours:9,days:300,support:1.0,tripMin:90,kgPerDay:0.75,tPerFarmer:2.4,prepMonths:12,prepM3PerDay:0.15}
 };
 
-/* ── CHESS PIECE SILHOUETTES ───────────────────────────────
-   Six distinct outlines, drawn in a 24×30 box so each role is
-   identifiable even when the piece is only ~20 px tall.
+/* ── FIGURE SILHOUETTES ────────────────────────────────────
+   Six distinct outlines in a 24×30 box, so each crew is
+   identifiable even at ~20 px tall.
    ───────────────────────────────────────────────────────── */
 function pawnPath(x,y,w,h){
   const cx=x+w/2, U=v=>y+h*v, W=v=>cx+w*v/24;
@@ -823,12 +799,12 @@ function kingPath(x,y,w,h){
 const PIECES={pawn:pawnPath, rook:rookPath, knight:knightPath, bishop:bishopPath, queen:queenPath, king:kingPath};
 
 const ROLES = [
-  {key:'prep',  label:'Site prep',      piece:'rook',   color:'var(--prep)',    desc:'levelling, terracing, platform'},
-  {key:'cut',   label:'Cutters',        piece:'bishop', color:'var(--cut)',     desc:'two-person saw teams'},
-  {key:'trans', label:'Quarry → site',  piece:'knight', color:'var(--trans)',   desc:'sledge relay crews'},
-  {key:'haul',  label:'Up the ramps',   piece:'pawn',   color:'var(--haul)',    desc:'incline drag crews'},
-  {key:'supp',  label:'Support trades', piece:'queen',  color:'var(--support)', desc:'smiths, bakers, scribes'},
-  {key:'farm',  label:'Farmers',        piece:'king',   color:'var(--farmer)',  desc:'grain for everyone'}
+  {key:'prep',  label:'Site prep',      piece:'rook',   color:'var(--prep)',    desc:'site prep'},
+  {key:'cut',   label:'Cutters',        piece:'bishop', color:'var(--cut)',     desc:'cutting'},
+  {key:'trans', label:'Quarry → site',  piece:'knight', color:'var(--trans)',   desc:'hauling'},
+  {key:'haul',  label:'Up the ramps',   piece:'pawn',   color:'var(--haul)',    desc:'ramps'},
+  {key:'supp',  label:'Support trades', piece:'queen',  color:'var(--support)', desc:'support'},
+  {key:'farm',  label:'Farmers',        piece:'king',   color:'var(--farmer)',  desc:'farmers'}
 ];
 
 function read(){const o={};CTRLS.forEach(k=>o[k]=parseFloat($(k).value));return o;}
@@ -887,15 +863,24 @@ function compute(o){
     baseSide,platThick,platArea,courtArea,platVol,rockCut,prepManDays,prepWorkers,prepWorkDays};
 }
 
-/* ── STICKY PIECE COLUMN ───────────────────────────────────
-   The column accumulates: each tab that introduces a crew adds its
-   piece to the stack. Overview shows the complete set; moving
-   forward reveals one crew at a time until the total is whole.
+/* ── WORKFORCE RAIL ──────────────────────────────────────
+   Icons only. Each icon stands for a fixed number of people.
+   The rail accumulates as you move through the pages: every tab
+   adds the crews it introduces, and the last tabs show the whole
+   workforce — identical to the overview.
    ───────────────────────────────────────────────────────── */
-const NICE=[1,2,5,10,25,50,100,250,500,1000,2500,5000,10000,25000,50000,100000,250000,500000,1000000];
-function pickScale(n,t){let b=0,e=Infinity;for(let i=0;i<NICE.length;i++){const d=Math.abs(n/NICE[i]-t);if(d<e){e=d;b=i;}}return NICE[b];}
+const NICE=[10,25,50,100,250,500,1000,2500,5000,10000,25000,50000,100000,250000,500000];
+function pickScale(n,target){
+  let best=NICE[NICE.length-1], err=Infinity;
+  for(const s of NICE){
+    const n_icons=Math.ceil(n/s);
+    const e=Math.abs(n_icons-target);
+    if(e<err){err=e;best=s;}
+  }
+  return best;
+}
 
-/* which crews are visible per tab */
+/* crews revealed per tab — each page adds the crews it introduces */
 const TAB_CREWS={
   overview:['prep','cut','trans','haul','supp','farm'],
   ground:  ['prep'],
@@ -906,11 +891,9 @@ const TAB_CREWS={
   verdict: ['prep','cut','supp','trans','haul','farm'],
   sources: ['prep','cut','supp','trans','haul','farm']
 };
-/* the crew each tab introduces (for the "new" highlight) */
 const TAB_ADDS={ground:'prep',cutting:'cut',copper:'supp',moving:'trans',feeding:'farm'};
 
 let CURRENT_TAB='overview';
-let LAST_SIG='';
 
 function crewValues(r){
   return {prep:r.prepWorkers, cut:r.cutters, trans:r.transport,
@@ -921,61 +904,35 @@ function renderColumn(r,tab,animate){
   const vals=crewValues(r);
   const visible=TAB_CREWS[tab]||TAB_CREWS.overview;
   const added=TAB_ADDS[tab];
-
   const shown=visible.reduce((s,k)=>s+vals[k],0);
   const full=Object.values(vals).reduce((a,b)=>a+b,0)||1;
 
-  $('colTotal').textContent=fmt(shown);
-  $('colSub').textContent = visible.length===6
-    ? `complete workforce · ${fmt1(shown/full*100)}%`
-    : `${visible.length} of 6 crews · ${fmt1(shown/full*100)}% of total`;
-  $('colHead').textContent = visible.length===6 ? 'Total workforce' : 'Crews so far';
+  /* Scale is fixed against the FULL workforce, not the visible subset,
+     so revealing a new crew only ever adds icons — it never re-scales
+     the ones already on screen. */
+  const scale=pickScale(full, 46);
 
-  /* how many pieces per crew: scale so the whole stack is readable */
-  const scale=pickScale(full, 16);
-  const units=[];
+  const icons=[];
   visible.forEach(key=>{
     const role=ROLES.find(x=>x.key===key);
-    const n=Math.max(1,Math.round(vals[key]/scale));
-    for(let i=0;i<n;i++) units.push({role,key});
+    const n=Math.max(1,Math.ceil(vals[key]/scale));
+    for(let i=0;i<n;i++) icons.push({role,key});
   });
 
-  const sig=units.map(u=>u.key).join(',')+'|'+r.grandAll;
-  const stack=$('colStack');
-  stack.innerHTML=units.map((u,i)=>{
-    const role=u.role;
-    const isNew=animate && u.key===added;
-    return `<div class="unit${isNew?' fresh':''}" title="${role.label}: ${fmt(vals[u.key])} people">
-      <svg viewBox="0 0 24 30" aria-hidden="true">
-        <path d="${PIECES[role.piece](0,0,24,30)}" fill="${role.color}" fill-rule="evenodd"/>
-      </svg>
-      <div class="meta">
-        <div class="nm" style="color:${role.color}">${role.label}</div>
-        <div class="ct">${fmt(vals[u.key])}</div>
-      </div>
-    </div>`;
-  }).join('');
+  $('railHead').textContent = visible.length===6 ? 'Total workforce' : 'Workforce so far';
+  $('railTotal').textContent = fmt(shown);
+  $('railScale').innerHTML = visible.length===6
+    ? `one icon = <b>${fmt(scale)}</b> people`
+    : `one icon = <b>${fmt(scale)}</b> people · ${visible.length} of 6 groups`;
 
-  $('colFoot').innerHTML=`1 piece ≈ <b>${fmt(scale)}</b> people<br>${units.length} pieces · ${visible.length}/6 crews`;
-  LAST_SIG=sig;
-}
+  $('railIcons').innerHTML = icons.map(u=>
+    `<i class="${animate&&u.key===added?'fresh':''}">
+       <svg viewBox="0 0 24 30" aria-hidden="true">
+         <path d="${PIECES[u.role.piece](0,0,24,30)}" fill="${u.role.color}" fill-rule="evenodd"/>
+       </svg>
+     </i>`).join('');
 
-/* ── ROSTER ─────────────────────────────────────────────── */
-function renderRoster(r){
-  const vals={prep:r.prepWorkers, cut:r.cutters, trans:r.transport, haul:r.haul, supp:r.support, farm:r.farmers};
-  $('roster').innerHTML=ROLES.map(role=>{
-    const v=vals[role.key];
-    const pct=(v/(r.grandAll||1))*100;
-    return `<div class="piece-card" style="--pc:${role.color}">
-      <svg viewBox="0 0 24 30" aria-hidden="true">
-        <path d="${PIECES[role.piece](0,0,24,30)}" fill="${role.color}" fill-rule="evenodd"/>
-      </svg>
-      <div class="pn">${role.label}</div>
-      <div class="pv">${fmt(v)}</div>
-      <div class="pd">${role.desc}</div>
-      <div class="pm">${fmt1(pct)}% of total</div>
-    </div>`;
-  }).join('');
+  $('railFoot').textContent = `${fmt(icons.length)} icons`;
 }
 
 function renderHero(r){
@@ -1007,12 +964,12 @@ function renderSticky(r){
 }
 
 function renderBars(r){
-  const rows=[['prep','Site prep', r.prepWorkers, `rook · ${r.prepMonths} mo, ${fmt(r.prepManDays)} man-days`],
-    ['cut','Cutters', r.cutters, 'bishop · saw teams, five faces'],
-    ['trans','Quarry → site', r.transport, `knight · ${fmt(r.pullers)} per sledge`],
-    ['haul','Up the ramps', r.haul, `pawn · ${fmt(Math.round(r.pullers*1.5))} per block`],
-    ['supp','Support trades', r.support, 'queen · sand, smithing, food, records'],
-    ['farm','Farmers', r.farmers, `king · ${fmt1(r.grainT)} t grain a year`]];
+  const rows=[['prep','Site prep', r.prepWorkers, `${r.prepMonths} mo · ${fmt(r.prepManDays)} man-days`],
+    ['cut','Cutters', r.cutters, 'two-person saw teams, five faces'],
+    ['trans','Quarry → site', r.transport, `${fmt(r.pullers)} per sledge`],
+    ['haul','Up the ramps', r.haul, `${fmt(Math.round(r.pullers*1.5))} per block`],
+    ['supp','Support trades', r.support, 'sand, smithing, food, records'],
+    ['farm','Farmers', r.farmers, `${fmt1(r.grainT)} t grain a year`]];
   const max=Math.max(...rows.map(x=>x[2]))||1;
   const html=rows.map(([c,k,v,n])=>
     `<div class="bar ${c}"><div class="nm">${k}<small>${n}</small></div>
@@ -1024,7 +981,7 @@ function renderBars(r){
 
 function renderGround(r){
   $('prepCrew').textContent=fmt(r.prepWorkers);
-  $('prepCrewNote').textContent=`rook · workers for ${r.prepMonths} months straight`;
+  $('prepCrewNote').textContent=`${r.prepMonths} months straight`;
   $('prepMonthsTxt').textContent=`${r.prepMonths} months`;
   $('prepVolume').textContent=fmt(r.rockCut+r.platVol)+' m³';
   $('prepVolumeNote').textContent=`${fmt(r.rockCut)} m³ bedrock cut · ${fmt(r.platVol)} m³ platform laid`;
@@ -1047,7 +1004,7 @@ function renderGround(r){
 
 function renderCutting(r){
   $('cutCrew').textContent=fmt(r.cutters);
-  $('cutCrewNote').textContent=`bishop · cutting only, ${fmt1(r.buildYears)} yr window`;
+  $('cutCrewNote').textContent=`cutting only, ${fmt1(r.buildYears)} yr window`;
   $('cutHours').textContent=fmt1(r.hours);
   $('cutYears').textContent=fmt1(r.buildYears);
   $('cutManYears').textContent=fmtS(r.totalManYears);
@@ -1096,10 +1053,10 @@ function renderCopper(r){
 
 function renderMoving(r){
   $('moveCrew').textContent=fmt(r.transport);
-  $('moveCrewNote').textContent=`knight · ${fmt1(r.tripMin)} min round trip`;
+  $('moveCrewNote').textContent=`${fmt1(r.tripMin)} min round trip`;
   $('movePullers').textContent=fmt(r.pullers);
   $('haulCrew').textContent=fmt(r.haul);
-  $('haulCrewNote').textContent=`pawn · ${fmt(Math.round(r.pullers*1.5))} per block on the incline`;
+  $('haulCrewNote').textContent=`${fmt(Math.round(r.pullers*1.5))} per block on the incline`;
 
   const rows=[['Mean block weight',fmt1(r.blockTonnes)+' t',`${fmt1(r.block)} m cube at ${STONE_D} kg/m³`],
     ['Working days',fmt(r.workDays),`${fmt1(r.buildYears)} yr × ${r.days} d`],
@@ -1120,10 +1077,10 @@ function renderMoving(r){
 
 function renderFeeding(r){
   $('farmCrew').textContent=fmt(r.farmers);
-  $('farmCrewNote').textContent=`king · at ${fmt1(r.tPerFarmer)} t per farm worker`;
+  $('farmCrewNote').textContent=`at ${fmt1(r.tPerFarmer)} t per farm worker`;
   $('grainTotal').textContent=fmt(r.grainT)+' t';
   $('suppCrew').textContent=fmt(r.support);
-  $('suppCrewNote').textContent=`queen · ${fmt1(r.support)}× the skilled workforce`;
+  $('suppCrewNote').textContent=`${fmt1(r.support)}× the skilled workforce`;
 
   const rows=[['Workers to feed',fmt(r.total),'cutters + hauliers + support'],
     ['Grain per worker/day',fmt1(r.kgPerDay)+' kg','a working adult'],
@@ -1176,7 +1133,7 @@ function update(){
   Object.keys(outs).forEach(k=>{const el=$(k+'Out');if(el)el.textContent=fmt1(o[k])+outs[k];});
 
   const r=compute(o);
-  renderHero(r); renderSticky(r); renderRoster(r); renderBars(r); renderColumn(r,CURRENT_TAB,false);
+  renderHero(r); renderSticky(r); renderBars(r); renderColumn(r,CURRENT_TAB,false);
   renderGround(r); renderCutting(r); renderCopper(r); renderMoving(r);
   renderFeeding(r); renderVerdict(r);
 
