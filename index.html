@@ -104,8 +104,13 @@
   a.topic:hover .arrow{color:var(--gold);transform:translateX(3px)}
   a.topic:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 
-  .mark{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.5;flex:none}
-  a.topic:hover .mark{opacity:1}
+  .sig{flex:none;width:38px;display:flex;align-items:center;justify-content:center;
+    color:var(--gold-2);opacity:.85;transition:opacity .16s,color .16s}
+  a.topic:hover .sig{opacity:1;color:var(--gold)}
+  .find{display:block;margin-top:7px;font-family:var(--mono);font-size:.63rem;
+    letter-spacing:.02em;color:var(--dim);line-height:1.5}
+  .find b{color:var(--gold);font-weight:700}
+  a.topic:hover .find b{color:var(--gold)}
 
   .tmain{min-width:0}
   .tt{font-size:1.02rem;font-weight:600;line-height:1.35;margin:0 0 2px;
@@ -119,6 +124,9 @@
 
   footer{margin-top:46px;padding-top:18px;border-top:1px solid var(--line);
     color:var(--dim);font-size:.72rem;font-family:var(--mono);line-height:1.6}
+  footer p{margin:0 0 8px;max-width:72ch}
+  footer a{color:var(--muted);border-bottom:1px dotted color-mix(in srgb,var(--gold) 45%,transparent)}
+  footer a:hover{color:var(--gold);border-bottom-style:solid}
 
   @media (max-width:520px){
     .wrap{padding:38px 16px 70px}
@@ -146,21 +154,27 @@
   <main class="topics" id="topics">
 
     <a class="topic" href="pyramids/" data-topics="pyramids">
-      <span class="mark"></span>
+      <span class="sig" aria-hidden="true">
+        <svg viewBox="0 0 40 34" width="34" height="29"><path d="M20 1 39 33H1Z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M20 1 27 12H13Z" fill="currentColor" opacity=".55"/><path d="M4 33h32" stroke="currentColor" stroke-width="1.1" opacity=".45"/></svg>
+      </span>
       <span class="tmain">
-        <span class="meta">Interactive · 8 pages</span>
+        <span class="meta">Interactive · 8 sections · five scenarios</span>
         <div class="tt">The Great Pyramid: how many people?</div>
         <p class="td">Mainstream says 20 years and 20,000–30,000 workers. Measured copper-saw rates say the arithmetic doesn't close.</p>
+        <span class="find"><b>380,791</b> people at the mainstream rate — <b>17×</b> the published headcount</span>
       </span>
       <span class="arrow">→</span>
     </a>
 
     <a class="topic" href="vases/" data-topics="vases">
-      <span class="mark"></span>
+      <span class="sig" aria-hidden="true">
+        <svg viewBox="0 0 34 34" width="29" height="29"><path d="M12 2h10l-1.5 6c3.5 3 5.5 7 5.5 12 0 6-4 11-9 11S8 26 8 20c0-5 2-9 5.5-12Z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10 17h14" stroke="currentColor" stroke-width="1" opacity=".5"/></svg>
+      </span>
       <span class="tmain">
-        <span class="meta">Interactive · 7 pages</span>
+        <span class="meta">Interactive · 7 sections</span>
         <div class="tt">The Stone Vases: how many hands?</div>
         <p class="td">40,000 vessels of granite and diorite — affordable by hand, but a few are measured too precise to explain.</p>
+        <span class="find"><b>0.001″</b> on vessels hand-made from quartz sand and copper</span>
       </span>
       <span class="arrow">→</span>
     </a>
@@ -168,7 +182,8 @@
   </main>
 
   <footer>
-    Built from published measurements and primary sources. Every number on these pages is sourced.
+    <p>Each page takes a published measurement or consensus figure as its starting point, then follows the arithmetic to wherever it lands — including when it lands awkwardly. Where a number is an estimate rather than a citation, the page says so on the spot.</p>
+    <p>Both arguments rest on a shared anchor: Stocks' copper-and-sand experiments at Aswan. <a href="pyramids/?preset=solveyears#verdict">Start with the pyramid's 351-year scenario →</a></p>
   </footer>
 
 </div>

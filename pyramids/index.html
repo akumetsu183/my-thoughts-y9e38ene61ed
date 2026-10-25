@@ -18,6 +18,7 @@
 <link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=feeding">
 <link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=verdict">
 <link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=sources">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?preset=solveyears">
 
 <!-- Open Graph -->
 <meta property="og:type" content="article">
@@ -373,7 +374,27 @@
   .scen-t{font:600 .68rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
     color:var(--gold);margin:0;display:flex;gap:8px;align-items:baseline}
   .scen-t .sn{font-size:.85rem;line-height:1;color:var(--gold-2)}
-  .scen-note{font-size:.72rem;color:var(--dim);font-family:var(--mono)}
+  .scen-note{font-size:.72rem;color:var(--dim);font-family:var(--mono);margin-right:auto}
+  .share{font:inherit;font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;
+    color:var(--muted);background:transparent;border:1px solid var(--line-2);
+    padding:6px 11px;border-radius:20px;cursor:pointer;flex:none;
+    transition:color .15s,border-color .15s,background .15s}
+  .share:hover{color:var(--gold);border-color:var(--gold-2);
+    background:color-mix(in srgb,var(--gold) 8%,transparent)}
+  .share:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .share.ok{color:var(--farmer);border-color:var(--farmer)}
+  .share.fail{color:var(--ochre);border-color:var(--ochre)}
+  .share-box{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;
+    padding:10px 12px;border:1px dashed var(--line-2);border-radius:9px;
+    background:var(--surface);font-size:.72rem;color:var(--muted);font-family:var(--mono)}
+  .share-box label{flex:none}
+  .share-box input{flex:1 1 240px;min-width:0;font:inherit;font-size:.72rem;
+    color:var(--text);background:var(--bg-2);border:1px solid var(--line);
+    border-radius:6px;padding:6px 8px}
+  .share-box input:focus{outline:2px solid var(--gold);outline-offset:1px}
+  .share-close{font:inherit;font-size:.68rem;color:var(--muted);background:transparent;
+    border:1px solid var(--line-2);border-radius:20px;padding:5px 10px;cursor:pointer}
+  .share-close:hover{color:var(--gold);border-color:var(--gold-2)}
 
   .presets{display:flex;gap:7px;flex-wrap:wrap;margin-top:0}
   button.preset{font:inherit;font-family:var(--mono);font-size:.74rem;color:var(--muted);background:var(--surface-2);
@@ -408,6 +429,20 @@
     .scen{padding:15px 14px 17px}
     button.preset{font-size:.7rem;padding:8px 11px}
     button.preset .pn{display:none}
+    /* One swipeable row instead of three stacked rows. A right-edge
+       fade marks the row as scrollable, so a part-visible button reads
+       as "there is more" rather than as a layout bug. The fade lives on
+       the wrapper (not the scroller) so it stays put while scrolling. */
+    .scen .presets{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;
+      margin:0 -14px;padding:0 18px 6px 14px;
+      scrollbar-width:none;-ms-overflow-style:none;
+      -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent 100%);
+      mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent 100%)}
+    .scen .presets::-webkit-scrollbar{display:none}
+    .scen button.preset{scroll-snap-align:start;flex:none}
+    .tabs{margin-left:-14px;margin-right:-14px;padding-left:14px;padding-right:18px;
+      -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent 100%);
+      mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent 100%)}
   }
 
   .bars{display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);
@@ -565,8 +600,40 @@
   .navbtns button.primary{color:#14100b;background:var(--gold);border-color:var(--gold);font-weight:700}
   .navbtns button.primary:hover{background:var(--sand);color:#14100b}
 
+
+  /* ── SHARED SITE HEADER ────────────────────────────────
+     Same three-part header on every page, so the arguments read
+     as one body of work rather than separate microsites.
+     ───────────────────────────────────────────────────── */
+  .sitenav{display:flex;align-items:center;gap:6px 16px;flex-wrap:wrap;
+    margin:0 0 26px;padding-bottom:14px;border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.02em}
+  .sitenav .home{color:var(--muted);border:0;display:inline-flex;align-items:center;gap:6px}
+  .sitenav .home:hover{color:var(--gold)}
+  .sitenav .spacer{margin-left:auto}
+  .sitenav .here{color:var(--gold);border:0;font-weight:600;white-space:nowrap}
+  .sitenav .other{color:var(--muted);border-bottom:1px dotted color-mix(in srgb,var(--gold) 45%,transparent);
+    white-space:nowrap}
+  .sitenav .other:hover{color:var(--gold);border-bottom-style:solid}
+  .sitenav .other span{color:var(--dim);margin-right:5px}
+  @media (max-width:560px){ .sitenav .other span{display:none} }
+
+  .xlink{margin:22px 0 0;background:color-mix(in srgb,var(--gold) 6%,var(--surface));
+    border:1px solid var(--line-2);border-left:3px solid var(--gold-2);
+    border-radius:0 var(--radius) var(--radius) 0;padding:15px 18px}
+  .xlink-k{font:600 .6rem/1.3 var(--mono);letter-spacing:.11em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:7px}
+  .xlink p{font-size:.83rem;color:var(--muted);margin:0;line-height:1.62;max-width:76ch}
+  .xlink a{color:var(--gold);border-bottom:1px dotted color-mix(in srgb,var(--gold) 55%,transparent);
+    white-space:nowrap}
+  .xlink a:hover{border-bottom-style:solid}
   footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);
     font-size:.76rem;font-family:var(--mono)}
+  footer p{max-width:78ch}
+  .foot-links{display:flex;gap:8px 22px;flex-wrap:wrap;margin:12px 0 0;
+    font-size:.72rem;letter-spacing:.01em}
+  .foot-links a{color:var(--muted);border-bottom:1px dotted color-mix(in srgb,var(--gold) 45%,transparent)}
+  .foot-links a:hover{color:var(--gold);border-bottom-style:solid}
 
   @media (max-width:680px){
     .wrap{padding:22px 15px 80px}
@@ -589,6 +656,19 @@
   .srckey b{color:var(--text)}
   .sk-n{margin:12px 0 0;padding-top:11px;border-top:1px solid var(--line);
     font-size:.78rem;color:var(--dim);line-height:1.6}
+  /* ── CRAWL MAP ─────────────────────────────────────────
+     Kept in the markup for crawlers and for anyone without JS, but
+     never shown: it was surfacing as a raw link list below the
+     footer. Visually hidden, still followed by search engines, and
+     revealed only if someone tabs into it.
+     ───────────────────────────────────────────────────── */
+  .crawlmap{position:absolute;width:1px;height:1px;overflow:hidden;
+    clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
+    margin:-1px;padding:0;border:0}
+  .crawlmap:focus-within{position:static;width:auto;height:auto;overflow:visible;
+    clip:auto;clip-path:none;white-space:normal;margin:40px auto 0;max-width:760px;
+    padding:0 24px 30px}
+
   /* ── VISIT COUNTER ── */
   .visits{display:flex;align-items:center;gap:8px;justify-content:center;
     padding:26px 0 34px;opacity:.55;transition:opacity .2s}
@@ -606,20 +686,25 @@
 </div>
 <div class="wrap">
 
-  <a class="back" href="../">← All thoughts</a>
+  <nav class="sitenav" aria-label="Site">
+    <a class="home" href="../">← All thoughts</a>
+    <span class="spacer"></span>
+    <span class="here" aria-current="page">Pyramid</span>
+    <a class="other" href="../vases/"><span>also →</span>Stone vases</a>
+  </nav>
 
   <h1>The Great Pyramid:<br>how many people?</h1>
   <p class="standfirst">Mainstream archaeology's numbers — <a class="cite" href="https://www.britannica.com/question/How-did-the-Egyptians-build-the-pyramids" target="_blank" rel="noopener">20 years</a>, <a class="cite" href="https://www.pbs.org/wgbh/nova/pyramid/explore/builders.html" target="_blank" rel="noopener">20,000–30,000 workers</a>, <a class="cite" href="https://doi.org/10.1038/s40494-025-02018-w" target="_blank" rel="noopener">2.3 million blocks</a> — pushed through the arithmetic of copper cutting, copper supply, site preparation and the farming that fed everyone. <b>Move the sliders anywhere — every panel updates.</b></p>
 
-  <nav class="tabs" role="tablist" id="tabs">
-    <button class="tab on" role="tab" data-t="overview"><span class="n">01</span>Overview</button>
-    <button class="tab" role="tab" data-t="ground"><span class="n">02</span>Breaking ground</button>
-    <button class="tab" role="tab" data-t="cutting"><span class="n">03</span>Cutting</button>
-    <button class="tab" role="tab" data-t="copper"><span class="n">04</span>Copper</button>
-    <button class="tab" role="tab" data-t="moving"><span class="n">05</span>Moving</button>
-    <button class="tab" role="tab" data-t="feeding"><span class="n">06</span>Feeding</button>
-    <button class="tab" role="tab" data-t="verdict"><span class="n">07</span>Verdict</button>
-    <button class="tab" role="tab" data-t="sources"><span class="n">08</span>Sources</button>
+  <nav class="tabs" role="tablist" aria-label="Sections" id="tabs">
+    <button class="tab on" role="tab" aria-selected="true" id="tab-overview" data-t="overview"><span class="n">01</span>Overview</button>
+    <button class="tab" role="tab" id="tab-ground" data-t="ground"><span class="n">02</span>Breaking ground</button>
+    <button class="tab" role="tab" id="tab-cutting" data-t="cutting"><span class="n">03</span>Cutting</button>
+    <button class="tab" role="tab" id="tab-copper" data-t="copper"><span class="n">04</span>Copper</button>
+    <button class="tab" role="tab" id="tab-moving" data-t="moving"><span class="n">05</span>Moving</button>
+    <button class="tab" role="tab" id="tab-feeding" data-t="feeding"><span class="n">06</span>Feeding</button>
+    <button class="tab" role="tab" id="tab-verdict" data-t="verdict"><span class="n">07</span>Verdict</button>
+    <button class="tab" role="tab" id="tab-sources" data-t="sources"><span class="n">08</span>Sources</button>
   </nav>
 
   <!-- ── SCENARIOS ────────────────────────────────────────
@@ -631,6 +716,7 @@
     <div class="scen-head">
       <h2 class="scen-t" id="scenT"><span class="sn">◇</span>Scenarios</h2>
       <span class="scen-note" id="scenNote">Pick one to load its assumptions into every panel.</span>
+      <button class="share" id="shareBtn" type="button" title="Copy a link to these exact settings">Copy link</button>
     </div>
 
     <div class="presets" id="presets" role="group" aria-label="Scenario presets">
@@ -660,7 +746,7 @@
         <p class="scen-out">The cost lands almost entirely on cutters and their support: <b>≈1,280,000 people</b>, <b>3.4×</b> the mainstream result and <b>83%</b> of the Old Kingdom population.</p>
       </article>
 
-      <p class="scen-custom" id="scenCustom">These sliders no longer match any of the four scenarios — you are looking at a <b>custom</b> assumption set. Pick a scenario above to return to a published one.</p>
+      <p class="scen-custom" id="scenCustom">These sliders no longer match a scenario exactly — you are looking at a <b>custom</b> assumption set. Pick one above to return to a published set.</p>
 
       <article class="scen-card" data-scen="surfacetrue">
         <h3 class="scen-k">04 · Harsh <span class="scen-tag">slow saw + long reign + year-round</span></h3>
@@ -701,7 +787,7 @@
 
     <div class="shell-main">
   <!-- 01 OVERVIEW -->
-  <section class="panel on" id="p-overview">
+  <section class="panel on" id="p-overview" role="tabpanel" aria-labelledby="tab-overview">
     <div class="onboard">
       <p class="ob-lede">Archaeologists generally agree the Great Pyramid was built in about <b>20 years</b> by roughly <b>20,000–25,000 people</b>. Those two numbers are quoted everywhere. This page takes them seriously and asks a simple question: <b>what would it actually take?</b></p>
 
@@ -739,7 +825,7 @@
   </section>
 
   <!-- 02 GROUND -->
-  <section class="panel" id="p-ground">
+  <section class="panel" id="p-ground" role="tabpanel" aria-labelledby="tab-ground" aria-hidden="true" inert>
     <h2>The hole you dig first</h2>
     <p class="lede">Before a single block is cut, the site itself is a construction project — and it comes out of the same 20 years, it does not run alongside them.</p>
 
@@ -784,7 +870,7 @@
   </section>
 
   <!-- 03 CUTTING -->
-  <section class="panel" id="p-cutting">
+  <section class="panel" id="p-cutting" role="tabpanel" aria-labelledby="tab-cutting" aria-hidden="true" inert>
     <h2>Cutting the stone</h2>
     <p class="lede">Copper is softer than limestone and far softer than granite. It doesn't cut — it drags quartz sand through the stone, and the sand does the work.</p>
 
@@ -819,7 +905,7 @@
   </section>
 
   <!-- 04 COPPER -->
-  <section class="panel" id="p-copper">
+  <section class="panel" id="p-copper" role="tabpanel" aria-labelledby="tab-copper" aria-hidden="true" inert>
     <h2>The copper bill</h2>
     <p class="lede">Copper doesn't last. It grinds away into the slurry, the blade thins, and eventually it has to be reforged.</p>
 
@@ -857,7 +943,7 @@
   </section>
 
   <!-- 05 MOVING -->
-  <section class="panel" id="p-moving">
+  <section class="panel" id="p-moving" role="tabpanel" aria-labelledby="tab-moving" aria-hidden="true" inert>
     <h2>Moving the stone</h2>
     <p class="lede">Cutters don't carry. The delivery rate is fixed by the pyramid's volume divided by the available days — it doesn't care how many people you have.</p>
 
@@ -895,7 +981,7 @@
   </section>
 
   <!-- 06 FEEDING -->
-  <section class="panel" id="p-feeding">
+  <section class="panel" id="p-feeding" role="tabpanel" aria-labelledby="tab-feeding" aria-hidden="true" inert>
     <h2>Feeding everyone</h2>
     <p class="lede">Every worker eats. In a grain economy that means farmers — and the farmers don't appear in anyone's pyramid workforce estimate, because they never left their fields.</p>
 
@@ -933,7 +1019,7 @@
   </section>
 
   <!-- 07 VERDICT -->
-  <section class="panel" id="p-verdict">
+  <section class="panel" id="p-verdict" role="tabpanel" aria-labelledby="tab-verdict" aria-hidden="true" inert>
     <h2>So what?</h2>
     <div class="verdict">
       <div class="punch" id="verdict">—</div>
@@ -1074,6 +1160,11 @@
       <p>The wear figures come from two published experiments on <b>granite</b> — Stocks at Aswan, Vasyutin with corundum — and the pyramid is mostly soft limestone, which nobody has tested with a copper saw. The harbour geochemistry measures <b>enrichment</b>, not tonnage, and the sediment signature could equally reflect copper tool production, ore handling, or the copper-alloy casings and fittings alone. And oxidation rates for buried copper powder under Giza conditions are estimated from general corrosion chemistry, not measured on site. This section raises a specific, testable prediction; it does not deliver a verdict on its own.</p>
     </div>
 
+    <div class="xlink">
+      <div class="xlink-k">The same method, elsewhere</div>
+      <p>The Stone Vases page runs the identical argument on a different object: published cutting and drilling rates, published corpus size, and a precision measurement that a few vessels should not be able to meet. If this page's reasoning is sound, that one should hold up the same way — and the two share the same anchor experiment, Stocks' copper-and-sand trials. <a href="../vases/">Read the vases argument →</a></p>
+    </div>
+
     <div class="note" style="margin-top:22px">
       <div class="nt">What this page is actually claiming</div>
       <p>Not that the mainstream numbers are wrong, and not that aliens built it. Only this: <b>the published cutting rate, applied to the published block count over the published timeline, does not produce the published workforce</b>. Something in that chain is wrong — the rate, the timeline, the method, or the headcount. Each of those is a real, arguable position, and the sliders let you test which one you would have to give up.</p>
@@ -1093,7 +1184,7 @@
   </section>
 
   <!-- 08 SOURCES -->
-  <section class="panel" id="p-sources">
+  <section class="panel" id="p-sources" role="tabpanel" aria-labelledby="tab-sources" aria-hidden="true" inert>
     <div class="srckey">
   <div class="sk-t">How these sources are graded</div>
   <ul>
@@ -1284,7 +1375,11 @@
   <div id="tip"></div>
 
   <footer>
-    <p>Private page. Not indexed. All arithmetic runs in your browser — nothing is sent anywhere.</p>
+    <p>All arithmetic runs in your browser — nothing you move is sent anywhere. Numbers are cited to published sources; where a figure is my own estimate, the page says so.</p>
+    <p class="foot-links">
+      <a href="../">← All thoughts</a>
+      <a href="../vases/">The same method, applied to stone vases →</a>
+    </p>
   </footer>
 </div>
 
@@ -1838,6 +1933,12 @@ function renderVerdict(r){
   const svScen=$('svScen');
   svScen.textContent=presetKey?svNames[presetKey]:'Custom settings';
   svScen.classList.toggle('custom',!presetKey);
+  /* Where a custom rig came from is worth saying: "Harsh + edited"
+     is far more useful than a bare "Custom". */
+  if(!presetKey && typeof nearestPreset==='function'){
+    const near=nearestPreset(read());
+    if(near) svScen.textContent='Edited from '+svNames[near].replace(/^\d+ · /,'');
+  }
 
   const svText={
     mainstream:{
@@ -1942,6 +2043,24 @@ function renderVerdict(r){
     `and no experiment has been run on Giza limestone with a copper saw.`;
 }
 
+/* The closest named scenario to the current sliders — used only to
+   label a custom rig ("edited from Harsh"), never to claim a match. */
+function nearestPreset(o){
+  let best=null, bestD=Infinity;
+  Object.keys(PRESETS).forEach(n=>{
+    const p=PRESETS[n]; if(!p) return;
+    let d=0, n2=0;
+    CTRLS.forEach(k=>{
+      if(p[k]==null) return;
+      const el=$(k); const span=(+el.max-+el.min)||1;
+      d+=Math.pow((o[k]-p[k])/span,2); n2++;
+    });
+    d=Math.sqrt(d/n2);
+    if(d<bestD){ bestD=d; best=n; }
+  });
+  return bestD<0.28?best:null;
+}
+
 /* Safe accessor for CURRENT_TAB from functions that run before its
    declaration is initialised. */
 function currentTab(){
@@ -1964,6 +2083,16 @@ function update(){
   renderFeeding(r); renderVerdict(r);
 
   syncScenarios(o);
+
+  /* Persist the live state so returning visitors land where they left
+     off, and mirror it into the URL so the current view is shareable. */
+  try{
+    localStorage.setItem('pyramid-state',JSON.stringify({
+      settings:Object.fromEntries(CTRLS.map(k=>[k,o[k]])),
+      tab:(typeof CURRENT_TAB!=='undefined'?CURRENT_TAB:'overview')
+    }));
+  }catch(e){}
+  if(typeof syncUrl==='function') syncUrl();
 }
 
 /* ── SCENARIO UI ─────────────────────────────────────────
@@ -1992,7 +2121,7 @@ function syncScenarios(o){
   const note=$('scenNote');
   if(note) note.textContent = shown
     ? 'Each scenario is a fixed set of published assumptions. Edit any slider below and it becomes a custom set.'
-    : 'Custom settings — these match none of the four scenarios.';
+    : 'Custom settings — closest to the scenario you started from.';
 }
 
 const ORDER=['overview','ground','cutting','copper','moving','feeding','verdict','sources'];
@@ -2001,10 +2130,20 @@ function showTab(name,animate){
   const changed = name!==CURRENT_TAB;
   CURRENT_TAB=name;
   ORDER.forEach(t=>{
-    $('p-'+t).classList.toggle('on', t===name);
-    document.querySelector(`.tab[data-t="${t}"]`).classList.toggle('on', t===name);
+    const on = t===name;
+    const panel=$('p-'+t), tab=document.querySelector(`.tab[data-t="${t}"]`);
+    panel.classList.toggle('on',on);
+    /* Assistive tech: hidden panels must not be reachable by Tab, and
+       a visible panel must announce itself as the active tabpanel. */
+    panel.setAttribute('aria-hidden', on?'false':'true');
+    if(on){ panel.removeAttribute('inert'); } else { panel.setAttribute('inert',''); }
+    tab.classList.toggle('on',on);
+    tab.setAttribute('aria-selected',on?'true':'false');
+    tab.tabIndex = on?0:-1;
   });
-  history.replaceState(null,'','#'+name);
+  /* Keep any ?state= in the address bar when switching sections. */
+  const _sp=new URLSearchParams(location.search), _q=_sp.toString();
+  history.replaceState(null,'',(_q?'?'+_q:'')+'#'+name);
   if(changed) renderColumn(compute(read()),name,!!animate);
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -2032,10 +2171,133 @@ document.addEventListener('keydown',e=>{
   }
 });
 
-const qs=new URLSearchParams(location.search).get('s');
-const initial=(qs||decodeURIComponent(location.hash.replace(/^#/,''))).trim();
-showTab(ORDER.includes(initial)?initial:'overview');
-update();
+/* ── SHAREABLE STATE ─────────────────────────────────────
+   Settings that differ from the Mainstream preset are written to
+   the query string, so a link can carry "Harsh" or a custom rig
+   to someone else. Defaults are omitted to keep links short; the
+   page reads them back on load and re-applies them verbatim. */
+const PARAMS=new URLSearchParams(location.search);
+/* Boot flag: update() fires several times while the initial state is
+   being assembled, and each call would rewrite the address bar before
+   the #section has been read. URL syncing stays off until boot ends. */
+let BOOTED=false;
+
+function stateToParam(o){
+  const base=PRESETS.mainstream, out=new URLSearchParams();
+  CTRLS.forEach(k=>{ if(Math.abs(o[k]-base[k])>1e-9) out.set(k,o[k]); });
+  return out;
+}
+function paramToState(sp){
+  const o=read();
+  CTRLS.forEach(k=>{
+    if(!sp.has(k)) return;
+    const v=parseFloat(sp.get(k));
+    const el=$(k);
+    if(Number.isFinite(v) && v>=+el.min && v<=+el.max) o[k]=v;
+  });
+  return o;
+}
+function syncUrl(){
+  if(!BOOTED) return;                            // still booting
+  if(typeof CURRENT_TAB==='undefined') return;
+  const o=read();
+  /* If the settings match a named scenario exactly, share the short
+     ?preset= form instead of eleven numbers. */
+  const matched=Object.keys(PRESETS).find(n=>PRESETS[n] && CTRLS.every(k=>PRESETS[n][k]!=null && Math.abs(PRESETS[n][k]-o[k])<1e-9));
+  const sp=matched ? new URLSearchParams({preset:matched}) : stateToParam(o);
+  const tab=CURRENT_TAB||'overview';
+  const q=sp.toString();
+  const url=location.pathname + (q?'?'+q:'') + '#' + tab;
+  try{ history.replaceState(null,'',url); }catch(e){}
+}
+
+/* Card body text for a shared/custom setting, so the scenario
+   block still says something true when the numbers match nothing. */
+function applyState(o){
+  CTRLS.forEach(k=>{ if(o[k]!=null) $(k).value=o[k]; });
+  update();
+}
+
+function showShareBox(url){
+  let box=$('shareBox');
+  if(box){ box.querySelector('input').value=url; box.hidden=false; box.querySelector('input').select(); return; }
+  box=document.createElement('div');
+  box.id='shareBox'; box.className='share-box';
+  box.innerHTML='<label for="shareUrl">Link to this exact view — copy it:</label>';
+  const inp=document.createElement('input');
+  inp.id='shareUrl'; inp.type='text'; inp.readOnly=true; inp.value=url; inp.spellcheck=false;
+  const close=document.createElement('button');
+  close.type='button'; close.textContent='Close'; close.className='share-close';
+  close.addEventListener('click',()=>{ box.hidden=true; });
+  box.appendChild(inp); box.appendChild(close);
+  $('scen').appendChild(box);
+  inp.select();
+}
+
+/* Share: copy the live URL, with a graceful fallback for browsers
+   without the clipboard API (iOS Safari over plain http, etc). */
+const shareBtn=$('shareBtn');
+if(shareBtn){
+  shareBtn.addEventListener('click',async()=>{
+    syncUrl();
+    const url=location.href;
+    let ok=false;
+    try{ await navigator.clipboard.writeText(url); ok=true; }
+    catch(e){
+      try{
+        const ta=document.createElement('textarea');
+        ta.value=url; ta.setAttribute('readonly','');
+        ta.style.cssText='position:absolute;left:-9999px';
+        document.body.appendChild(ta); ta.select();
+        ok=document.execCommand('copy'); ta.remove();
+      }catch(e2){ ok=false; }
+    }
+    const old=shareBtn.dataset.label||shareBtn.textContent;
+    shareBtn.dataset.label=old;
+    if(ok){
+      shareBtn.textContent='Link copied';
+      shareBtn.classList.add('ok');
+      setTimeout(()=>{ shareBtn.textContent=old; shareBtn.classList.remove('ok','fail'); },2200);
+    } else {
+      /* Nothing to copy with? Show the link itself, selected, so it can
+         be copied by hand rather than just saying it failed. */
+      showShareBox(url);
+      shareBtn.classList.add('fail');
+      setTimeout(()=>{ shareBtn.classList.remove('ok','fail'); },2200);
+    }
+  });
+}
+
+/* ── BOOT ────────────────────────────────────────────────
+   Precedence: an explicit ?s= section wins for navigation, then any
+   slider values in the query string, then the last visited state
+   remembered locally, then the Mainstream default. */
+const remembered=(()=>{
+  try{ const v=localStorage.getItem('pyramid-state'); return v?JSON.parse(v):null; }
+  catch(e){ return null; }
+})();
+
+/* ?preset=mainstream|yearround|granite|surfacetrue|solveyears loads a
+   whole scenario by name — the short form of a share link. Explicit
+   slider params win over it, so a custom rig can still be pinned. */
+const namedPreset=PRESETS[PARAMS.get('preset')];
+const fromUrl=paramToState(PARAMS);
+const hasUrlState=CTRLS.some(k=>PARAMS.has(k));
+if(namedPreset){
+  CTRLS.forEach(k=>{ if(namedPreset[k]!=null) $(k).value=namedPreset[k]; });
+  update();
+  if(hasUrlState) applyState(fromUrl); else syncUrl();
+} else if(!hasUrlState && remembered && remembered.settings){
+  applyState(remembered.settings);
+} else {
+  applyState(fromUrl);
+}
+
+/* Section: ?s= wins, then the #hash, then the remembered tab. */
+const qs=(PARAMS.get('s')||decodeURIComponent(location.hash.replace(/^#/,''))).trim();
+showTab(ORDER.includes(qs)?qs:((remembered&&remembered.tab&&!qs)?remembered.tab:'overview'));
+BOOTED=true;
+syncUrl();
 })();
 </script>
 <nav class="crawlmap" aria-label="All sections">
@@ -2048,6 +2310,7 @@ update();
 <li><a href="?s=moving#moving">Hauling and raising the blocks</a></li>
 <li><a href="?s=feeding#feeding">Feeding and housing the workforce</a></li>
 <li><a href="?s=verdict#verdict">Verdict: does the mainstream arithmetic close?</a></li>
+<li><a href="?preset=solveyears#verdict">Scenario: 22,500 people, and the 351-year calendar it needs</a></li>
 <li><a href="?s=sources#sources">Sources</a></li>
 </ul></nav>
 <div class="visits">
