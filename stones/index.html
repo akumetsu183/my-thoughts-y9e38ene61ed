@@ -258,15 +258,10 @@ a.cite:hover{border-bottom-color:var(--moved)}
   border:1px solid var(--line);border-radius:3px;overflow:hidden}
 .fill{position:absolute;inset:0 auto 0 0;border-radius:2px;
   transform-origin:left center;
-  animation:growBar .7s cubic-bezier(.22,1,.36,1) both;
 }
-@keyframes growBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.row:nth-child(1) .fill{animation-delay:.02s}
-.row:nth-child(2) .fill{animation-delay:.06s}
-.row:nth-child(3) .fill{animation-delay:.10s}
-.row:nth-child(4) .fill{animation-delay:.14s}
-.row:nth-child(5) .fill{animation-delay:.18s}
-@media (prefers-reduced-motion:reduce){.fill{animation:none}}
+/* Deliberately no entry animation: the bar's resting state IS its value.
+   An entrance effect that starts at scaleX(0) renders the whole chart blank
+   whenever the animation is throttled, skipped, or never composited. */
 .fill.stuck{
   background:repeating-linear-gradient(135deg,
     var(--stuck) 0 5px, color-mix(in srgb,var(--stuck) 62%,#000) 5px 10px);
