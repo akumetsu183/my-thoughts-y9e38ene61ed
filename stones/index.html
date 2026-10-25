@@ -187,18 +187,20 @@ a.cite:hover{border-bottom-color:var(--moved)}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 
 .hperson{
-  flex:none;position:relative;
-  width:calc(.52 * var(--u));
-  height:calc(1.8 * var(--u));
-  background:var(--human);
-  border-radius:calc(.22 * var(--u)) calc(.22 * var(--u)) 1px 1px;
+  flex:none;position:relative;min-width:2px;
+  width:calc(.40 * var(--u));
+  height:calc(1.8 * var(--u));        /* total height, head included */
+  background:linear-gradient(to top,
+     var(--human) 0 calc(100% - .23 * var(--u)),
+     transparent calc(100% - .23 * var(--u)));
+  border-radius:calc(.1 * var(--u)) calc(.1 * var(--u)) 1px 1px;
   box-shadow:0 0 14px -2px color-mix(in srgb,var(--human) 60%,transparent);
   margin-bottom:0;
 }
-.hperson::before{  /* head */
+.hperson::before{  /* head, inside the 1.8 m envelope */
   content:"";position:absolute;left:50%;transform:translateX(-50%);
-  bottom:calc(1.8 * var(--u));
-  width:calc(.44 * var(--u));height:calc(.44 * var(--u));
+  top:0;
+  width:calc(.22 * var(--u));height:calc(.23 * var(--u));
   border-radius:50%;background:var(--human);
 }
 .hperson::after{   /* ground tick */
@@ -414,11 +416,19 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
 .pblk::before{content:"";position:absolute;inset:0;opacity:.3;
   background:repeating-linear-gradient(171deg,transparent 0 6px,
     color-mix(in srgb,#000 20%,transparent) 6px 7px)}
-/* 1.8 m person, same scale, always beside the block */
-.pp2{position:relative;flex:none;width:calc(.5*var(--u2));height:calc(1.8*var(--u2));
-  background:var(--human);border-radius:calc(.2*var(--u2)) calc(.2*var(--u2)) 1px 1px}
+/* 1.8 m person, same scale, always beside the block.
+   The 1.8 m envelope INCLUDES the head: a head is ~.23 m tall; body the rest.
+   Drawing the head above the body box would make the figure ~2.2 m and overstate
+   nothing but itself — it would read as a taller person against the same stone. */
+.pp2{position:relative;flex:none;min-width:2px;
+  width:calc(.40*var(--u2));
+  height:calc(1.8*var(--u2));          /* total height, head included */
+  background:linear-gradient(to top,
+     var(--human) 0 calc(100% - .23*var(--u2)),
+     transparent calc(100% - .23*var(--u2)));
+  border-radius:calc(.1*var(--u2)) calc(.1*var(--u2)) 1px 1px}
 .pp2::before{content:"";position:absolute;left:50%;transform:translateX(-50%);
-  bottom:calc(1.8*var(--u2));width:calc(.42*var(--u2));height:calc(.42*var(--u2));
+  top:0;width:calc(.22*var(--u2));height:calc(.23*var(--u2));
   border-radius:50%;background:var(--human)}
 .pdim{font:600 .62rem/1.6 var(--mono);color:var(--muted);letter-spacing:.04em;
   margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
@@ -513,7 +523,7 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
             <div class="pp2"></div>
           </div>
           <p class="pdim">One Trilithon block, <b>19 m × 4.3 m</b><br><span class="h">orange = 1.8 m person</span>, same scale</p>
-          <p class="pverdict"><b>Standing beside it, your eyeline reaches barely a quarter of the way up.</b></p>
+          <p class="pverdict"><b>Head and shoulders: the stone is 2.4× your height. Your eyeline reaches 38% of the way up.</b></p>
         </div>
 
         <div class="pv">
@@ -524,13 +534,13 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
             <div class="pp2"></div>
           </div>
           <p class="pdim">The stone's <b>end face, 3.6 m × 4.3 m</b><br><span class="h">orange = 1.8 m person</span>, same scale</p>
-          <p class="pverdict"><b>Two people cannot span it. It is wider than a delivery van is long.</b></p>
+          <p class="pverdict"><b>2.4× your height, and thicker than two people can reach across arm to arm.</b></p>
         </div>
 
         <div class="pv wide">
           <h3>All three, as they actually stand</h3>
           <p class="pnote">The 19 m course, side by side</p>
-          <div class="pstage" style="--u2:min(15px, 1.4vw + 4px, 1.5vw)">
+          <div class="pstage" style="--u2:min(15px, 1.3vw + 2px, 5.2px)">
             <div class="pblk" style="width:calc(57*var(--u2));height:calc(4.3*var(--u2))"></div>
             <div class="pp2"></div>
           </div>
