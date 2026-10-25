@@ -388,6 +388,47 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
 .visits span{font:500 .64rem var(--mono);letter-spacing:.1em;
   text-transform:uppercase;color:var(--dim)}
 
+/* ══ THE PHOTO VIEWS (Trilithon, to scale) ═══════════ */
+.photos{max-width:1080px;margin:34px auto 0}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.pv{background:var(--bg-1);padding:22px clamp(16px,2.4vw,26px) 96px;position:relative;display:flex;
+  flex-direction:column;min-height:340px}
+.pv.wide{grid-column:1/-1}
+.pv h3{font:600 .96rem/1.3 var(--sans);margin:0 0 3px;letter-spacing:-.01em}
+.pv .pnote{font:400 .66rem/1.4 var(--mono);color:var(--dim);letter-spacing:.05em;
+  text-transform:uppercase;margin:0 0 20px}
+.pstage{position:relative;flex:1;
+  display:flex;align-items:flex-end;justify-content:center;gap:calc(1.1*var(--u2));
+  padding-bottom:calc(1.6*var(--u2))}
+/* the block — always drawn as front elevation L × H */
+.pblk{
+  position:relative;flex:none;
+  background:linear-gradient(158deg,
+      color-mix(in srgb,var(--stone-3) 50%,transparent) 0%,
+      var(--stone-2) 40%, color-mix(in srgb,var(--stone) 72%,#000) 100%);
+  border:1px solid color-mix(in srgb,var(--stone-3) 45%,#000);
+  box-shadow:inset 2px 3px 0 color-mix(in srgb,var(--stone-3) 32%,transparent),
+             inset -12px -12px 22px color-mix(in srgb,#000 40%,transparent);
+}
+.pblk::before{content:"";position:absolute;inset:0;opacity:.3;
+  background:repeating-linear-gradient(171deg,transparent 0 6px,
+    color-mix(in srgb,#000 20%,transparent) 6px 7px)}
+/* 1.8 m person, same scale, always beside the block */
+.pp2{position:relative;flex:none;width:calc(.5*var(--u2));height:calc(1.8*var(--u2));
+  background:var(--human);border-radius:calc(.2*var(--u2)) calc(.2*var(--u2)) 1px 1px}
+.pp2::before{content:"";position:absolute;left:50%;transform:translateX(-50%);
+  bottom:calc(1.8*var(--u2));width:calc(.42*var(--u2));height:calc(.42*var(--u2));
+  border-radius:50%;background:var(--human)}
+.pdim{font:600 .62rem/1.6 var(--mono);color:var(--muted);letter-spacing:.04em;
+  margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
+.pdim b{color:var(--text)}
+.pdim .h{color:var(--human)}
+.pverdict{position:absolute;left:clamp(16px,2.4vw,26px);right:clamp(16px,2.4vw,26px);bottom:18px;
+  font:500 .63rem/1.45 var(--mono);letter-spacing:.05em;text-transform:uppercase;
+  color:var(--dim);border-top:1px solid var(--line-2);padding-top:10px}
+.pverdict b{color:var(--lifted);font-weight:700}
+
 /* ══ SCALE FIGURE (person silhouettes) ════════════════ */
 .personscale{display:flex;align-items:flex-end;gap:0;height:46px;margin:28px auto 0;
   max-width:640px;position:relative;border-bottom:1px solid var(--line-2)}
@@ -451,10 +492,68 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
 
 </section>
 
+<!-- ══ 04 THE PLATFORM — the human-for-scale photo ═══ -->
+<section id="baalbek" style="background:var(--bg-1);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="bleed">
+    <div style="max-width:760px">
+      <p class="eyebrow" style="color:var(--moved)">04 — The photograph you're thinking of</p>
+      <h2>The foundation stones under a Roman temple</h2>
+      <p class="lede">If you have seen a picture of enormous cut blocks with tiny people standing in front of them, it is almost certainly this: the <strong>Trilithon</strong> — the "three stones" — in the retaining wall beneath the <strong>Temple of Jupiter at Baalbek</strong>, Lebanon. Roman, first century BC, and still the heaviest blocks ever set into a standing building.</p>
+      <p class="body">Three blocks. Each <strong>19 m long, 4.3 m high and 3.6 m thick</strong> — roughly a four-storey building laid on its side — and each weighing an estimated <strong>750–800 tonnes</strong>. They were dragged about 900 m from the hillside quarry that is slightly <em>uphill</em>, which is the single fact that makes the whole thing tractable: they were rolled and slid downhill into place, never hoisted.</p>
+      <p class="body">The photo is compelling because of what it does to your sense of the possible. Architects today cut and set stone in the tens of tonnes as a matter of routine. These are <strong>eighty times</strong> that, from a quarry with no iron, no wheels rated for the load, and no machine at all.</p>
+    </div>
+
+    <div class="photos">
+      <div class="pgrid">
+        <div class="pv">
+          <h3>How a tour photograph frames it</h3>
+          <p class="pnote">Front elevation · the view from the platform</p>
+          <div class="pstage" style="--u2:min(11.4px, 29vw)">
+            <div class="pblk" style="width:calc(19*var(--u2));height:calc(4.3*var(--u2))"></div>
+            <div class="pp2"></div>
+          </div>
+          <p class="pdim">One Trilithon block, <b>19 m × 4.3 m</b><br><span class="h">orange = 1.8 m person</span>, same scale</p>
+          <p class="pverdict"><b>Standing beside it, your eyeline reaches barely a quarter of the way up.</b></p>
+        </div>
+
+        <div class="pv">
+          <h3>Why the photo looks so extreme</h3>
+          <p class="pnote">Looking at the 3.6 m face · the short end</p>
+          <div class="pstage" style="--u2:min(14px, 34vw)">
+            <div class="pblk" style="width:calc(3.6*var(--u2));height:calc(4.3*var(--u2))"></div>
+            <div class="pp2"></div>
+          </div>
+          <p class="pdim">The stone's <b>end face, 3.6 m × 4.3 m</b><br><span class="h">orange = 1.8 m person</span>, same scale</p>
+          <p class="pverdict"><b>Two people cannot span it. It is wider than a delivery van is long.</b></p>
+        </div>
+
+        <div class="pv wide">
+          <h3>All three, as they actually stand</h3>
+          <p class="pnote">The 19 m course, side by side</p>
+          <div class="pstage" style="--u2:min(15px, 1.4vw + 4px, 1.5vw)">
+            <div class="pblk" style="width:calc(57*var(--u2));height:calc(4.3*var(--u2))"></div>
+            <div class="pp2"></div>
+          </div>
+          <p class="pdim">Trilithon course, <b>three blocks of 19 m each</b><br><span class="h">orange = 1.8 m person</span>, same scale</p>
+          <p class="pverdict"><b>~2,400 tonnes of stone in one course, jointed to within millimetres.</b></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="narrow" style="margin-top:40px">
+      <p class="body"><strong>The correction that matters, and it is mine to make.</strong> These are often described as the temple's <em>foundation</em> stones, and that is not literally true. The Trilithon is the <strong>second course</strong> of the podium wall. Below it sits a lower course of around <strong>24 blocks of roughly 300 tonnes each</strong> — so the heaviest blocks are <em>not</em> at the bottom, and the wall they sit in was a retaining wall, holding back the artificial platform the temple stood on.</p>
+      <p class="body">That detail doesn't deflate the story; it makes the story better. A Roman engineer had to <em>stack</em> an 800-tonne block on top of a 300-tonne one and get the joints right — and did it as part of a wall that had to hold back a hillside. <strong>The heaviest stones are not the foundation. They are the second row.</strong></p>
+      <p class="body" style="color:var(--dim);font-size:.85rem;border-top:1px solid var(--line);padding-top:20px">
+        Note on the photographs: the widely shared images are ordinary tourist shots taken from the platform, and the "famous" framing is simply a person standing at the foot of the wall. I've drawn the three views above rather than embedding stock photos, so the scale is exact rather than dependent on camera angle — a wide lens makes the blocks look far larger than they are, which is part of why the photos go viral. <a class="cite" href="https://en.wikipedia.org/wiki/Temple_of_Jupiter_(Baalbek)" target="_blank" rel="noopener">Temple of Jupiter, Baalbek</a> · <a class="cite" href="https://en.wikipedia.org/wiki/Baalbek_Stones" target="_blank" rel="noopener">Baalbek Stones</a>
+      </p>
+    </div>
+  </div>
+</section>
+
 <!-- ══ 03 THE THREE VERBS ═══════════════════════════ -->
 <section id="verbs">
   <div class="narrow">
-    <p class="eyebrow">03 — Three different words</p>
+    <p class="eyebrow">05 — Three different words</p>
     <h2>Quarried ≠ moved ≠ lifted</h2>
     <p class="body">Almost every "ancient giants" article puts the biggest <em>cut</em> stone next to the biggest <em>lift</em> and implies they are the same problem. They are not. Cutting a stone loose is a question of labour and patience. Moving it is a question of friction. Lifting it — getting mass off the ground and holding it there — is the one the modern world actually solved.</p>
     <p class="body">Look at the maximum in each column, honestly:</p>
@@ -500,7 +599,7 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
 <!-- ══ 05 THE MOVED ONES ════════════════════════════ -->
 <section id="moved">
   <div class="narrow">
-    <p class="eyebrow">05 — The ones that travelled</p>
+    <p class="eyebrow">06 — The ones that travelled</p>
     <h2>What it costs to move a thousand tonnes</h2>
     <p class="body">The honest answer is: it costs friction and time, not mystery. Three cases worth knowing, because each breaks a different assumption.</p>
   </div>
@@ -526,7 +625,7 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
 <section id="lifted" style="background:var(--bg-1);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="bleed">
     <div style="max-width:760px">
-      <p class="eyebrow" style="color:var(--lifted)">06 — The inversion</p>
+      <p class="eyebrow" style="color:var(--lifted)">07 — The inversion</p>
       <h2>This is the chart that actually surprises people</h2>
       <p class="lede">Below is the tallest stack of objects, by how far off the ground they got, and by mass. Ancient on the left of the divider, modern on the right.</p>
     </div>
@@ -544,7 +643,7 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
 <!-- ══ 07 MODERN ════════════════════════════════════ -->
 <section id="modern">
   <div class="narrow">
-    <p class="eyebrow">07 — What we can do now</p>
+    <p class="eyebrow">08 — What we can do now</p>
     <h2>And here is the honest modern ledger</h2>
     <p class="body">Four records, and the important thing about each is <em>what kind of machine</em> it needed.</p>
   </div>
@@ -586,7 +685,7 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
 <!-- ══ 08 THE HONEST BIT ════════════════════════════ -->
 <section style="background:var(--bg-1);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="narrow">
-    <p class="eyebrow" style="color:var(--stuck)">08 — The bit that cuts both ways</p>
+    <p class="eyebrow" style="color:var(--stuck)">09 — The bit that cuts both ways</p>
     <h2>We are not actually better at this than they were. We are just more powerful.</h2>
     <p class="body">It would be easy, and wrong, to end this as "modern engineering wins." Look at what the numbers actually say:</p>
 
@@ -618,7 +717,7 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
 <!-- ══ 09 VERDICT ═══════════════════════════════════ -->
 <section id="verdict" class="verdict">
   <div class="narrow">
-    <p class="eyebrow">09 — Verdict</p>
+    <p class="eyebrow">10 — Verdict</p>
     <h2>So — how big are they, really?</h2>
 
     <p class="body">Enormous, and smaller than the stories. Here is the page's whole argument in five lines.</p>
@@ -655,11 +754,12 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
 <!-- ══ 10 SOURCES ═══════════════════════════════════ -->
 <section class="sources" id="sources">
   <div class="narrow">
-    <p class="eyebrow">10 — Sources</p>
+    <p class="eyebrow">11 — Sources</p>
     <h2>Where every number came from</h2>
     <ul class="srclist">
       <li><b>List of largest monoliths</b> — the structural backbone of this page. <span class="what">In-situ, moved, and lifted sections; the density table used for weight sanity checks. <a href="https://en.wikipedia.org/wiki/List_of_largest_monoliths_in_the_world" target="_blank" rel="noopener">Wikipedia</a></span></li>
-      <li><b>Baalbek Stones</b> — Trilithon 750–800 t each; Stone of the Pregnant Woman ~1,000 t; Stone of the South 1,242 t; Forgotten Stone 1,650 t. <span class="what">Includes the decisive detail that the quarry stood slightly higher than the temple, so the blocks were never lifted. <a href="https://en.wikipedia.org/wiki/Baalbek_Stones" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.guinnessworldrecords.com/world-records/605305-largest-megalith-from-antiquity" target="_blank" rel="noopener">Guinness World Records</a></span></li>
+      <li><b>Baalbek Stones</b> — Trilithon 750–800 t each, 19 m × 4.2 m × 3.6 m; Stone of the Pregnant Woman ~1,000 t; Stone of the South 1,242 t; Forgotten Stone 1,650 t. <span class="what">Includes the decisive detail that the quarry stood slightly higher than the temple, so the blocks were never lifted. <a href="https://en.wikipedia.org/wiki/Baalbek_Stones" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.guinnessworldrecords.com/world-records/605305-largest-megalith-from-antiquity" target="_blank" rel="noopener">Guinness World Records</a></span></li>
+      <li><b>Temple of Jupiter, Baalbek</b> — the Trilithon is the <em>second</em> course of the podium retaining wall; below it ~24 monoliths of roughly 300 t each; the temple platform stands 7 m above the foundation stones. <span class="what">This is the source that corrects the common "foundation stones" description. <a href="https://en.wikipedia.org/wiki/Temple_of_Jupiter_(Baalbek)" target="_blank" rel="noopener">Wikipedia</a></span></li>
       <li><b>Bronze Horseman / Thunder Stone</b> — ~1,500 t original, 1,250 t as erected, 6 km overland on bronze spheres. <span class="what"><a href="https://en.wikipedia.org/wiki/Bronze_Horseman" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.guinnessworldrecords.com/world-records/90339-largest-stone-moved-by-manpower-alone" target="_blank" rel="noopener">Guinness — largest stone moved by manpower alone</a></span></li>
       <li><b>Ramesseum</b> — enthroned colossus estimated ~1,000 t, 16–19 m, transported ~220 km. <span class="what">Largest monolithic statue moved in Egyptian history. <a href="https://en.wikipedia.org/wiki/Ramesseum" target="_blank" rel="noopener">Wikipedia</a></span></li>
       <li><b>Colossi of Memnon</b> — ~720 t each including plinths, quartzite from el-Gabal el-Ahmar, 675 km overland. <span class="what"><a href="https://en.wikipedia.org/wiki/Colossi_of_Memnon" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/17811309/" target="_blank" rel="noopener">Butzer et al., <em>Science</em> — the 720-ton statues</a></span></li>
@@ -716,8 +816,10 @@ const D = [
    note:"~1,500 t when found, cut to 1,250 t on the way. Bronze balls on a track.", flag:"RU", from:"6 km overland"},
   {n:"Ramesseum colossus", loc:"Thebes, Egypt", m:1000, kind:"moved", what:"Egyptian · 220 km",
    note:"Largest monolithic statue ever moved in Egypt. Now a torso and base.", flag:"EG", from:"220 km from Aswan"},
-  {n:"Trilithon (each of 3)", loc:"Baalbek, Lebanon", m:800, kind:"moved", what:"Roman · few hundred m",
-   note:"Set in the Jupiter temple podium. Quarry was uphill — never lifted.", flag:"LB", from:"~300 m, downhill"},
+  {n:"Trilithon (each of 3)", loc:"Baalbek, Lebanon", m:800, kind:"moved", what:"Roman · ~900 m from quarry",
+   note:"Set in the podium's SECOND course of the Jupiter temple. 19 m × 4.3 m × 3.6 m. Quarry was uphill — never lifted.", flag:"LB", from:"~900 m, downhill"},
+  {n:"Podium lower course (each)", loc:"Baalbek, Lebanon", m:300, kind:"moved", what:"Roman · ~24 blocks",
+   note:"The course the Trilithon sits on, and the wall around it. Still heavier than any stone a Roman crane could lift.", flag:"LB", from:"~900 m, downhill"},
   {n:"Colossi of Memnon (each)", loc:"Thebes, Egypt", m:720, kind:"moved", what:"Egyptian · 675 km",
    note:"720 t each including the plinths. Too heavy for a Nile barge, so: overland.", flag:"EG", from:"675 km overland"},
   {n:"Alexander Column", loc:"St Petersburg, Russia", m:600, kind:"moved", what:"1832 · lifted upright",
@@ -856,12 +958,13 @@ $('#inv').innerHTML = invH;
 
 /* ── PROGRESS BAR + SECTION LABEL ── */
 const mids = [
-  ['ladder',  'The ladder'],
-  ['verbs',   'Three different words'],
-  ['moved',   'The ones that travelled'],
-  ['lifted',  'The inversion'],
-  ['modern',  'What we can do now'],
-  ['verdict', 'Verdict']
+  ['ladder',   'The ladder'],
+  ['baalbek',  'The foundation stones'],
+  ['verbs',    'Three different words'],
+  ['moved',    'The ones that travelled'],
+  ['lifted',   'The inversion'],
+  ['modern',   'What we can do now'],
+  ['verdict',  'Verdict']
 ];
 const prog = $('#prog'), mid = $('#barmid');
 let ticking = false;
