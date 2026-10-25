@@ -365,13 +365,50 @@
   .why-item a{color:var(--gold);border-bottom:1px dotted color-mix(in srgb,var(--gold) 55%,transparent);font-size:.95em}
   .why-item a:hover{border-bottom-style:solid}
 
-  .presets{display:flex;gap:7px;flex-wrap:wrap;margin-top:20px}
+  /* ── SCENARIOS (top of page, above the tabs' content) ── */
+  .scen{margin:18px 0 0;background:linear-gradient(160deg,var(--surface-2),var(--surface));
+    border:1px solid var(--line-2);border-radius:var(--radius);padding:18px 20px 20px;
+    box-shadow:0 24px 60px -40px rgba(0,0,0,.8), inset 0 1px 0 color-mix(in srgb,#fff 4%,transparent)}
+  .scen-head{display:flex;gap:10px 16px;align-items:baseline;flex-wrap:wrap;margin-bottom:13px}
+  .scen-t{font:600 .68rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+    color:var(--gold);margin:0;display:flex;gap:8px;align-items:baseline}
+  .scen-t .sn{font-size:.85rem;line-height:1;color:var(--gold-2)}
+  .scen-note{font-size:.72rem;color:var(--dim);font-family:var(--mono)}
+
+  .presets{display:flex;gap:7px;flex-wrap:wrap;margin-top:0}
   button.preset{font:inherit;font-family:var(--mono);font-size:.74rem;color:var(--muted);background:var(--surface-2);
     border:1px solid var(--line);padding:8px 13px;border-radius:8px;cursor:pointer;
     transition:color .15s,border-color .15s,background .15s,transform .12s;letter-spacing:.01em}
   button.preset:hover{color:var(--text);border-color:var(--gold-2);background:var(--surface-3);transform:translateY(-1px)}
   button.preset.on{color:#1a1205;background:var(--gold);border-color:var(--gold);font-weight:700}
   button.preset:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  button.preset .pn{color:var(--dim);margin-right:6px;font-size:.7em;letter-spacing:.06em}
+  button.preset.on .pn{color:color-mix(in srgb,#1a1205 55%,transparent)}
+
+  .scen-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:0;
+    margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+  .scen-card{display:none;max-width:78ch}
+  .scen-card.on{display:block;animation:fade .28s ease}
+  .scen-k{font:600 .84rem/1.35 var(--serif);color:var(--text);margin:0 0 9px;
+    display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+  .scen-tag{font:500 .62rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+    color:var(--gold);background:color-mix(in srgb,var(--gold) 11%,transparent);
+    border:1px solid color-mix(in srgb,var(--gold) 32%,transparent);
+    padding:4px 7px;border-radius:20px;white-space:nowrap}
+  .scen-card p{font-size:.85rem;color:var(--muted);margin:0 0 10px;line-height:1.62}
+  .scen-card b{color:var(--text);font-weight:600}
+  .scen-card .scen-out{font-size:.83rem;color:var(--muted);margin:0;padding:10px 13px;border-radius:0 8px 8px 0;
+    background:color-mix(in srgb,var(--gold) 7%,transparent);border-left:2px solid var(--gold)}
+  .scen-card .scen-out b{color:var(--gold)}
+  .scen-custom{display:none;font-size:.85rem;color:var(--muted);max-width:78ch}
+  .scen-custom.on{display:block;animation:fade .28s ease}
+  .scen-custom b{color:var(--text)}
+
+  @media (max-width:680px){
+    .scen{padding:15px 14px 17px}
+    button.preset{font-size:.7rem;padding:8px 11px}
+    button.preset .pn{display:none}
+  }
 
   .bars{display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);
     border-radius:var(--radius);padding:22px}
@@ -517,6 +554,53 @@
     <button class="tab" role="tab" data-t="verdict"><span class="n">07</span>Verdict</button>
     <button class="tab" role="tab" data-t="sources"><span class="n">08</span>Sources</button>
   </nav>
+
+  <!-- ── SCENARIOS ────────────────────────────────────────
+       Four fixed assumption sets. Sits directly under the tab
+       bar so the choice is visible on every panel instead of
+       buried at the bottom of the cutting page.
+       ───────────────────────────────────────────────────── -->
+  <section class="scen" id="scen" aria-labelledby="scenT">
+    <div class="scen-head">
+      <h2 class="scen-t" id="scenT"><span class="sn">◇</span>Scenarios</h2>
+      <span class="scen-note" id="scenNote">Pick one to load its assumptions into every panel.</span>
+    </div>
+
+    <div class="presets" id="presets" role="group" aria-label="Scenario presets">
+      <button class="preset on" data-preset="mainstream" aria-pressed="true"><span class="pn">01</span>Mainstream</button>
+      <button class="preset" data-preset="yearround" aria-pressed="false"><span class="pn">02</span>Year-round corvée</button>
+      <button class="preset" data-preset="granite" aria-pressed="false"><span class="pn">03</span>Slowest cutting rate</button>
+      <button class="preset" data-preset="surfacetrue" aria-pressed="false"><span class="pn">04</span>Harsh</button>
+    </div>
+
+    <div class="scen-body" id="scenBody">
+      <article class="scen-card on" data-scen="mainstream">
+        <h3 class="scen-k">01 · Mainstream <span class="scen-tag">the position archaeology holds</span></h3>
+        <p>Every default here is a published figure: <b>7.5 mm/hr</b> from Stocks' Aswan granite trial, <b>20 years</b> from Herodotus and Khufu's reign, <b>120 working days</b> a year because Merer's logbook runs July–November — the Akhet flood, when the fields are under water and the farmers are free anyway. Two-person saw teams, five cut faces per block, one support worker per skilled worker, 12 months of site prep.</p>
+        <p class="scen-out">This is the page's baseline, and deliberately the reading hardest on its own argument: <b>≈380,800 people</b> — about <b>16×</b> the 22,500 headcount, and <b>25%</b> of Egypt's whole population.</p>
+      </article>
+
+      <article class="scen-card" data-scen="yearround">
+        <h3 class="scen-k">02 · Year-round corvée <span class="scen-tag">the most generous reading</span></h3>
+        <p>Every mainstream value with exactly one change: <b>300 working days</b> a year instead of 120. No flood downtime, no seasonal rotation, the same crews working almost every day of the build. This single assumption does most of the work in sheltering a 20,000-worker figure, so it is worth isolating — if the mainstream number is reachable at all, it is reachable here.</p>
+        <p class="scen-out">It buys a <b>2.5×</b> saving, to <b>≈153,500</b>. Still <b>~7×</b> the mainstream window — and it only gets there by pulling farmers off their fields for the entire construction.</p>
+      </article>
+
+      <article class="scen-card" data-scen="granite">
+        <h3 class="scen-k">03 · Slowest cutting rate <span class="scen-tag">the pessimistic floor, still seasonal</span></h3>
+        <p>Mainstream in every respect except the saw: <b>2.1 mm/hr</b>, Stocks' wet-sand result on the notched blade, applied to the whole build rather than just the granite that actually needs it. A slower cut per face means more saw-hours, and more saw-hours means more blades being worn away and more men holding them. Labour stays seasonal at 120 days, as in the mainstream case.</p>
+        <p class="scen-out">The cost lands almost entirely on cutters and their support: <b>≈1,280,000 people</b>, <b>3.4×</b> the mainstream result and roughly <b>83%</b> of the Old Kingdom population.</p>
+      </article>
+
+      <p class="scen-custom" id="scenCustom">These sliders no longer match any of the four scenarios — you are looking at a <b>custom</b> assumption set. Pick a scenario above to return to a published one.</p>
+
+      <article class="scen-card" data-scen="surfacetrue">
+        <h3 class="scen-k">04 · Harsh <span class="scen-tag">slow saw + long reign + year-round</span></h3>
+        <p>The combination that strips out the three friendly assumptions at once: the <b>2.1 mm/hr</b> rate, a <b>23-year</b> span (the top of Khufu's estimated reign, so the calendar stretches as far as the evidence allows), and <b>300 working days</b> a year. Each of those individually shrinks the workforce. Stacked together they are supposed to make the mainstream figure comfortable.</p>
+        <p class="scen-out">Even stacked, it lands at <b>≈443,400</b> — <b>~20×</b> the 22,500 headcount, <b>29%</b> of the population, and only <b>14%</b> below the plain mainstream case. The three concessions roughly cancel out.</p>
+      </article>
+    </div>
+  </section>
 
   <div class="sticky">
     <div>
@@ -906,7 +990,7 @@
   </div>
 
   <h2 style="margin-top:52px;font-size:1.08rem">Adjust the assumptions</h2>
-  <p class="lede">These control every panel. Changing one here changes the numbers everywhere.</p>
+  <p class="lede">These control every panel. Changing one here changes the numbers everywhere. New here? Start with the <a class="cite" href="#scen">scenarios at the top</a> — each one is a ready-made set of published assumptions, and this page opens on <b>Mainstream</b>.</p>
 
   <div class="controls">
     <div class="ctl">
@@ -976,13 +1060,6 @@
     </div>
   </div>
 
-  <div class="presets">
-    <button class="preset on" data-preset="mainstream">Mainstream</button>
-    <button class="preset" data-preset="yearround">Year-round corvée</button>
-    <button class="preset" data-preset="granite">Slowest cutting rate</button>
-    <button class="preset" data-preset="surfacetrue">Harsh</button>
-  </div>
-
   <div class="why">
     <h3 style="margin-bottom:6px">Why these values</h3>
     <p class="lede" style="margin-bottom:16px">Each default is the position mainstream archaeology actually holds. Where archaeologists disagree I say so, and pick the reading that is hardest on my own argument.</p>
@@ -1015,7 +1092,7 @@
 
       <div class="why-item">
         <div class="why-k">The other three scenarios</div>
-        <p><b>Year-round corvée</b> — every mainstream value, but 300 working days. This is the assumption that most shelters the 20,000 figure, so it is worth seeing. <b>Slowest cutting rate</b> — Stocks' wet-sand result on hard stone, still seasonal. <b>Harsh</b> — slow rate plus a 23-year span plus year-round corvée. Same model throughout; only the load-bearing assumptions move.</p>
+        <p><b>Year-round corvée</b> — every mainstream value, but 300 working days. This is the assumption that most shelters the 20,000 figure, so it is worth seeing. <b>Slowest cutting rate</b> — Stocks' wet-sand result on hard stone, still seasonal. <b>Harsh</b> — slow rate plus a 23-year span plus year-round corvée. Same model throughout; only the load-bearing assumptions move. <a href="#scen">Full descriptions of each scenario, with what each one costs &rarr;</a></p>
       </div>
     </div>
 
@@ -1537,10 +1614,36 @@ function update(){
   renderGround(r); renderCutting(r); renderCopper(r); renderMoving(r);
   renderFeeding(r); renderVerdict(r);
 
+  syncScenarios(o);
+}
+
+/* ── SCENARIO UI ─────────────────────────────────────────
+   One active scenario description at a time, keyed to whichever
+   preset the sliders currently match. Any manual drift from a
+   preset drops back to a neutral "custom" note instead of
+   leaving a description on screen that no longer describes the
+   numbers.
+   ─────────────────────────────────────────────────────── */
+function syncScenarios(o){
+  let active=null;
   document.querySelectorAll('[data-preset]').forEach(b=>{
     const p=PRESETS[b.dataset.preset];
-    b.classList.toggle('on', !!p && CTRLS.every(k=>Math.abs(p[k]-o[k])<1e-6));
+    const on = !!p && CTRLS.every(k=>Math.abs(p[k]-o[k])<1e-6);
+    if(on) active=b.dataset.preset;
+    b.classList.toggle('on',on);
+    b.setAttribute('aria-pressed',on?'true':'false');
   });
+  let shown=false;
+  document.querySelectorAll('.scen-card').forEach(c=>{
+    const on = c.dataset.scen===active;
+    c.classList.toggle('on',on); if(on) shown=true;
+  });
+  const cs=$('scenCustom');
+  if(cs) cs.classList.toggle('on',!shown);
+  const note=$('scenNote');
+  if(note) note.textContent = shown
+    ? 'Each scenario is a fixed set of published assumptions. Edit any slider below and it becomes a custom set.'
+    : 'Custom settings — these match none of the four scenarios.';
 }
 
 const ORDER=['overview','ground','cutting','copper','moving','feeding','verdict','sources'];
