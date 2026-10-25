@@ -274,25 +274,9 @@ a.xlink:hover{color:var(--moved);border-bottom-style:solid;
 .rwhat .flag{margin-left:0}
 
 /* expanded body */
-.rbody{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;
+.rbody{display:block;
   padding:4px 8px 22px 20px;
-  border-left:2px solid var(--line-2);margin:0 0 6px 10px;
-  animation:none}
-@media (max-width:620px){ .rbody{grid-template-columns:1fr;gap:16px} }
-.rfig{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
-  min-width:96px;padding:10px 6px 0;gap:9px}
-.silcap{font:500 .55rem/1.3 var(--mono);color:var(--dim);letter-spacing:.08em;
-  text-transform:uppercase;text-align:center;opacity:.8}
-/* ONE shared scale for every silhouette on the page */
-.sil{display:flex;align-items:flex-end;gap:3px}
-.silblk{position:relative;flex:none;
-  background:linear-gradient(158deg,color-mix(in srgb,var(--stone-3) 55%,transparent),
-    var(--stone-2) 45%,color-mix(in srgb,var(--stone) 70%,#000));
-  border:1px solid color-mix(in srgb,var(--stone-3) 50%,#000);
-  border-radius:1px;box-shadow:inset 1px 1px 0 color-mix(in srgb,var(--stone-3) 35%,transparent)}
-.silpp{flex:none;background:var(--human);border-radius:1px 1px 0 0;position:relative}
-.silpp::before{content:"";position:absolute;left:50%;transform:translateX(-50%);top:-4px;
-  width:4px;height:4px;border-radius:50%;background:var(--human)}
+  border-left:2px solid var(--line-2);margin:0 0 6px 10px}
 .rtext{min-width:0}
 .rnote{margin:0 0 14px;font-size:.88rem;line-height:1.6;color:var(--muted)}
 .rfacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
@@ -550,10 +534,8 @@ footer p{color:var(--dim);font-size:.76rem;line-height:1.65;max-width:70ch;margi
   </div>
 
   <p class="silnote">
-    <b>Click any row</b> to open it — dimensions, what it's made of, a drawn silhouette against a
-    <span style="color:var(--human);font-weight:700">1.8 m person</span>, and links to photographs.
-    The bars are a logarithmic mass scale; the silhouettes inside are a logarithmic <em>size</em> scale
-    too, so relative order stays true but nothing collapses to a pixel.
+    <b>Click any row</b> to open it — mass, dimensions, material, how far it travelled, and a link
+    to what it actually looks like. Bars are a logarithmic scale from 5 t to 20,133 t.
   </p>
 
   <div class="grid">
@@ -991,35 +973,10 @@ $('#gaxis').innerHTML = ticks.map((v,i) =>
   `<span class="${i===0?'o':''}" style="left:${scale(v)}%">${v>=1000 ? (v/1000)+'k' : v} t</span>`
 ).join('');
 
-/* ── ROWS: expandable, linked, with a to-scale silhouette ──
-   Each row is a <details> so it works with no JS at all. The silhouette inside
-   is drawn at ONE shared scale across every stone on the page (SIL_U px per
-   metre), so the small ones genuinely look small. */
+
+/* ── ROWS: expandable and linked ──
+   Each row is a native <details>, so it opens and closes with no JavaScript. */
 const sorted = [...D].sort((a,b) => b.m - a.m);
-
-/* Silhouette scale. A true linear shared scale cannot work across 1.8 m and
-   200 m on one screen — a 200 m barge would squash a person to 2 px. So the
-   silhouette uses the same LOG scale as the mass axis: every object and the
-   person are mapped through one monotonic transform, so relative order and
-   proportion still read correctly, but nothing collapses to nothing.
-   SIL_MIN -> SIL_MAX px spans the whole range 1 m .. 250 m. */
-const SIL_PX_MIN = 10, SIL_PX_MAX = 210;
-const SIL_LO = Math.log10(1), SIL_HI = Math.log10(250);
-const silPx = lenM => {
-  const t = (Math.log10(Math.max(lenM, 1)) - SIL_LO) / (SIL_HI - SIL_LO);
-  return SIL_PX_MIN + t * (SIL_PX_MAX - SIL_PX_MIN);
-};
-
-function silhouette(d){
-  const bw = silPx(d.L);
-  const bh = silPx(d.H);
-  const ph = silPx(1.8);            // height of a 1.8 m person
-  const pw = Math.max(3, ph * 0.26); // ink width, not a true footprint
-  return `<div class="sil" role="img" aria-label="${d.n}: ${d.dims}, shown against a 1.8 m person on a logarithmic scale">
-      <div class="silblk" style="width:${bw.toFixed(1)}px;height:${bh.toFixed(1)}px"></div>
-      <div class="silpp" style="height:${ph.toFixed(1)}px;width:${pw.toFixed(1)}px"></div>
-    </div>`;
-}
 
 $('#rows').innerHTML = sorted.map((d, i) => {
   const pct = scale(d.m);
@@ -1041,7 +998,6 @@ $('#rows').innerHTML = sorted.map((d, i) => {
       <div class="bar"><div class="fill ${d.kind}" style="width:${pct}%"></div></div>
     </summary>
     <div class="rbody">
-      <div class="rfig">${silhouette(d)}<span class="silcap">silhouette<br>log scale</span></div>
       <div class="rtext">
         <p class="rnote">${d.note}</p>
         <dl class="rfacts">
