@@ -2033,9 +2033,14 @@ const remembered=(()=>{
   catch(e){ return null; }
 })();
 
+/* Always render at least once. A first visit has neither a query
+   string nor a remembered state, and applyState() only fires when one
+   of those exists — so without this call the hero, rail and every
+   panel stayed at their "—" placeholders. */
 const hasUrlState=CTRLS.some(k=>PARAMS.has(k));
 if(hasUrlState) applyState(PARAMS);
 else if(remembered&&remembered.settings) applyState(new URLSearchParams(remembered.settings));
+else update();
 
 const qs=(PARAMS.get('s')||decodeURIComponent(location.hash.replace(/^#/,''))).trim();
 showTab(ORDER.includes(qs)?qs:((remembered&&remembered.tab&&!qs)?remembered.tab:'overview'));

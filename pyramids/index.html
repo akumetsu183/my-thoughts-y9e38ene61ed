@@ -2014,6 +2014,9 @@ function renderVerdict(r){
   }
   $('cuPowder').textContent=fmt(powderT)+' tonnes';
   $('cuPerDay').textContent=fmt(powderPerDay)+' kg';
+  /* Same quantity, quoted inside the prose paragraph. Written here so
+     the sentence and the stat card can never drift apart. */
+  if($('cuTons')) $('cuTons').textContent=fmt(powderT)+' tonnes';
   const cuScenText={
     mainstream:`All the wear figures are mainstream here — this is the scenario where the copper powder claim is <em>strongest</em>, because the cutting rate is Stocks' own measurement. <b>${fmt(powderT)} tonnes</b> of copper turns to oxide across the build, spread as <b>${fmt(powderPerDay)} kg a working day</b> over ${fmt(buildDays)} days. That is not a warehouse fire; it is a steady, diluted, site-wide dust — which is exactly the signature the 2024 harbour core found.`,
     yearround:`Same total copper (<b>${fmt(powderT)} tonnes</b>) as the mainstream case, since the metal worn depends on saw-hours rather than the calendar — but squeezed into ${fmt(r.days)} days a year, so the daily rate rises to <b>${fmt(powderT*1000/buildDays)} kg</b>. Year-round working makes the powder signal <em>denser and easier to detect</em>, not larger.`,
