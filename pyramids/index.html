@@ -19,6 +19,7 @@
 <link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=verdict">
 <link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?s=sources">
 <link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?preset=solveyears">
+<link rel="alternate" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/pyramids/?preset=split">
 
 <!-- Open Graph -->
 <meta property="og:type" content="article">
@@ -725,6 +726,7 @@
       <button class="preset" data-preset="granite" aria-pressed="false"><span class="pn">03</span>Slowest cutting rate</button>
       <button class="preset" data-preset="surfacetrue" aria-pressed="false"><span class="pn">04</span>Harsh</button>
       <button class="preset" data-preset="solveyears" aria-pressed="false"><span class="pn">05</span>Take as long as it takes</button>
+      <button class="preset" data-preset="split" aria-pressed="false"><span class="pn">06</span>Splitting, not sawing</button>
     </div>
 
     <div class="scen-body" id="scenBody">
@@ -758,6 +760,13 @@
         <h3 class="scen-k">05 · 22,500 — take as long as it takes <span class="scen-tag">solve for the calendar</span></h3>
         <p>A different question from the other four. They fix the calendar and ask how many people it needs. This one <b>fixes the workforce</b> — the published 22,500, at the mainstream cutting rate, hours, season, support ratio, grain ration and farm yield — and asks how long the pyramid would take. The answer is not a setting, it is a <b>solution</b>: the years slider is placed at the span where the model's total lands on 22,500.</p>
         <p class="scen-out"><b id="syYears">—</b> years. That is <b id="syMult">—</b> Khufu's longest plausible reign, and <b id="syDyn">—</b> the length of the whole Fourth Dynasty. The crews would be laying one block every <b id="syPace">—</b>, and the men who set the first courses would be long dead before the capstone went on — roughly <b id="syKings">—</b> generations of kings to finish one building.</p>
+      </article>
+
+      <article class="scen-card" data-scen="split">
+        <h3 class="scen-k">06 · Splitting, not sawing <span class="scen-tag">mainstream everywhere, one method swapped</span></h3>
+        <p>Every assumption identical to Mainstream — <b>20 years</b>, <b>9-hour days</b>, <b>120 working days</b>, the same support ratio, rations and farm yield — with one substitution: the blocks are freed by <b>wedging along bedding planes</b> instead of sawing with copper and sand. A shallow groove or a row of holes is cut along one line, wooden wedges are driven in and wetted, and the block parts along the plane. The split runs the <b>full depth at once</b>, which is exactly why it is cheaper than a saw: one line frees a whole face.</p>
+        <p>Two numbers here are <b>mine, not published</b>: <b>1.2 man-hours per metre</b> of groove line, and <b>2 man-hours per face</b> of dressing afterwards. Nobody has run a controlled splitting trial on Giza limestone, exactly as nobody has run a copper saw on it. Both are set deliberately high so the scenario cannot be accused of being rigged — halve them and the result barely moves, because cutting was never what dominated once the saw was gone.</p>
+        <p class="scen-out">The total lands at <b>≈35,200 people</b> — <b>10.8×</b> below the mainstream case, and just <b>1.6×</b> the 22,500 headcount rather than <b>17×</b>. The cutters alone fall from <b>156,920</b> to <b>1,827</b>, an <b>86-fold</b> cut. But nothing else moves: <b>4,035</b> still work the quarry relay, <b>9,079</b> the ramps, <b>14,941</b> support and <b>3,408</b> grow the grain. <b>Splitting removes the saw, not the logistics</b> — and it halves the gap, it does not close it.</p>
       </article>
     </div>
   </section>
@@ -1399,6 +1408,21 @@ const TOTAL_BLOCKS=2_300_000, STONE_D=2600, CU_G_CM3=8.96;
 const MAINSTREAM_TOTAL=380791;
 const SAW_KG=14.5, CU_CM3_HR=52/14, USABLE_FRAC=0.20, POP=1_550_000;
 
+/* ── SPLITTING, NOT SAWING ────────────────────────────────────────
+   Bedding-plane splitting: a shallow groove or a row of holes is cut
+   along one line, wooden wedges are driven in and wetted, and the block
+   parts along the plane. The split runs the full depth at once, which is
+   the whole reason it is cheaper than a saw.
+
+   SPLIT_MH_PER_M is man-hours per metre of groove line, and
+   SPLIT_DRESS_MH is man-hours of dressing per freed face. Neither is a
+   published measurement for Giza limestone — no controlled trial has
+   been run, exactly as with the copper saw on limestone. They are my own
+   estimates, set deliberately high (a slow chiseller, generous dressing)
+   so the scenario cannot be accused of being rigged. The page says so
+   wherever the numbers appear. */
+const SPLIT_MH_PER_M=1.2, SPLIT_DRESS_MH=2.0;
+
 const CTRLS=['rate','block','years','hours','days','support','tripMin','kgPerDay','tPerFarmer','prepMonths','prepM3PerDay'];
 
 const PRESETS={
@@ -1429,7 +1453,15 @@ const PRESETS={
      to finish. `years` here is a placeholder — solveYears() below
      computes the real value by bisection and writes it in, so the
      preset stays a legitimate target for the match test. */
-  solveyears: {rate:7.5, block:1.05, years:null, hours:9, days:120, support:1.0, tripMin:90, kgPerDay:0.75, tPerFarmer:2.4, prepMonths:12, prepM3PerDay:0.15}
+  solveyears: {rate:7.5, block:1.05, years:null, hours:9, days:120, support:1.0, tripMin:90, kgPerDay:0.75, tPerFarmer:2.4, prepMonths:12, prepM3PerDay:0.15},
+
+  /* ── SPLITTING INSTEAD OF SAWING ───────────────────────────────
+     Every assumption identical to Mainstream — same calendar, hours,
+     season, support ratio, rations, farm yield — with one change: the
+     blocks are freed by wedging along bedding planes rather than sawn
+     with copper and sand. `how` selects the method; it is not a slider,
+     because it is not a quantity. */
+  split:      {rate:7.5, block:1.05, years:20, hours:9,  days:120, support:1.0, tripMin:90, kgPerDay:0.75, tPerFarmer:2.4, prepMonths:12, prepM3PerDay:0.15, how:'split'}
 };
 
 const TARGET_WORKFORCE=22500;
@@ -1501,16 +1533,31 @@ const ROLES = [
   {key:'farm',  label:'Farmers',        piece:'king',   color:'var(--farmer)',  desc:'farmers'}
 ];
 
-function read(){const o={};CTRLS.forEach(k=>o[k]=parseFloat($(k).value));return o;}
+/* Which cutting method is active. A preset sets it; sliders never do, because
+   the method is not a quantity. Flipping between saw and split is the whole
+   difference between scenarios 01 and 06. */
+let MODE='saw';
+/* Filled at boot: the Mainstream cutter count, so the splitting scenario can
+   say how far cutting fell without hard-coding a second number. */
+const MAP_SAW_CUTTERS = compute(Object.assign({}, PRESETS.mainstream, {how:'saw'})).cutters;
+function read(){const o={};CTRLS.forEach(k=>o[k]=parseFloat($(k).value));o.how=MODE;return o;}
 
 function compute(o){
   const sideCm=o.block*100, rateCmH=o.rate/10;
   const buildMonths=Math.max(6,o.years*12-o.prepMonths);
   const buildYears=buildMonths/12;
 
-  const hoursPerFace=sideCm/rateCmH;
+  /* Sawing: two people on a blade, five faces per block.
+     Splitting: one person works the groove line, the split runs the whole
+     face at once, then the face is dressed. Time scales with the length of
+     the groove (the block edge), not with a saw rate, so `rate` is unused
+     in this branch — that is the point of the scenario, not an oversight. */
+  const splitMode = o.how==='split';
+  const hoursPerFace = splitMode
+    ? (sideCm/100)*SPLIT_MH_PER_M + SPLIT_DRESS_MH
+    : sideCm/rateCmH;
   const hoursPerBlock=hoursPerFace*5;
-  const manHoursBlock=hoursPerBlock*2;
+  const manHoursBlock=splitMode ? hoursPerBlock : hoursPerBlock*2;
   const totalManYears=manHoursBlock*TOTAL_BLOCKS/o.hours/o.days;
   const cutters=totalManYears/buildYears;
 
@@ -1519,13 +1566,15 @@ function compute(o){
   const minutesPerBlock=(o.hours*60)/blocksPerDay;
   const blocksPerHour=blocksPerDay/o.hours;
 
-  const totalSawHours=hoursPerBlock*TOTAL_BLOCKS;
+  /* No saw, no blade, no abrasive slurry: the copper terms are zero by
+     construction under splitting, not small by accident. */
+  const totalSawHours=splitMode?0:hoursPerBlock*TOTAL_BLOCKS;
   const copperCm3=totalSawHours*CU_CM3_HR;
   const copperTonnes=copperCm3/1e6*CU_G_CM3;
   const sawCm3=SAW_KG*1000/CU_G_CM3;
   const sawLifeHours=(sawCm3*USABLE_FRAC)/CU_CM3_HR;
   const sawsConsumed=totalSawHours/sawLifeHours;
-  const bladesInUse=Math.max(1,Math.round(cutters/2));
+  const bladesInUse=splitMode?0:Math.max(1,Math.round(cutters/2));
   const cuPerYear=copperTonnes/(o.years||1);
 
   const blockTonnes=o.block**3*STONE_D/1000;
@@ -1550,7 +1599,7 @@ function compute(o){
 
   const grandAll=prepWorkers+cutters+transport+haul+support+farmers;
 
-  return {...o, grandAll, buildMonths,buildYears,sideCm,rateCmH,hoursPerFace,hoursPerBlock,totalManYears,cutters,
+  return {...o, how:o.how, splitMode, grandAll, buildMonths,buildYears,sideCm,rateCmH,hoursPerFace,hoursPerBlock,totalManYears,cutters,
     workDays,blocksPerDay,minutesPerBlock,blocksPerHour,totalSawHours,copperCm3,copperTonnes,
     sawCm3,sawLifeHours,sawsConsumed,bladesInUse,cuPerYear,blockTonnes,pullers,transport,haul,
     support,total,grainT,farmers,grand:total+farmers,
@@ -1743,6 +1792,31 @@ function renderCutting(r){
 }
 
 function renderCopper(r){
+  if(r.splitMode){
+    /* No saw means no blade, no slurry and no wear rate: the whole copper
+       argument collapses by construction rather than by a low number. Say
+       that plainly instead of printing a table of zeroes. */
+    $('sawLife').textContent='none';
+    $('sawLifeNote').textContent='no blade in use';
+    $('copperTotal').textContent='0 t';
+    $('copperNote').textContent='wedges and water · no abrasive slurry';
+    $('copperReality').innerHTML=
+      `Splitting removes the copper question rather than answering it. No blade, no `+
+      `quartz sand, no slurry — so none of the wear, the standing stock or the annual `+
+      `make-up that the other scenarios have to justify. What is left is chisel and `+
+      `pounder wear on the groove lines, which is a tool-maintenance cost, not an `+
+      `industrial supply chain. <b>This is the one scenario where "where is all the copper?" `+
+      `stops being a fair question</b> — because there is no reason for much copper to be there.`;
+    const srows=[['Method','wedge-split','grooves + water, not abrasive sawing'],
+      ['Groove effort',fmt1(SPLIT_MH_PER_M)+' mh/m','own estimate, not published'],
+      ['Dressing',fmt1(SPLIT_DRESS_MH)+' mh/face','own estimate, not published'],
+      ['Blades','none','nothing to wear out'],
+      ['Copper throughput','0 t','chisel wear only'],
+      ['Abrasive sand','none','the cutting agent is gone']];
+    $('cuTable').innerHTML=srows.map(([k,v,d])=>
+      `<tr><td>${k}</td><td class="num">${v}</td><td style="color:var(--dim);font-size:.78rem">${d}</td></tr>`).join('');
+    return;
+  }
   $('sawLife').textContent=fmt(r.sawLifeHours)+' hours';
   $('sawLifeNote').textContent=`≈ ${fmt1(r.sawLifeHours/r.hours)} working days before reforging`;
   $('copperTotal').textContent=fmt(r.copperTonnes)+' t';
@@ -1820,7 +1894,20 @@ function renderFeeding(r){
 function renderVerdict(r){
   const share=r.grandAll/POP*100, ratio=r.grandAll/25000, needRate=r.rate*ratio;
   let body;
-  if(ratio>=1.5){
+  if(r.splitMode){
+    /* Splitting changes what the sentences have to be about. Talking about a
+       millimetre-per-hour rate here would be a non sequitur: there is no saw. */
+    const sawCutters=MAP_SAW_CUTTERS;
+    body=`Splitting moves the answer from <em>${fmt(MAINSTREAM_TOTAL)} people</em> to <em>${fmt(r.grandAll)}</em> — `+
+      `<em>${fmt1(share)}%</em> of the country instead of 25%, and <em>${fmt1(r.grandAll/22500)}×</em> the 22,500 headcount `+
+      `instead of 17×. The cutters themselves collapse from <em>${fmt(sawCutters)}</em> to <em>${fmt(r.cutters)}</em>: `+
+      `an 86-fold cut, because a wedge line frees a face in one go where a saw grinds along it for hours. `+
+      `<b>What does not move is everything that was never about the saw</b> — ${fmt(r.transport)} in the quarry relay, `+
+      `${fmt(r.haul)} on the ramps, ${fmt(r.support)} support trades and ${fmt(r.farmers)} farmers. Splitting removes `+
+      `the hardest engineering problem on the page and leaves the logistics standing. `+
+      `<b>It does not close the gap to 22,500 either</b> — it halves the distance, and the half that remains is the `+
+      `half mainstream estimates usually leave out.`;
+  } else if(ratio>=1.5){
     body=`At the mainstream timeline and a measured cutting rate you need <em>${fmt(r.grandAll)} people</em> — `+
       `<em>${fmt1(share)}%</em> of the country — for ${r.years} straight years, of which ${r.prepMonths} months `+
       `is just the hole in the ground. Archaeology says 20,000–30,000. The arithmetic says `+
@@ -1855,9 +1942,22 @@ function renderVerdict(r){
   /* stock against the entire known Bir Nasib output */
   const stockVsAll=stockTonnes/BIR_NASIB_TOTAL*100;
 
-  $('obj1Cu').textContent=fmt(stockTonnes)+' tonnes';
-  $('obj1CuYr').textContent=fmt(makeupPerYear)+' t';
-  $('obj1Mult').textContent=fmt1(makeupMult)+'×';
+  $('obj1Cu').textContent = r.splitMode ? 'none' : fmt(stockTonnes)+' tonnes';
+  $('obj1CuYr').textContent = r.splitMode ? 'none' : fmt(makeupPerYear)+' t';
+  $('obj1Mult').textContent = r.splitMode ? '—' : fmt1(makeupMult)+'×';
+  if(r.splitMode){
+    /* Printing "0 blades / 0x an average Sinai year" would be arithmetically
+       true and rhetorically useless. Under splitting the objection does not
+       get a low score — it stops applying. */
+    $('obj1Verdict').innerHTML =
+      `There is nothing to find, because there is no abrasive slurry being made. `+
+      `Splitting frees the block along a bedding plane with wedges and water: no blade `+
+      `runs against stone, so no copper is ground into the spoil and no workshop floor `+
+      `should be stained green. <b>The objection is not answered here — it is removed, `+
+      `and that is a different thing.</b> It does not make the mainstream case stronger; `+
+      `it makes the saw-based versions of it cheaper than they were, which is the `+
+      `honest way to put it.`;
+  } else {
   $('obj1Verdict').innerHTML =
     `The real requirement is <b>${fmt(bladesInUse)} blades in simultaneous use</b> — a standing stock of about <b>${fmt(stockTonnes)} tonnes</b>, or <b>${fmt1(stockVsAll)}%</b> of every tonne Bir Nasib is estimated to have produced in 1,300 years. On top of that, the wear has to be replaced at <b>${fmt(makeupPerYear)} t a year</b>, which is <b>${fmt1(makeupMult)}×</b> an average Sinai year. ` +
     (makeupMult>=5
@@ -1865,6 +1965,7 @@ function renderVerdict(r){
       : makeupMult>=2
         ? `That is a stretch for known Sinai output, though tight recycling and reuse would soften it considerably.`
         : `That is within what a tightly recycled Sinai supply could plausibly sustain.`);
+  }
 
   const popShare=r.farmers/1_550_000*100;
   $('obj2Farm').textContent=fmt(r.farmers);
@@ -1914,7 +2015,11 @@ function renderVerdict(r){
        result carries derived figures and must not be assumed to echo
        the raw inputs back. */
     const live=read();
-    Object.keys(PRESETS).forEach(n=>{ if(CTRLS.every(c=>Math.abs(PRESETS[n][c]-live[c])<1e-6)) k=n; });
+    Object.keys(PRESETS).forEach(n=>{
+      const same=(PRESETS[n].how||'saw')===(live.how||'saw')
+                 && CTRLS.every(c=>Math.abs(PRESETS[n][c]-live[c])<1e-6);
+      if(same) k=n;
+    });
     return k;
   })();
   const svBlades=Math.max(1,Math.round(r.cutters/2));
@@ -1929,7 +2034,7 @@ function renderVerdict(r){
 
   const svNames={mainstream:'01 · Mainstream',yearround:'02 · Year-round corvée',
     granite:'03 · Slowest cutting rate',surfacetrue:'04 · Harsh',
-    solveyears:'05 · Take as long as it takes'};
+    solveyears:'05 · Take as long as it takes',split:'06 · Splitting, not sawing'};
   const svScen=$('svScen');
   svScen.textContent=presetKey?svNames[presetKey]:'Custom settings';
   svScen.classList.toggle('custom',!presetKey);
@@ -1975,6 +2080,13 @@ function renderVerdict(r){
       lede:`Run the model backwards: hold the workforce at the published <em>22,500</em>, keep every other mainstream value, and let the calendar stretch. It stretches to <em>${r.years} years</em>.`,
       obj:`This scenario is the cleanest demonstration of what the workforce number actually costs. Nothing is tuned — the rate, the season, the hours and the rations are all the mainstream ones — so the only variable left is time, and time has to grow by <b>${fmt1(r.years/29)}×</b> Khufu's longest plausible reign to buy the published headcount. That is the trade in one line: <b>the people are free, the centuries are not.</b> A pyramid that takes ${r.years} years is not Khufu's monument in any ordinary sense — the pharaoh who commissioned it is a tradition by the time the casing is dressed, the administration that funded it has turned over many times, and every generation in between has to keep the quarry open, the copper flowing and the grain coming.`,
       escape:`There is no escape inside this scenario, by design — it is arithmetic, not advocacy. It does tell you where the real question sits, though. If a long build is politically impossible and a large workforce is archaeologically unattested, the resolution is almost certainly in the third variable this page holds fixed: <b>method</b>. Blocks that are split rather than sawn, and limestone that cuts far faster than the granite figure, both break the dependence on time and headcount at once. Notice too that the copper demand is unchanged: <b>${fmt(svMakeup)} t</b> a year worn away for <b>${r.years} years</b> — the same metal bill, spread thin.`
+    },
+    split:{
+      press:'Method — the one lever on this page that is not effort',
+      holds:'Logistics — transport, ramps, support and grain are untouched by how the stone is freed, so they now dominate the total',
+      lede:`Mainstream in every respect except the saw. The workforce falls to <em>${fmt(r.grandAll)}</em> — <em>${fmt1(r.grandAll/22500)}×</em> the 22,500 headcount instead of 17×, and <em>${fmt1(svSharePct)}%</em> of the population instead of 25%. Cutters: <em>${fmt(r.cutters)}</em>, against <em>${fmt(MAP_SAW_CUTTERS)}</em> when every face is sawn.`,
+      obj:`Two of this scenario's numbers are <b>mine, not published</b>: <b>${fmt1(SPLIT_MH_PER_M)} man-hours per metre</b> of wedge line and <b>${fmt1(SPLIT_DRESS_MH)} man-hours per face</b> of dressing. That is roughly one 10 cm hole every 15 cm, drilled and wedged, then the face dressed — plausible for limestone with copper and sand, but untested, in exactly the way the copper saw is untested on Giza limestone. Halve both and the total barely moves, because cutting is no longer where the labour is: <b>${fmt(r.cutters)}</b> cutters against <b>${fmt(r.transport+r.haul+r.support)}</b> in haulage, ramps and support. Note also that the model still charges <b>five faces per block</b> — split blocks still have to be squared — and that wedging works because Egyptian limestone has good bedding planes. Granite is a different argument, which is why the obelisk at Aswan was split in its bed and never moved.`,
+      escape:`No escape is needed, and that is the point: this is the only scenario on the page that arrives in the same order of magnitude as the published headcount without touching the calendar, the season or the ration. What it does not do is get to <b>22,500</b> — it gets to <b>${fmt(r.grandAll)}</b>. The remaining gap is not a cutting problem at all; it is the cost of moving, raising, feeding and housing, which the mainstream figure has never included. If you want the mainstream number exactly, splitting is where the argument has to be settled, not which lever to pull.`
     }
   };
   const sv = presetKey ? svText[presetKey] : null;
@@ -1987,7 +2099,7 @@ function renderVerdict(r){
   } else {
     $('svPress').textContent='Set by whatever you have changed';
     $('svHolds').textContent='—';
-    $('svLede').innerHTML=`These sliders match none of the four scenarios, so there is no fixed story to tell: at <b>${fmt(r.grandAll)} people</b> the page is <b>${fmt1(r.grandAll/22500)}×</b> the headcount and <b>${fmt1(svSharePct)}%</b> of the population. Pick a scenario at the top of the page to get its specific reading.`;
+    $('svLede').innerHTML=`These sliders match none of the six scenarios, so there is no fixed story to tell: at <b>${fmt(r.grandAll)} people</b> the page is <b>${fmt1(r.grandAll/22500)}×</b> the headcount and <b>${fmt1(svSharePct)}%</b> of the population. Pick a scenario at the top of the page to get its specific reading.`;
     $('svObj').innerHTML=`Whichever way the total moved, the objection that scales with it is provisioning: <b>${fmt(r.farmers)} farmers</b> (<b>${fmt1(svFarmShare)}%</b> of Egypt) and <b>${fmt(svMakeup)} t</b> of copper a year. The five objections below apply to every setting.`;
     $('svEscape').innerHTML=`Reaching 25,000 from here needs either a cutting rate of <b>${fmt1(r.rate*r.grandAll/25000)} mm/hr</b> — <b>${fmt1(r.grandAll/25000)}×</b> the current setting — or a method that never saws the blocks.`;
   }
@@ -2109,7 +2221,8 @@ function syncScenarios(o){
   let active=null;
   document.querySelectorAll('[data-preset]').forEach(b=>{
     const p=PRESETS[b.dataset.preset];
-    const on = !!p && CTRLS.every(k=>Math.abs(p[k]-o[k])<1e-6);
+    const on = !!p && (p.how||'saw')===(o.how||'saw')
+               && CTRLS.every(k=>Math.abs(p[k]-o[k])<1e-6);
     if(on) active=b.dataset.preset;
     b.classList.toggle('on',on);
     b.setAttribute('aria-pressed',on?'true':'false');
@@ -2156,6 +2269,7 @@ document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=
 CTRLS.forEach(k=>$(k).addEventListener('input',update));
 document.querySelectorAll('[data-preset]').forEach(b=>{
   b.addEventListener('click',()=>{const p=PRESETS[b.dataset.preset];if(!p)return;
+    MODE = p.how==='split' ? 'split' : 'saw';
     CTRLS.forEach(k=>{
       /* A preset with a null field is solved at load time, never loaded
          raw — a null would blank the slider. */
@@ -2188,6 +2302,7 @@ let BOOTED=false;
 function stateToParam(o){
   const base=PRESETS.mainstream, out=new URLSearchParams();
   CTRLS.forEach(k=>{ if(Math.abs(o[k]-base[k])>1e-9) out.set(k,o[k]); });
+  if(o.how==='split') out.set('how','split');
   return out;
 }
 function paramToState(sp){
@@ -2198,6 +2313,7 @@ function paramToState(sp){
     const el=$(k);
     if(Number.isFinite(v) && v>=+el.min && v<=+el.max) o[k]=v;
   });
+  if(sp.get('how')==='split') o.how='split';
   return o;
 }
 function syncUrl(){
@@ -2206,7 +2322,9 @@ function syncUrl(){
   const o=read();
   /* If the settings match a named scenario exactly, share the short
      ?preset= form instead of eleven numbers. */
-  const matched=Object.keys(PRESETS).find(n=>PRESETS[n] && CTRLS.every(k=>PRESETS[n][k]!=null && Math.abs(PRESETS[n][k]-o[k])<1e-9));
+  const matched=Object.keys(PRESETS).find(n=>PRESETS[n]
+    && (PRESETS[n].how||'saw')===(o.how||'saw')
+    && CTRLS.every(k=>PRESETS[n][k]!=null && Math.abs(PRESETS[n][k]-o[k])<1e-9));
   const sp=matched ? new URLSearchParams({preset:matched}) : stateToParam(o);
   const tab=CURRENT_TAB||'overview';
   const q=sp.toString();
@@ -2287,6 +2405,7 @@ const namedPreset=PRESETS[PARAMS.get('preset')];
 const fromUrl=paramToState(PARAMS);
 const hasUrlState=CTRLS.some(k=>PARAMS.has(k));
 if(namedPreset){
+  MODE = namedPreset.how==='split' ? 'split' : 'saw';
   CTRLS.forEach(k=>{ if(namedPreset[k]!=null) $(k).value=namedPreset[k]; });
   update();
   if(hasUrlState) applyState(fromUrl); else syncUrl();
@@ -2314,6 +2433,7 @@ syncUrl();
 <li><a href="?s=feeding#feeding">Feeding and housing the workforce</a></li>
 <li><a href="?s=verdict#verdict">Verdict: does the mainstream arithmetic close?</a></li>
 <li><a href="?preset=solveyears#verdict">Scenario: 22,500 people, and the 351-year calendar it needs</a></li>
+    <li><a href="?preset=split#verdict">Scenario: splitting the blocks instead of sawing them</a></li>
 <li><a href="?s=sources#sources">Sources</a></li>
 </ul></nav>
 <div class="visits">
