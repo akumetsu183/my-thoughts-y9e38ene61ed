@@ -146,6 +146,22 @@ const ROLES = [
    the method is not a quantity. Flipping between saw and split is the whole
    difference between scenarios 01 and 06. */
 let MODE='saw';
+
+/* Short names and the price of each lever, used by the verdict table.
+   Kept next to the presets so a new scenario cannot be added without
+   appearing in the comparison. */
+const PRESET_LABELS={
+  mainstream:'Mainstream', yearround:'Year-round corvée', granite:'Slowest cutting rate',
+  surfacetrue:'Harsh', solveyears:'Take as long as it takes', split:'Splitting, not sawing'
+};
+const LEVER_NOTES={
+  mainstream:'The copper supply has to be real, and the quarry has to hold 157,000 cutters at once.',
+  yearround:'Nothing is given up on paper — the cost is that there is no flood season to farm in.',
+  granite:'Limestone is assumed to cut like granite, which nobody has shown.',
+  surfacetrue:'The slowest measured saw plus the harshest conditions; the calendar does the rest.',
+  solveyears:'The arithmetic closes, and the pyramid takes 351 years — longer than the Old Kingdom lasted.',
+  split:'The one lever that costs nothing you would have to give up: a method nobody has tested here.'
+};
 /* Filled at boot: the Mainstream cutter count, so the splitting scenario can
    say how far cutting fell without hard-coding a second number. */
 const MAP_SAW_CUTTERS = compute(Object.assign({}, PRESETS.mainstream, {how:'saw'})).cutters;
@@ -507,7 +523,7 @@ function renderVerdict(r){
     /* Splitting changes what the sentences have to be about. Talking about a
        millimetre-per-hour rate here would be a non sequitur: there is no saw. */
     const sawCutters=MAP_SAW_CUTTERS;
-    body=`Splitting moves the answer from <em>${fmt(MAINSTREAM_TOTAL)} people</em> to <em>${fmt(r.grandAll)}</em> — `+
+    body=/*T:verdict.split*/`Splitting moves the answer from <em>${fmt(MAINSTREAM_TOTAL)} people</em> to <em>${fmt(r.grandAll)}</em> — `+
       `<em>${fmt1(share)}%</em> of the country instead of 25%, and <em>${fmt1(r.grandAll/22500)}×</em> the 22,500 headcount `+
       `instead of 17×. The cutters themselves collapse from <em>${fmt(sawCutters)}</em> to <em>${fmt(r.cutters)}</em>: `+
       `an 86-fold cut, because a wedge line frees a face in one go where a saw grinds along it for hours. `+
@@ -517,19 +533,19 @@ function renderVerdict(r){
       `<b>It does not close the gap to 22,500 either</b> — it halves the distance, and the half that remains is the `+
       `half mainstream estimates usually leave out.`;
   } else if(ratio>=1.5){
-    body=`At the mainstream timeline and a measured cutting rate you need <em>${fmt(r.grandAll)} people</em> — `+
+    body=/*T:verdict.gap*/`At the mainstream timeline and a measured cutting rate you need <em>${fmt(r.grandAll)} people</em> — `+
       `<em>${fmt1(share)}%</em> of the country — for ${r.years} straight years, of which ${r.prepMonths} months `+
       `is just the hole in the ground. Archaeology says 20,000–30,000. The arithmetic says `+
       `<em>${fmt1(ratio)}×</em> that, wants <em>${fmt(r.copperTonnes)} tonnes</em> of copper, and needs `+
       `<em>${fmt(r.farmers)} farmers</em> feeding them. Getting back to 25,000 would need a cutting rate of `+
       `<em>${fmt1(needRate)} mm/hr</em> — nobody has demonstrated that with copper and sand.`;
   } else if(ratio>=0.8){
-    body=`At these settings the workforce lands at <em>${fmt(r.grandAll)} people</em>, inside the mainstream window. `+
+    body=/*T:verdict.inside*/`At these settings the workforce lands at <em>${fmt(r.grandAll)} people</em>, inside the mainstream window. `+
       `That took ${fmt1(r.rate)} mm/hr cutting, ${r.hours}-hour days, ${r.days} days a year, ${r.prepMonths} months `+
       `of prep and a support ratio of ${fmt1(r.support)} — the optimistic end of every assumption at once. `+
       `The mainstream number is reachable; it is just not reachable robustly.`;
   } else {
-    body=`At these settings you need only <em>${fmt(r.grandAll)} people</em> — <em>${fmt1(1/ratio)}×</em> cheaper `+
+    body=/*T:verdict.below*/`At these settings you need only <em>${fmt(r.grandAll)} people</em> — <em>${fmt1(1/ratio)}×</em> cheaper `+
       `than the mainstream estimate. That is suspicious in the other direction. A figure this low means something `+
       `has been given away, usually a cutting rate far beyond anything measured.`;
   }
@@ -551,8 +567,17 @@ function renderVerdict(r){
   /* stock against the entire known Bir Nasib output */
   const stockVsAll=stockTonnes/BIR_NASIB_TOTAL*100;
 
-  $('obj1Cu').textContent = r.splitMode ? 'none' : fmt(stockTonnes)+' tonnes';
-  $('obj1CuYr').textContent = r.splitMode ? 'none' : fmt(makeupPerYear)+' t';
+  /* One sentence, one message. Writing "needs <b>none</b> of copper" leaves the
+     translator a word that cannot be made grammatical in Czech ("nepotřebuje
+     žádnou měď" needs a negated verb), so the whole sentence is translatable. */
+  $('obj1Lead').innerHTML = r.splitMode
+    ? `Splitting needs <b>no copper standing stock</b> on the quarry floor at all — no blade touches the stone, `+
+      `so nothing wears out the way a saw does. What replaces it is tool maintenance: pounders and chisels blunt `+
+      `on the wedge lines and on dressing, which is a workshop cost, not an industrial supply chain.`
+    : `The project needs <b>${fmt(stockTonnes)} tonnes</b> of copper on the quarry floor at any moment, and wears `+
+      `through about <b>${fmt(makeupPerYear)} t</b> a year replacing it. Blades were reforged rather than thrown away, `+
+      `so the metal circulated — but circulation still needs a standing stock, plus a smelting and reforging industry `+
+      `running continuously beside the work.`;
   $('obj1Mult').textContent = r.splitMode ? '—' : fmt1(makeupMult)+'×';
   if(r.splitMode){
     /* Printing "0 blades / 0x an average Sinai year" would be arithmetically
@@ -609,7 +634,15 @@ function renderVerdict(r){
       ? `At <b>${fmt1(poolShare)}%</b> of the whole population this assumes nearly every able-bodied man works the pyramid every year for two decades. Possible for a strong state; very hard on the farms.`
       : `<b>${fmt1(poolShare)}%</b> of the population over two decades is a serious but sustainable levy — this is roughly the regime the mainstream model describes.`;
   const ratioToMainstream=r.grandAll/22500;
-  $('obj4Verdict').innerHTML = ratioToMainstream<=2
+  if(r.splitMode){
+    $('obj4Verdict').innerHTML =
+      `There is no rate left to raise here: the faces are freed in one operation, and the model already `+
+      `has the method at its cheapest defensible setting. The <b>${fmt1(ratioToMainstream)}×</b> that remains is `+
+      `<b>${fmt(r.transport)}</b> on the quarry relay, <b>${fmt(r.haul)}</b> on the ramps, `+
+      `<b>${fmt(r.support)}</b> in support trades and <b>${fmt(r.farmers)}</b> growing grain. `+
+      `Getting from ${fmt(r.grandAll)} to 22,500 is not a cutting problem at all — it is a claim about how much `+
+      `haulage and provisioning the site actually needed, and that is where the argument has to move next.`;
+  } else $('obj4Verdict').innerHTML = ratioToMainstream<=2
     ? `At these settings the model is already within <b>${fmt1(ratioToMainstream)}×</b> of the mainstream headcount. Getting all the way there needs only <b>${fmt1(r.rate*ratioToMainstream)} mm/hr</b> — a modest margin over the granite figure, and plausible for softer limestone.`
     : `To reach 22,500 the model must fall <b>${fmt1(ratioToMainstream)}×</b>. If that came from cutting speed alone, limestone would need to cut at <b>${fmt1(r.rate*ratioToMainstream)} mm/hr</b> — implausible. In practice the gap would have to be closed by several assumptions at once: faster limestone, a longer span, more working days, and a quarrying method that does not use saws at all. That is the honest shape of the problem.`;
 
@@ -656,46 +689,46 @@ function renderVerdict(r){
 
   const svText={
     mainstream:{
-      press:'Cutting — the saw rate and the 120-day season together',
-      holds:'The recruitment window — 25–26% of the population is a heavy levy, but it is a levy a state can actually make',
-      lede:`Everything in this scenario is published, which is what makes it the awkward one: the arithmetic closes only if <em>${fmt(r.grandAll)} people</em> — about <em>${fmt1(r.grandAll/22500)}×</em> the 22,500 headcount and <em>${fmt1(svSharePct)}%</em> of the country — work on it for <em>${r.years} years</em>.`,
-      obj:`Cutting is not the cheapest thing to doubt here, it is the <em>hardest</em>. Stocks' rate is a measurement on granite, the hardest stone on site, so understating it helps the mainstream case; and the season is documented, not assumed — Merer's logbook runs July to November. Push either lever and you are arguing against evidence rather than filling a gap. What the at-the-resource numbers show is the shape of the bind: <b>${fmt(svStock)} tonnes</b> of copper standing in blades at once, <b>${fmt(svMakeup)} t</b> worn away every year against a Sinai average of <b>~${fmt1(svBirYear)} t</b>, and <b>${fmt(r.farmers)} farmers</b> — <b>${fmt1(svFarmShare)}%</b> of Egypt — growing grain for one building.`,
-      escape:`Reach <b>25,000</b> from here and limestone has to cut at <b>${fmt1(r.rate*r.grandAll/25000)} mm/hr</b>, roughly <em>${fmt1((r.rate*r.grandAll/25000)/r.rate)}×</em> this scenario's own rate. That is a big, testable claim nobody has run an experiment on. The softer version of the same escape: much of the pyramid's core may have been split along bedding planes rather than sawn, which removes most of the saw-hours without contradicting a single published number.`
+      press:/*T:sv.mainstream.press*/'Cutting — the saw rate and the 120-day season together',
+      holds:/*T:sv.mainstream.holds*/'The recruitment window — 25–26% of the population is a heavy levy, but it is a levy a state can actually make',
+      lede:/*T:sv.mainstream.lede*/`Everything in this scenario is published, which is what makes it the awkward one: the arithmetic closes only if <em>${fmt(r.grandAll)} people</em> — about <em>${fmt1(r.grandAll/22500)}×</em> the 22,500 headcount and <em>${fmt1(svSharePct)}%</em> of the country — work on it for <em>${r.years} years</em>.`,
+      obj:/*T:sv.mainstream.obj*/`Cutting is not the cheapest thing to doubt here, it is the <em>hardest</em>. Stocks' rate is a measurement on granite, the hardest stone on site, so understating it helps the mainstream case; and the season is documented, not assumed — Merer's logbook runs July to November. Push either lever and you are arguing against evidence rather than filling a gap. What the at-the-resource numbers show is the shape of the bind: <b>${fmt(svStock)} tonnes</b> of copper standing in blades at once, <b>${fmt(svMakeup)} t</b> worn away every year against a Sinai average of <b>~${fmt1(svBirYear)} t</b>, and <b>${fmt(r.farmers)} farmers</b> — <b>${fmt1(svFarmShare)}%</b> of Egypt — growing grain for one building.`,
+      escape:/*T:sv.mainstream.escape*/`Reach <b>25,000</b> from here and limestone has to cut at <b>${fmt1(r.rate*r.grandAll/25000)} mm/hr</b>, roughly <em>${fmt1((r.rate*r.grandAll/25000)/r.rate)}×</em> this scenario's own rate. That is a big, testable claim nobody has run an experiment on. The softer version of the same escape: much of the pyramid's core may have been split along bedding planes rather than sawn, which removes most of the saw-hours without contradicting a single published number.`
     },
     yearround:{
-      press:'Provisioning — the grain and the farms, now that the calendar is free',
-      holds:'Cutting — squeezing the season out of the schedule leaves the saw rate untouched',
-      lede:`This is the most generous reading anyone puts forward, and it still lands at <em>${fmt(r.grandAll)}</em> — <em>${fmt1(r.grandAll/22500)}×</em> the headcount, <em>${fmt1(svSharePct)}%</em> of the population, sustained for two decades.`,
-      obj:`Working 300 days instead of 120 solves the calendar problem completely — and moves the problem somewhere harder to argue about. Grain is bought with labour all year now, so the farm count only falls to <b>${fmt(r.farmers)}</b> (<b>${svFarmShare.toFixed(1)}%</b> of the population) while the crews that eat it keep working through the flood season with nobody home to tend the fields. The corvée also has to be <em>rotating</em>, and at this intensity that means drawing in roughly <b>${fmt(svPool)}</b> individuals — <b>${fmt1(svPoolShare)}%</b> of everyone in Egypt — when the mainstream number is 20,000–30,000.`,
-      escape:`The cleanest escape is not faster cutting — you barely need it. At a <b>${fmt1(r.rate)} mm/hr</b> rate this scenario is already within <b>${fmt1(r.grandAll/25000)}×</b> of 25,000, so the remaining gap is closeable by any two of: softer-stone rates, a longer span, a lower support ratio, or a quarrying method that skips saws. What it cannot paper over is that year-round corvée contradicts the seasonality Merer's logbook records.`
+      press:/*T:sv.yearround.press*/'Provisioning — the grain and the farms, now that the calendar is free',
+      holds:/*T:sv.yearround.holds*/'Cutting — squeezing the season out of the schedule leaves the saw rate untouched',
+      lede:/*T:sv.yearround.lede*/`This is the most generous reading anyone puts forward, and it still lands at <em>${fmt(r.grandAll)}</em> — <em>${fmt1(r.grandAll/22500)}×</em> the headcount, <em>${fmt1(svSharePct)}%</em> of the population, sustained for two decades.`,
+      obj:/*T:sv.yearround.obj*/`Working 300 days instead of 120 solves the calendar problem completely — and moves the problem somewhere harder to argue about. Grain is bought with labour all year now, so the farm count only falls to <b>${fmt(r.farmers)}</b> (<b>${svFarmShare.toFixed(1)}%</b> of the population) while the crews that eat it keep working through the flood season with nobody home to tend the fields. The corvée also has to be <em>rotating</em>, and at this intensity that means drawing in roughly <b>${fmt(svPool)}</b> individuals — <b>${fmt1(svPoolShare)}%</b> of everyone in Egypt — when the mainstream number is 20,000–30,000.`,
+      escape:/*T:sv.yearround.escape*/`The cleanest escape is not faster cutting — you barely need it. At a <b>${fmt1(r.rate)} mm/hr</b> rate this scenario is already within <b>${fmt1(r.grandAll/25000)}×</b> of 25,000, so the remaining gap is closeable by any two of: softer-stone rates, a longer span, a lower support ratio, or a quarrying method that skips saws. What it cannot paper over is that year-round corvée contradicts the seasonality Merer's logbook records.`
     },
     granite:{
-      press:'Copper — blades in use, standing stock, and annual make-up',
-      holds:'The calendar — this scenario is still seasonal, so the labour pool problem does not compound',
-      lede:`Take the slowest defensible saw with everything else mainstream, and the cutters alone need <em>${fmt(r.cutters)}</em>. The total is <em>${fmt(r.grandAll)}</em>: <em>${fmt1(r.grandAll/22500)}×</em> the headcount, <em>${fmt1(svSharePct)}%</em> of Egypt.`,
-      obj:`The copper objection stops being rhetorical here. <b>${fmt(svBlades)} blades</b> in simultaneous use is a standing stock of <b>${fmt(svStock)} tonnes</b> — a little over <b>80%</b> of the entire estimated lifetime output of Bir Nasib, <b>5,000 t in 1,300 years</b> — and the wear has to be replaced at <b>${fmt(svMakeup)} t a year</b>, which is <b>${fmt1(svMakeup/svBirYear)}×</b> an average Sinai year. This scenario is the one that makes the model's weak link visible: not how many men you can find, but whether the metal to keep them sawing can exist at all.`,
-      escape:`Everything relaxes the moment the rate is wrong in the generous direction, and this is the scenario where a single measured limestone rate would do the most damage. If limestone cuts <b>3×</b> faster than this granite figure — plausible, untested — the total falls to roughly <b>${fmt(r.grandAll/3.3)}</b>, and the copper problem shrinks with it. The other escape is method: wedge-split blocks remove the saw-hour demand instead of meeting it.`
+      press:/*T:sv.granite.press*/'Copper — blades in use, standing stock, and annual make-up',
+      holds:/*T:sv.granite.holds*/'The calendar — this scenario is still seasonal, so the labour pool problem does not compound',
+      lede:/*T:sv.granite.lede*/`Take the slowest defensible saw with everything else mainstream, and the cutters alone need <em>${fmt(r.cutters)}</em>. The total is <em>${fmt(r.grandAll)}</em>: <em>${fmt1(r.grandAll/22500)}×</em> the headcount, <em>${fmt1(svSharePct)}%</em> of Egypt.`,
+      obj:/*T:sv.granite.obj*/`The copper objection stops being rhetorical here. <b>${fmt(svBlades)} blades</b> in simultaneous use is a standing stock of <b>${fmt(svStock)} tonnes</b> — a little over <b>80%</b> of the entire estimated lifetime output of Bir Nasib, <b>5,000 t in 1,300 years</b> — and the wear has to be replaced at <b>${fmt(svMakeup)} t a year</b>, which is <b>${fmt1(svMakeup/svBirYear)}×</b> an average Sinai year. This scenario is the one that makes the model's weak link visible: not how many men you can find, but whether the metal to keep them sawing can exist at all.`,
+      escape:/*T:sv.granite.escape*/`Everything relaxes the moment the rate is wrong in the generous direction, and this is the scenario where a single measured limestone rate would do the most damage. If limestone cuts <b>3×</b> faster than this granite figure — plausible, untested — the total falls to roughly <b>${fmt(r.grandAll/3.3)}</b>, and the copper problem shrinks with it. The other escape is method: wedge-split blocks remove the saw-hour demand instead of meeting it.`
     },
     surfacetrue:{
-      press:'The gap itself — three concessions stacked and still not closing',
-      holds:'Reign length — 23 years is the top of the credible range, so this scenario has already spent its best card',
-      lede:`Every generous lever at once — slow saw <em>${fmt1(r.rate)} mm/hr</em>, long span <em>${r.years} years</em>, year-round <em>${r.days} days</em> — and the answer is still <em>${fmt(r.grandAll)}</em> people, <em>${fmt1(r.grandAll/22500)}×</em> the headcount and <em>${fmt1(svSharePct)}%</em> of Egypt.`,
-      obj:`This scenario is the strongest case the mainstream has, and the interesting result is how little it buys. Stacking all three sensible concessions lands only <b>${fmt1(Math.abs(1-r.grandAll/MAINSTREAM_TOTAL)*100)}%</b> below the plain mainstream case — because the span and the season pull against each other: a longer build means more working days, the year-round corvée needed to use them means feeding everyone through the flood, and every extra day of grain has to be grown by someone. What survives here is the <b>${fmt(r.farmers)} farmers</b> and <b>${fmt1(svPoolShare)}%</b> of the population in the corvée pool. If the numbers are to close, they will not close through the calendar.`,
-      escape:`Only two levers are left, and both are about <b>method</b> rather than effort: a limestone cutting rate several times faster than Stocks' granite measurement, or a quarrying technique that does not saw blocks at all. Either one breaks the model's load-bearing assumption; neither has been tested on Giza limestone with copper. That is the honest place to put your scepticism.`
+      press:/*T:sv.surfacetrue.press*/'The gap itself — three concessions stacked and still not closing',
+      holds:/*T:sv.surfacetrue.holds*/'Reign length — 23 years is the top of the credible range, so this scenario has already spent its best card',
+      lede:/*T:sv.surfacetrue.lede*/`Every generous lever at once — slow saw <em>${fmt1(r.rate)} mm/hr</em>, long span <em>${r.years} years</em>, year-round <em>${r.days} days</em> — and the answer is still <em>${fmt(r.grandAll)}</em> people, <em>${fmt1(r.grandAll/22500)}×</em> the headcount and <em>${fmt1(svSharePct)}%</em> of Egypt.`,
+      obj:/*T:sv.surfacetrue.obj*/`This scenario is the strongest case the mainstream has, and the interesting result is how little it buys. Stacking all three sensible concessions lands only <b>${fmt1(Math.abs(1-r.grandAll/MAINSTREAM_TOTAL)*100)}%</b> below the plain mainstream case — because the span and the season pull against each other: a longer build means more working days, the year-round corvée needed to use them means feeding everyone through the flood, and every extra day of grain has to be grown by someone. What survives here is the <b>${fmt(r.farmers)} farmers</b> and <b>${fmt1(svPoolShare)}%</b> of the population in the corvée pool. If the numbers are to close, they will not close through the calendar.`,
+      escape:/*T:sv.surfacetrue.escape*/`Only two levers are left, and both are about <b>method</b> rather than effort: a limestone cutting rate several times faster than Stocks' granite measurement, or a quarrying technique that does not saw blocks at all. Either one breaks the model's load-bearing assumption; neither has been tested on Giza limestone with copper. That is the honest place to put your scepticism.`
     },
     solveyears:{
-      press:'Political time — a throne, a treasury and a grain reserve that survive three centuries',
-      holds:'The workforce figure itself — by construction, 22,500 is exactly what this scenario delivers',
-      lede:`Run the model backwards: hold the workforce at the published <em>22,500</em>, keep every other mainstream value, and let the calendar stretch. It stretches to <em>${r.years} years</em>.`,
-      obj:`This scenario is the cleanest demonstration of what the workforce number actually costs. Nothing is tuned — the rate, the season, the hours and the rations are all the mainstream ones — so the only variable left is time, and time has to grow by <b>${fmt1(r.years/29)}×</b> Khufu's longest plausible reign to buy the published headcount. That is the trade in one line: <b>the people are free, the centuries are not.</b> A pyramid that takes ${r.years} years is not Khufu's monument in any ordinary sense — the pharaoh who commissioned it is a tradition by the time the casing is dressed, the administration that funded it has turned over many times, and every generation in between has to keep the quarry open, the copper flowing and the grain coming.`,
-      escape:`There is no escape inside this scenario, by design — it is arithmetic, not advocacy. It does tell you where the real question sits, though. If a long build is politically impossible and a large workforce is archaeologically unattested, the resolution is almost certainly in the third variable this page holds fixed: <b>method</b>. Blocks that are split rather than sawn, and limestone that cuts far faster than the granite figure, both break the dependence on time and headcount at once. Notice too that the copper demand is unchanged: <b>${fmt(svMakeup)} t</b> a year worn away for <b>${r.years} years</b> — the same metal bill, spread thin.`
+      press:/*T:sv.solveyears.press*/'Political time — a throne, a treasury and a grain reserve that survive three centuries',
+      holds:/*T:sv.solveyears.holds*/'The workforce figure itself — by construction, 22,500 is exactly what this scenario delivers',
+      lede:/*T:sv.solveyears.lede*/`Run the model backwards: hold the workforce at the published <em>22,500</em>, keep every other mainstream value, and let the calendar stretch. It stretches to <em>${r.years} years</em>.`,
+      obj:/*T:sv.solveyears.obj*/`This scenario is the cleanest demonstration of what the workforce number actually costs. Nothing is tuned — the rate, the season, the hours and the rations are all the mainstream ones — so the only variable left is time, and time has to grow by <b>${fmt1(r.years/29)}×</b> Khufu's longest plausible reign to buy the published headcount. That is the trade in one line: <b>the people are free, the centuries are not.</b> A pyramid that takes ${r.years} years is not Khufu's monument in any ordinary sense — the pharaoh who commissioned it is a tradition by the time the casing is dressed, the administration that funded it has turned over many times, and every generation in between has to keep the quarry open, the copper flowing and the grain coming.`,
+      escape:/*T:sv.solveyears.escape*/`There is no escape inside this scenario, by design — it is arithmetic, not advocacy. It does tell you where the real question sits, though. If a long build is politically impossible and a large workforce is archaeologically unattested, the resolution is almost certainly in the third variable this page holds fixed: <b>method</b>. Blocks that are split rather than sawn, and limestone that cuts far faster than the granite figure, both break the dependence on time and headcount at once. Notice too that the copper demand is unchanged: <b>${fmt(svMakeup)} t</b> a year worn away for <b>${r.years} years</b> — the same metal bill, spread thin.`
     },
     split:{
-      press:'Method — the one lever on this page that is not effort',
-      holds:'Logistics — transport, ramps, support and grain are untouched by how the stone is freed, so they now dominate the total',
-      lede:`Mainstream in every respect except the saw. The workforce falls to <em>${fmt(r.grandAll)}</em> — <em>${fmt1(r.grandAll/22500)}×</em> the 22,500 headcount instead of 17×, and <em>${fmt1(svSharePct)}%</em> of the population instead of 25%. Cutters: <em>${fmt(r.cutters)}</em>, against <em>${fmt(MAP_SAW_CUTTERS)}</em> when every face is sawn.`,
-      obj:`Two of this scenario's numbers are <b>mine, not published</b>: <b>${fmt1(SPLIT_MH_PER_M)} man-hours per metre</b> of wedge line and <b>${fmt1(SPLIT_DRESS_MH)} man-hours per face</b> of dressing. That is roughly one 10 cm hole every 15 cm, drilled and wedged, then the face dressed — plausible for limestone with copper and sand, but untested, in exactly the way the copper saw is untested on Giza limestone. Halve both and the total barely moves, because cutting is no longer where the labour is: <b>${fmt(r.cutters)}</b> cutters against <b>${fmt(r.transport+r.haul+r.support)}</b> in haulage, ramps and support. Note also that the model still charges <b>five faces per block</b> — split blocks still have to be squared — and that wedging works because Egyptian limestone has good bedding planes. Granite is a different argument, which is why the obelisk at Aswan was split in its bed and never moved.`,
-      escape:`No escape is needed, and that is the point: this is the only scenario on the page that arrives in the same order of magnitude as the published headcount without touching the calendar, the season or the ration. What it does not do is get to <b>22,500</b> — it gets to <b>${fmt(r.grandAll)}</b>. The remaining gap is not a cutting problem at all; it is the cost of moving, raising, feeding and housing, which the mainstream figure has never included. If you want the mainstream number exactly, splitting is where the argument has to be settled, not which lever to pull.`
+      press:/*T:sv.split.press*/'Method — the one lever on this page that is not effort',
+      holds:/*T:sv.split.holds*/'Logistics — transport, ramps, support and grain are untouched by how the stone is freed, so they now dominate the total',
+      lede:/*T:sv.split.lede*/`Mainstream in every respect except the saw. The workforce falls to <em>${fmt(r.grandAll)}</em> — <em>${fmt1(r.grandAll/22500)}×</em> the 22,500 headcount instead of 17×, and <em>${fmt1(svSharePct)}%</em> of the population instead of 25%. Cutters: <em>${fmt(r.cutters)}</em>, against <em>${fmt(MAP_SAW_CUTTERS)}</em> when every face is sawn.`,
+      obj:/*T:sv.split.obj*/`Two of this scenario's numbers are <b>mine, not published</b>: <b>${fmt1(SPLIT_MH_PER_M)} man-hours per metre</b> of wedge line and <b>${fmt1(SPLIT_DRESS_MH)} man-hours per face</b> of dressing. That is roughly one 10 cm hole every 15 cm, drilled and wedged, then the face dressed — plausible for limestone with copper and sand, but untested, in exactly the way the copper saw is untested on Giza limestone. Halve both and the total barely moves, because cutting is no longer where the labour is: <b>${fmt(r.cutters)}</b> cutters against <b>${fmt(r.transport+r.haul+r.support)}</b> in haulage, ramps and support. Note also that the model still charges <b>five faces per block</b> — split blocks still have to be squared — and that wedging works because Egyptian limestone has good bedding planes. Granite is a different argument, which is why the obelisk at Aswan was split in its bed and never moved.`,
+      escape:/*T:sv.split.escape*/`No escape is needed, and that is the point: this is the only scenario on the page that arrives in the same order of magnitude as the published headcount without touching the calendar, the season or the ration. What it does not do is get to <b>22,500</b> — it gets to <b>${fmt(r.grandAll)}</b>. The remaining gap is not a cutting problem at all; it is the cost of moving, raising, feeding and housing, which the mainstream figure has never included. If you want the mainstream number exactly, splitting is where the argument has to be settled, not which lever to pull.`
     }
   };
   const sv = presetKey ? svText[presetKey] : null;
@@ -739,11 +772,15 @@ function renderVerdict(r){
      the sentence and the stat card can never drift apart. */
   if($('cuTons')) $('cuTons').textContent=fmt(powderT)+' tonnes';
   const cuScenText={
-    mainstream:`All the wear figures are mainstream here — this is the scenario where the copper powder claim is <em>strongest</em>, because the cutting rate is Stocks' own measurement. <b>${fmt(powderT)} tonnes</b> of copper turns to oxide across the build, spread as <b>${fmt(powderPerDay)} kg a working day</b> over ${fmt(buildDays)} days. That is not a warehouse fire; it is a steady, diluted, site-wide dust — which is exactly the signature the 2024 harbour core found.`,
-    yearround:`Same total copper (<b>${fmt(powderT)} tonnes</b>) as the mainstream case, since the metal worn depends on saw-hours rather than the calendar — but squeezed into ${fmt(r.days)} days a year, so the daily rate rises to <b>${fmt(powderT*1000/buildDays)} kg</b>. Year-round working makes the powder signal <em>denser and easier to detect</em>, not larger.`,
-    granite:`This is the scenario that should have buried the site in powder. Saw-hours run ~3.6× the mainstream case, so the copper worn reaches <b>${fmt(powderT)} tonnes</b> — but it is spread over ${fmt(buildDays)} days at <b>${fmt(powderPerDay)} kg a day</b>. Two decades of cutting at 2.1 mm/hr should leave an expectation of copper-contaminated floors, sumps and spoil across the quarry and the working areas, and nothing of that mass has been reported. This is where absence bites hardest.`,
-    surfacetrue:`The slowest saw means the most powder of any realistic setting — <b>${fmt(powderT)} tonnes</b> — spread over the longest span this model allows, ${fmt(buildDays)} days, at about <b>${fmt(powderPerDay)} kg a day</b>. If the powder argument holds anywhere, it holds here: this is the setting that most demands a copper-rich archaeological residue, and the residue reported so far is enrichment in harbour sediment, not a mass deposit.`,
-    solveyears:`Stretching the calendar to <b>${r.years} years</b> does not reduce the copper by a single gram — total wear is set by saw-hours, which is set by the stone, not the schedule. It only thins the powder out: <b>${fmt(powderT)} tonnes</b> across ${fmt(buildDays)} days is <b>${fmt(powderPerDay)} kg a day</b>, the lowest daily rate of any setting here. A long enough build makes the copper harder to find without making it any smaller.`
+    mainstream:/*T:cu.mainstream*/`All the wear figures are mainstream here — this is the scenario where the copper powder claim is <em>strongest</em>, because the cutting rate is Stocks' own measurement. <b>${fmt(powderT)} tonnes</b> of copper turns to oxide across the build, spread as <b>${fmt(powderPerDay)} kg a working day</b> over ${fmt(buildDays)} days. That is not a warehouse fire; it is a steady, diluted, site-wide dust — which is exactly the signature the 2024 harbour core found.`,
+    yearround:/*T:cu.yearround*/`Same total copper (<b>${fmt(powderT)} tonnes</b>) as the mainstream case, since the metal worn depends on saw-hours rather than the calendar — but squeezed into ${fmt(r.days)} days a year, so the daily rate rises to <b>${fmt(powderT*1000/buildDays)} kg</b>. Year-round working makes the powder signal <em>denser and easier to detect</em>, not larger.`,
+    granite:/*T:cu.granite*/`This is the scenario that should have buried the site in powder. Saw-hours run ~3.6× the mainstream case, so the copper worn reaches <b>${fmt(powderT)} tonnes</b> — but it is spread over ${fmt(buildDays)} days at <b>${fmt(powderPerDay)} kg a day</b>. Two decades of cutting at 2.1 mm/hr should leave an expectation of copper-contaminated floors, sumps and spoil across the quarry and the working areas, and nothing of that mass has been reported. This is where absence bites hardest.`,
+    surfacetrue:/*T:cu.surfacetrue*/`The slowest saw means the most powder of any realistic setting — <b>${fmt(powderT)} tonnes</b> — spread over the longest span this model allows, ${fmt(buildDays)} days, at about <b>${fmt(powderPerDay)} kg a day</b>. If the powder argument holds anywhere, it holds here: this is the setting that most demands a copper-rich archaeological residue, and the residue reported so far is enrichment in harbour sediment, not a mass deposit.`,
+    split:/*T:cu.split*/`Nothing is sawn here, so nothing is worn: no blade, no quartz sand, no slurry, and no oxide powder to look for. `+
+      `The harbour core's copper and arsenic enrichment therefore stops being evidence about saws at all — it remains a real signal, `+
+      `but under this scenario it has to be explained by tool maintenance, ore handling and metalworking, not by blades grinding limestone. `+
+      `That is not a weakness in the geochemistry; it is a reminder that the chemistry was never able to tell the two apart.`,
+    solveyears:/*T:cu.solveyears*/`Stretching the calendar to <b>${r.years} years</b> does not reduce the copper by a single gram — total wear is set by saw-hours, which is set by the stone, not the schedule. It only thins the powder out: <b>${fmt(powderT)} tonnes</b> across ${fmt(buildDays)} days is <b>${fmt(powderPerDay)} kg a day</b>, the lowest daily rate of any setting here. A long enough build makes the copper harder to find without making it any smaller.`
   };
   const cuLine=$('cuScenLine');
   cuLine.innerHTML = presetKey ? (cuScenText[presetKey] || cuScenText.custom)
@@ -752,7 +789,9 @@ function renderVerdict(r){
   $('svCuYr').innerHTML=fmt(svMakeup)+' t<small>'+fmt1(svMakeup/svBirYear)+'× a Sinai year</small>';
   $('svFarm').innerHTML=fmt(r.farmers)+'<small>'+svFarmShare.toFixed(1)+'% of the population</small>';
   $('svPool').innerHTML=(svPoolShare>=100?'<b>':'')+fmt(svPool)+'</b><small>'+fmt1(svPoolShare)+'% of the population</small>';
-  $('svNeed').innerHTML=fmt1(r.rate*r.grandAll/25000)+' mm/hr<small>'+fmt1(r.grandAll/25000)+'× the current rate</small>';
+  $('svNeed').innerHTML = r.splitMode
+    ? '—<small>no saw in use, so there is no rate to raise</small>'
+    : fmt1(r.rate*r.grandAll/25000)+' mm/hr<small>'+fmt1(r.grandAll/25000)+'× the current rate</small>';
   $('svShare').innerHTML=fmt1(svSharePct)+'%<small>'+fmt(r.grandAll)+' people</small>';
   const svCuBox=$('svCu').closest('.sv-item'), svPoolBox=$('svPool').closest('.sv-item'), svShareBox=$('svShare').closest('.sv-item');
   [svCuBox,svPoolBox,svShareBox].forEach(el=>{el.className='sv-item';});
@@ -760,11 +799,61 @@ function renderVerdict(r){
   if(svPoolShare>=100) svPoolBox.classList.add('hot'); else if(svPoolShare>=40) svPoolBox.classList.add('warn');
   if(svSharePct>=50) svShareBox.classList.add('hot'); else if(svSharePct>=15) svShareBox.classList.add('warn');
 
-  $('weakPoint').innerHTML=`Everything scales off the <b>cutting rate</b>. The default (${fmt1(r.rate)} mm/hr) is `+
+  if(r.splitMode){
+    $('weakPoint').innerHTML=`Everything here scales off the <b>wedge line</b>. The model charges `+
+      `<b>1.2 man-hours per metre</b> of drilled-and-wedged line and <b>2 man-hours</b> of dressing per freed face — `+
+      `my own estimates, set high, and unlike the saw rates they are not even measured on granite. `+
+      `No experiment has split Giza limestone with wedges and timed it. That said, the number is not where the `+
+      `risk sits: halving both rates moves the total by a few per cent, because cutting is no longer where the `+
+      `labour is. The totals are carried by haulage, ramps, support and grain — and those rest on the same `+
+      `assumptions they always did.`;
+  } else $('weakPoint').innerHTML=`Everything scales off the <b>cutting rate</b>. The default (${fmt1(r.rate)} mm/hr) is `+
     `Stocks' measurement on <i>granite</i> — the hardest stone in the pyramid, and only 0.1% of its volume. `+
     `Most of the pyramid is soft limestone, which cuts faster. If real limestone rates were <b>2–3×</b> higher, `+
     `the cutter count drops by the same factor. That single unknown moves the answer more than any other slider, `+
     `and no experiment has been run on Giza limestone with a copper saw.`;
+}
+
+/* ── THE SIX LEVERS, SIDE BY SIDE ───────────────────────
+   Recomputed from PRESETS on every render, so the numbers in the table
+   cannot drift from the numbers the sliders produce. The current row is
+   highlighted only when the sliders still match that scenario exactly. */
+function renderLeverTable(){
+  const body=$('leverBody'); if(!body) return;
+  const live=read();
+  const active=Object.keys(PRESETS).find(n=>PRESETS[n]
+    && (PRESETS[n].how||'saw')===(live.how||'saw')
+    && CTRLS.every(k=>PRESETS[n][k]==null || Math.abs(PRESETS[n][k]-live[k])<1e-6));
+  let html='';
+  Object.keys(PRESETS).forEach((n,i)=>{
+    const pr=PRESETS[n]; if(!pr) return;
+    const r=compute(Object.assign({},pr));
+    const ratio=r.grandAll/22500;
+    const cls=ratio>=10?'hot':ratio>=3?'warn':'';
+    const on=n===active?' on':'';
+    html+=`<tr class="lv-row${on}" data-lever="${n}">`+
+      `<td class="lv-n"><span class="lv-i">${String(i+1).padStart(2,'0')}</span>${PRESET_LABELS[n]||n}</td>`+
+      `<td class="lv-v ${cls}">${fmt(r.grandAll)}</td>`+
+      `<td class="lv-v ${cls}">${fmt1(ratio)}×</td>`+
+      `<td class="lv-v">${fmt(r.cutters)}</td>`+
+      `<td class="lv-c">${LEVER_NOTES[n]||''}</td></tr>`;
+  });
+  body.innerHTML=html;
+  /* Row click loads that scenario: the table is an index, not decoration. */
+  body.querySelectorAll('.lv-row').forEach(tr=>{
+    tr.tabIndex=0; tr.setAttribute('role','button');
+    tr.addEventListener('click',()=>{ const btn=document.querySelector(`[data-preset="${tr.dataset.lever}"]`); if(btn) btn.click(); });
+    tr.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); tr.click(); } });
+  });
+  if($('leverFoot')){
+    const ms=compute(Object.assign({},PRESETS.mainstream));
+    const sp=compute(Object.assign({},PRESETS.split));
+    $('leverFoot').innerHTML=`Five of these six buy their answer with something the evidence would have to give up — `+
+      `a longer calendar, a slower saw, a harsher season, or ${fmt(ms.grandAll)} people the excavated camp cannot house. `+
+      `Only the sixth buys it with a method: <b>${fmt(sp.grandAll)}</b> people, <b>${fmt1(ms.grandAll/sp.grandAll)}×</b> fewer than the mainstream case, `+
+      `and <b>${fmt1(sp.grandAll/22500)}×</b> the published headcount instead of <b>${fmt1(ms.grandAll/22500)}×</b>. `+
+      `It still does not close the gap. Nothing on this page does.`;
+  }
 }
 
 /* The closest named scenario to the current sliders — used only to
@@ -804,7 +893,7 @@ function update(){
      first paint (which used to abort every renderer after this line). */
   renderHero(r); renderSticky(r); renderBars(r); renderColumn(r,currentTab(),false);
   renderGround(r); renderCutting(r); renderCopper(r); renderMoving(r);
-  renderFeeding(r); renderVerdict(r);
+  renderFeeding(r); renderVerdict(r); renderLeverTable();
 
   syncScenarios(o);
 

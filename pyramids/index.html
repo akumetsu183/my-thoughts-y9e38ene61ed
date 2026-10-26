@@ -415,6 +415,20 @@
       <div class="punch" id="verdict">—</div>
     </div>
 
+    <section class="levers" aria-labelledby="lvHead">
+      <div class="lv-head">
+        <h2 class="lv-h" id="lvHead">Six ways to make the arithmetic fit</h2>
+        <p class="lv-lede">Five of these pull a lever — the calendar, the working year, the cutting rate, or the headcount being aimed at — and the first is the mainstream baseline the rest are measured against. The sixth changes the method instead. They are not equally expensive. The figures are recomputed from the same model as the sliders, so they cannot drift from the page above.</p>
+      </div>
+      <div class="lv-wrap">
+        <table class="lv-table" id="leverTable">
+          <thead><tr><th scope="col">Scenario</th><th scope="col">People</th><th scope="col">vs 22,500</th><th scope="col">Cutters</th><th scope="col">What it costs you</th></tr></thead>
+          <tbody id="leverBody"></tbody>
+        </table>
+      </div>
+      <p class="lv-foot" id="leverFoot">—</p>
+    </section>
+
     <!-- ── SCENARIO-SPECIFIC VERDICT ─────────────────────
          Reads the same PRESETS as the switcher at the top, so this
          block always describes the scenario the sliders are on.
@@ -433,7 +447,7 @@
         <div class="sv-item"><dt>Copper make-up per year</dt><dd id="svCuYr">—</dd></div>
         <div class="sv-item"><dt>Farmers feeding them</dt><dd id="svFarm">—</dd></div>
         <div class="sv-item"><dt>Corvée pool, if rotating</dt><dd id="svPool">—</dd></div>
-        <div class="sv-item"><dt>Cutting rate needed for 25,000</dt><dd id="svNeed">—</dd></div>
+        <div class="sv-item"><dt>What reaching 25,000 would need</dt><dd id="svNeed">—</dd></div>
         <div class="sv-item"><dt>Share of population</dt><dd id="svShare">—</dd></div>
       </dl>
       <div class="sv-body">
@@ -448,13 +462,13 @@
       </div>
     </section>
 
-    <h2 style="margin-top:34px;font-size:1.12rem">Five things that don't quite fit — in every scenario</h2>
-    <p class="lede">The arithmetic gives a number. These are the questions the number raises — and what the evidence currently says about each. None of the four scenarios above makes these go away; the numbers in them update with the sliders.</p>
+    <h2 style="margin-top:34px;font-size:1.12rem">Five things that don't quite fit — in almost every scenario</h2>
+    <p class="lede">The arithmetic gives a number. These are the questions the number raises — and what the evidence currently says about each. None of the first five scenarios makes them go away; the numbers in them update with the sliders. The sixth is the exception, and only for the first objection: if nothing is sawn, there is no copper to account for. That is a change of method, not an answer, and the other four objections survive it intact.</p>
 
     <div class="obj">
       <div class="obj-card">
         <div class="obj-q"><span class="qn">01</span>Where is all the copper?</div>
-        <p>The project needs <b id="obj1Cu">—</b> of copper on the quarry floor at any moment, and wears through about <b id="obj1CuYr">—</b> a year replacing it. Blades were reforged rather than thrown away, so the metal circulated — but circulation still needs a standing stock, plus a smelting and reforging industry running continuously beside the work.</p>
+        <p id="obj1Lead">The project needs <b>1,138 tonnes</b> of copper on the quarry floor at any moment, and wears through about <b>2,679 t</b> a year replacing it. Blades were reforged rather than thrown away, so the metal circulated — but circulation still needs a standing stock, plus a smelting and reforging industry running continuously beside the work.</p>
         <p>The only major Sinai source is <b>Bir Nasib</b>, estimated at about <b>5,000 tonnes across roughly 1,300 years</b> — an average of <b>~3.85 tonnes a year</b>, much of it from periods later than Khufu. Annual make-up demand here runs at <b id="obj1Mult">—</b> that average.</p>
         <p class="verdict-line" id="obj1Verdict">—</p>
       </div>
@@ -476,7 +490,8 @@
       <div class="obj-card">
         <div class="obj-q"><span class="qn">04</span>Or was it built with fewer people?</div>
         <p>Everything above scales off one number: <b id="obj4Rate">—</b> mm per hour. That figure comes from <i>granite</i>, which is about 0.1% of the pyramid. If limestone cut two or three times faster — which is plausible, and has never been tested with a copper saw — the cutter count falls by the same factor.</p>
-        <p>There is also a structural question the model cannot answer: whether the block was cut with a saw at all, or split along natural bedding planes with wooden wedges and water, which would sidestep most of the copper problem entirely.</p>
+        <p>There is also a structural question, and it is no longer hypothetical: whether the block was sawn at all, or split along natural bedding planes with wedges and water. <a class="cite" href="?preset=split#verdict">Scenario 06</a> runs that second method through the same model — five faces per block, one worker instead of two, no blade. It cuts the workforce to <b>35,224</b> and the cutters to <b>1,827</b>, and leaves the copper question with nothing to bite on.</p>
+        <p>What it does not do is reach 22,500. The <b>1.6×</b> left over is haulage, ramps, support and grain — the parts of the total that no cutting method touches, and the parts the published headcount leaves out. So the honest reading of this objection is narrower than it looks: a method change is worth a factor of eleven in the quarry, and the last factor of one-and-a-half has to be found somewhere else entirely.</p>
         <p class="verdict-line" id="obj4Verdict">—</p>
       </div>
       <div class="obj-card">
@@ -558,6 +573,7 @@
     <div class="note" style="margin-top:22px">
       <div class="nt">What this page is actually claiming</div>
       <p>Not that the mainstream numbers are wrong, and not that aliens built it. Only this: <b>the published cutting rate, applied to the published block count over the published timeline, does not produce the published workforce</b>. Something in that chain is wrong — the rate, the timeline, the method, or the headcount. Each of those is a real, arguable position, and the sliders let you test which one you would have to give up.</p>
+      <p>The method is the only one of the four that can be tested without giving anything up: it asks what the stone did, not how hard people worked. Changing it moves the answer by a factor of eleven. Changing the rate by a factor of eleven would mean a stone saw cutting faster than the fastest modern hand saw has ever been measured. That asymmetry is the page's actual finding, and it is why the sixth scenario is the one worth arguing about.</p>
     </div>
 
     <div class="bars" style="margin-top:18px" id="barsVerdict"></div>

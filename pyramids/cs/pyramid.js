@@ -6,8 +6,8 @@
 'use strict';
 const $ = id => document.getElementById(id);
 const NS = 'http://www.w3.org/2000/svg';
-const fmt  = n => Math.round(n).toLocaleString('en-US');
-const fmt1 = n => n.toLocaleString('en-US',{maximumFractionDigits:1});
+const fmt  = n => Math.round(n).toLocaleString('cs-CZ');
+const fmt1 = n => n.toLocaleString('cs-CZ',{maximumFractionDigits:1});
 const fmtS = n => n>=1e9 ? (n/1e9).toFixed(1)+'B' : n>=1e6 ? (n/1e6).toFixed(1)+'M'
                  : n>=1e3 ? (n/1e3).toFixed(0)+'k' : Math.round(n).toString();
 
@@ -146,6 +146,22 @@ const ROLES = [
    the method is not a quantity. Flipping between saw and split is the whole
    difference between scenarios 01 and 06. */
 let MODE='saw';
+
+/* Short names and the price of each lever, used by the verdict table.
+   Kept next to the presets so a new scenario cannot be added without
+   appearing in the comparison. */
+const PRESET_LABELS={
+  mainstream:'Mainstream', yearround:'Celoroční robota', granite:'Nejpomalejší řezání',
+  surfacetrue:'Drsné podmínky', solveyears:'Jak dlouho to bude trvat', split:'Štípání místo řezání'
+};
+const LEVER_NOTES={
+  mainstream:'Zásobení mědí musí být reálné a lom musí pojmout 157 000 řezačů naráz.',
+  yearround:'Na papíře se nic neobětuje — cena je, že nezbývá záplavové období na obdělávání půdy.',
+  granite:'Předpokládá se, že vápenec se řeže jako žula, což nikdo neprokázal.',
+  surfacetrue:'Nejpomalejší změřená pila plus nejdrsnější podmínky; zbytek udělá kalendář.',
+  solveyears:'Aritmetika sedí a pyramida trvá 351 let — déle, než trvala Stará říše.',
+  split:'Jediná páka, která nestojí nic, co byste museli obětovat: metoda, kterou tu nikdo netestoval.'
+};
 /* Filled at boot: the Mainstream cutter count, so the splitting scenario can
    say how far cutting fell without hard-coding a second number. */
 const MAP_SAW_CUTTERS = compute(Object.assign({}, PRESETS.mainstream, {how:'saw'})).cutters;
@@ -404,12 +420,7 @@ function renderCopper(r){
     $('copperTotal').textContent='0 t';
     $('copperNote').textContent='wedges and water · no abrasive slurry';
     $('copperReality').innerHTML=
-      `Splitting removes the copper question rather than answering it. No blade, no `+
-      `quartz sand, no slurry — so none of the wear, the standing stock or the annual `+
-      `make-up that the other scenarios have to justify. What is left is chisel and `+
-      `pounder wear on the groove lines, which is a tool-maintenance cost, not an `+
-      `industrial supply chain. <b>This is the one scenario where "where is all the copper?" `+
-      `stops being a fair question</b> — because there is no reason for much copper to be there.`;
+      `Štípání měděnou otázku neodpovídá, ale odstraňuje. Žádný list, žádný křemenný písek, žádná kaše — tedy žádné opotřebení, žádná zásoba ani roční doplňování, které musí ostatní scénáře obhájit. Zůstává opotřebení dlát a tlouků na liniích klínů, což je náklad na údržbu nástrojů, ne průmyslový dodavatelský řetězec. <b>Tohle je jediný scénář, ve kterém přestává být otázka „kde je všechna ta měď?" fér</b> — protože tam není důvod, aby jí bylo tolik.`;
     const srows=[['Method','wedge-split','grooves + water, not abrasive sawing'],
       ['Groove effort',fmt1(SPLIT_MH_PER_M)+' mh/m','own estimate, not published'],
       ['Dressing',fmt1(SPLIT_DRESS_MH)+' mh/face','own estimate, not published'],
@@ -494,31 +505,13 @@ function renderVerdict(r){
     /* Splitting changes what the sentences have to be about. Talking about a
        millimetre-per-hour rate here would be a non sequitur: there is no saw. */
     const sawCutters=MAP_SAW_CUTTERS;
-    body=`Splitting moves the answer from <em>${fmt(MAINSTREAM_TOTAL)} people</em> to <em>${fmt(r.grandAll)}</em> — `+
-      `<em>${fmt1(share)}%</em> of the country instead of 25%, and <em>${fmt1(r.grandAll/22500)}×</em> the 22,500 headcount `+
-      `instead of 17×. The cutters themselves collapse from <em>${fmt(sawCutters)}</em> to <em>${fmt(r.cutters)}</em>: `+
-      `an 86-fold cut, because a wedge line frees a face in one go where a saw grinds along it for hours. `+
-      `<b>What does not move is everything that was never about the saw</b> — ${fmt(r.transport)} in the quarry relay, `+
-      `${fmt(r.haul)} on the ramps, ${fmt(r.support)} support trades and ${fmt(r.farmers)} farmers. Splitting removes `+
-      `the hardest engineering problem on the page and leaves the logistics standing. `+
-      `<b>It does not close the gap to 22,500 either</b> — it halves the distance, and the half that remains is the `+
-      `half mainstream estimates usually leave out.`;
+    body=`Štípání posouvá odpověď z <em>${fmt(MAINSTREAM_TOTAL)} lidí</em> na <em>${fmt(r.grandAll)}</em> — <em>${fmt1(share)} %</em> země místo 25 % a <em>${fmt1(r.grandAll/22500)}×</em> nad 22 500 místo 17×. Samotní řezači se zhroutí z <em>${fmt(sawCutters)}</em> na <em>${fmt(r.cutters)}</em>: osmdesátinásobný pokles, protože linie klínů uvolní stěnu naráz, kdežto pila po ní hodiny brousí. <b>Co se nehne, je všechno, co nikdy nebylo o pile</b> — ${fmt(r.transport)} v lomovém přesunu, ${fmt(r.haul)} na rampách, ${fmt(r.support)} v podpůrných profesích a ${fmt(r.farmers)} rolníků. Štípání odstraňuje nejtěžší technický problém na stránce a logistiku nechává stát. <b>Mezeru na 22 500 taky neuzavírá</b> — půlí ji, a ta zbylá polovina je právě ta, kterou hlavní odhady obvykle vynechávají.`;
   } else if(ratio>=1.5){
-    body=`At the mainstream timeline and a measured cutting rate you need <em>${fmt(r.grandAll)} people</em> — `+
-      `<em>${fmt1(share)}%</em> of the country — for ${r.years} straight years, of which ${r.prepMonths} months `+
-      `is just the hole in the ground. Archaeology says 20,000–30,000. The arithmetic says `+
-      `<em>${fmt1(ratio)}×</em> that, wants <em>${fmt(r.copperTonnes)} tonnes</em> of copper, and needs `+
-      `<em>${fmt(r.farmers)} farmers</em> feeding them. Getting back to 25,000 would need a cutting rate of `+
-      `<em>${fmt1(needRate)} mm/hr</em> — nobody has demonstrated that with copper and sand.`;
+    body=`Při hlavním časovém plánu a změřené rychlosti řezání potřebujete <em>${fmt(r.grandAll)} lidí</em> — <em>${fmt1(share)} %</em> země — po ${r.years} let v řadě, z toho ${r.prepMonths} měsíců je jen díra v zemi. Archeologie říká 20 000–30 000. Aritmetika říká <em>${fmt1(ratio)}×</em> tolik, chce <em>${fmt(r.copperTonnes)} tun</em> mědi a potřebuje <em>${fmt(r.farmers)} rolníků</em>, aby je uživili. Návrat na 25 000 by vyžadoval rychlost řezání <em>${fmt1(needRate)} mm/h</em> — to s mědí a pískem nikdo nepředvedl.`;
   } else if(ratio>=0.8){
-    body=`At these settings the workforce lands at <em>${fmt(r.grandAll)} people</em>, inside the mainstream window. `+
-      `That took ${fmt1(r.rate)} mm/hr cutting, ${r.hours}-hour days, ${r.days} days a year, ${r.prepMonths} months `+
-      `of prep and a support ratio of ${fmt1(r.support)} — the optimistic end of every assumption at once. `+
-      `The mainstream number is reachable; it is just not reachable robustly.`;
+    body=`Při tomhle nastavení se pracovní síla dostane na <em>${fmt(r.grandAll)} lidí</em>, tedy do hlavního rozsahu. Stálo to ${fmt1(r.rate)} mm/h řezání, ${r.hours} hodin denně, ${r.days} dnů v roce, ${r.prepMonths} měsíců příprav a poměr podpory ${fmt1(r.support)} — optimistický konec každého předpokladu naráz. Hlavní číslo je dosažitelné; jen ne robustně.`;
   } else {
-    body=`At these settings you need only <em>${fmt(r.grandAll)} people</em> — <em>${fmt1(1/ratio)}×</em> cheaper `+
-      `than the mainstream estimate. That is suspicious in the other direction. A figure this low means something `+
-      `has been given away, usually a cutting rate far beyond anything measured.`;
+    body=`Při tomhle nastavení potřebujete jen <em>${fmt(r.grandAll)} lidí</em> — <em>${fmt1(1/ratio)}×</em> levněji než hlavní odhad. To je podezřelé na druhou stranu. Tak nízké číslo znamená, že se něco rozdalo, obvykle rychlost řezání daleko za vším, co bylo změřeno.`;
   }
   $('verdict').innerHTML=body;
 
@@ -538,21 +531,18 @@ function renderVerdict(r){
   /* stock against the entire known Bir Nasib output */
   const stockVsAll=stockTonnes/BIR_NASIB_TOTAL*100;
 
-  $('obj1Cu').textContent = r.splitMode ? 'none' : fmt(stockTonnes)+' tonnes';
-  $('obj1CuYr').textContent = r.splitMode ? 'none' : fmt(makeupPerYear)+' t';
+  /* One sentence, one message. Writing "needs <b>none</b> of copper" leaves the
+     translator a word that cannot be made grammatical in Czech ("nepotřebuje
+     žádnou měď" needs a negated verb), so the whole sentence is translatable. */
+  $('obj1Lead').innerHTML = r.splitMode
+    ?`Při štípání není na dně lomu potřeba <b>žádná zásoba mědi</b> — kamene se nedotkne žádný list, takže se nic neobrušuje tak jako pila. Nahrazuje ji údržba nástrojů: tlouky a dláta se tupí na liniích klínů i při zarovnávání, což je náklad dílny, ne průmyslový dodavatelský řetězec.`:`Projekt potřebuje <b>${fmt(stockTonnes)} tun</b> mědi na dně lomu v každém okamžiku a ročně asi <b>${fmt(makeupPerYear)} t</b> na její obnovu. Listy se překovávaly, nevyhazovaly, takže kov cirkuloval — ale cirkulace pořád potřebuje zásobu a k tomu huť a kovárnu, které běží nepřetržitě vedle stavby.`;
   $('obj1Mult').textContent = r.splitMode ? '—' : fmt1(makeupMult)+'×';
   if(r.splitMode){
     /* Printing "0 blades / 0x an average Sinai year" would be arithmetically
        true and rhetorically useless. Under splitting the objection does not
        get a low score — it stops applying. */
     $('obj1Verdict').innerHTML =
-      `There is nothing to find, because there is no abrasive slurry being made. `+
-      `Splitting frees the block along a bedding plane with wedges and water: no blade `+
-      `runs against stone, so no copper is ground into the spoil and no workshop floor `+
-      `should be stained green. <b>The objection is not answered here — it is removed, `+
-      `and that is a different thing.</b> It does not make the mainstream case stronger; `+
-      `it makes the saw-based versions of it cheaper than they were, which is the `+
-      `honest way to put it.`;
+      `Není co najít, protože se nevyrábí žádná brusná kaše. Štípání uvolňuje blok podle vrstevní plochy klíny a vodou: proti kameni neběží žádný list, takže se do hlušiny neobrušuje měď a žádná podlaha dílny by neměla být zelená. <b>Námitka se tu nevyvrací — ruší se, a to je něco jiného.</b> Hlavní scénář tím není silnější; jen jeho verze s pilou jsou levnější než dřív, a to je poctivá formulace.`;
   } else {
   $('obj1Verdict').innerHTML =
     `Skutečný požadavek je <b>${fmt(bladesInUse)} listů v současném použití</b> — zásoba na skladě asi <b>${fmt(stockTonnes)} tun</b>, tedy <b>${fmt1(stockVsAll)} %</b> každé tuny, kterou Bir Nasib za 1 300 let údajně vyprodukoval. Navíc se opotřebení musí doplňovat <b>${fmt(makeupPerYear)} t ročně</b>, což je <b>${fmt1(makeupMult)}×</b> průměrný sinajský rok. `?`Recyklace drží <i>zásobu</i> ve hře, ale samotná potřeba doplňování několikrát převyšuje celkový průměrný výnos Sinaje — ten kov musí odněkud přijít a žádný egyptský zdroj mědi takového rozsahu není znám.`: makeupMult>=2
@@ -588,7 +578,10 @@ function renderVerdict(r){
     ?`Stáhnout do dvou desetiletí sezónní stavby <b>${fmt1(poolShare)} %</b> celé populace — mužů, žen i dětí — není pracovní odvod, je to plná mobilizace. Egyptské zemědělství by muselo fungovat s tím, kdo zůstal.`: poolShare>=20
       ?`Při <b>${fmt1(poolShare)} %</b> celé populace to předpokládá, že téměř každý schopný muž pracuje dvě desetiletí každý rok na pyramidě. Pro silný stát možné; pro farmy velmi tvrdé.`:`<b>${fmt1(poolShare)} %</b> populace po dvě desetiletí je vážný, ale udržitelný odvod — zhruba takový režim model hlavního proudu popisuje.`;
   const ratioToMainstream=r.grandAll/22500;
-  $('obj4Verdict').innerHTML = ratioToMainstream<=2
+  if(r.splitMode){
+    $('obj4Verdict').innerHTML =
+      `Žádná rychlost tu nezbývá ke zvyšování: stěny se uvolňují jedním záběrem a model už má metodu na nejlevnější obhajitelné hodnotě. Zbylých <b>${fmt1(ratioToMainstream)}×</b> je <b>${fmt(r.transport)}</b> na lomovém přesunu, <b>${fmt(r.haul)}</b> na rampách, <b>${fmt(r.support)}</b> v podpůrných profesích a <b>${fmt(r.farmers)}</b> u obilí. Dostat se z ${fmt(r.grandAll)} na 22 500 není vůbec problém řezání — je to tvrzení o tom, kolik dopravy a zásobování stavba skutečně potřebovala, a tam se musí argument posunout.`;
+  } else $('obj4Verdict').innerHTML = ratioToMainstream<=2
     ?`Při tomto nastavení je model už jen <b>${fmt1(ratioToMainstream)}×</b> od počtu hlavního proudu. Dostat se až tam vyžaduje jen <b>${fmt1(r.rate*ratioToMainstream)} mm/h</b> — skromná rezerva nad žulovým číslem a u měkčího vápence uvěřitelná.`:`Aby model dosáhl 22 500, musí klesnout <b>${fmt1(ratioToMainstream)}×</b>. Kdyby to přišlo jen z rychlosti řezání, vápenec by se musel řezat rychlostí <b>${fmt1(r.rate*ratioToMainstream)} mm/h</b> — neuvěřitelné. V praxi by se mezera musela zavřít několika předpoklady naráz: rychlejší vápenec, delší rozpětí, víc pracovních dnů a metoda dobývání, která pily vůbec nepoužívá. To je poctivý tvar toho problému.`;
 
   /* ── SCENARIO-SPECIFIC VERDICT ─────────────────────────
@@ -621,7 +614,7 @@ function renderVerdict(r){
 
   const svNames={mainstream:'01 · Mainstream',yearround:'02 · Celoroční korvej',
     granite:'03 · Nejpomalejší řezání',surfacetrue:'04 · Drsný',
-    solveyears:'05 · Ať to trvá, jak dlouho to trvá',split:'06 · Splitting, not sawing'};
+    solveyears:'05 · Ať to trvá, jak dlouho to trvá',split:'06 · Štípání místo řezání'};
   const svScen=$('svScen');
   svScen.textContent=presetKey?svNames[presetKey]:'Vlastní nastavení';
   svScen.classList.toggle('custom',!presetKey);
@@ -634,46 +627,46 @@ function renderVerdict(r){
 
   const svText={
     mainstream:{
-      press:'Řezání — rychlost pily a 120denní sezóna dohromady',
-      holds:'The recruitment window — 25–26% of the population is a heavy levy, but it is a levy a state can actually make',
-      lede:`Everything in this scenario is published, which is what makes it the awkward one: the arithmetic closes only if <em>${fmt(r.grandAll)} people</em> — about <em>${fmt1(r.grandAll/22500)}×</em> the 22,500 headcount and <em>${fmt1(svSharePct)}%</em> of the country — work on it for <em>${r.years} years</em>.`,
-      obj:`Cutting is not the cheapest thing to doubt here, it is the <em>hardest</em>. Stocks' rate is a measurement on granite, the hardest stone on site, so understating it helps the mainstream case; and the season is documented, not assumed — Merer's logbook runs July to November. Push either lever and you are arguing against evidence rather than filling a gap. What the at-the-resource numbers show is the shape of the bind: <b>${fmt(svStock)} tonnes</b> of copper standing in blades at once, <b>${fmt(svMakeup)} t</b> worn away every year against a Sinai average of <b>~${fmt1(svBirYear)} t</b>, and <b>${fmt(r.farmers)} farmers</b> — <b>${fmt1(svFarmShare)}%</b> of Egypt — growing grain for one building.`,
-      escape:`Reach <b>25,000</b> from here and limestone has to cut at <b>${fmt1(r.rate*r.grandAll/25000)} mm/hr</b>, roughly <em>${fmt1((r.rate*r.grandAll/25000)/r.rate)}×</em> this scenario's own rate. That is a big, testable claim nobody has run an experiment on. The softer version of the same escape: much of the pyramid's core may have been split along bedding planes rather than sawn, which removes most of the saw-hours without contradicting a single published number.`
+      press:'Řezání — rychlost pily a 120denní sezona dohromady',
+      holds:'Nábor — 25–26 % populace je těžká daň, ale daň, kterou stát skutečně umí vybrat',
+      lede:`Všechno je v tomhle scénáři publikované, a právě proto je nepříjemný: aritmetika sedí jen tehdy, když na něm pracuje <em>${fmt(r.grandAll)} lidí</em> — asi <em>${fmt1(r.grandAll/22500)}×</em> nad 22 500 a <em>${fmt1(svSharePct)} %</em> země — po <em>${r.years} let</em>.`,
+      obj:`Řezání tu není ta nejlevnější věc k pochybování, je ta <em>nejtěžší</em>. Stocksova rychlost je měření na žule, nejtvrdším kameni na stavbě, takže její podcenění hlavnímu scénáři pomáhá; a sezona je doložená, ne předpokládaná — Mererův deník běží od července do listopadu. Zatlačte na kteroukoli z těch pák a hádáte se proti evidenci, místo abyste zaplňovali mezeru. Čísla v místě zdroje ukazují tvar té pasti: <b>${fmt(svStock)} tun</b> mědi stojí najednou v listech, <b>${fmt(svMakeup)} t</b> se ročně obrousí proti sinajskému průměru <b>~${fmt1(svBirYear)} t</b> a <b>${fmt(r.farmers)} rolníků</b> — <b>${fmt1(svFarmShare)} %</b> Egypta — pěstuje obilí na jednu stavbu.`,
+      escape:`Dostaňte se odsud na <b>25 000</b> a vápenec musí řezat <b>${fmt1(r.rate*r.grandAll/25000)} mm/h</b>, zhruba <em>${fmt1((r.rate*r.grandAll/25000)/r.rate)}×</em> rychlostí tohoto scénáře. To je velké a testovatelné tvrzení, na které nikdo neudělal experiment. Mírnější verze téhož úniku: velká část jádra pyramidy se možná štípala podle vrstevních ploch místo řezání, což odebere většinu hodin pily, aniž by odporovalo jedinému publikovanému číslu.`
     },
     yearround:{
-      press:'Zásobování — obilí a farmy, když je kalendář volný',
-      holds:'Řezání — když z harmonogramu vytlačíte sezónu, rychlost pily zůstane nedotčená',
-      lede:`This is the most generous reading anyone puts forward, and it still lands at <em>${fmt(r.grandAll)}</em> — <em>${fmt1(r.grandAll/22500)}×</em> the headcount, <em>${fmt1(svSharePct)}%</em> of the population, sustained for two decades.`,
-      obj:`Working 300 days instead of 120 solves the calendar problem completely — and moves the problem somewhere harder to argue about. Grain is bought with labour all year now, so the farm count only falls to <b>${fmt(r.farmers)}</b> (<b>${svFarmShare.toFixed(1)}%</b> of the population) while the crews that eat it keep working through the flood season with nobody home to tend the fields. The corvée also has to be <em>rotating</em>, and at this intensity that means drawing in roughly <b>${fmt(svPool)}</b> individuals — <b>${fmt1(svPoolShare)}%</b> of everyone in Egypt — when the mainstream number is 20,000–30,000.`,
-      escape:`The cleanest escape is not faster cutting — you barely need it. At a <b>${fmt1(r.rate)} mm/hr</b> rate this scenario is already within <b>${fmt1(r.grandAll/25000)}×</b> of 25,000, so the remaining gap is closeable by any two of: softer-stone rates, a longer span, a lower support ratio, or a quarrying method that skips saws. What it cannot paper over is that year-round corvée contradicts the seasonality Merer's logbook records.`
+      press:'Zásobování — obilí a pole, když je kalendář volný',
+      holds:'Řezání — vytlačení sezony z rozvrhu nechává rychlost pily nedotčenou',
+      lede:`Tohle je nejštědřejší čtení, jaké kdo předložil, a pořád vychází <em>${fmt(r.grandAll)}</em> — <em>${fmt1(r.grandAll/22500)}×</em> počet lidí, <em>${fmt1(svSharePct)} %</em> populace, a to po dvě desetiletí.`,
+      obj:`Třista pracovních dnů místo 120 problém kalendáře úplně řeší — a posouvá problém tam, kde se o něm hádá těžší. Obilí se teď kupuje prací celý rok, takže počet rolníků klesne jen na <b>${fmt(r.farmers)}</b> (<b>${svFarmShare.toFixed(1)} %</b> populace), zatímco čety, které ho jedí, pracují i v záplavě a doma není nikdo, kdo by obdělával pole. Robota navíc musí být <em>rotační</em>, a v téhle intenzitě to znamená stáhnout zhruba <b>${fmt(svPool)}</b> jednotlivců — <b>${fmt1(svPoolShare)} %</b> všech lidí v Egyptě — když hlavní číslo je 20 000–30 000.`,
+      escape:`Nejčistší únik není rychlejší řezání — to skoro nepotřebujete. Při rychlosti <b>${fmt1(r.rate)} mm/h</b> je scénář už <b>${fmt1(r.grandAll/25000)}×</b> od 25 000, takže zbylou mezeru zavře kterákoli dvě z těchhle: rychlosti na měkčím kameni, delší období, nižší poměr podpory, nebo metoda těžby bez pil. Co se zalepit nedá, je to, že celoroční robota odporuje sezonnosti, kterou Mererův deník zaznamenává.`
     },
     granite:{
-      press:'Copper — blades in use, standing stock, and annual make-up',
-      holds:'The calendar — this scenario is still seasonal, so the labour pool problem does not compound',
-      lede:`Take the slowest defensible saw with everything else mainstream, and the cutters alone need <em>${fmt(r.cutters)}</em>. The total is <em>${fmt(r.grandAll)}</em>: <em>${fmt1(r.grandAll/22500)}×</em> the headcount, <em>${fmt1(svSharePct)}%</em> of Egypt.`,
-      obj:`The copper objection stops being rhetorical here. <b>${fmt(svBlades)} blades</b> in simultaneous use is a standing stock of <b>${fmt(svStock)} tonnes</b> — a little over <b>80%</b> of the entire estimated lifetime output of Bir Nasib, <b>5,000 t in 1,300 years</b> — and the wear has to be replaced at <b>${fmt(svMakeup)} t a year</b>, which is <b>${fmt1(svMakeup/svBirYear)}×</b> an average Sinai year. This scenario is the one that makes the model's weak link visible: not how many men you can find, but whether the metal to keep them sawing can exist at all.`,
-      escape:`Everything relaxes the moment the rate is wrong in the generous direction, and this is the scenario where a single measured limestone rate would do the most damage. If limestone cuts <b>3×</b> faster than this granite figure — plausible, untested — the total falls to roughly <b>${fmt(r.grandAll/3.3)}</b>, and the copper problem shrinks with it. The other escape is method: wedge-split blocks remove the saw-hour demand instead of meeting it.`
+      press:'Měď — listy v provozu, zásoba a roční doplňování',
+      holds:'Kalendář — scénář zůstává sezonní, takže problém pracovních sil se nevrší',
+      lede:`Vezměte nejpomalejší obhajitelnou pilu a všechno ostatní hlavní, a jen řezači potřebují <em>${fmt(r.cutters)}</em>. Součet je <em>${fmt(r.grandAll)}</em>: <em>${fmt1(r.grandAll/22500)}×</em> počet lidí, <em>${fmt1(svSharePct)} %</em> Egypta.`,
+      obj:`Měděná námitka tu přestává být rétorická. <b>${fmt(svBlades)} listů</b> v souběžném provozu je zásoba <b>${fmt(svStock)} tun</b> — o málo víc než <b>80 %</b> celé odhadované produkce Bir Nasibu, <b>5 000 t za 1 300 let</b> — a opotřebení se musí nahrazovat <b>${fmt(svMakeup)} t ročně</b>, což je <b>${fmt1(svMakeup/svBirYear)}×</b> průměrný sinajský rok. Tenhle scénář ukazuje slabé místo modelu: ne kolik mužů seženete, ale jestli vůbec může existovat kov, který je udrží řezat.`,
+      escape:`Všechno povolí ve chvíli, kdy je rychlost špatná tím štědrým směrem, a tady by jedno změřené číslo pro vápenec napáchalo nejvíc. Kdyby vápenec řezal <b>3×</b> rychleji než tenhle žulový údaj — což je plausible a neotestované — součet spadne na zhruba <b>${fmt(r.grandAll/3.3)}</b> a měděný problém se zmenší s ním. Druhý únik je metoda: štípané bloky poptávku po hodinách pily odstraňují, místo aby ji splnily.`
     },
     surfacetrue:{
-      press:'Ta mezera sama — tři ústupky naskládané a pořád se nezavírá',
-      holds:'Reign length — 23 years is the top of the credible range, so this scenario has already spent its best card',
-      lede:`Every generous lever at once — slow saw <em>${fmt1(r.rate)} mm/hr</em>, long span <em>${r.years} years</em>, year-round <em>${r.days} days</em> — and the answer is still <em>${fmt(r.grandAll)}</em> people, <em>${fmt1(r.grandAll/22500)}×</em> the headcount and <em>${fmt1(svSharePct)}%</em> of Egypt.`,
-      obj:`This scenario is the strongest case the mainstream has, and the interesting result is how little it buys. Stacking all three sensible concessions lands only <b>${fmt1(Math.abs(1-r.grandAll/MAINSTREAM_TOTAL)*100)}%</b> below the plain mainstream case — because the span and the season pull against each other: a longer build means more working days, the year-round corvée needed to use them means feeding everyone through the flood, and every extra day of grain has to be grown by someone. What survives here is the <b>${fmt(r.farmers)} farmers</b> and <b>${fmt1(svPoolShare)}%</b> of the population in the corvée pool. If the numbers are to close, they will not close through the calendar.`,
-      escape:`Only two levers are left, and both are about <b>method</b> rather than effort: a limestone cutting rate several times faster than Stocks' granite measurement, or a quarrying technique that does not saw blocks at all. Either one breaks the model's load-bearing assumption; neither has been tested on Giza limestone with copper. That is the honest place to put your scepticism.`
+      press:'Samotná mezera — tři ústupky narovnané a pořád se neuzavírá',
+      holds:'Délka vlády — 23 let je strop věrohodného rozsahu, takže scénář už svou nejlepší kartu vyhodil',
+      lede:`Všechny štědré páky naráz — pomalá pila <em>${fmt1(r.rate)} mm/h</em>, dlouhé období <em>${r.years} let</em>, celoročně <em>${r.days} dnů</em> — a odpověď je pořád <em>${fmt(r.grandAll)}</em> lidí, <em>${fmt1(r.grandAll/22500)}×</em> počet lidí a <em>${fmt1(svSharePct)} %</em> Egypta.`,
+      obj:`Tohle je nejsilnější případ, jaký mainstream má, a zajímavý výsledek je, jak málo to koupí. Narovnání všech tří rozumných ústupků spadne jen <b>${fmt1(Math.abs(1-r.grandAll/MAINSTREAM_TOTAL)*100)} %</b> pod prostý hlavní scénář — protože období a sezona táhnou proti sobě: delší stavba znamená víc pracovních dnů, celoroční robota potřebná k jejich využití znamená uživit všechny přes záplavu a každý den obilí navíc musí někdo vypěstovat. Přežijí tu <b>${fmt(r.farmers)} rolníků</b> a <b>${fmt1(svPoolShare)} %</b> populace v robotním fondu. Pokud se čísla mají sejít, nesejdou se přes kalendář.`,
+      escape:`Zbývají jen dvě páky a obě jsou o <b>metodě</b>, ne o úsilí: rychlost řezání vápence několikrát vyšší než Stocksovo měření na žule, nebo technika těžby, která bloky vůbec neřeže. Každá z nich rozbije nosný předpoklad modelu; ani jedna nebyla na gízském vápenci s mědí otestovaná. Tam patří vaše skepse.`
     },
     solveyears:{
-      press:'Politický čas — trůn, pokladna a obilná rezerva, které přežijí tři staletí',
-      holds:'The workforce figure itself — by construction, 22,500 is exactly what this scenario delivers',
-      lede:`Run the model backwards: hold the workforce at the published <em>22,500</em>, keep every other mainstream value, and let the calendar stretch. It stretches to <em>${r.years} years</em>.`,
-      obj:`This scenario is the cleanest demonstration of what the workforce number actually costs. Nothing is tuned — the rate, the season, the hours and the rations are all the mainstream ones — so the only variable left is time, and time has to grow by <b>${fmt1(r.years/29)}×</b> Khufu's longest plausible reign to buy the published headcount. That is the trade in one line: <b>the people are free, the centuries are not.</b> A pyramid that takes ${r.years} years is not Khufu's monument in any ordinary sense — the pharaoh who commissioned it is a tradition by the time the casing is dressed, the administration that funded it has turned over many times, and every generation in between has to keep the quarry open, the copper flowing and the grain coming.`,
-      escape:`There is no escape inside this scenario, by design — it is arithmetic, not advocacy. It does tell you where the real question sits, though. If a long build is politically impossible and a large workforce is archaeologically unattested, the resolution is almost certainly in the third variable this page holds fixed: <b>method</b>. Blocks that are split rather than sawn, and limestone that cuts far faster than the granite figure, both break the dependence on time and headcount at once. Notice too that the copper demand is unchanged: <b>${fmt(svMakeup)} t</b> a year worn away for <b>${r.years} years</b> — the same metal bill, spread thin.`
+      press:'Politický čas — trůn, pokladna a obilná rezerva, které přežijí tři století',
+      holds:'Samotné číslo pracovních sil — konstrukčně je 22 500 přesně to, co scénář dodá',
+      lede:`Pusťte model pozpátku: držte pracovní sílu na publikovaných <em>22 500</em>, nechte všechny ostatní hodnoty hlavní a nechte kalendář roztáhnout. Roztáhne se na <em>${r.years} let</em>.`,
+      obj:`Tenhle scénář je nejčistší ukázka toho, co číslo pracovních sil vlastně stojí. Nic není laděné — rychlost, sezona, hodiny ani příděly nejsou hlavní — takže jediná zbývající proměnná je čas a čas musí narůst <b>${fmt1(r.years/29)}×</b> Chufuovy nejdelší věrohodné vlády, aby se publikovaný počet lidí koupil. Ten obchod v jedné větě: <b>lidé jsou zdarma, staletí ne.</b> Pyramida, která trvá ${r.years} let, není Chufuova památka v žádném obvyklém smyslu — faraon, který ji zadal, je v době dokončení obložení už tradicí, správa, která ji financovala, se mnohokrát vyměnila a každá generace mezi tím musí držet lom otevřený, měď proudící a obilí dodávané.`,
+      escape:`Uvnitř tohohle scénáře únik není, a to záměrně — je to aritmetika, ne advokacie. Řekne vám ale, kde leží skutečná otázka. Pokud je dlouhá stavba politicky nemožná a velká pracovní síla archeologicky nedoložená, řešení je téměř jistě ve třetí proměnné, kterou tahle stránka drží pevně: <b>metoda</b>. Bloky štípané místo řezaných i vápenec řežící mnohem rychleji než žulový údaj rozbíjejí závislost na čase a na počtu lidí naráz. Všimněte si taky, že poptávka po mědi se nemění: <b>${fmt(svMakeup)} t</b> ročně obroušeno po <b>${r.years} let</b> — stejný účet za kov, jen rozředěný.`
     },
     split:{
-      press:'Method — the one lever on this page that is not effort',
-      holds:'Logistics — transport, ramps, support and grain are untouched by how the stone is freed, so they now dominate the total',
-      lede:`Mainstream in every respect except the saw. The workforce falls to <em>${fmt(r.grandAll)}</em> — <em>${fmt1(r.grandAll/22500)}×</em> the 22,500 headcount instead of 17×, and <em>${fmt1(svSharePct)}%</em> of the population instead of 25%. Cutters: <em>${fmt(r.cutters)}</em>, against <em>${fmt(MAP_SAW_CUTTERS)}</em> when every face is sawn.`,
-      obj:`Two of this scenario's numbers are <b>mine, not published</b>: <b>${fmt1(SPLIT_MH_PER_M)} man-hours per metre</b> of wedge line and <b>${fmt1(SPLIT_DRESS_MH)} man-hours per face</b> of dressing. That is roughly one 10 cm hole every 15 cm, drilled and wedged, then the face dressed — plausible for limestone with copper and sand, but untested, in exactly the way the copper saw is untested on Giza limestone. Halve both and the total barely moves, because cutting is no longer where the labour is: <b>${fmt(r.cutters)}</b> cutters against <b>${fmt(r.transport+r.haul+r.support)}</b> in haulage, ramps and support. Note also that the model still charges <b>five faces per block</b> — split blocks still have to be squared — and that wedging works because Egyptian limestone has good bedding planes. Granite is a different argument, which is why the obelisk at Aswan was split in its bed and never moved.`,
-      escape:`No escape is needed, and that is the point: this is the only scenario on the page that arrives in the same order of magnitude as the published headcount without touching the calendar, the season or the ration. What it does not do is get to <b>22,500</b> — it gets to <b>${fmt(r.grandAll)}</b>. The remaining gap is not a cutting problem at all; it is the cost of moving, raising, feeding and housing, which the mainstream figure has never included. If you want the mainstream number exactly, splitting is where the argument has to be settled, not which lever to pull.`
+      press:'Metoda — jediná páka na téhle stránce, která není o úsilí',
+      holds:'Logistika — dopravu, rampy, podpůrné profese a obilí metoda uvolnění kamene nezmění, takže teď dominují součtu',
+      lede:`Hlavní scénář ve všem kromě pily. Pracovní síla klesne na <em>${fmt(r.grandAll)}</em> — <em>${fmt1(r.grandAll/22500)}×</em> nad 22 500 místo 17×, a <em>${fmt1(svSharePct)} %</em> populace místo 25 %. Řezači: <em>${fmt(r.cutters)}</em>, proti <em>${fmt(MAP_SAW_CUTTERS)}</em>, když se každá stěna řeže.`,
+      obj:`Dvě čísla tohohle scénáře jsou <b>moje, ne publikovaná</b>: <b>${fmt1(SPLIT_MH_PER_M)} člověkohodiny na metr</b> linie klínů a <b>${fmt1(SPLIT_DRESS_MH)} člověkohodiny na stěnu</b> zarovnání. To je zhruba jeden důlek o hloubce 10 cm každých 15 cm, navrtaný a naklínovaný, a pak zarovnaná stěna — plausible pro vápenec s mědí a pískem, ale neotestované, přesně tak, jak je měděná pila neotestovaná na gízském vápenci. Snižte obojí na polovinu a součet se sotva pohne, protože řezání už není tam, kde je práce: <b>${fmt(r.cutters)}</b> řezačů proti <b>${fmt(r.transport+r.haul+r.support)}</b> v dopravě, na rampách a v podpůrných profesích. Všimněte si taky, že model dál účtuje <b>pět stěn na blok</b> — štípané bloky se pořád musí zarovnat — a že klínování funguje, protože egyptský vápenec má dobré vrstevní plochy. Žula je jiný argument, a proto byl obelisk v Asuánu štípán ve svém loži a nikdy se nepohnul.`,
+      escape:`Únik není potřeba, a to je právě pointa: je to jediný scénář na stránce, který se dostane do stejného řádu jako publikovaný počet lidí, aniž by sáhl na kalendář, sezonu nebo příděl. Co neudělá, je dostat se na <b>22 500</b> — dostane se na <b>${fmt(r.grandAll)}</b>. Zbylá mezera není vůbec problém řezání; je to cena za přesun, zdvihání, krmení a ubytování, kterou hlavní číslo nikdy nezahrnovalo. Jestli chcete hlavní číslo přesně, rozhoduje se to u štípání, ne u toho, kterou pákou zatáhnout.`
     }
   };
   const sv = presetKey ? svText[presetKey] : null;
@@ -686,7 +679,7 @@ function renderVerdict(r){
   } else {
     $('svPress').textContent='Dáno tím, co jste změnili';
     $('svHolds').textContent='—';
-    $('svLede').innerHTML=`These sliders match none of the six scenarios, so there is no fixed story to tell: at <b>${fmt(r.grandAll)} people</b> the page is <b>${fmt1(r.grandAll/22500)}×</b> the headcount and <b>${fmt1(svSharePct)}%</b> of the population. Pick a scenario at the top of the page to get its specific reading.`;
+    $('svLede').innerHTML=`Tyhle posuvníky neodpovídají žádnému z šesti scénářů, takže není co vyprávět: při <b>${fmt(r.grandAll)} lidech</b> je stránka na <b>${fmt1(r.grandAll/22500)}×</b> počtu lidí a <b>${fmt1(svSharePct)} %</b> populace. Vyberte scénář nahoře na stránce a dostanete jeho konkrétní čtení.`;
     $('svObj').innerHTML=`Ať se součet pohnul kterýmkoli způsobem, námitka, která roste s ním, je zásobování: <b>${fmt(r.farmers)} rolníků</b> (<b>${fmt1(svFarmShare)} %</b> Egypta) a <b>${fmt(svMakeup)} t</b> mědi ročně. Pět námitek níže platí pro každé nastavení.`;
     $('svEscape').innerHTML=`Dostat se odtud na 25 000 vyžaduje buď rychlost řezání <b>${fmt1(r.rate*r.grandAll/25000)} mm/h</b> — <b>${fmt1(r.grandAll/25000)}×</b> oproti současnému nastavení — nebo metodu, která bloky nikdy neřeže pilou.`;
   }
@@ -717,11 +710,12 @@ function renderVerdict(r){
      the sentence and the stat card can never drift apart. */
   if($('cuTons')) $('cuTons').textContent=fmt(powderT)+' tonnes';
   const cuScenText={
-    mainstream:`All the wear figures are mainstream here — this is the scenario where the copper powder claim is <em>strongest</em>, because the cutting rate is Stocks' own measurement. <b>${fmt(powderT)} tonnes</b> of copper turns to oxide across the build, spread as <b>${fmt(powderPerDay)} kg a working day</b> over ${fmt(buildDays)} days. That is not a warehouse fire; it is a steady, diluted, site-wide dust — which is exactly the signature the 2024 harbour core found.`,
-    yearround:`Same total copper (<b>${fmt(powderT)} tonnes</b>) as the mainstream case, since the metal worn depends on saw-hours rather than the calendar — but squeezed into ${fmt(r.days)} days a year, so the daily rate rises to <b>${fmt(powderT*1000/buildDays)} kg</b>. Year-round working makes the powder signal <em>denser and easier to detect</em>, not larger.`,
-    granite:`This is the scenario that should have buried the site in powder. Saw-hours run ~3.6× the mainstream case, so the copper worn reaches <b>${fmt(powderT)} tonnes</b> — but it is spread over ${fmt(buildDays)} days at <b>${fmt(powderPerDay)} kg a day</b>. Two decades of cutting at 2.1 mm/hr should leave an expectation of copper-contaminated floors, sumps and spoil across the quarry and the working areas, and nothing of that mass has been reported. This is where absence bites hardest.`,
-    surfacetrue:`The slowest saw means the most powder of any realistic setting — <b>${fmt(powderT)} tonnes</b> — spread over the longest span this model allows, ${fmt(buildDays)} days, at about <b>${fmt(powderPerDay)} kg a day</b>. If the powder argument holds anywhere, it holds here: this is the setting that most demands a copper-rich archaeological residue, and the residue reported so far is enrichment in harbour sediment, not a mass deposit.`,
-    solveyears:`Stretching the calendar to <b>${r.years} years</b> does not reduce the copper by a single gram — total wear is set by saw-hours, which is set by the stone, not the schedule. It only thins the powder out: <b>${fmt(powderT)} tonnes</b> across ${fmt(buildDays)} days is <b>${fmt(powderPerDay)} kg a day</b>, the lowest daily rate of any setting here. A long enough build makes the copper harder to find without making it any smaller.`
+    mainstream:`Tady jsou všechny údaje o opotřebení hlavní — v tomhle scénáři je tvrzení o měděném prachu <em>nejsilnější</em>, protože rychlost řezání je Stocksovo vlastní měření. <b>${fmt(powderT)} tun</b> mědi se během stavby přemění na oxid, rozložených jako <b>${fmt(powderPerDay)} kg na pracovní den</b> přes ${fmt(buildDays)} dnů. To není požár skladu; je to stálý, rozředěný prach po celém staveništi — přesně ten podpis, který našel vrt z přístavu z roku 2024.`,
+    yearround:`Stejné celkové množství mědi (<b>${fmt(powderT)} tun</b>) jako v hlavním scénáři, protože opotřebený kov závisí na hodinách pily, ne na kalendáři — ale vtěsnané do ${fmt(r.days)} dnů v roce, takže denní dávka stoupne na <b>${fmt(powderT*1000/buildDays)} kg</b>. Celoroční práce dělá prachový signál <em>hustší a snadněji zachytitelný</em>, ne větší.`,
+    granite:`Tohle je scénář, který měl staveniště zasypat prachem. Hodiny pily běží ~3,6× víc než v hlavním scénáři, takže opotřebená měď dosáhne <b>${fmt(powderT)} tun</b> — ale rozprostře se přes ${fmt(buildDays)} dnů po <b>${fmt(powderPerDay)} kg denně</b>. Dvě desetiletí řezání při 2,1 mm/h by měla zanechat očekávání mědí zamořených podlah, jímek a hlušiny v lomu i v pracovních prostorách, a nic z té masy hlášeno nebylo. Tady absence kouše nejvíc.`,
+    surfacetrue:`Nejpomalejší pila znamená nejvíc prachu ze všech realistických nastavení — <b>${fmt(powderT)} tun</b> — rozprostřených přes nejdelší období, které model dovolí, ${fmt(buildDays)} dnů, zhruba <b>${fmt(powderPerDay)} kg denně</b>. Jestli prachový argument někde platí, tak tady: tohle nastavení nejvíc vyžaduje na měď bohatý archeologický zbytek, a to, co je hlášeno, je obohacení v přístavním sedimentu, ne hmotná vrstva.`,
+    split:`Nic se tu neřeže, takže se nic neobrušuje: žádný list, žádný křemenný písek, žádná kaše a žádný oxidový prach, který by se hledal. Obohacení mědí a arsenem v jádru z přístavu tím přestává být důkazem o pilách vůbec — signál to pořád je, ale v tomhle scénáři ho musí vysvětlit údržba nástrojů, manipulace s rudou a kovozpracování, ne listy drtící vápenec. To není slabina geochemie; je to připomínka, že chemie nikdy neuměla ty dvě věci rozlišit.`,
+    solveyears:`Roztažení kalendáře na <b>${r.years} let</b> nesníží měď ani o gram — celkové opotřebení určují hodiny pily, a ty určuje kámen, ne rozvrh. Jen prach rozředí: <b>${fmt(powderT)} tun</b> přes ${fmt(buildDays)} dnů je <b>${fmt(powderPerDay)} kg denně</b>, nejnižší denní dávka z celé stránky. Dost dlouhá stavba udělá měď hůř nalezitelnou, aniž by jí bylo méně.`
   };
   const cuLine=$('cuScenLine');
   cuLine.innerHTML = presetKey ? (cuScenText[presetKey] || cuScenText.custom)
@@ -730,7 +724,9 @@ function renderVerdict(r){
   $('svCuYr').innerHTML=fmt(svMakeup)+' t<small>'+fmt1(svMakeup/svBirYear)+'× a Sinai year</small>';
   $('svFarm').innerHTML=fmt(r.farmers)+'<small>'+svFarmShare.toFixed(1)+'% of the population</small>';
   $('svPool').innerHTML=(svPoolShare>=100?'<b>':'')+fmt(svPool)+'</b><small>'+fmt1(svPoolShare)+'% of the population</small>';
-  $('svNeed').innerHTML=fmt1(r.rate*r.grandAll/25000)+' mm/hr<small>'+fmt1(r.grandAll/25000)+'× the current rate</small>';
+  $('svNeed').innerHTML = r.splitMode
+    ? '—<small>žádná pila se nepoužívá, takže není co zrychlovat</small>'
+    : fmt1(r.rate*r.grandAll/25000)+' mm/hr<small>'+fmt1(r.grandAll/25000)+'× the current rate</small>';
   $('svShare').innerHTML=fmt1(svSharePct)+'%<small>'+fmt(r.grandAll)+' people</small>';
   const svCuBox=$('svCu').closest('.sv-item'), svPoolBox=$('svPool').closest('.sv-item'), svShareBox=$('svShare').closest('.sv-item');
   [svCuBox,svPoolBox,svShareBox].forEach(el=>{el.className='sv-item';});
@@ -738,7 +734,47 @@ function renderVerdict(r){
   if(svPoolShare>=100) svPoolBox.classList.add('hot'); else if(svPoolShare>=40) svPoolBox.classList.add('warn');
   if(svSharePct>=50) svShareBox.classList.add('hot'); else if(svSharePct>=15) svShareBox.classList.add('warn');
 
-  $('weakPoint').innerHTML=`Vše se odvíjí od <b>rychlosti řezání</b>. Výchozí hodnota (${fmt1(r.rate)} mm/h) je Stocksovo měření na <i>žule</i> — nejtvrdším kameni pyramidy, který tvoří jen 0,1 % jejího objemu. Většina pyramidy je měkký vápenec, který se řeže rychleji. Kdyby skutečné rychlosti u vápence byly <b>2–3×</b> vyšší, počet řezačů klesne stejným faktorem. Ten jediný neznámý pohybuje výsledkem víc než kterýkoli jiný jezdec a s gízským vápencem a měděnou pilou neběžel žádný experiment.`;
+  if(r.splitMode){
+    $('weakPoint').innerHTML=`Všechno se tu odvíjí od <b>linie klínů</b>. Model účtuje <b>1,2 člověkohodiny na metr</b> navrtané a naklínované linie a <b>2 člověkohodiny</b> zarovnání na uvolněnou stěnu — moje vlastní odhady, nastavené vysoko, a na rozdíl od rychlostí pily ani nejsou měřené na žule. Žádný experiment neštípal gízský vápenec klíny a neměřil čas. Ale riziko nesedí v tom čísle: když obě snížíte na polovinu, součet se pohne o několik procent, protože řezání už není tam, kde je práce. Součty nesou doprava, rampy, podpůrné profese a obilí — a ty stojí na stejných předpokladech jako vždycky.`;
+  } else $('weakPoint').innerHTML=`Vše se odvíjí od <b>rychlosti řezání</b>. Výchozí hodnota (${fmt1(r.rate)} mm/h) je Stocksovo měření na <i>žule</i> — nejtvrdším kameni pyramidy, který tvoří jen 0,1 % jejího objemu. Většina pyramidy je měkký vápenec, který se řeže rychleji. Kdyby skutečné rychlosti u vápence byly <b>2–3×</b> vyšší, počet řezačů klesne stejným faktorem. Ten jediný neznámý pohybuje výsledkem víc než kterýkoli jiný jezdec a s gízským vápencem a měděnou pilou neběžel žádný experiment.`;
+}
+
+/* ── THE SIX LEVERS, SIDE BY SIDE ───────────────────────
+   Recomputed from PRESETS on every render, so the numbers in the table
+   cannot drift from the numbers the sliders produce. The current row is
+   highlighted only when the sliders still match that scenario exactly. */
+function renderLeverTable(){
+  const body=$('leverBody'); if(!body) return;
+  const live=read();
+  const active=Object.keys(PRESETS).find(n=>PRESETS[n]
+    && (PRESETS[n].how||'saw')===(live.how||'saw')
+    && CTRLS.every(k=>PRESETS[n][k]==null || Math.abs(PRESETS[n][k]-live[k])<1e-6));
+  let html='';
+  Object.keys(PRESETS).forEach((n,i)=>{
+    const pr=PRESETS[n]; if(!pr) return;
+    const r=compute(Object.assign({},pr));
+    const ratio=r.grandAll/22500;
+    const cls=ratio>=10?'hot':ratio>=3?'warn':'';
+    const on=n===active?' on':'';
+    html+=`<tr class="lv-row${on}" data-lever="${n}">`+
+      `<td class="lv-n"><span class="lv-i">${String(i+1).padStart(2,'0')}</span>${PRESET_LABELS[n]||n}</td>`+
+      `<td class="lv-v ${cls}">${fmt(r.grandAll)}</td>`+
+      `<td class="lv-v ${cls}">${fmt1(ratio)}×</td>`+
+      `<td class="lv-v">${fmt(r.cutters)}</td>`+
+      `<td class="lv-c">${LEVER_NOTES[n]||''}</td></tr>`;
+  });
+  body.innerHTML=html;
+  /* Row click loads that scenario: the table is an index, not decoration. */
+  body.querySelectorAll('.lv-row').forEach(tr=>{
+    tr.tabIndex=0; tr.setAttribute('role','button');
+    tr.addEventListener('click',()=>{ const btn=document.querySelector(`[data-preset="${tr.dataset.lever}"]`); if(btn) btn.click(); });
+    tr.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); tr.click(); } });
+  });
+  if($('leverFoot')){
+    const ms=compute(Object.assign({},PRESETS.mainstream));
+    const sp=compute(Object.assign({},PRESETS.split));
+    $('leverFoot').innerHTML=`Pět z těch šesti si svou odpověď kupuje něčím, co by evidence musela obětovat — delším kalendářem, pomalejší pilou, drsnějším obdobím nebo ${fmt(ms.grandAll)} lidmi, které vykopané sídliště nepojme. Jen šestý si ji kupuje metodou: <b>${fmt(sp.grandAll)}</b> lidí, <b>${fmt1(ms.grandAll/sp.grandAll)}×</b> méně než hlavní scénář, a <b>${fmt1(sp.grandAll/22500)}×</b> publikovaného počtu lidí místo <b>${fmt1(ms.grandAll/22500)}×</b>. Mezeru to pořád neuzavírá. Nic na téhle stránce ne.`;
+  }
 }
 
 /* The closest named scenario to the current sliders — used only to
@@ -778,7 +814,7 @@ function update(){
      first paint (which used to abort every renderer after this line). */
   renderHero(r); renderSticky(r); renderBars(r); renderColumn(r,currentTab(),false);
   renderGround(r); renderCutting(r); renderCopper(r); renderMoving(r);
-  renderFeeding(r); renderVerdict(r);
+  renderFeeding(r); renderVerdict(r); renderLeverTable();
 
   syncScenarios(o);
 
