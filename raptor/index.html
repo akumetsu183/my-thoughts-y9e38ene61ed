@@ -5,28 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="data:,">
-<title>Raptor 1 → 4: rated vs reliable thrust, and what Starship can actually lift</title>
-<meta name="description" content="Raptor 3 is rated at 280 tf but only reliably reaches ~230 tf in flight. Rated vs reliable thrust across all four Raptor generations, with Starship payload estimates for every block in paper and achieved terms.">
+<title>Raptor 1–4 and Starship payload: the rocket equation, worked</title>
+<meta name="description" content="Rated and in-flight reliable thrust for every Raptor generation, and Starship payload derived from the rocket equation — with a stack you can stretch and see the numbers move.">
 <meta name="author" content="Milan Kuba">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/raptor/">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="My Thoughts">
-<meta property="og:title" content="Raptor 1 → 4: rated vs reliable thrust">
-<meta property="og:description" content="280 tf on the card, ~230 tf in flight. What the Raptor 3 gap costs Starship, and why Raptor 4's 300 tf matters.">
+<meta property="og:title" content="Raptor 1–4 and Starship payload: the rocket equation, worked">
+<meta property="og:description" content="280 tf on the card, ~230 tf in flight. Payload for every Starship block, derived rather than asserted.">
 <meta property="og:url" content="https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/raptor/">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Raptor 1 → 4: rated vs reliable thrust">
-<meta name="twitter:description" content="280 tf rated, ~230 tf reliable. Payload estimates for every Starship block, paper vs achieved.">
+<meta name="twitter:title" content="Raptor 1–4 and Starship payload">
+<meta name="twitter:description" content="Every payload number derived from the rocket equation. Stretch the stack and watch it change.">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Raptor 1 to 4: rated versus reliable thrust, and Starship payload",
-  "description": "Rated and in-flight reliable thrust for SpaceX's Raptor engine generations, with Starship payload estimates per block.",
+  "headline": "Raptor 1 to 4 and Starship payload: the rocket equation, worked",
+  "description": "Rated and reliable thrust for SpaceX's Raptor generations, with Starship payload derived from the rocket equation.",
   "url": "https://akumetsu183.github.io/my-thoughts-y9e38ene61ed/raptor/",
   "author": {"@type": "Person", "name": "Milan Kuba"},
   "about": {"@type": "Thing", "name": "SpaceX Raptor rocket engine"}
@@ -35,562 +35,518 @@
 
 <style>
   :root{
-    --bg:#14100b; --bg-2:#1a150f;
-    --surface:#221b13; --surface-2:#2b2219; --surface-3:#322719;
-    --line:#3d3025; --line-2:#54432f;
-    --text:#f2e8d8; --muted:#b9a68c; --dim:#8a7a63;
-    --gold:#D9A441; --gold-2:#B8862E;
-    --flame:#ff8a3d; --flame-2:#ffd27a;
-    --r1:#8a7a63; --r2:#b9a68c; --r3:#D9A441; --r4:#ff8a3d;
-    --radius:12px;
+    --bg:#0e1013; --bg-2:#121519;
+    --surface:#171b20; --surface-2:#1d2229; --surface-3:#252b33;
+    --line:#2a313a; --line-2:#3a434f;
+    --text:#e8eaed; --muted:#9aa4b0; --dim:#6b7683;
+    --accent:#7fb3d5; --accent-2:#5a93ba;
+    --warm:#e0925c; --warm-2:#c9763f;
+    --ok:#7fc5a0;
+    --r1:#6b7683; --r2:#9aa4b0; --r3:#7fb3d5; --r4:#e0925c;
+    --radius:10px;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    --maxw:1440px;
   }
-  @media (prefers-color-scheme:light){
-    :root{
-      --bg:#f6efe2; --bg-2:#efe5d3;
-      --surface:#fffdf8; --surface-2:#f4ead8; --surface-3:#eadcc4;
-      --line:#e0d0b4; --line-2:#c9b291;
-      --text:#2a1f14; --muted:#6d5b45; --dim:#8f7d64;
-      --gold:#A9781B; --gold-2:#8A6114;
-      --r4:#C2571A; --flame-2:#B8862E;
-    }
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
   body{
-    margin:0;background:var(--bg);color:var(--text);
-    font:16px/1.65 var(--serif);-webkit-font-smoothing:antialiased;
-    background-image:radial-gradient(ellipse 1000px 520px at 50% -12%, color-mix(in srgb,var(--gold) 11%,transparent), transparent 62%),
-                     linear-gradient(180deg,var(--bg-2),var(--bg) 42%);
-    background-attachment:fixed;min-height:100vh;
+    background:var(--bg);color:var(--text);font-family:var(--sans);
+    font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:760px;margin:0 auto;padding:52px 22px 90px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
 
-  .back{font:600 .64rem var(--mono);letter-spacing:.1em;text-transform:uppercase;
-    color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:26px}
-  .back:hover{color:var(--gold)}
-
-  h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.08;margin:0 0 10px;
-    letter-spacing:-.025em;font-weight:600}
-  h1 em{font-style:normal;color:var(--gold)}
-  .lede{color:var(--muted);font-size:1.02rem;margin:0 0 8px;max-width:62ch}
+  /* ── masthead ── */
+  header{padding:56px 0 40px;border-bottom:1px solid var(--line)}
+  .kicker{font:600 .68rem var(--mono);letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:16px}
+  h1{font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.15;letter-spacing:-.02em;
+    font-weight:650;max-width:22ch}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:1.06rem;color:var(--muted);max-width:66ch;margin-top:18px}
   .lede b{color:var(--text);font-weight:600}
 
-  h2{font-size:1.22rem;letter-spacing:-.015em;margin:56px 0 6px;font-weight:600;
-    display:flex;align-items:baseline;gap:10px}
-  h2 .n{font:700 .62rem var(--mono);color:var(--gold);letter-spacing:.08em}
-  h3{font-size:.95rem;margin:26px 0 6px;font-weight:600;color:var(--text)}
-  p{margin:0 0 14px}
-  .sub{color:var(--dim);font-size:.85rem;margin:0 0 18px}
+  /* ── stat strip ── */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:1px;background:var(--line);border:1px solid var(--line);
+    border-radius:var(--radius);overflow:hidden;margin-top:36px}
+  .stat{background:var(--surface);padding:18px 20px}
+  .stat .k{font:600 .6rem var(--mono);letter-spacing:.11em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:6px}
+  .stat .v{font-size:1.5rem;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .stat .v small{font-size:.62em;font-weight:500;color:var(--muted);margin-left:3px}
+  .stat .n{font-size:.74rem;color:var(--dim);margin-top:2px}
 
-  .quote{border-left:2px solid var(--gold);padding:4px 0 4px 18px;margin:24px 0;
-    font-size:1rem;color:var(--text);font-style:italic}
-  .quote cite{display:block;margin-top:8px;font:.68rem var(--mono);font-style:normal;
-    color:var(--dim);letter-spacing:.04em}
+  /* ── layout ── */
+  main{padding:52px 0 80px}
+  section{margin-bottom:64px}
+  h2{font-size:1.45rem;font-weight:640;letter-spacing:-.015em;margin-bottom:8px;
+    display:flex;align-items:baseline;gap:12px}
+  h2 .n{font:600 .72rem var(--mono);color:var(--accent);letter-spacing:.06em}
+  h3{font-size:1.05rem;font-weight:620;margin:32px 0 10px;letter-spacing:-.01em}
+  p{color:var(--muted);max-width:78ch;margin-bottom:14px}
+  p b, p strong{color:var(--text);font-weight:600}
+  .sub{color:var(--dim);font-size:.94rem;margin-bottom:22px}
 
-  .lineup{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:34px 0 8px;align-items:end}
-  .eng{text-align:center;position:relative;padding:0 2px}
-  .eng svg{display:block;width:100%;height:auto;overflow:visible}
-  .eng .v{font:700 .6rem/1 var(--mono);letter-spacing:.09em;color:var(--dim);
-    text-transform:uppercase;margin-top:10px}
-  .eng .tf{font:700 1.15rem/1 var(--mono);color:var(--gold);letter-spacing:-.02em}
-  .eng .tfR{font:400 .66rem var(--mono);color:var(--muted);display:block;margin-top:4px}
-  .eng .kg{font:400 .62rem var(--mono);color:var(--dim);display:block;margin-top:3px}
-
-  .flame{transform-origin:50% 0;animation:flick 0.42s steps(3) infinite}
-  .flame-2{animation-delay:-.14s}
-  .flame-3{animation-delay:-.28s}
-  @keyframes flick{
-    0%{transform:scaleY(1) scaleX(1);opacity:.95}
-    33%{transform:scaleY(1.14) scaleX(.94);opacity:1}
-    66%{transform:scaleY(.92) scaleX(1.05);opacity:.88}
-    100%{transform:scaleY(1) scaleX(1);opacity:.95}
-  }
-  @media (prefers-reduced-motion:reduce){.flame{animation:none}}
-
-  .tablewrap{overflow-x:auto;margin:22px -4px 10px;padding:0 4px}
-  table{border-collapse:collapse;width:100%;font-size:.84rem;min-width:560px}
-  th,td{padding:9px 12px 9px 0;text-align:right;border-bottom:1px solid var(--line)}
-  th:first-child,td:first-child{text-align:left;padding-left:0}
-  thead th{font:600 .62rem var(--mono);letter-spacing:.07em;text-transform:uppercase;
-    color:var(--dim);border-bottom:1px solid var(--line-2)}
-  tbody td{font-family:var(--mono);font-size:.8rem}
-  tbody td:first-child{font-family:var(--serif);font-size:.86rem;font-weight:600}
-  tbody tr:hover{background:color-mix(in srgb,var(--gold) 5%,transparent)}
-  .up{color:var(--gold)}
-  .est{color:var(--muted)}
-  .est::after{content:"*";color:var(--gold)}
-  .dash{color:var(--dim)}
-  .legend{font:.68rem var(--mono);color:var(--dim);margin:10px 0 0;line-height:1.7}
-
-  .derate{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-    padding:20px 22px;margin:24px 0}
-  .derate .top{display:flex;gap:26px;align-items:baseline;flex-wrap:wrap;margin-bottom:14px}
-  .derate .num{font:700 2rem/1 var(--mono);letter-spacing:-.03em;color:var(--gold)}
-  .derate .num small{font-size:.8rem;color:var(--muted);font-weight:400;letter-spacing:0}
-  .derate .lab{font:600 .58rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-  .derate p{font-size:.84rem;color:var(--muted);margin:0}
-  .derate p b{color:var(--text)}
-
-  .toggle{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);
-    border-radius:8px;padding:3px;margin:0 0 18px;gap:2px;flex-wrap:wrap}
-  .toggle button{appearance:none;border:0;background:transparent;color:var(--muted);
-    font:600 .66rem var(--mono);letter-spacing:.06em;text-transform:uppercase;
-    padding:8px 14px;border-radius:6px;cursor:pointer;transition:background .18s,color .18s}
-  .toggle button:hover{color:var(--text)}
-  .toggle button[aria-selected="true"]{background:var(--gold);color:#1a150f}
-  .toggle button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-
-  .payload-table td.paper{color:var(--text)}
-  .payload-table td.ach{color:var(--gold);font-weight:700}
-  .payload-table td.ach.none{color:var(--dim);font-weight:400}
-  .payload-table tr.proj td:first-child::after{
-    content:"projection";display:inline-block;margin-left:8px;
-    font:600 .5rem var(--mono);letter-spacing:.08em;text-transform:uppercase;
-    color:var(--flame);border:1px dashed color-mix(in srgb,var(--flame) 45%,transparent);
-    padding:1px 5px;border-radius:3px;vertical-align:middle}
-
-  .gapbar{display:grid;grid-template-columns:80px 1fr 60px;gap:10px;align-items:center;margin:8px 0}
-  .gapbar .lab{font:600 .62rem var(--mono);letter-spacing:.06em;color:var(--dim);text-transform:uppercase}
-  .gapbar .track{height:20px;background:var(--surface-2);border-radius:4px;position:relative;overflow:hidden}
-  .gapbar .fill{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--gold-2),var(--gold));border-radius:4px}
-  .gapbar .val{font:700 .72rem var(--mono);text-align:right;color:var(--text)}
-  .gapbar.isp-alt .fill{background:color-mix(in srgb,var(--dim) 40%,transparent)}
-  .gapbar.isp-alt .lab,.gapbar.isp-alt .val{color:color-mix(in srgb,var(--dim) 80%,transparent)}
-  .gapbar.isp-here .lab{color:var(--gold);font-weight:700}
-  .gapbar.isp-here .val{color:var(--gold);font-weight:700}
-  .gapbar.isp-here .fill{box-shadow:0 0 0 1.5px var(--gold),0 0 12px color-mix(in srgb,var(--gold) 40%,transparent)}
-
-  .paygrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0 8px}
-  .pay{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-    padding:18px;position:relative;overflow:hidden}
-  .pay::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;
-    background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5}
-  .pay.exp::before{background:linear-gradient(90deg,transparent,var(--flame),transparent)}
-  .pay .k{font:600 .6rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-  .pay .big{font:700 2.2rem/1 var(--mono);letter-spacing:-.04em;color:var(--gold);margin:8px 0 2px}
-  .pay.exp .big{color:var(--flame)}
-  .pay .big small{font-size:.85rem;font-weight:400;color:var(--muted);letter-spacing:0}
-  .pay .band{font:400 .68rem var(--mono);color:var(--dim);margin-top:6px}
-  .pay p{font-size:.8rem;color:var(--muted);margin:12px 0 0;line-height:1.55}
-
-  .cutaway{display:grid;grid-template-columns:150px 1fr;gap:26px;align-items:center;
-    margin:26px 0 10px;background:var(--surface);border:1px solid var(--line);
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:var(--surface);border:1px solid var(--line);
     border-radius:var(--radius);padding:22px}
-  .rocket svg{display:block;width:100%;height:auto}
-  .cut-list{display:grid;gap:11px}
-  .cut-item{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline;font-size:.84rem}
-  .cut-item .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);margin-top:6px}
-  .cut-item .dot.f{background:var(--flame)}
-  .cut-item .dot.m{background:var(--dim)}
-  .cut-item b{font-weight:600}
-  .cut-item span{color:var(--muted);font-size:.8rem}
+  .card h4{font:600 .62rem var(--mono);letter-spacing:.11em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:12px}
 
-  .method{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);
-    padding:20px 22px;margin:22px 0;font-size:.86rem;color:var(--muted)}
-  .method h3{margin:0 0 10px;color:var(--text);font-size:.9rem}
-  .method ol{margin:0;padding-left:20px}
-  .method li{margin-bottom:8px}
-  .method code{font:.82rem var(--mono);background:var(--surface-3);padding:1px 5px;border-radius:4px;color:var(--gold)}
+  /* ── tables ── */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--surface);margin:18px 0}
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  th{text-align:left;padding:11px 16px;font:600 .62rem var(--mono);
+    letter-spacing:.09em;text-transform:uppercase;color:var(--dim);
+    border-bottom:1px solid var(--line);white-space:nowrap;
+    background:var(--surface-2);position:sticky;top:0}
+  td{padding:11px 16px;border-bottom:1px solid var(--line);
+    font-variant-numeric:tabular-nums;color:var(--muted)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:var(--surface-2)}
+  td:first-child{color:var(--text);font-weight:600}
+  td.num{text-align:right}
+  th.num{text-align:right}
+  .hi{color:var(--accent);font-weight:650}
 
-  .caveat{border-left:2px solid var(--gold);padding:2px 0 2px 16px;margin:20px 0;
-    font-size:.86rem;color:var(--muted);font-style:italic}
+  /* ── interactive builder ── */
+  .builder{display:grid;grid-template-columns:340px 1fr;gap:0;
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    background:var(--surface);margin-top:22px}
+  .controls{padding:22px;border-right:1px solid var(--line);background:var(--surface-2)}
+  .presets{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:22px}
+  .presets button{
+    background:var(--surface-3);border:1px solid var(--line-2);color:var(--muted);
+    padding:9px 4px;border-radius:6px;cursor:pointer;font:600 .7rem var(--mono);
+    letter-spacing:.04em;transition:.15s}
+  .presets button:hover{border-color:var(--accent-2);color:var(--text)}
+  .presets button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);
+    color:#0e1013}
+  .ctl{margin-bottom:18px}
+  .ctl label{display:flex;justify-content:space-between;align-items:baseline;
+    font:600 .66rem var(--mono);letter-spacing:.07em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:7px}
+  .ctl label output{color:var(--accent);font-size:.82rem;letter-spacing:0;text-transform:none}
+  input[type=range]{width:100%;height:4px;-webkit-appearance:none;appearance:none;
+    background:var(--surface-3);border-radius:2px;outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;
+    border-radius:50%;background:var(--accent);border:2px solid var(--surface-2);
+    cursor:grab;box-shadow:0 0 0 1px var(--accent-2)}
+  input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;
+    background:var(--accent);border:2px solid var(--surface-2);cursor:grab}
+  .output{padding:0;display:flex;flex-direction:column}
+  .outgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line);border-bottom:1px solid var(--line)}
+  .outgrid div{background:var(--surface);padding:16px 18px}
+  .outgrid .k{font:600 .58rem var(--mono);letter-spacing:.09em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:5px}
+  .outgrid .v{font-size:1.3rem;font-weight:650;font-variant-numeric:tabular-nums;
+    letter-spacing:-.02em}
+  .outgrid .v small{font-size:.6em;color:var(--muted);font-weight:500}
+  .outgrid .v.chg{color:var(--accent)}
+  #view3d{position:relative;min-height:440px;flex:1}
+  #view3d canvas{display:block;width:100%;height:100%}
+  .vhint{position:absolute;left:14px;bottom:12px;font:600 .56rem var(--mono);
+    letter-spacing:.1em;text-transform:uppercase;color:var(--dim);pointer-events:none}
+  .vbadge{position:absolute;right:14px;top:12px;font:600 .56rem var(--mono);
+    letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+    background:rgba(14,16,19,.7);padding:4px 10px;border-radius:20px;
+    border:1px solid var(--line-2)}
 
-  footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);
-    color:var(--dim);font-size:.72rem;font-family:var(--mono);line-height:1.7}
-  footer a{color:var(--muted);border-bottom:1px dotted color-mix(in srgb,var(--gold) 45%,transparent)}
-  footer a:hover{color:var(--gold);border-bottom-style:solid}
-  footer ul{list-style:none;padding:0;margin:0 0 16px}
-  footer li{margin-bottom:7px;padding-left:14px;position:relative}
-  footer li::before{content:"→";position:absolute;left:0;color:var(--gold);opacity:.6}
+  /* ── bars ── */
+  .bars{margin:18px 0}
+  .bar{display:grid;grid-template-columns:78px 1fr 92px;gap:14px;
+    align-items:center;margin-bottom:9px}
+  .bar .lab{font:600 .7rem var(--mono);letter-spacing:.05em;color:var(--muted);
+    text-align:right}
+  .bar .track{position:relative;height:20px;background:var(--surface-3);
+    border-radius:4px;overflow:hidden}
+  .bar .fill{height:100%;background:linear-gradient(90deg,var(--accent-2),var(--accent));
+    border-radius:4px;transition:width .35s cubic-bezier(.4,0,.2,1)}
+  .bar .val{font:650 .76rem var(--mono);font-variant-numeric:tabular-nums;
+    color:var(--text);text-align:right}
+  .bar .val small{color:var(--dim);font-weight:400}
+  .bar.mark .fill{background:linear-gradient(90deg,var(--warm-2),var(--warm))}
+  .bar.mark .lab,.bar.mark .val{color:var(--warm)}
 
-  @media (max-width:620px){
-    .wrap{padding:36px 16px 70px}
-    .lineup{grid-template-columns:repeat(2,1fr);gap:18px 10px}
-    .paygrid{grid-template-columns:1fr}
-    .cutaway{grid-template-columns:1fr;gap:20px}
-    .rocket{max-width:130px;margin:0 auto}
-    .gapbar{grid-template-columns:64px 1fr 52px;gap:8px}
-    h2{margin-top:44px}
+  /* ── misc blocks ── */
+  .note{border-left:2px solid var(--accent);padding:14px 0 14px 20px;
+    margin:22px 0;background:linear-gradient(90deg,rgba(127,179,213,.06),transparent)}
+  .note p{margin-bottom:0;color:var(--text)}
+  .note .src{font:600 .66rem var(--mono);letter-spacing:.06em;text-transform:uppercase;
+    color:var(--dim);margin-top:8px}
+  .method{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;margin:24px 0}
+  .method ol{list-style:none;counter-reset:m;display:grid;gap:14px}
+  .method li{counter-increment:m;padding-left:36px;position:relative;font-size:.9rem;
+    color:var(--muted)}
+  .method li::before{content:counter(m);position:absolute;left:0;top:-1px;
+    width:22px;height:22px;border-radius:50%;background:var(--surface-3);
+    border:1px solid var(--line-2);color:var(--accent);
+    font:600 .66rem var(--mono);display:grid;place-items:center}
+  .method li b{color:var(--text)}
+  code{font-family:var(--mono);font-size:.86em;background:var(--surface-3);
+    padding:1px 5px;border-radius:3px;color:var(--accent)}
+  .legend{font-size:.78rem;color:var(--dim);max-width:88ch}
+  .caveat{font-size:.86rem;color:var(--dim);border-top:1px solid var(--line);
+    padding-top:16px;margin-top:22px}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 56px;color:var(--dim);
+    font-size:.8rem}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line-2)}
+  footer a:hover{color:var(--accent)}
+
+  @media(max-width:1000px){
+    .wrap{padding:0 20px}
+    .cols,.cols3{grid-template-columns:1fr}
+    .builder{grid-template-columns:1fr}
+    .controls{border-right:none;border-bottom:1px solid var(--line)}
+    .outgrid{grid-template-columns:repeat(2,1fr)}
+    #view3d{min-height:400px}
   }
-  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media(max-width:600px){
+    .wrap{padding:0 16px}
+    header{padding:36px 0 28px}
+    .bar{grid-template-columns:60px 1fr 70px;gap:9px}
+    .outgrid{grid-template-columns:repeat(2,1fr)}
+    .presets{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
 </style>
 </head>
 <body>
+
 <div class="wrap">
+  <header>
+    <div class="kicker">Launch vehicle analysis</div>
+    <h1>Raptor 1–4, and what each one <em>actually lifts</em></h1>
+    <p class="lede">Every Raptor makes two different numbers: what it produces on the test stand, and what it holds in flight. For Raptor 3 that gap is <b>50 tonnes-force per engine</b> — <b>1,650 tonnes</b> across a 33-engine booster. Every payload figure below is derived from the rocket equation, not scaled from a brochure.</p>
 
-  <a class="back" href="../">← My Thoughts</a>
-
-  <h1>Raptor 1 → 4: <em>rated vs reliable</em></h1>
-  <p class="lede">Every engine in this family has two thrust numbers: what it makes on the test stand, and what it holds in flight. For Raptor 3 the gap is <b>50 tons per engine</b> — <b>1,650 tons</b> across the booster. That gap is the whole reason Raptor 4 exists.</p>
-
-  <div class="quote">
-    “We can only reliably get to around 230 t-F with Raptor 3.”
-    <cite>Elon Musk, 26 Oct 2026 — three hours after announcing Raptor 4 at 300 tons</cite>
-  </div>
-
-  <p>Raptor 3's performance card says 280 tf. Musk's own caveat says the engine reliably reaches about 230. Both are true, and the difference between them is not a rounding error — it is a quarter of the booster's total thrust, and it lands directly on payload.</p>
-
-  <h2><span class="n">01</span> The four engines</h2>
-  <p class="sub">Bell drawn to scale by diameter. The number underneath is reliable in-flight thrust.</p>
-
-  <div class="lineup" id="lineup"></div>
-
-  <h3>Rated versus reliable</h3>
-  <div class="tablewrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Engine</th><th>Rated<br>thrust</th><th>Reliable<br>in flight</th>
-          <th>Derate</th><th>33× reliable</th><th>Mass</th>
-        </tr>
-      </thead>
-      <tbody id="specbody"></tbody>
-    </table>
-  </div>
-  <p class="legend">* Raptor 4 is a projection — Musk gave thrust and “hopefully about the same mass”. Its 300 tf is treated as the number to plan against, since it is a target rather than a derated flight rating.</p>
-
-  <div class="derate">
-    <div class="top">
-      <div><div class="lab">Raptor 3 rated</div><div class="num">280 <small>tf</small></div></div>
-      <div><div class="lab">reliable in flight</div><div class="num" style="color:var(--flame)">230 <small>tf</small></div></div>
-      <div><div class="lab">lost per booster</div><div class="num">1,650 <small>tf</small></div></div>
+    <div class="stats">
+      <div class="stat"><div class="k">Raptor 3, on the card</div>
+        <div class="v">280<small>tf</small></div><div class="n">SpaceX performance figure</div></div>
+      <div class="stat"><div class="k">Raptor 3, reliably</div>
+        <div class="v">230<small>tf</small></div><div class="n">Musk, 26 Oct 2026</div></div>
+      <div class="stat"><div class="k">Raptor 4, target</div>
+        <div class="v">300<small>tf</small></div><div class="n">at roughly Raptor 3's mass</div></div>
+      <div class="stat"><div class="k">Heaviest flown payload</div>
+        <div class="v">52<small>t</small></div><div class="n">Flight 14, 26 Starlink V3</div></div>
     </div>
-    <p>The booster carries <b>33 engines</b>, so a 50 tf shortfall per engine removes about <b>1,650 tf</b> — roughly half a Saturn V — from what Starship actually lifts with. Raptor 4 at 300 tf, if it holds reliably, would put the booster back to <b>9,900 tf</b>.</p>
-  </div>
+  </header>
 
-  <h2><span class="n">02</span> What the derate costs Starship</h2>
-  <p class="sub">Block 3's published payload assumes a booster it does not have.</p>
+  <main>
 
-  <div class="cutaway">
-    <div class="rocket" id="rocket"></div>
-    <div class="cut-list" id="cutlist"></div>
-  </div>
+  <section>
+    <h2><span class="n">01</span> The four engines</h2>
+    <p class="sub">Thrust, mass and specific impulse across the family. Thrust ratios use the reliable in-flight figure, not the card.</p>
 
-  <p>If Raptor 3 ran at its 280 tf card figure, Block 3 would carry roughly <b>111 t</b> reusable instead of 100 t — an <b>11 t</b> penalty paid every flight because the engine runs at 230. That is the concrete price of the reliability gap, and it is what Raptor 4 is meant to recover and then some.</p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Engine</th><th class="num">Rated</th><th class="num">Reliable</th>
+              <th class="num">Derate</th><th class="num">Mass</th>
+              <th class="num">T/W</th><th class="num">Isp SL</th><th class="num">Isp vac</th>
+              <th>In service</th></tr>
+        </thead>
+        <tbody id="engbody"></tbody>
+      </table>
+    </div>
+    <p class="legend">Raptor 4's 300 tf is a stated target rather than a derated flight rating, so it is carried as both rated and reliable. Its mass follows Musk's "roughly Raptor 3" and carries some uncertainty.</p>
 
-  <h2><span class="n">03</span> Payload, every version</h2>
-  <p class="sub">Every figure below comes out of the rocket equation. Nothing is scaled or interpolated.</p>
+    <div class="cols" style="margin-top:28px">
+      <div class="card">
+        <h4>What the derate costs</h4>
+        <p style="margin-bottom:12px">Raptor 3 is rated at 280 tf and reliably reaches about 230. Across 33 engines that is <b>1,650 tf</b> of thrust the booster does not get to use.</p>
+        <div class="bars" id="deratebars"></div>
+        <p class="legend" style="margin:0">Held against a Saturn V's 3,400 tf, the lost thrust alone is nearly half a Saturn V.</p>
+      </div>
+      <div class="card">
+        <h4>Isp across generations</h4>
+        <p style="margin-bottom:12px">Vacuum Isp has not moved: 350, 347, 350 s across Raptor 1, 2 and 3. The sea-level figure rose only because the sea-level/vacuum gap closed — nozzle expansion work, not combustion.</p>
+        <div class="tablewrap" style="margin:0">
+          <table style="font-size:.82rem">
+            <thead><tr><th>Engine</th><th class="num">SL</th><th class="num">Vac</th><th class="num">Gap</th></tr></thead>
+            <tbody>
+              <tr><td>Raptor 1</td><td class="num">327</td><td class="num">350</td><td class="num">23</td></tr>
+              <tr><td>Raptor 2</td><td class="num">327</td><td class="num">347</td><td class="num">20</td></tr>
+              <tr><td>Raptor 3</td><td class="num">340</td><td class="num">350</td><td class="num">10</td></tr>
+              <tr><td class="hi">Raptor 4</td><td class="num hi">340</td><td class="num hi">350</td><td class="num hi">10</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="legend" style="margin:10px 0 0">Raptor 4 inherits Raptor 3's Isp. Assuming an unproven gain would be assuming the thing in question.</p>
+      </div>
+    </div>
+  </section>
 
-  <div class="toggle" role="tablist" aria-label="Payload view">
-    <button role="tab" aria-selected="true" data-view="both">Rocket equation</button>
-    <button role="tab" aria-selected="false" data-view="paper">Published</button>
-    <button role="tab" aria-selected="false" data-view="achieved">Flown</button>
-  </div>
+  <section>
+    <h2><span class="n">02</span> Payload, every version</h2>
+    <p class="sub">Solved from the rocket equation with one calibrated constant. Nothing here is scaled or interpolated.</p>
 
-  <div class="tablewrap">
-    <table class="payload-table">
-      <thead>
-        <tr>
-          <th>Block</th><th>Reusable<br>solved</th><th>Expendable<br>solved</th>
-          <th>Published<br>100 t claim</th><th>Heaviest<br>flown</th><th>Engine</th>
-        </tr>
-      </thead>
-      <tbody id="paybody"></tbody>
-    </table>
-  </div>
-  <p class="legend" id="paylegend"></p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Stack</th><th class="num">Height</th><th class="num">Gross mass</th>
+              <th class="num">Propellant</th><th class="num">Reusable</th>
+              <th class="num">Expendable</th><th class="num">Heaviest flown</th>
+              <th>Engine</th></tr>
+        </thead>
+        <tbody id="paybody"></tbody>
+      </table>
+    </div>
 
-  <h3>Why only Block 3 was ever 100 tonnes</h3>
-  <p>The “100 t reusable” figure gets repeated for every Starship block, but solving the rocket equation for each one shows it only holds for Block 3. Blocks 1 and 2 come out well below it — <b>53 t</b> and <b>65 t</b> — because their ships carry less propellant on a proportionally heavier structure. Nothing in the maths was told to produce that; it falls out of the masses.</p>
+    <div class="note">
+      <p><b>Only Block 3 was ever 100 tonnes.</b> "100 t reusable" gets repeated for every block, but solving each one shows Blocks 1 and 2 well below it. Nothing in the model was told to produce that — it falls out of the masses.</p>
+    </div>
 
-  <div id="ceilingbars"></div>
-  <p class="legend">Delta-v ceiling for each block at zero payload. The dashed line is the calibrated budget — the point where Block 3's published 100 t closes.</p>
+    <h3>How close has each stack come?</h3>
+    <div class="bars" id="gapbars"></div>
+    <p class="legend">Bar length is the heaviest payload actually deployed to orbit. Block 3 has flown a little over half its figure, once.</p>
+  </section>
 
-  <h3>How close has each block come?</h3>
-  <div id="gapbars"></div>
-  <p class="legend">Bar length is the heaviest payload actually deployed to orbit, as a share of Block 3's 100 t. Block 3 has flown a little over half its published figure, once.</p>
+  <section>
+    <h2><span class="n">03</span> Size the stack yourself</h2>
+    <p class="sub">Stretch a tank and the propellant, the mass ratios and the payload all follow. This is the model, live — useful for the taller variants in rumour.</p>
 
-  <h3>Raptor 4: extrapolating the Isp trend</h3>
-  <p>Payload depends on specific impulse, not thrust — so the question that decides Block 4 is whether Raptor 4's Isp actually improves on Raptor 3's. Three generations have published figures to fit:</p>
+    <div class="builder">
+      <div class="controls">
+        <div class="presets" id="presets"></div>
 
-  <div class="tablewrap">
-    <table class="isptable">
-      <thead>
-        <tr><th>Engine</th><th>Isp sea level</th><th>Isp vacuum</th><th>SL–vac gap</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Raptor 1</td><td>327 s</td><td>350 s</td><td>23 s</td></tr>
-        <tr><td>Raptor 2</td><td>327 s</td><td>347 s</td><td>20 s</td></tr>
-        <tr><td>Raptor 3</td><td>340 s</td><td>350 s</td><td>10 s</td></tr>
-        <tr class="proj"><td>Raptor 4</td><td>340 s</td><td>350 s</td><td>10 s</td></tr>
-      </tbody>
-    </table>
-  </div>
+        <div class="ctl">
+          <label for="dia">Diameter <output id="diao">9.0 m</output></label>
+          <input type="range" id="dia" min="8" max="11" step="0.1" value="9">
+        </div>
+        <div class="ctl">
+          <label for="bh">Booster tank <output id="bho">62.8 m</output></label>
+          <input type="range" id="bh" min="45" max="95" step="0.1" value="62.8">
+        </div>
+        <div class="ctl">
+          <label for="sh">Ship tank <output id="sho">27.5 m</output></label>
+          <input type="range" id="sh" min="15" max="60" step="0.1" value="27.5">
+        </div>
+        <div class="ctl">
+          <label for="nose">Nose cone <output id="noseo">12 m</output></label>
+          <input type="range" id="nose" min="8" max="20" step="0.1" value="12">
+        </div>
+        <div class="ctl" style="margin-bottom:0">
+          <label for="eng">Engine</label>
+          <select id="eng" style="width:100%;padding:8px 10px;background:var(--surface-3);
+            border:1px solid var(--line-2);border-radius:6px;color:var(--text);
+            font:600 .78rem var(--mono);cursor:pointer">
+            <option value="R1">Raptor 1 — 185 tf</option>
+            <option value="R2">Raptor 2 — 230 tf</option>
+            <option value="R3" selected>Raptor 3 — 230 tf reliable</option>
+            <option value="R4">Raptor 4 — 300 tf target</option>
+          </select>
+        </div>
+      </div>
 
-  <p><b>The vacuum figure does not move.</b> Fit a line through 350, 347, 350 and the slope is <b>0.00 s per generation</b>. Raptor 2 actually lost 3 s against Raptor 1 — a production simplification, not a regression that was later recovered. Raptor 4 is therefore modelled at Raptor 3's Isp exactly, not at some hoped-for improvement.</p>
+      <div class="output">
+        <div class="outgrid">
+          <div><div class="k">Height</div><div class="v" id="o-h">—</div></div>
+          <div><div class="k">Propellant</div><div class="v" id="o-prop">—</div></div>
+          <div><div class="k">Reusable to LEO</div><div class="v chg" id="o-reus">—</div></div>
+          <div><div class="k">Expendable</div><div class="v" id="o-exp">—</div></div>
+        </div>
+        <div id="view3d">
+          <div class="vbadge" id="vbadge">Block 3</div>
+          <div class="vhint">drag to orbit · scroll to zoom</div>
+        </div>
+      </div>
+    </div>
 
-  <p>The sea-level figure <em>did</em> climb, +6.5 s per generation, and that is worth understanding rather than celebrating. Sea-level Isp is vacuum Isp minus the pressure term lost to the exhaust leaving an under-expanded bell — which is a function of the <b>nozzle's expansion ratio</b>, not of how well propellant burns. The SL–vac gap collapsing from 23 s to 10 s across three engines is nozzle work. It buys real performance off the pad, but it is not a combustion gain, and it does not compound into the vacuum Isp that governs the upper stage.</p>
+    <p class="legend" style="margin-top:16px">Tank volume is a cylinder at the chosen diameter holding subcooled LOX and methane. Structural mass and landing reserve are held at each block's published fractions, so a taller stack keeps its structural efficiency rather than gaining it for free.</p>
+  </section>
 
-  <p class="caveat">Three data points is not a trend you can extrapolate with confidence — the residual scatter on the vacuum fit is ±2.5 s, which is wide enough that the slope is barely distinguishable from noise. But the direction is consistent: in this engine family, vacuum Isp has been held constant while thrust rose 62%. Assuming Raptor 4 breaks that pattern would be assuming the thing being asked to prove.</p>
+  <section>
+    <h2><span class="n">04</span> The model</h2>
+    <p class="sub">Everything above comes from the two equations below and one number fitted to a published fact.</p>
 
-  <h3>What the Isp choice is worth</h3>
-  <p>This matters more than it sounds. Earlier drafts of this page assumed Raptor 4 would reach <b>365 s</b> in vacuum, continuing a gain that never happened. That optimism was worth <b>50 tonnes</b> of payload that no engine has been shown to deliver.</p>
+    <div class="method">
+      <ol>
+        <li><b>Two-stage Tsiolkovsky.</b> Booster: <code>Isp_sl·g₀·ln((dry+prop+above)/(dry+reserve+above))</code>. Ship: <code>Isp_vac·g₀·ln((dry+prop+payload)/(dry+reserve+payload))</code>.</li>
+        <li><b>One calibrated constant.</b> Orbital velocity plus gravity, steering, drag and landing losses. Block 3's published <code>100 t</code> must close at that budget, which fixes it at <code>7,803 m/s</code>.</li>
+        <li><b>Everything else follows.</b> Blocks 1, 2 and 4 use the same budget and the same equations. No per-block tuning, no scaling factors.</li>
+        <li><b>Thrust does not enter.</b> Payload depends on Isp, not thrust. The 230/280 tf distinction belongs to the thrust story at the top of this page, not to the payload arithmetic — a common confusion worth naming.</li>
+        <li><b>Propellant density is not free.</b> Subcooled LOX at 1,280 kg/m³ and methane at 450 kg/m³, mixed 3.6:1 by mass, give 914 kg/m³ bulk. Using warmer LOX puts the booster tanks above their own geometric volume.</li>
+      </ol>
+    </div>
 
-  <div id="ispbars"></div>
-  <p class="legend">Block 4 reusable payload against Raptor 4's vacuum Isp, holding sea-level at 340 s and the mission budget at Block 3's calibrated 7,803 m/s.</p>
+    <p class="caveat">The weak point is the masses, not the maths. Public dry masses are rounded, the non-propellant structure is never itemised, and landing reserves are inferred. A ±10% error in ship dry mass moves Block 3's answer by roughly ±15 t and Block 4's by more, because a 20:1 propellant ratio is a lever. Treat these numbers as a well-built estimate, not a measurement.</p>
+  </section>
 
-  <p>Each second of vacuum Isp is worth <b>about 2.9 tonnes</b> of reusable payload on this ship, so a 5 s gain is worth roughly 15 t and a 15 s gain roughly 45 t. That is the entire spread on this chart — and it turns on a number SpaceX has never published.</p>
-
-  <h3>Block 4, on the inherited Isp</h3>
-  <p>With Raptor 4 at 340/350 s — the Raptor 3 figures — and the same mission budget Block 3 is calibrated against, the rocket equation gives <b>204 t</b> reusable and <b>478 t</b> expendable. That is the number this page stands behind: it assumes no Isp miracle, only the larger ship and the same engine efficiency.</p>
-
-  <div id="budgetbars"></div>
-  <p class="legend">What Block 4 loses if it is actually asked to fly harder missions than Block 3 — more margin for gravity losses, steering and landing reserves. Same inherited Isp throughout.</p>
-
-  <p>That second chart is the honest caveat. Block 4's ship runs a <b>20:1</b> propellant-to-dry ratio against Block 3's 14.5:1, which makes it a lever: a few hundred m/s of extra mission requirement costs it more than 40 t. If Block 4 has to fly a materially harder mission than Block 3, 204 t falls toward 150 t — and if it must fly very much harder, toward 100 t.</p>
-
-  <div class="method">
-    <h3>The equation, and the one constant in it</h3>
-    <ol>
-      <li><b>Two-stage Tsiolkovsky.</b> Booster: <code>Isp_sl·g₀·ln((dry+prop+above)/(dry+reserve+above))</code>. Ship: <code>Isp_vac·g₀·ln((dry+prop+payload)/(dry+reserve+payload))</code>.</li>
-      <li><b>One budget, calibrated once.</b> Orbital velocity plus gravity, steering, drag and landing losses. Block 3's published <code>100 t</code> is required to close at that budget, which sets it at <code>7,803 m/s</code>.</li>
-      <li><b>Everything else follows.</b> Blocks 1, 2 and 4 use the same budget and the same equation. No per-block tuning, no scaling factors.</li>
-      <li><b>Thrust does not enter.</b> Payload depends on Isp, not thrust — so the Raptor 3 230/280 distinction belongs to the thrust story at the top of this page, not to the payload arithmetic. That is a common confusion worth naming.</li>
-    </ol>
-  </div>
-
-  <p class="caveat">The weak point is the masses, not the maths. Public dry masses are rounded, the non-propellant structure is never itemised, and landing reserves are inferred. A ±10% error in ship dry mass moves Block 3's answer by roughly ±15 t and Block 4's by far more, because a 20:1 propellant ratio is a lever. Treat the numbers as a well-built estimate, not a measurement — and treat Block 4's spread as the honest answer rather than a failure to compute one.</p>
-
-  <h2><span class="n">04</span> What is still speculation</h2>
-  <p><b>Raptor 4's reliability.</b> 300 tf is a target, not a flight rating. Raptor 3's card said 280 and delivered 230 reliably, so a sensible reader applies the same suspicion here — which is exactly why Block 4's 254 t is a projection with a band, not a promise.</p>
-  <p><b>The mass.</b> “Hopefully about the same as Raptor 3” is Musk's phrasing. 1,550 kg is an assumption anywhere in the 1,500–1,650 kg range. <b>The specific impulse.</b> Not announced. Isp is the multiplier on any thrust gain — if Raptor 4's improvement is thrust-only, payload moves much less than 30%.</p>
-  <p>None of this is a reason to doubt the trajectory. 185 to 300 tf in seven years, with mass falling the whole way, is an extraordinary record. It is a reason to keep the reliable number and the card number apart — which is the entire point of this page.</p>
+  </main>
 
   <footer>
-    <ul>
-      <li>SpaceX, Raptor performance card — <a href="https://x.com/SpaceX/status/1819795288116330594" rel="noopener">x.com/SpaceX</a></li>
-      <li>Musk on Raptor 4 at 300 tf and Raptor 3 reliably at ~230 tf, 26 Oct 2026 — reported by <a href="https://superchargeddaily.com/dispatch/raptor-engines-explained.html" rel="noopener">Supercharged Daily</a>, <a href="https://www.teslarati.com/spacex-raising-raptor-sea-level-thrust-engine-mass-steady/" rel="noopener">Teslarati</a></li>
-      <li>Starship block payload table — <a href="https://en.wikipedia.org/wiki/SpaceX_Starship" rel="noopener">Wikipedia</a></li>
-      <li>Flight 14, 26× Starlink V3, ~52 t — <a href="https://en.wikipedia.org/wiki/Starship_flight_test_14" rel="noopener">Wikipedia</a></li>
-    </ul>
-    <p>Figures as of 28 October 2026. Thrust is sea level, metric tons-force. “Reliable” means the thrust Musk states the engine can hold in flight, versus the performance-card rating.</p>
+    <p style="color:var(--dim);max-width:none">Thrust figures from SpaceX's performance card and Elon Musk's 26 Oct 2026 remarks. Flight data through Flight 14. Derived with the rocket equation; source model and assumptions stated above.</p>
   </footer>
-
 </div>
 
 <script>
-const DATA = {"engines":{"R1":{"name":"Raptor 1","thrust_r":185.0,"thrust_f":185.0,"mass":2080.0,"isp_sl":327.0,"isp_vac":350.0,"year":"2019\u201321","lift_rated":6105.0,"lift_reliable":6105.0,"tw_rated":88.9,"tw_reliable":88.9,"derate_pct":0.0},"R2":{"name":"Raptor 2","thrust_r":230.0,"thrust_f":230.0,"mass":1630.0,"isp_sl":327.0,"isp_vac":347.0,"year":"2021\u201325","lift_rated":7590.0,"lift_reliable":7590.0,"tw_rated":141.1,"tw_reliable":141.1,"derate_pct":0.0},"R3":{"name":"Raptor 3","thrust_r":280.0,"thrust_f":230.0,"mass":1525.0,"isp_sl":340.0,"isp_vac":350.0,"year":"2025\u2013","lift_rated":9240.0,"lift_reliable":7590.0,"tw_rated":183.6,"tw_reliable":150.8,"derate_pct":17.9},"R4":{"name":"Raptor 4","thrust_r":300.0,"thrust_f":300.0,"mass":1550.0,"isp_sl":340.0,"isp_vac":350.0,"year":"2027 (planned)","projected":true,"lift_rated":9900.0,"lift_reliable":9900.0,"tw_rated":193.5,"tw_reliable":193.5,"derate_pct":0.0}},"blocks":{"V1":{"label":"Block 1","bd":200,"bp":3400,"br":280,"sd":100,"sp":1200,"sr":200,"engine":"R1","n_ship":3,"n_rvac":3,"height":121.3,"boost_h":71.0,"ship_h":50.3,"achieved":16,"achieved_note":"FT-10, 8 Starlink simulators, ~16 t","isp_sl":327.0,"isp_vac":350.0,"gross":4600,"lift_rated":6105.0,"lift_reliable":6105.0,"twr":1.33,"total_engines":39,"reus":53.0,"exp":286.0,"ceiling":8280.0,"dv_at_zero":8280.0,"booster_dv":3188.0,"ship_dv":4612.0,"headroom":477.0},"V2":{"label":"Block 2","bd":260,"bp":3400,"br":320,"sd":105,"sp":1500,"sr":210,"engine":"R2","n_ship":3,"n_rvac":3,"height":123.1,"boost_h":71.0,"ship_h":52.1,"achieved":16,"achieved_note":"FT-9, simulators, ~16 t","isp_sl":327.0,"isp_vac":347.0,"gross":4900,"lift_rated":7590.0,"lift_reliable":7590.0,"twr":1.55,"total_engines":39,"reus":65.0,"exp":307.0,"ceiling":8361.0,"dv_at_zero":8361.0,"booster_dv":2766.0,"ship_dv":5038.0,"headroom":558.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"br":340,"sd":110,"sp":1600,"sr":220,"engine":"R3","n_ship":3,"n_rvac":3,"height":124.4,"boost_h":72.3,"ship_h":52.1,"achieved":52,"achieved_note":"FT-14, 26\u00d7 Starlink V3, ~52 t","isp_sl":340.0,"isp_vac":350.0,"gross":5250,"lift_rated":9240.0,"lift_reliable":7590.0,"twr":1.45,"total_engines":39,"reus":100.0,"exp":354.0,"ceiling":8598.0,"dv_at_zero":8598.0,"booster_dv":2870.0,"ship_dv":4933.0,"headroom":795.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"br":370,"sd":115,"sp":2300,"sr":240,"engine":"R4","n_ship":3,"n_rvac":6,"height":142.0,"boost_h":81.0,"ship_h":61.0,"achieved":null,"achieved_note":"not flown","projected":true,"isp_sl":340.0,"isp_vac":350.0,"gross":6350,"lift_rated":9900.0,"lift_reliable":9900.0,"twr":1.56,"total_engines":42,"reus":204.0,"exp":478.0,"ceiling":9199.0,"dv_at_zero":9199.0,"booster_dv":2504.0,"ship_dv":5301.0,"headroom":1396.0}},"model":{"budget":7803.0,"anchor":"V3","anchor_payload":100.0,"method":"two-stage Tsiolkovsky, calibrated so Block 3 closes at 100 t"},"sensitivity":{"isp":[{"vac":347,"reus":196.0,"exp":469.0},{"vac":350,"reus":204.0,"exp":478.0},{"vac":355,"reus":218.0,"exp":494.0},{"vac":360,"reus":233.0,"exp":509.0},{"vac":365,"reus":247.0,"exp":525.0},{"vac":370,"reus":261.0,"exp":540.0}],"budget_rows":[{"extra":0,"reus":204.0},{"extra":300,"reus":151.0},{"extra":600,"reus":104.0},{"extra":900,"reus":61.0}],"budget":7803.0},"notes":{"reliable":"Musk, 26 Oct 2026: \u201cWe can only reliably get to around 230 t-F with Raptor 3\u201d (card rating 280 tf)","flown":"Heaviest Starship payload to orbit: ~52 t, Flight 14, 26 Sep 2026","blocks12":"Blocks 1 and 2 were never 100 t \u2014 the rocket equation puts them well below Block 3's figure"},"isp":{"gens":[1,2,3],"sl":[327.0,327.0,340.0],"vac":[350.0,347.0,350.0],"gap":[23.0,20.0,10.0],"sl_slope":6.5,"vac_slope":0.0,"sl_sd":5.31,"vac_sd":2.45,"r4_sl":340.0,"r4_vac":350.0,"gap_close_pct":57.0,"verdict":"vacuum Isp slope is flat; Raptor 4 inherits Raptor 3's Isp"}};
+const DATA = {"budget":7803.0,"rho":914.0,"struct":{"booster":7.53,"ship":6.88},"reserve":{"booster":9.32,"ship":13.75},"engines":{"R1":{"name":"Raptor 1","thrust_r":185,"thrust_f":185,"mass":2080,"isp_sl":327,"isp_vac":350},"R2":{"name":"Raptor 2","thrust_r":230,"thrust_f":230,"mass":1630,"isp_sl":327,"isp_vac":347},"R3":{"name":"Raptor 3","thrust_r":280,"thrust_f":230,"mass":1525,"isp_sl":340,"isp_vac":350},"R4":{"name":"Raptor 4","thrust_r":300,"thrust_f":300,"mass":1550,"isp_sl":340,"isp_vac":350}},"presets":{"V1":{"label":"Block 1","dia":9.0,"bh":58.5,"sh":20.6,"nose":12.0,"engine":"R1","n_ship":3,"n_rvac":3,"year":"2023\u201324","bs":0.0588,"ss":0.0834,"br":280.2,"sr":199.6,"achieved":16,"note":"8 Starlink simulators, ~16 t","bp":3400.3,"sp":1197.4,"bd":199.9,"sd":99.9,"isp_sl":327,"isp_vac":350,"mass":4897.0,"gross":4598.0,"prop":4598.0,"height":121.3,"volume":5032.0,"lift_rated":6105,"lift_reliable":6105,"twr":1.33,"reus":53.0,"exp":285.0,"ceiling":8282.0,"headroom":479.0,"overhead":30.2},"V2":{"label":"Block 2","dia":9.0,"bh":58.5,"sh":25.8,"nose":12.0,"engine":"R2","n_ship":3,"n_rvac":3,"year":"2025","bs":0.0764,"ss":0.07,"br":340.0,"sr":209.9,"achieved":16,"note":"simulator payload, ~16 t","bp":3400.3,"sp":1499.6,"bd":259.8,"sd":105.0,"isp_sl":327,"isp_vac":347,"mass":5265.0,"gross":4900.0,"prop":4900.0,"height":123.1,"volume":5363.0,"lift_rated":7590,"lift_reliable":7590,"twr":1.55,"reus":61.0,"exp":303.0,"ceiling":8333.0,"headroom":530.0,"overhead":26.8},"V3":{"label":"Block 3","dia":9.0,"bh":62.8,"sh":27.5,"nose":12.0,"engine":"R3","n_ship":3,"n_rvac":3,"year":"2026","bs":0.0753,"ss":0.0688,"br":340.2,"sr":219.8,"achieved":52,"note":"26\u00d7 Starlink V3, ~52 t","bp":3650.2,"sp":1598.4,"bd":274.9,"sd":110.0,"isp_sl":340,"isp_vac":350,"mass":5633.0,"gross":5249.0,"prop":5249.0,"height":124.4,"volume":5745.0,"lift_rated":9240,"lift_reliable":7590,"twr":1.45,"reus":100.0,"exp":354.0,"ceiling":8599.0,"headroom":796.0,"overhead":22.1},"V4":{"label":"Block 4","dia":9.0,"bh":69.7,"sh":39.6,"nose":13.0,"engine":"R4","n_ship":3,"n_rvac":6,"year":"2027+","bs":0.074,"ss":0.05,"br":370.3,"sr":240.1,"achieved":null,"note":"not flown","bp":4051.3,"sp":2301.7,"bd":299.8,"sd":115.1,"isp_sl":340,"isp_vac":350,"mass":6768.0,"gross":6353.0,"prop":6353.0,"height":142.0,"volume":6953.0,"lift_rated":9900,"lift_reliable":9900,"twr":1.56,"reus":204.0,"exp":479.0,"ceiling":9199.0,"headroom":1396.0,"overhead":19.7}}};
 
+const {engines, presets} = DATA;
 const ORDER = ['R1','R2','R3','R4'];
-const BLOCK_ORDER = ['V1','V2','V3','V4'];
+const BLOCKS = ['V1','V2','V3','V4'];
+const $ = id => document.getElementById(id);
 
-function engineSVG(key, d, i) {
-  const colours = {R1:'var(--r1)', R2:'var(--r2)', R3:'var(--r3)', R4:'var(--r4)'};
-  const c = colours[key];
-  const bellW = 26 + (d.thrust_f - 170) / 130 * 16;
-  const cx = 50, top = 26, bellH = 62;
-  const halfTop = bellW * 0.30, halfBot = bellW * 0.50;
-  const derated = d.thrust_f < d.thrust_r;
-  return `
-  <svg viewBox="0 0 100 150" role="img" aria-label="${d.name}, ${d.thrust_f} tons reliable thrust">
-    <rect x="${cx-9}" y="${top-18}" width="18" height="16" rx="2.5"
-      fill="${c}" opacity=".22" stroke="${c}" stroke-width="1.1"/>
-    <ellipse cx="${cx-13}" cy="${top-12}" rx="6" ry="7" fill="none" stroke="${c}" stroke-width="1" opacity=".55"/>
-    <ellipse cx="${cx+13}" cy="${top-12}" rx="6" ry="7" fill="none" stroke="${c}" stroke-width="1" opacity=".55"/>
-    <path d="M${cx-halfTop} ${top} L${cx-halfBot} ${top+bellH} A${halfBot} 7 0 0 0 ${cx+halfBot} ${top+bellH} L${cx+halfTop} ${top} Z"
-      fill="url(#grad${i})" stroke="${c}" stroke-width="1.3"/>
-    <path d="M${cx-halfTop} ${top} Q${cx} ${top+9} ${cx+halfTop} ${top}"
-      fill="none" stroke="${c}" stroke-width="1.1" opacity=".7"/>
-    <g stroke="${c}" stroke-width=".5" opacity=".38">
-      ${[-0.62,-0.32,0,0.32,0.62].map(t=>`<line x1="${cx+halfTop*t}" y1="${top+6}" x2="${cx+halfBot*t*1.02}" y2="${top+bellH-4}"/>`).join('')}
-    </g>
-    <ellipse cx="${cx}" cy="${top+bellH}" rx="${halfBot}" ry="6.5"
-      fill="none" stroke="${c}" stroke-width="1.2" opacity=".85"/>
-    ${derated ? `<ellipse cx="${cx}" cy="${top+bellH}" rx="${halfBot*0.72}" ry="4.6"
-      fill="none" stroke="var(--flame)" stroke-width="1" stroke-dasharray="2 2.5" opacity=".8"/>` : ''}
-    <g class="flame${i===3?' flame-2':(i%2?' flame-3':'')}">
-      <path d="M${cx-halfBot*0.72} ${top+bellH+2} Q${cx} ${top+bellH+78} ${cx+halfBot*0.72} ${top+bellH+2} Z"
-        fill="url(#flame${i})" opacity=".9"/>
-      <path d="M${cx-halfBot*0.32} ${top+bellH+2} Q${cx} ${top+bellH+52} ${cx+halfBot*0.32} ${top+bellH+2} Z"
-        fill="var(--flame-2)" opacity=".55"/>
-    </g>
-    <defs>
-      <linearGradient id="grad${i}" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0" stop-color="${c}" stop-opacity=".28"/>
-        <stop offset=".42" stop-color="${c}" stop-opacity=".06"/>
-        <stop offset="1" stop-color="${c}" stop-opacity=".22"/>
-      </linearGradient>
-      <linearGradient id="flame${i}" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="var(--flame-2)" stop-opacity=".95"/>
-        <stop offset=".45" stop-color="var(--flame)" stop-opacity=".75"/>
-        <stop offset="1" stop-color="var(--flame)" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-  </svg>`;
-}
-
-document.getElementById('lineup').innerHTML = ORDER.map((k,i) => {
-  const d = DATA.engines[k];
-  return `<div class="eng">
-    ${engineSVG(k, d, i)}
-    <div class="v">Raptor ${k.slice(1)}</div>
-    <div class="tf">${d.thrust_f} t</div>
-    <span class="tfR">${d.thrust_f < d.thrust_r ? d.thrust_r + ' t rated' : 'rated'}</span>
-    <span class="kg">${d.mass.toLocaleString()} kg</span>
-  </div>`;
-}).join('');
-
-document.getElementById('specbody').innerHTML = ORDER.map(k => {
-  const d = DATA.engines[k];
-  const cls = d.projected ? ' class="est"' : '';
-  const derate = d.derate_pct > 0
-    ? `<span class="up">−${d.derate_pct}%</span>`
-    : `<span class="dash">—</span>`;
+/* ── engine table ── */
+$('engbody').innerHTML = ORDER.map(k => {
+  const e = engines[k];
+  const derate = e.thrust_r > e.thrust_f
+    ? `<span style="color:var(--warm)">−${(100*(1-e.thrust_f/e.thrust_r)).toFixed(1)}%</span>`
+    : '<span style="color:var(--dim)">—</span>';
   return `<tr>
-    <td>${d.name}</td>
-    <td${cls}>${d.thrust_r} tf</td>
-    <td${cls}>${d.thrust_f} tf</td>
-    <td>${derate}</td>
-    <td>${d.lift_reliable.toLocaleString()} tf</td>
-    <td>${d.mass.toLocaleString()} kg</td>
+    <td>${e.name}</td>
+    <td class="num">${e.thrust_r} tf</td>
+    <td class="num ${e.thrust_f===e.thrust_r?'':'hi'}">${e.thrust_f} tf</td>
+    <td class="num">${derate}</td>
+    <td class="num">${e.mass.toLocaleString()} kg</td>
+    <td class="num">${(e.thrust_f*1000/e.mass).toFixed(0)}</td>
+    <td class="num">${e.isp_sl} s</td>
+    <td class="num">${e.isp_vac} s</td>
+    <td style="color:var(--dim)">${k==='R4'?'planned':'flown'}</td>
   </tr>`;
 }).join('');
 
-const v4 = DATA.blocks.V4;
-document.getElementById('rocket').innerHTML = `
-<svg viewBox="0 0 120 300" role="img" aria-label="Starship Block 4 stacked vehicle">
-  <path d="M60 6 C72 24 80 44 80 62 L80 112 L40 112 L40 62 C40 44 48 24 60 6 Z"
-    fill="var(--surface-3)" stroke="var(--gold)" stroke-width="1.4"/>
-  <path d="M40 74 L30 96 L33 100 L40 92 Z" fill="var(--gold)" opacity=".35"/>
-  <path d="M80 74 L90 96 L87 100 L80 92 Z" fill="var(--gold)" opacity=".35"/>
-  <line x1="41" y1="66" x2="79" y2="66" stroke="var(--gold)" stroke-width="1" opacity=".55" stroke-dasharray="3 3"/>
-  <rect x="41" y="68" width="38" height="42" fill="var(--gold)" opacity=".10"/>
-  <rect x="39" y="112" width="42" height="10" fill="var(--flame)" opacity=".22" stroke="var(--flame)" stroke-width="1"/>
-  <rect x="39" y="122" width="42" height="132" rx="3"
-    fill="var(--surface-2)" stroke="var(--gold-2)" stroke-width="1.4"/>
-  <rect x="33" y="128" width="6" height="14" rx="1" fill="var(--gold)" opacity=".5"/>
-  <rect x="81" y="128" width="6" height="14" rx="1" fill="var(--gold)" opacity=".5"/>
-  <g transform="translate(0,254)">
-    <ellipse cx="60" cy="8" rx="20" ry="4" fill="var(--flame)" opacity=".18"/>
-    ${[46,53,60,67,74].map((x,i)=>`<circle cx="${x}" cy="8" r="3.6" fill="none" stroke="var(--flame)" stroke-width="1.1" opacity="${i===2?1:.7}"/>`).join('')}
-    <path d="M44 12 Q60 44 76 12" fill="var(--flame)" opacity=".32"/>
-  </g>
-  <g font-family="var(--mono)" font-size="5.6" fill="var(--dim)">
-    <text x="86" y="40">SHIP</text>
-    <text x="86" y="90">PAYLOAD</text>
-    <text x="86" y="150">SUPER</text>
-    <text x="86" y="158">HEAVY</text>
-  </g>
-</svg>`;
-
-document.getElementById('cutlist').innerHTML = `
-  <div class="cut-item"><span class="dot"></span><div><b>${v4.height} m tall</b>, 9 m wide<br><span>${v4.boost_h} m booster + ${v4.ship_h} m ship</span></div></div>
-  <div class="cut-item"><span class="dot f"></span><div><b>${v4.total_engines} engines</b> total<br><span>33 booster + 3 sea-level + 6 vacuum on the ship</span></div></div>
-  <div class="cut-item"><span class="dot f"></span><div><b>${v4.lift_reliable.toLocaleString()} tf</b> reliable liftoff<br><span>33 × 300 tf — ${(v4.lift_reliable/3400).toFixed(2)}× Saturn V</span></div></div>
-  <div class="cut-item"><span class="dot m"></span><div><b>${v4.gross.toLocaleString()} t</b> propellant<br><span>${v4.bp.toLocaleString()} t booster + ${v4.sp.toLocaleString()} t ship</span></div></div>
-  <div class="cut-item"><span class="dot m"></span><div><b>${v4.twr} thrust/weight</b> at ignition<br><span>reliable thrust over propellant + payload</span></div></div>`;
-
-const paybody = document.getElementById('paybody');
-const paylegend = document.getElementById('paylegend');
-
-const LEGENDS = {
-  both: 'Paper = the design figure for that block. Achieved = the heaviest payload it has actually deployed to orbit. Block 4 has not flown.',
-  paper: 'Design figures only. These are the spec-sheet numbers — Block 3 has not yet flown a payload this heavy.',
-  achieved: 'Only what has actually been deployed in orbit. Blocks 1 and 2 never exceeded simulator loads; Block 3 has flown ~52 t, once.'
-};
-
-function renderPay(view) {
-  paybody.innerHTML = BLOCK_ORDER.map(k => {
-    const b = DATA.blocks[k];
-    const isProj = k === 'V4';
-    let reus, exp, pub, ach;
-    if (view === 'achieved') {
-      reus = `<td class="dash">—</td>`;
-      exp = `<td class="dash">—</td>`;
-      pub = `<td class="dash">—</td>`;
-    } else if (view === 'paper') {
-      reus = `<td class="dash">—</td>`;
-      exp = `<td class="dash">—</td>`;
-      pub = `<td class="paper">${k === 'V3' ? '100 t' : '—'}</td>`;
-    } else {
-      reus = `<td class="paper">${b.reus} t</td>`;
-      exp = `<td class="paper">${b.exp} t</td>`;
-      pub = `<td class="dash">${k === 'V3' ? '100 t' : '—'}</td>`;
-    }
-    if (view === 'paper') {
-      ach = `<td class="dash">—</td>`;
-    } else if (b.achieved) {
-      ach = `<td class="ach">${b.achieved} t</td>`;
-    } else {
-      ach = `<td class="ach none">—</td>`;
-    }
-    const eng = b.engine.replace('R', 'R');
-    return `<tr class="${isProj?'proj':''}">
-      <td>${b.label}</td>${reus}${exp}${pub}${ach}<td>${eng}</td>
-    </tr>`;
-  }).join('');
-  paylegend.textContent = LEGENDS[view];
+/* ── derate bars ── */
+{
+  const r3 = engines.R3;
+  const lost = 33 * (r3.thrust_r - r3.thrust_f);
+  const used = 33 * r3.thrust_f;
+  const max = 33 * r3.thrust_r;
+  $('deratebars').innerHTML = `
+    <div class="bar"><div class="lab">used</div>
+      <div class="track"><div class="fill" style="width:${used/max*100}%"></div></div>
+      <div class="val">${used.toLocaleString()} <small>tf</small></div></div>
+    <div class="bar mark"><div class="lab">lost</div>
+      <div class="track"><div class="fill" style="width:${lost/max*100}%"></div></div>
+      <div class="val">${lost.toLocaleString()} <small>tf</small></div></div>`;
 }
 
-document.querySelectorAll('.toggle button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.toggle button').forEach(b => b.setAttribute('aria-selected','false'));
-    btn.setAttribute('aria-selected','true');
-    renderPay(btn.dataset.view);
-  });
+/* ── payload table ── */
+$('paybody').innerHTML = BLOCKS.map(k => {
+  const p = presets[k];
+  const ach = p.achieved
+    ? `<span style="color:var(--ok)">${p.achieved} t</span>`
+    : `<span style="color:var(--dim)">—</span>`;
+  return `<tr>
+    <td>${p.label}</td>
+    <td class="num">${p.height} m</td>
+    <td class="num">${p.mass.toLocaleString()} t</td>
+    <td class="num">${p.prop.toLocaleString()} t</td>
+    <td class="num hi">${p.reus} t</td>
+    <td class="num">${p.exp} t</td>
+    <td class="num">${ach}</td>
+    <td style="color:var(--dim)">${engines[p.engine].name}</td>
+  </tr>`;
+}).join('');
+
+/* ── gap bars (flown vs own claim) ── */
+{
+  const ref = 100;
+  $('gapbars').innerHTML = BLOCKS.map(k => {
+    const p = presets[k];
+    if (!p.achieved) return `<div class="bar"><div class="lab">${p.label.replace('Block ','B')}</div>
+      <div class="track"></div><div class="val" style="color:var(--dim)">none</div></div>`;
+    return `<div class="bar"><div class="lab">${p.label.replace('Block ','B')}</div>
+      <div class="track"><div class="fill" style="width:${p.achieved/ref*100}%"></div></div>
+      <div class="val">${p.achieved} <small>t</small></div></div>`;
+  }).join('');
+}
+
+/* ── interactive stack ── */
+const RHO = DATA.rho;
+const G0 = 9.80665;
+const BUDGET = DATA.budget;
+const FRAC = {
+  V1: {bs:0.0588, ss:0.0834, br:0.0824, sr:0.1667},
+  V2: {bs:0.0764, ss:0.0700, br:0.1000, sr:0.1400},
+  V3: {bs:0.0753, ss:0.0688, br:0.0932, sr:0.1375},
+  V4: {bs:0.0740, ss:0.0500, br:0.0914, sr:0.1043},
+};
+let current = 'V3';
+let frac = {...FRAC.V3};
+
+const area = d => Math.PI*(d/2)**2;
+const prop = (d,h) => area(d)*h*RHO/1000;
+const dvf = (isp,m0,m1) => isp*G0*Math.log(m0/m1);
+
+function solve(dia, bh, sh, engineKey) {
+  const e = engines[engineKey];
+  const bp = prop(dia,bh), sp = prop(dia,sh);
+  const bd = bp*frac.bs, sd = sp*frac.ss;
+  const br = bp*frac.br, sr = sp*frac.sr;
+  const stages = (payload, expendable) => {
+    const above = sd + sp + payload;
+    const dvb = dvf(e.isp_sl, bd+bp+above, bd+br+above);
+    const keep = expendable ? 0 : sr;
+    return dvb + dvf(e.isp_vac, above, sd+keep+payload);
+  };
+  const payFor = (expendable) => {
+    const f = p => stages(p, expendable);
+    if (f(0) < BUDGET) return 0;
+    let lo = 0, hi = 1;
+    while (f(hi) > BUDGET && hi < 6000) hi *= 2;
+    for (let i=0;i<80;i++){ const m=(lo+hi)/2; if (f(m) > BUDGET) lo=m; else hi=m; }
+    return lo;
+  };
+  return {
+    prop: bp+sp,
+    mass: bd+bp+sd+sp,
+    reus: payFor(false),
+    exp: payFor(true),
+    ceiling: stages(0,false),
+  };
+}
+
+function refresh() {
+  const dia = +$('dia').value, bh = +$('bh').value, sh = +$('sh').value;
+  const nose = +$('nose').value, eng = $('eng').value;
+  $('diao').textContent = dia.toFixed(1)+' m';
+  $('bho').textContent = bh.toFixed(1)+' m';
+  $('sho').textContent = sh.toFixed(1)+' m';
+  $('noseo').textContent = nose+' m';
+
+  const r = solve(dia, bh, sh, eng);
+  const h = bh + sh + nose + (presets[current]?.overhead ?? 24);
+  $('o-h').innerHTML = h.toFixed(0)+'<small>m</small>';
+  $('o-prop').innerHTML = Math.round(r.prop).toLocaleString()+'<small>t</small>';
+  $('o-reus').innerHTML = Math.round(r.reus)+'<small>t</small>';
+  $('o-exp').innerHTML = Math.round(r.exp)+'<small>t</small>';
+
+  if (window.__setStack) window.__setStack(dia, bh, sh, nose);
+}
+
+$('presets').innerHTML = BLOCKS.map(k =>
+  `<button data-k="${k}" aria-pressed="${k===current}">${presets[k].label.replace('Block ','B')}</button>`
+).join('');
+
+$('presets').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const k = b.dataset.k; current = k;
+  frac = {...FRAC[k]};
+  const p = presets[k];
+  $('dia').value = p.dia; $('bh').value = p.bh;
+  $('sh').value = p.sh; $('nose').value = p.nose;
+  $('eng').value = p.engine;
+  $('vbadge').textContent = p.label;
+  [...$('presets').children].forEach(c =>
+    c.setAttribute('aria-pressed', c.dataset.k === k));
+  refresh();
 });
-renderPay('both');
 
-/* ceiling bars: delta-v with zero payload vs calibrated budget */
-const budget = DATA.model.budget;
-const maxCeil = Math.max(...BLOCK_ORDER.map(k => DATA.blocks[k].ceiling));
-document.getElementById('ceilingbars').innerHTML = BLOCK_ORDER.map(k => {
-  const b = DATA.blocks[k];
-  const w = b.ceiling / maxCeil * 100;
-  const bw = budget / maxCeil * 100;
-  return `<div class="gapbar">
-    <div class="lab">${b.label}</div>
-    <div class="track">
-      <div class="fill" style="width:${w}%"></div>
-      <div style="position:absolute;top:-3px;bottom:-3px;left:${bw}%;width:0;
-        border-left:1px dashed var(--flame);opacity:.9"></div>
-    </div>
-    <div class="val">${b.ceiling.toLocaleString()}<span style="color:var(--dim)"> m/s</span></div>
-  </div>`;
-}).join('');
-
-/* achieved vs 100 t */
-const REF = 100;
-document.getElementById('gapbars').innerHTML = BLOCK_ORDER.map(k => {
-  const b = DATA.blocks[k];
-  if (!b.achieved) return `<div class="gapbar">
-    <div class="lab">${b.label}</div>
-    <div class="track"></div>
-    <div class="val" style="color:var(--dim)">none</div></div>`;
-  const w = b.achieved / REF * 100;
-  return `<div class="gapbar">
-    <div class="lab">${b.label}</div>
-    <div class="track"><div class="fill" style="width:${w}%"></div></div>
-    <div class="val">${b.achieved} t</div>
-  </div>`;
-}).join('');
-
-/* Block 4 payload vs vacuum Isp */
-const ispRows = DATA.sensitivity.isp;
-const maxIspP = Math.max(...ispRows.map(r => r.reus));
-document.getElementById('ispbars').innerHTML = ispRows.map(r => {
-  const w = r.reus / maxIspP * 100;
-  const inherited = r.vac === DATA.isp.r4_vac;
-  return `<div class="gapbar${inherited ? ' isp-here' : ' isp-alt'}">
-    <div class="lab">${r.vac} s${inherited ? ' ←' : ''}</div>
-    <div class="track"><div class="fill" style="width:${w}%"></div></div>
-    <div class="val">${r.reus} t</div>
-  </div>`;
-}).join('');
-
-/* Mission budget cost, at inherited Isp */
-const bRows = DATA.sensitivity.budget_rows;
-const maxB = Math.max(...bRows.map(r => r.reus));
-document.getElementById('budgetbars').innerHTML = bRows.map(r => {
-  const w = r.reus / maxB * 100;
-  return `<div class="gapbar">
-    <div class="lab">${r.extra === 0 ? 'base' : '+' + r.extra}</div>
-    <div class="track"><div class="fill" style="width:${w}%"></div></div>
-    <div class="val">${r.reus} t</div>
-  </div>`;
-}).join('');
+['dia','bh','sh','nose'].forEach(id => $(id).addEventListener('input', refresh));
+$('eng').addEventListener('change', refresh);
+refresh();
 </script>
+
+<script type="module" src="stack3d.js?v=1"></script>
 </body>
 </html>
