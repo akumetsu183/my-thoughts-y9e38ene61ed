@@ -156,6 +156,11 @@
   .gapbar .track{height:20px;background:var(--surface-2);border-radius:4px;position:relative;overflow:hidden}
   .gapbar .fill{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--gold-2),var(--gold));border-radius:4px}
   .gapbar .val{font:700 .72rem var(--mono);text-align:right;color:var(--text)}
+  .gapbar.isp-alt .fill{background:color-mix(in srgb,var(--dim) 40%,transparent)}
+  .gapbar.isp-alt .lab,.gapbar.isp-alt .val{color:color-mix(in srgb,var(--dim) 80%,transparent)}
+  .gapbar.isp-here .lab{color:var(--gold);font-weight:700}
+  .gapbar.isp-here .val{color:var(--gold);font-weight:700}
+  .gapbar.isp-here .fill{box-shadow:0 0 0 1.5px var(--gold),0 0 12px color-mix(in srgb,var(--gold) 40%,transparent)}
 
   .paygrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0 8px}
   .pay{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
@@ -297,20 +302,44 @@
   <div id="gapbars"></div>
   <p class="legend">Bar length is the heaviest payload actually deployed to orbit, as a share of Block 3's 100 t. Block 3 has flown a little over half its published figure, once.</p>
 
-  <h3>Block 4: a range, not a number</h3>
-  <p>Block 4 is where the rocket equation stops being polite. Its ship carries <b>2,300 t</b> of propellant on a 115 t dry ship — a 20:1 ratio against Block 3's 14.5:1 — so its payload is extraordinarily sensitive to two things nobody has published: Raptor 4's specific impulse, and what mission delta-v the vehicle is actually required to hit.</p>
+  <h3>Raptor 4: extrapolating the Isp trend</h3>
+  <p>Payload depends on specific impulse, not thrust — so the question that decides Block 4 is whether Raptor 4's Isp actually improves on Raptor 3's. Three generations have published figures to fit:</p>
 
   <div class="tablewrap">
-    <table class="sens">
+    <table class="isptable">
       <thead>
-        <tr><th>Raptor 4 Isp<br>(SL / vac)</th><th>at Block 3's<br>budget</th><th>+300 m/s<br>harder</th><th>+600 m/s<br>harder</th><th>+900 m/s<br>harder</th></tr>
+        <tr><th>Engine</th><th>Isp sea level</th><th>Isp vacuum</th><th>SL–vac gap</th></tr>
       </thead>
-      <tbody id="sensbody"></tbody>
+      <tbody>
+        <tr><td>Raptor 1</td><td>327 s</td><td>350 s</td><td>23 s</td></tr>
+        <tr><td>Raptor 2</td><td>327 s</td><td>347 s</td><td>20 s</td></tr>
+        <tr><td>Raptor 3</td><td>340 s</td><td>350 s</td><td>10 s</td></tr>
+        <tr class="proj"><td>Raptor 4</td><td>340 s</td><td>350 s</td><td>10 s</td></tr>
+      </tbody>
     </table>
   </div>
-  <p class="legend">Reusable payload to LEO, tonnes. Each column is a successively more demanding mission — more margin for gravity losses, steering and landing reserves.</p>
 
-  <p>Read the top-left to bottom-right diagonal and you get the argument in one line: <b>Block 4 is worth somewhere between 60 t and 280 t</b>, and which end you land on depends on assumptions nobody outside SpaceX can check. If Raptor 4's Isp improves as expected <em>and</em> the mission budget stays as loose as Block 3's, it approaches 250 t. If the vehicle is asked to fly harder missions — which a heavier ship with more landing propellant plausibly would be — it lands near 100 t, which is where the honest guess sits.</p>
+  <p><b>The vacuum figure does not move.</b> Fit a line through 350, 347, 350 and the slope is <b>0.00 s per generation</b>. Raptor 2 actually lost 3 s against Raptor 1 — a production simplification, not a regression that was later recovered. Raptor 4 is therefore modelled at Raptor 3's Isp exactly, not at some hoped-for improvement.</p>
+
+  <p>The sea-level figure <em>did</em> climb, +6.5 s per generation, and that is worth understanding rather than celebrating. Sea-level Isp is vacuum Isp minus the pressure term lost to the exhaust leaving an under-expanded bell — which is a function of the <b>nozzle's expansion ratio</b>, not of how well propellant burns. The SL–vac gap collapsing from 23 s to 10 s across three engines is nozzle work. It buys real performance off the pad, but it is not a combustion gain, and it does not compound into the vacuum Isp that governs the upper stage.</p>
+
+  <p class="caveat">Three data points is not a trend you can extrapolate with confidence — the residual scatter on the vacuum fit is ±2.5 s, which is wide enough that the slope is barely distinguishable from noise. But the direction is consistent: in this engine family, vacuum Isp has been held constant while thrust rose 62%. Assuming Raptor 4 breaks that pattern would be assuming the thing being asked to prove.</p>
+
+  <h3>What the Isp choice is worth</h3>
+  <p>This matters more than it sounds. Earlier drafts of this page assumed Raptor 4 would reach <b>365 s</b> in vacuum, continuing a gain that never happened. That optimism was worth <b>50 tonnes</b> of payload that no engine has been shown to deliver.</p>
+
+  <div id="ispbars"></div>
+  <p class="legend">Block 4 reusable payload against Raptor 4's vacuum Isp, holding sea-level at 340 s and the mission budget at Block 3's calibrated 7,803 m/s.</p>
+
+  <p>Each second of vacuum Isp is worth <b>about 2.9 tonnes</b> of reusable payload on this ship, so a 5 s gain is worth roughly 15 t and a 15 s gain roughly 45 t. That is the entire spread on this chart — and it turns on a number SpaceX has never published.</p>
+
+  <h3>Block 4, on the inherited Isp</h3>
+  <p>With Raptor 4 at 340/350 s — the Raptor 3 figures — and the same mission budget Block 3 is calibrated against, the rocket equation gives <b>204 t</b> reusable and <b>478 t</b> expendable. That is the number this page stands behind: it assumes no Isp miracle, only the larger ship and the same engine efficiency.</p>
+
+  <div id="budgetbars"></div>
+  <p class="legend">What Block 4 loses if it is actually asked to fly harder missions than Block 3 — more margin for gravity losses, steering and landing reserves. Same inherited Isp throughout.</p>
+
+  <p>That second chart is the honest caveat. Block 4's ship runs a <b>20:1</b> propellant-to-dry ratio against Block 3's 14.5:1, which makes it a lever: a few hundred m/s of extra mission requirement costs it more than 40 t. If Block 4 has to fly a materially harder mission than Block 3, 204 t falls toward 150 t — and if it must fly very much harder, toward 100 t.</p>
 
   <div class="method">
     <h3>The equation, and the one constant in it</h3>
@@ -342,7 +371,7 @@
 </div>
 
 <script>
-const DATA = {"engines":{"R1":{"name":"Raptor 1","thrust_r":185.0,"thrust_f":185.0,"mass":2080.0,"isp_sl":327.0,"isp_vac":350.0,"year":"2019\u201321","lift_rated":6105.0,"lift_reliable":6105.0,"tw_rated":88.9,"tw_reliable":88.9,"derate_pct":0.0},"R2":{"name":"Raptor 2","thrust_r":230.0,"thrust_f":230.0,"mass":1630.0,"isp_sl":327.0,"isp_vac":347.0,"year":"2021\u201325","lift_rated":7590.0,"lift_reliable":7590.0,"tw_rated":141.1,"tw_reliable":141.1,"derate_pct":0.0},"R3":{"name":"Raptor 3","thrust_r":280.0,"thrust_f":230.0,"mass":1525.0,"isp_sl":340.0,"isp_vac":350.0,"year":"2025\u2013","lift_rated":9240.0,"lift_reliable":7590.0,"tw_rated":183.6,"tw_reliable":150.8,"derate_pct":17.9},"R4":{"name":"Raptor 4","thrust_r":300.0,"thrust_f":300.0,"mass":1550.0,"isp_sl":345.0,"isp_vac":365.0,"year":"2027 (planned)","projected":true,"lift_rated":9900.0,"lift_reliable":9900.0,"tw_rated":193.5,"tw_reliable":193.5,"derate_pct":0.0}},"blocks":{"V1":{"label":"Block 1","bd":200,"bp":3400,"br":280,"sd":100,"sp":1200,"sr":200,"engine":"R1","n_ship":3,"n_rvac":3,"height":121.3,"boost_h":71.0,"ship_h":50.3,"achieved":16,"achieved_note":"FT-10, 8 Starlink simulators, ~16 t","isp_sl":327.0,"isp_vac":350.0,"gross":4600,"lift_rated":6105.0,"lift_reliable":6105.0,"twr":1.33,"total_engines":39,"reus":53.0,"exp":286.0,"ceiling":8280.0,"dv_at_zero":8280.0,"booster_dv":3188.0,"ship_dv":4612.0,"headroom":477.0},"V2":{"label":"Block 2","bd":260,"bp":3400,"br":320,"sd":105,"sp":1500,"sr":210,"engine":"R2","n_ship":3,"n_rvac":3,"height":123.1,"boost_h":71.0,"ship_h":52.1,"achieved":16,"achieved_note":"FT-9, simulators, ~16 t","isp_sl":327.0,"isp_vac":347.0,"gross":4900,"lift_rated":7590.0,"lift_reliable":7590.0,"twr":1.55,"total_engines":39,"reus":65.0,"exp":307.0,"ceiling":8361.0,"dv_at_zero":8361.0,"booster_dv":2766.0,"ship_dv":5038.0,"headroom":558.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"br":340,"sd":110,"sp":1600,"sr":220,"engine":"R3","n_ship":3,"n_rvac":3,"height":124.4,"boost_h":72.3,"ship_h":52.1,"achieved":52,"achieved_note":"FT-14, 26\u00d7 Starlink V3, ~52 t","isp_sl":340.0,"isp_vac":350.0,"gross":5250,"lift_rated":9240.0,"lift_reliable":7590.0,"twr":1.45,"total_engines":39,"reus":100.0,"exp":354.0,"ceiling":8598.0,"dv_at_zero":8598.0,"booster_dv":2870.0,"ship_dv":4933.0,"headroom":795.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"br":370,"sd":115,"sp":2300,"sr":240,"engine":"R4","n_ship":3,"n_rvac":6,"height":142.0,"boost_h":81.0,"ship_h":61.0,"achieved":null,"achieved_note":"not flown","projected":true,"isp_sl":345.0,"isp_vac":365.0,"gross":6350,"lift_rated":9900.0,"lift_reliable":9900.0,"twr":1.56,"total_engines":42,"reus":254.0,"exp":532.0,"ceiling":9520.0,"dv_at_zero":9520.0,"booster_dv":2514.0,"ship_dv":5289.0,"headroom":1717.0}},"model":{"budget":7803.0,"anchor":"V3","anchor_payload":100.0,"method":"two-stage Tsiolkovsky, calibrated so Block 3 closes at 100 t"},"sensitivity":{"v4":[{"isp":"340/350","block3":204.0,"plus300":151.0,"plus600":104.0,"plus900":61.0},{"isp":"345/355","block3":225.0,"plus300":171.0,"plus600":122.0,"plus900":78.0},{"isp":"345/365","block3":254.0,"plus300":198.0,"plus600":147.0,"plus900":102.0},{"isp":"350/370","block3":276.0,"plus300":218.0,"plus600":166.0,"plus900":120.0}],"budget":7803.0},"notes":{"reliable":"Musk, 26 Oct 2026: \u201cWe can only reliably get to around 230 t-F with Raptor 3\u201d (card rating 280 tf)","flown":"Heaviest Starship payload to orbit: ~52 t, Flight 14, 26 Sep 2026","blocks12":"Blocks 1 and 2 were never 100 t \u2014 the rocket equation puts them well below Block 3's figure"}};
+const DATA = {"engines":{"R1":{"name":"Raptor 1","thrust_r":185.0,"thrust_f":185.0,"mass":2080.0,"isp_sl":327.0,"isp_vac":350.0,"year":"2019\u201321","lift_rated":6105.0,"lift_reliable":6105.0,"tw_rated":88.9,"tw_reliable":88.9,"derate_pct":0.0},"R2":{"name":"Raptor 2","thrust_r":230.0,"thrust_f":230.0,"mass":1630.0,"isp_sl":327.0,"isp_vac":347.0,"year":"2021\u201325","lift_rated":7590.0,"lift_reliable":7590.0,"tw_rated":141.1,"tw_reliable":141.1,"derate_pct":0.0},"R3":{"name":"Raptor 3","thrust_r":280.0,"thrust_f":230.0,"mass":1525.0,"isp_sl":340.0,"isp_vac":350.0,"year":"2025\u2013","lift_rated":9240.0,"lift_reliable":7590.0,"tw_rated":183.6,"tw_reliable":150.8,"derate_pct":17.9},"R4":{"name":"Raptor 4","thrust_r":300.0,"thrust_f":300.0,"mass":1550.0,"isp_sl":340.0,"isp_vac":350.0,"year":"2027 (planned)","projected":true,"lift_rated":9900.0,"lift_reliable":9900.0,"tw_rated":193.5,"tw_reliable":193.5,"derate_pct":0.0}},"blocks":{"V1":{"label":"Block 1","bd":200,"bp":3400,"br":280,"sd":100,"sp":1200,"sr":200,"engine":"R1","n_ship":3,"n_rvac":3,"height":121.3,"boost_h":71.0,"ship_h":50.3,"achieved":16,"achieved_note":"FT-10, 8 Starlink simulators, ~16 t","isp_sl":327.0,"isp_vac":350.0,"gross":4600,"lift_rated":6105.0,"lift_reliable":6105.0,"twr":1.33,"total_engines":39,"reus":53.0,"exp":286.0,"ceiling":8280.0,"dv_at_zero":8280.0,"booster_dv":3188.0,"ship_dv":4612.0,"headroom":477.0},"V2":{"label":"Block 2","bd":260,"bp":3400,"br":320,"sd":105,"sp":1500,"sr":210,"engine":"R2","n_ship":3,"n_rvac":3,"height":123.1,"boost_h":71.0,"ship_h":52.1,"achieved":16,"achieved_note":"FT-9, simulators, ~16 t","isp_sl":327.0,"isp_vac":347.0,"gross":4900,"lift_rated":7590.0,"lift_reliable":7590.0,"twr":1.55,"total_engines":39,"reus":65.0,"exp":307.0,"ceiling":8361.0,"dv_at_zero":8361.0,"booster_dv":2766.0,"ship_dv":5038.0,"headroom":558.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"br":340,"sd":110,"sp":1600,"sr":220,"engine":"R3","n_ship":3,"n_rvac":3,"height":124.4,"boost_h":72.3,"ship_h":52.1,"achieved":52,"achieved_note":"FT-14, 26\u00d7 Starlink V3, ~52 t","isp_sl":340.0,"isp_vac":350.0,"gross":5250,"lift_rated":9240.0,"lift_reliable":7590.0,"twr":1.45,"total_engines":39,"reus":100.0,"exp":354.0,"ceiling":8598.0,"dv_at_zero":8598.0,"booster_dv":2870.0,"ship_dv":4933.0,"headroom":795.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"br":370,"sd":115,"sp":2300,"sr":240,"engine":"R4","n_ship":3,"n_rvac":6,"height":142.0,"boost_h":81.0,"ship_h":61.0,"achieved":null,"achieved_note":"not flown","projected":true,"isp_sl":340.0,"isp_vac":350.0,"gross":6350,"lift_rated":9900.0,"lift_reliable":9900.0,"twr":1.56,"total_engines":42,"reus":204.0,"exp":478.0,"ceiling":9199.0,"dv_at_zero":9199.0,"booster_dv":2504.0,"ship_dv":5301.0,"headroom":1396.0}},"model":{"budget":7803.0,"anchor":"V3","anchor_payload":100.0,"method":"two-stage Tsiolkovsky, calibrated so Block 3 closes at 100 t"},"sensitivity":{"isp":[{"vac":347,"reus":196.0,"exp":469.0},{"vac":350,"reus":204.0,"exp":478.0},{"vac":355,"reus":218.0,"exp":494.0},{"vac":360,"reus":233.0,"exp":509.0},{"vac":365,"reus":247.0,"exp":525.0},{"vac":370,"reus":261.0,"exp":540.0}],"budget_rows":[{"extra":0,"reus":204.0},{"extra":300,"reus":151.0},{"extra":600,"reus":104.0},{"extra":900,"reus":61.0}],"budget":7803.0},"notes":{"reliable":"Musk, 26 Oct 2026: \u201cWe can only reliably get to around 230 t-F with Raptor 3\u201d (card rating 280 tf)","flown":"Heaviest Starship payload to orbit: ~52 t, Flight 14, 26 Sep 2026","blocks12":"Blocks 1 and 2 were never 100 t \u2014 the rocket equation puts them well below Block 3's figure"},"isp":{"gens":[1,2,3],"sl":[327.0,327.0,340.0],"vac":[350.0,347.0,350.0],"gap":[23.0,20.0,10.0],"sl_slope":6.5,"vac_slope":0.0,"sl_sd":5.31,"vac_sd":2.45,"r4_sl":340.0,"r4_vac":350.0,"gap_close_pct":57.0,"verdict":"vacuum Isp slope is flat; Raptor 4 inherits Raptor 3's Isp"}};
 
 const ORDER = ['R1','R2','R3','R4'];
 const BLOCK_ORDER = ['V1','V2','V3','V4'];
@@ -538,16 +567,30 @@ document.getElementById('gapbars').innerHTML = BLOCK_ORDER.map(k => {
   </div>`;
 }).join('');
 
-/* Block 4 sensitivity grid */
-const sens = DATA.sensitivity.v4;
-document.getElementById('sensbody').innerHTML = sens.map(row => `
-  <tr>
-    <td>${row.isp}</td>
-    <td class="paper">${row.block3 ?? '—'} t</td>
-    <td>${row.plus300 ?? '—'} t</td>
-    <td>${row.plus600 ?? '—'} t</td>
-    <td>${row.plus900 ?? '—'} t</td>
-  </tr>`).join('');
+/* Block 4 payload vs vacuum Isp */
+const ispRows = DATA.sensitivity.isp;
+const maxIspP = Math.max(...ispRows.map(r => r.reus));
+document.getElementById('ispbars').innerHTML = ispRows.map(r => {
+  const w = r.reus / maxIspP * 100;
+  const inherited = r.vac === DATA.isp.r4_vac;
+  return `<div class="gapbar${inherited ? ' isp-here' : ' isp-alt'}">
+    <div class="lab">${r.vac} s${inherited ? ' ←' : ''}</div>
+    <div class="track"><div class="fill" style="width:${w}%"></div></div>
+    <div class="val">${r.reus} t</div>
+  </div>`;
+}).join('');
+
+/* Mission budget cost, at inherited Isp */
+const bRows = DATA.sensitivity.budget_rows;
+const maxB = Math.max(...bRows.map(r => r.reus));
+document.getElementById('budgetbars').innerHTML = bRows.map(r => {
+  const w = r.reus / maxB * 100;
+  return `<div class="gapbar">
+    <div class="lab">${r.extra === 0 ? 'base' : '+' + r.extra}</div>
+    <div class="track"><div class="fill" style="width:${w}%"></div></div>
+    <div class="val">${r.reus} t</div>
+  </div>`;
+}).join('');
 </script>
 </body>
 </html>
