@@ -266,20 +266,20 @@
   <p>If Raptor 3 ran at its 280 tf card figure, Block 3 would carry roughly <b>111 t</b> reusable instead of 100 t — an <b>11 t</b> penalty paid every flight because the engine runs at 230. That is the concrete price of the reliability gap, and it is what Raptor 4 is meant to recover and then some.</p>
 
   <h2><span class="n">03</span> Payload, every version</h2>
-  <p class="sub">Two views: what each block was designed for, and what it has actually put in orbit.</p>
+  <p class="sub">Every figure below comes out of the rocket equation. Nothing is scaled or interpolated.</p>
 
   <div class="toggle" role="tablist" aria-label="Payload view">
-    <button role="tab" aria-selected="true" data-view="both">Paper vs achieved</button>
-    <button role="tab" aria-selected="false" data-view="paper">Paper only</button>
-    <button role="tab" aria-selected="false" data-view="achieved">Achieved only</button>
+    <button role="tab" aria-selected="true" data-view="both">Rocket equation</button>
+    <button role="tab" aria-selected="false" data-view="paper">Published</button>
+    <button role="tab" aria-selected="false" data-view="achieved">Flown</button>
   </div>
 
   <div class="tablewrap">
     <table class="payload-table">
       <thead>
         <tr>
-          <th>Block</th><th>Reusable<br>(paper)</th><th>Expendable<br>(paper)</th>
-          <th>Heaviest<br>flown</th><th>Engine</th>
+          <th>Block</th><th>Reusable<br>solved</th><th>Expendable<br>solved</th>
+          <th>Published<br>100 t claim</th><th>Heaviest<br>flown</th><th>Engine</th>
         </tr>
       </thead>
       <tbody id="paybody"></tbody>
@@ -287,33 +287,45 @@
   </div>
   <p class="legend" id="paylegend"></p>
 
+  <h3>Why only Block 3 was ever 100 tonnes</h3>
+  <p>The “100 t reusable” figure gets repeated for every Starship block, but solving the rocket equation for each one shows it only holds for Block 3. Blocks 1 and 2 come out well below it — <b>53 t</b> and <b>65 t</b> — because their ships carry less propellant on a proportionally heavier structure. Nothing in the maths was told to produce that; it falls out of the masses.</p>
+
+  <div id="ceilingbars"></div>
+  <p class="legend">Delta-v ceiling for each block at zero payload. The dashed line is the calibrated budget — the point where Block 3's published 100 t closes.</p>
+
   <h3>How close has each block come?</h3>
   <div id="gapbars"></div>
-  <p class="legend">Bar length is the heaviest payload actually deployed, as a share of Block 3's paper reusable figure. Block 3 has flown a little over half of its design number, once.</p>
+  <p class="legend">Bar length is the heaviest payload actually deployed to orbit, as a share of Block 3's 100 t. Block 3 has flown a little over half its published figure, once.</p>
 
-  <h3>Where Block 4 lands</h3>
-  <div class="paygrid" id="paygrid"></div>
+  <h3>Block 4: a range, not a number</h3>
+  <p>Block 4 is where the rocket equation stops being polite. Its ship carries <b>2,300 t</b> of propellant on a 115 t dry ship — a 20:1 ratio against Block 3's 14.5:1 — so its payload is extraordinarily sensitive to two things nobody has published: Raptor 4's specific impulse, and what mission delta-v the vehicle is actually required to hit.</p>
 
-  <p>Raptor 4 takes the booster from 7,590 tf reliable to 9,900 tf — a 30% thrust increase, on a ship with 44% more propellant. Scaling Block 3's ratio and converting half the thrust gain into payload gives <b>166 t</b> reusable, with a plausible band of 141–191 t. Expendable, where the ship is thrown away and the tanks burned dry, lands near <b>662 t</b>.</p>
+  <div class="tablewrap">
+    <table class="sens">
+      <thead>
+        <tr><th>Raptor 4 Isp<br>(SL / vac)</th><th>at Block 3's<br>budget</th><th>+300 m/s<br>harder</th><th>+600 m/s<br>harder</th><th>+900 m/s<br>harder</th></tr>
+      </thead>
+      <tbody id="sensbody"></tbody>
+    </table>
+  </div>
+  <p class="legend">Reusable payload to LEO, tonnes. Each column is a successively more demanding mission — more margin for gravity losses, steering and landing reserves.</p>
+
+  <p>Read the top-left to bottom-right diagonal and you get the argument in one line: <b>Block 4 is worth somewhere between 60 t and 280 t</b>, and which end you land on depends on assumptions nobody outside SpaceX can check. If Raptor 4's Isp improves as expected <em>and</em> the mission budget stays as loose as Block 3's, it approaches 250 t. If the vehicle is asked to fly harder missions — which a heavier ship with more landing propellant plausibly would be — it lands near 100 t, which is where the honest guess sits.</p>
 
   <div class="method">
-    <h3>How these numbers were made</h3>
+    <h3>The equation, and the one constant in it</h3>
     <ol>
-      <li><b>The anchor is the reliable engine.</b> Block 3's published <code>100 t</code> reusable is the design figure <em>for a 230 tf booster</em> — the engine that flies. It is not a 280 tf booster.</li>
-      <li><b>One scaling rule.</b> Reusable payload tracks ship propellant at <code>0.0625 t</code> per tonne; expendable at <code>0.25 t</code> per tonne. Both ratios read straight off Block 3.</li>
-      <li><b>Thrust correction.</b> Ship propellant <code>1,600 → 2,300 t</code> alone gives 144 t. Raptor 4's <code>+30%</code> reliable thrust is applied at half strength — the booster is thrust-limited off the pad, but not everything converts.</li>
-      <li><b>Result.</b> <code>166 t</code> reusable, <code>662 t</code> expendable, each with a ±15% band because the structural fraction is the real unknown.</li>
+      <li><b>Two-stage Tsiolkovsky.</b> Booster: <code>Isp_sl·g₀·ln((dry+prop+above)/(dry+reserve+above))</code>. Ship: <code>Isp_vac·g₀·ln((dry+prop+payload)/(dry+reserve+payload))</code>.</li>
+      <li><b>One budget, calibrated once.</b> Orbital velocity plus gravity, steering, drag and landing losses. Block 3's published <code>100 t</code> is required to close at that budget, which sets it at <code>7,803 m/s</code>.</li>
+      <li><b>Everything else follows.</b> Blocks 1, 2 and 4 use the same budget and the same equation. No per-block tuning, no scaling factors.</li>
+      <li><b>Thrust does not enter.</b> Payload depends on Isp, not thrust — so the Raptor 3 230/280 distinction belongs to the thrust story at the top of this page, not to the payload arithmetic. That is a common confusion worth naming.</li>
     </ol>
   </div>
 
-  <p class="caveat">Why not run Tsiolkovsky directly? Because it doesn't close on public data. Feed it the published dry masses and the stack either runs out of delta-v before orbit or produces several hundred tonnes of imaginary payload, depending on what you assume for landing reserves and unlisted structure. Anchoring on a real flown figure and scaling one variable is duller and far more defensible — and it lets the page show you exactly where the guess starts.</p>
+  <p class="caveat">The weak point is the masses, not the maths. Public dry masses are rounded, the non-propellant structure is never itemised, and landing reserves are inferred. A ±10% error in ship dry mass moves Block 3's answer by roughly ±15 t and Block 4's by far more, because a 20:1 propellant ratio is a lever. Treat the numbers as a well-built estimate, not a measurement — and treat Block 4's spread as the honest answer rather than a failure to compute one.</p>
 
-  <h2><span class="n">04</span> The reality check</h2>
-  <p>Worth separating two things that get conflated in every Starship argument: what a block is <em>designed</em> to lift, and what it has <em>actually</em> lifted. The heaviest payload Starship has deployed to orbit is 26 Starlink V3 satellites — about <b>52 t</b> — on Flight 14, and that was Block 3's first operational flight.</p>
-  <p>That is not a scandal; it is what a flight-test campaign looks like. Block 1 and Block 2 never flew anything near their design numbers either, and Block 3 has flown <b>three</b> times. But it does mean the honest way to read “100 t reusable” is as a ceiling demonstrated to about half, once, on a vehicle still being debugged. Block 3 is sometimes quoted at 200 t reusable; nothing flown supports that, and the 100 t card figure is already a stretch of the evidence.</p>
-
-  <h2><span class="n">05</span> What is still speculation</h2>
-  <p><b>Raptor 4's reliability.</b> 300 tf is a target, not a flight rating. Raptor 3's card said 280 and delivered 230 reliably, so a sensible reader applies the same suspicion here — which is exactly why Block 4's 166 t is a projection with a band, not a promise.</p>
+  <h2><span class="n">04</span> What is still speculation</h2>
+  <p><b>Raptor 4's reliability.</b> 300 tf is a target, not a flight rating. Raptor 3's card said 280 and delivered 230 reliably, so a sensible reader applies the same suspicion here — which is exactly why Block 4's 254 t is a projection with a band, not a promise.</p>
   <p><b>The mass.</b> “Hopefully about the same as Raptor 3” is Musk's phrasing. 1,550 kg is an assumption anywhere in the 1,500–1,650 kg range. <b>The specific impulse.</b> Not announced. Isp is the multiplier on any thrust gain — if Raptor 4's improvement is thrust-only, payload moves much less than 30%.</p>
   <p>None of this is a reason to doubt the trajectory. 185 to 300 tf in seven years, with mass falling the whole way, is an extraordinary record. It is a reason to keep the reliable number and the card number apart — which is the entire point of this page.</p>
 
@@ -330,7 +342,7 @@
 </div>
 
 <script>
-const DATA = {"engines":{"R1":{"name":"Raptor 1","thrust_r":185.0,"thrust_f":185.0,"mass":2080.0,"year":"2019\u201321","note":"development engine, never flight-limited","lift_rated":6105.0,"lift_reliable":6105.0,"tw_rated":88.9,"tw_reliable":88.9,"derate_pct":0.0},"R2":{"name":"Raptor 2","thrust_r":230.0,"thrust_f":230.0,"mass":1630.0,"year":"2021\u201325","note":"flown on Block 1 and 2; rated = reliable","lift_rated":7590.0,"lift_reliable":7590.0,"tw_rated":141.1,"tw_reliable":141.1,"derate_pct":0.0},"R3":{"name":"Raptor 3","thrust_r":280.0,"thrust_f":230.0,"mass":1525.0,"year":"2025\u2013","note":"rated 280 tf, reliably ~230 tf in flight","lift_rated":9240.0,"lift_reliable":7590.0,"tw_rated":183.6,"tw_reliable":150.8,"derate_pct":17.9},"R4":{"name":"Raptor 4","thrust_r":300.0,"thrust_f":300.0,"mass":1550.0,"year":"2027 (planned)","note":"300 tf target; nothing flown yet","projected":true,"lift_rated":9900.0,"lift_reliable":9900.0,"tw_rated":193.5,"tw_reliable":193.5,"derate_pct":0.0}},"blocks":{"V1":{"label":"Block 1","ship_prop":1200,"boost_prop":3400,"paper_reus":100,"paper_exp":200,"achieved":16,"achieved_note":"FT-10, 8 Starlink simulators, ~16 t","n_ship":3,"n_rvac":3,"engine":"R1","height":121.3,"boost_h":71.0,"ship_h":50.3,"lift_rated":6105.0,"lift_reliable":6105.0,"gross":4600,"twr":1.33,"total_engines":39,"gap_pct":84.0},"V2":{"label":"Block 2","ship_prop":1500,"boost_prop":3400,"paper_reus":100,"paper_exp":250,"achieved":16,"achieved_note":"FT-9, simulators, ~16 t","n_ship":3,"n_rvac":3,"engine":"R2","height":123.1,"boost_h":71.0,"ship_h":52.1,"lift_rated":7590.0,"lift_reliable":7590.0,"gross":4900,"twr":1.55,"total_engines":39,"gap_pct":84.0},"V3":{"label":"Block 3","ship_prop":1600,"boost_prop":3650,"paper_reus":100,"paper_exp":400,"achieved":52,"achieved_note":"FT-14, 26\u00d7 Starlink V3, ~52 t","n_ship":3,"n_rvac":3,"engine":"R3","height":124.4,"boost_h":72.3,"ship_h":52.1,"lift_rated":9240.0,"lift_reliable":7590.0,"gross":5250,"twr":1.45,"total_engines":39,"gap_pct":48.0},"V4":{"label":"Block 4","ship_prop":2300,"boost_prop":4050,"paper_reus":166.0,"paper_exp":662.0,"achieved":null,"achieved_note":"not flown \u2014 this is a projection","derived":true,"n_ship":3,"n_rvac":6,"engine":"R4","height":142.0,"boost_h":81.0,"ship_h":61.0,"lift_rated":9900.0,"lift_reliable":9900.0,"gross":6350,"twr":1.56,"total_engines":42}},"v3_derate":{"reliable":100,"at_rated":111.0,"cost":11.0,"thrust_gain_pct":21.7},"v4":{"reus":166.0,"exp":662.0,"reus_prop_only":144.0,"thrust_gain_pct":30.4,"reus_band":[141.0,191.0],"exp_band":[563.0,761.0]},"notes":{"R3_derate":"Musk: \u201cWe can only reliably get to around 230 t-F with Raptor 3\u201d (26 Oct 2026, 13:13 ET)","V3_actual":"Flight 14 (28 Sep 2026) deployed 26 Starlink V3s, ~52 t \u2014 the heaviest Starship payload to orbit so far"}};
+const DATA = {"engines":{"R1":{"name":"Raptor 1","thrust_r":185.0,"thrust_f":185.0,"mass":2080.0,"isp_sl":327.0,"isp_vac":350.0,"year":"2019\u201321","lift_rated":6105.0,"lift_reliable":6105.0,"tw_rated":88.9,"tw_reliable":88.9,"derate_pct":0.0},"R2":{"name":"Raptor 2","thrust_r":230.0,"thrust_f":230.0,"mass":1630.0,"isp_sl":327.0,"isp_vac":347.0,"year":"2021\u201325","lift_rated":7590.0,"lift_reliable":7590.0,"tw_rated":141.1,"tw_reliable":141.1,"derate_pct":0.0},"R3":{"name":"Raptor 3","thrust_r":280.0,"thrust_f":230.0,"mass":1525.0,"isp_sl":340.0,"isp_vac":350.0,"year":"2025\u2013","lift_rated":9240.0,"lift_reliable":7590.0,"tw_rated":183.6,"tw_reliable":150.8,"derate_pct":17.9},"R4":{"name":"Raptor 4","thrust_r":300.0,"thrust_f":300.0,"mass":1550.0,"isp_sl":345.0,"isp_vac":365.0,"year":"2027 (planned)","projected":true,"lift_rated":9900.0,"lift_reliable":9900.0,"tw_rated":193.5,"tw_reliable":193.5,"derate_pct":0.0}},"blocks":{"V1":{"label":"Block 1","bd":200,"bp":3400,"br":280,"sd":100,"sp":1200,"sr":200,"engine":"R1","n_ship":3,"n_rvac":3,"height":121.3,"boost_h":71.0,"ship_h":50.3,"achieved":16,"achieved_note":"FT-10, 8 Starlink simulators, ~16 t","isp_sl":327.0,"isp_vac":350.0,"gross":4600,"lift_rated":6105.0,"lift_reliable":6105.0,"twr":1.33,"total_engines":39,"reus":53.0,"exp":286.0,"ceiling":8280.0,"dv_at_zero":8280.0,"booster_dv":3188.0,"ship_dv":4612.0,"headroom":477.0},"V2":{"label":"Block 2","bd":260,"bp":3400,"br":320,"sd":105,"sp":1500,"sr":210,"engine":"R2","n_ship":3,"n_rvac":3,"height":123.1,"boost_h":71.0,"ship_h":52.1,"achieved":16,"achieved_note":"FT-9, simulators, ~16 t","isp_sl":327.0,"isp_vac":347.0,"gross":4900,"lift_rated":7590.0,"lift_reliable":7590.0,"twr":1.55,"total_engines":39,"reus":65.0,"exp":307.0,"ceiling":8361.0,"dv_at_zero":8361.0,"booster_dv":2766.0,"ship_dv":5038.0,"headroom":558.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"br":340,"sd":110,"sp":1600,"sr":220,"engine":"R3","n_ship":3,"n_rvac":3,"height":124.4,"boost_h":72.3,"ship_h":52.1,"achieved":52,"achieved_note":"FT-14, 26\u00d7 Starlink V3, ~52 t","isp_sl":340.0,"isp_vac":350.0,"gross":5250,"lift_rated":9240.0,"lift_reliable":7590.0,"twr":1.45,"total_engines":39,"reus":100.0,"exp":354.0,"ceiling":8598.0,"dv_at_zero":8598.0,"booster_dv":2870.0,"ship_dv":4933.0,"headroom":795.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"br":370,"sd":115,"sp":2300,"sr":240,"engine":"R4","n_ship":3,"n_rvac":6,"height":142.0,"boost_h":81.0,"ship_h":61.0,"achieved":null,"achieved_note":"not flown","projected":true,"isp_sl":345.0,"isp_vac":365.0,"gross":6350,"lift_rated":9900.0,"lift_reliable":9900.0,"twr":1.56,"total_engines":42,"reus":254.0,"exp":532.0,"ceiling":9520.0,"dv_at_zero":9520.0,"booster_dv":2514.0,"ship_dv":5289.0,"headroom":1717.0}},"model":{"budget":7803.0,"anchor":"V3","anchor_payload":100.0,"method":"two-stage Tsiolkovsky, calibrated so Block 3 closes at 100 t"},"sensitivity":{"v4":[{"isp":"340/350","block3":204.0,"plus300":151.0,"plus600":104.0,"plus900":61.0},{"isp":"345/355","block3":225.0,"plus300":171.0,"plus600":122.0,"plus900":78.0},{"isp":"345/365","block3":254.0,"plus300":198.0,"plus600":147.0,"plus900":102.0},{"isp":"350/370","block3":276.0,"plus300":218.0,"plus600":166.0,"plus900":120.0}],"budget":7803.0},"notes":{"reliable":"Musk, 26 Oct 2026: \u201cWe can only reliably get to around 230 t-F with Raptor 3\u201d (card rating 280 tf)","flown":"Heaviest Starship payload to orbit: ~52 t, Flight 14, 26 Sep 2026","blocks12":"Blocks 1 and 2 were never 100 t \u2014 the rocket equation puts them well below Block 3's figure"}};
 
 const ORDER = ['R1','R2','R3','R4'];
 const BLOCK_ORDER = ['V1','V2','V3','V4'];
@@ -438,7 +450,7 @@ document.getElementById('cutlist').innerHTML = `
   <div class="cut-item"><span class="dot"></span><div><b>${v4.height} m tall</b>, 9 m wide<br><span>${v4.boost_h} m booster + ${v4.ship_h} m ship</span></div></div>
   <div class="cut-item"><span class="dot f"></span><div><b>${v4.total_engines} engines</b> total<br><span>33 booster + 3 sea-level + 6 vacuum on the ship</span></div></div>
   <div class="cut-item"><span class="dot f"></span><div><b>${v4.lift_reliable.toLocaleString()} tf</b> reliable liftoff<br><span>33 × 300 tf — ${(v4.lift_reliable/3400).toFixed(2)}× Saturn V</span></div></div>
-  <div class="cut-item"><span class="dot m"></span><div><b>${v4.gross.toLocaleString()} t</b> propellant<br><span>${v4.boost_prop.toLocaleString()} t booster + ${v4.ship_prop.toLocaleString()} t ship</span></div></div>
+  <div class="cut-item"><span class="dot m"></span><div><b>${v4.gross.toLocaleString()} t</b> propellant<br><span>${v4.bp.toLocaleString()} t booster + ${v4.sp.toLocaleString()} t ship</span></div></div>
   <div class="cut-item"><span class="dot m"></span><div><b>${v4.twr} thrust/weight</b> at ignition<br><span>reliable thrust over propellant + payload</span></div></div>`;
 
 const paybody = document.getElementById('paybody');
@@ -454,15 +466,30 @@ function renderPay(view) {
   paybody.innerHTML = BLOCK_ORDER.map(k => {
     const b = DATA.blocks[k];
     const isProj = k === 'V4';
-    const paperReus = (view === 'achieved') ? `<td class="dash">—</td>` : `<td class="paper">${b.paper_reus} t</td>`;
-    const paperExp = (view === 'achieved') ? `<td class="dash">—</td>` : `<td class="paper">${b.paper_exp} t</td>`;
-    let ach;
-    if (view === 'paper') ach = `<td class="dash">—</td>`;
-    else if (b.achieved) ach = `<td class="ach">${b.achieved} t</td>`;
-    else ach = `<td class="ach none">—</td>`;
-    const eng = DATA.engines[b.engine].name.replace('Raptor ','R');
+    let reus, exp, pub, ach;
+    if (view === 'achieved') {
+      reus = `<td class="dash">—</td>`;
+      exp = `<td class="dash">—</td>`;
+      pub = `<td class="dash">—</td>`;
+    } else if (view === 'paper') {
+      reus = `<td class="dash">—</td>`;
+      exp = `<td class="dash">—</td>`;
+      pub = `<td class="paper">${k === 'V3' ? '100 t' : '—'}</td>`;
+    } else {
+      reus = `<td class="paper">${b.reus} t</td>`;
+      exp = `<td class="paper">${b.exp} t</td>`;
+      pub = `<td class="dash">${k === 'V3' ? '100 t' : '—'}</td>`;
+    }
+    if (view === 'paper') {
+      ach = `<td class="dash">—</td>`;
+    } else if (b.achieved) {
+      ach = `<td class="ach">${b.achieved} t</td>`;
+    } else {
+      ach = `<td class="ach none">—</td>`;
+    }
+    const eng = b.engine.replace('R', 'R');
     return `<tr class="${isProj?'proj':''}">
-      <td>${b.label}</td>${paperReus}${paperExp}${ach}<td>${eng}</td>
+      <td>${b.label}</td>${reus}${exp}${pub}${ach}<td>${eng}</td>
     </tr>`;
   }).join('');
   paylegend.textContent = LEGENDS[view];
@@ -477,14 +504,33 @@ document.querySelectorAll('.toggle button').forEach(btn => {
 });
 renderPay('both');
 
-const maxPaper = Math.max(...BLOCK_ORDER.map(k => DATA.blocks[k].paper_reus));
+/* ceiling bars: delta-v with zero payload vs calibrated budget */
+const budget = DATA.model.budget;
+const maxCeil = Math.max(...BLOCK_ORDER.map(k => DATA.blocks[k].ceiling));
+document.getElementById('ceilingbars').innerHTML = BLOCK_ORDER.map(k => {
+  const b = DATA.blocks[k];
+  const w = b.ceiling / maxCeil * 100;
+  const bw = budget / maxCeil * 100;
+  return `<div class="gapbar">
+    <div class="lab">${b.label}</div>
+    <div class="track">
+      <div class="fill" style="width:${w}%"></div>
+      <div style="position:absolute;top:-3px;bottom:-3px;left:${bw}%;width:0;
+        border-left:1px dashed var(--flame);opacity:.9"></div>
+    </div>
+    <div class="val">${b.ceiling.toLocaleString()}<span style="color:var(--dim)"> m/s</span></div>
+  </div>`;
+}).join('');
+
+/* achieved vs 100 t */
+const REF = 100;
 document.getElementById('gapbars').innerHTML = BLOCK_ORDER.map(k => {
   const b = DATA.blocks[k];
   if (!b.achieved) return `<div class="gapbar">
     <div class="lab">${b.label}</div>
     <div class="track"></div>
     <div class="val" style="color:var(--dim)">none</div></div>`;
-  const w = b.achieved / maxPaper * 100;
+  const w = b.achieved / REF * 100;
   return `<div class="gapbar">
     <div class="lab">${b.label}</div>
     <div class="track"><div class="fill" style="width:${w}%"></div></div>
@@ -492,19 +538,16 @@ document.getElementById('gapbars').innerHTML = BLOCK_ORDER.map(k => {
   </div>`;
 }).join('');
 
-document.getElementById('paygrid').innerHTML = `
-  <div class="pay">
-    <div class="k">Block 4 reusable</div>
-    <div class="big">${v4.paper_reus}<small> t</small></div>
-    <div class="band">range ${DATA.v4.reus_band[0]}–${DATA.v4.reus_band[1]} t · propellant alone ${DATA.v4.reus_prop_only} t</div>
-    <p>Both stages recovered. Sits above Block 3's 100 t partly from the bigger ship, partly from Raptor 4's +30% reliable thrust.</p>
-  </div>
-  <div class="pay exp">
-    <div class="k">Block 4 expendable</div>
-    <div class="big">${v4.paper_exp}<small> t</small></div>
-    <div class="band">range ${DATA.v4.exp_band[0]}–${DATA.v4.exp_band[1]} t</div>
-    <p>Booster still lands, ship thrown away. No heat shield, flaps or return propellant, and the tanks burned dry.</p>
-  </div>`;
+/* Block 4 sensitivity grid */
+const sens = DATA.sensitivity.v4;
+document.getElementById('sensbody').innerHTML = sens.map(row => `
+  <tr>
+    <td>${row.isp}</td>
+    <td class="paper">${row.block3 ?? '—'} t</td>
+    <td>${row.plus300 ?? '—'} t</td>
+    <td>${row.plus600 ?? '—'} t</td>
+    <td>${row.plus900 ?? '—'} t</td>
+  </tr>`).join('');
 </script>
 </body>
 </html>
