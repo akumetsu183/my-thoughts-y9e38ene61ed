@@ -129,7 +129,7 @@
   input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;
     background:var(--accent);border:2px solid var(--surface-2);cursor:grab}
   .output{display:flex;flex-direction:column}
-  .outgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  .outgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
     background:var(--line);border-bottom:1px solid var(--line)}
   .outgrid div{background:var(--surface);padding:16px 18px}
   .outgrid .k{font:600 .58rem var(--mono);letter-spacing:.09em;text-transform:uppercase;
@@ -269,14 +269,14 @@
 
   <section>
     <h2><span class="n">02</span> Payload, every block</h2>
-    <p class="sub">The ceiling the rocket equation permits, against the figure SpaceX publishes — and the ratio between them.</p>
+    <p class="sub">Two ceilings — one for a ship that comes home, one for a ship that does not — against the figure SpaceX publishes.</p>
 
     <div class="tablewrap">
       <table>
         <thead>
           <tr><th>Stack</th><th class="num">Height</th><th class="num">Gross</th>
               <th class="num">Propellant</th><th class="num">RVac</th><th class="num">T/W</th>
-              <th class="num">Payload ceiling</th><th class="num">SpaceX figure</th>
+              <th class="num">Expendable</th><th class="num">Reusable</th><th class="num">SpaceX figure</th>
               <th class="num">Ratio</th><th class="num">Flown</th></tr>
         </thead>
         <tbody id="paybody"></tbody>
@@ -284,7 +284,11 @@
     </div>
 
     <div class="note">
-      <p><b>The ceiling is not a prediction.</b> With public masses a Block 3 ship arrives in orbit with roughly 345 t of propellant still aboard — it is not propellant-limited. The published 100 t is set by payload-bay volume (614 m³), adapter structure, thermal protection, landing hardware and programme margin. The equation can see none of those, which is why the two columns differ by a factor of three to twelve.</p>
+      <p><b>Reusable is the number that matters, and it is not the ceiling.</b> The expendable column spends the whole tank reaching orbit, leaving nothing to land with. Reusable holds back <b>300 m/s</b> — a deorbit burn plus the landing burn after the flip; entry itself is aerobraking and costs no propellant. That reserve is worth 0 t on Block 1 (which is thrust-bound either way) and 72 t on Block 4.</p>
+    </div>
+
+    <div class="note">
+      <p><b>Neither column is a prediction.</b> With public masses a Block 3 ship arrives in orbit with roughly 345 t of propellant still aboard — it is not propellant-limited. The published 100 t is set by payload-bay volume (614 m³), adapter structure, thermal protection, landing hardware and programme margin. The equation can see none of those, which is why the columns differ from the published figure by a factor of three to eleven.</p>
     </div>
 
     <h3>Payload ceiling against published figure</h3>
@@ -364,7 +368,8 @@
         <div class="outgrid">
           <div><div class="k">Height</div><div class="v" id="o-h">—</div></div>
           <div><div class="k">Propellant</div><div class="v" id="o-prop">—</div></div>
-          <div><div class="k">Payload ceiling</div><div class="v chg" id="o-ceil">—</div></div>
+          <div><div class="k">Expendable</div><div class="v" id="o-exp">—</div></div>
+          <div><div class="k">Reusable</div><div class="v chg" id="o-ceil">—</div></div>
           <div><div class="k">Liftoff T/W</div><div class="v" id="o-twr">—</div></div>
         </div>
         <div class="bindrow">Limited by <span id="o-bind">—</span></div>
@@ -403,7 +408,7 @@
 </div>
 
 <script>
-const DATA = {"leo":7800.0,"rho":914.0,"minTwr":1.2,"engines":{"R1":{"name":"Raptor 1","thrust_r":185,"thrust_f":185,"mass":2080,"isp_sl":327,"isp_vac":350,"isp_rvac":355},"R2":{"name":"Raptor 2","thrust_r":230,"thrust_f":230,"mass":1630,"isp_sl":327,"isp_vac":347,"isp_rvac":360},"R3":{"name":"Raptor 3","thrust_r":280,"thrust_f":230,"mass":1525,"isp_sl":340,"isp_vac":350,"isp_rvac":378},"R4":{"name":"Raptor 4","thrust_r":300,"thrust_f":300,"mass":1550,"isp_sl":340,"isp_vac":350,"isp_rvac":380}},"stacks":{"V1":{"label":"Block 1","bd":275,"bp":3400,"sd":100,"sp":1200,"engine":"R1","nrvac":3,"bh":71.0,"sh":50.3,"published":15,"flown":16,"status":"flown","name":"Raptor 1","isp_sl":327,"isp_vac":350,"isp_rvac":355,"gross":4975,"dry":375,"prop":4600,"height":121.3,"ceiling":112.0,"bind":"thrust","cap_thrust":112.0,"cap_dv":360.0,"liftoff":5088.0,"twr":1.2,"booster_dv":3626.0,"ship_need":4174.0,"ratio":7.5,"left_at_pub":297.0},"V2":{"label":"Block 2","bd":275,"bp":3400,"sd":85,"sp":1495,"engine":"R2","nrvac":3,"bh":71.0,"sh":52.1,"published":35,"flown":16,"status":"flown","name":"Raptor 2","isp_sl":327,"isp_vac":347,"isp_rvac":360,"gross":5255,"dry":360,"prop":4895,"height":123.1,"ceiling":429.0,"bind":"delta-v","cap_thrust":1070.0,"cap_dv":429.0,"liftoff":5684.0,"twr":1.34,"booster_dv":2986.0,"ship_need":4814.0,"ratio":12.25,"left_at_pub":341.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"sd":110,"sp":1600,"engine":"R3","nrvac":3,"bh":72.3,"sh":52.1,"published":100,"flown":52,"status":"flying","name":"Raptor 3","isp_sl":340,"isp_vac":350,"isp_rvac":378,"gross":5635,"dry":385,"prop":5250,"height":124.4,"ceiling":503.0,"bind":"delta-v","cap_thrust":690.0,"cap_dv":503.0,"liftoff":6138.0,"twr":1.24,"booster_dv":3042.0,"ship_need":4758.0,"ratio":5.03,"left_at_pub":344.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"sd":155,"sp":2560,"engine":"R4","nrvac":6,"bh":81.0,"sh":70.0,"published":200,"flown":null,"status":"projected","name":"Raptor 4","isp_sl":340,"isp_vac":350,"isp_rvac":380,"gross":7065,"dry":455,"prop":6610,"height":151.0,"ceiling":659.0,"bind":"delta-v","cap_thrust":1185.0,"cap_dv":659.0,"liftoff":7724.0,"twr":1.28,"booster_dv":2503.0,"ship_need":5297.0,"ratio":3.3,"left_at_pub":396.0}}};
+const DATA = {"leo":7800.0,"rho":914.0,"minTwr":1.2,"landingDv":300.0,"engines":{"R1":{"name":"Raptor 1","thrust_r":185,"thrust_f":185,"mass":2080,"isp_sl":327,"isp_vac":350,"isp_rvac":355},"R2":{"name":"Raptor 2","thrust_r":230,"thrust_f":230,"mass":1630,"isp_sl":327,"isp_vac":347,"isp_rvac":360},"R3":{"name":"Raptor 3","thrust_r":280,"thrust_f":230,"mass":1525,"isp_sl":340,"isp_vac":350,"isp_rvac":378},"R4":{"name":"Raptor 4","thrust_r":300,"thrust_f":300,"mass":1550,"isp_sl":340,"isp_vac":350,"isp_rvac":380}},"stacks":{"V1":{"label":"Block 1","bd":275,"bp":3400,"sd":100,"sp":1200,"engine":"R1","nrvac":3,"bh":71.0,"sh":50.3,"published":15,"flown":16,"status":"flown","name":"Raptor 1","isp_sl":327,"isp_vac":350,"isp_rvac":355,"gross":4975,"dry":375,"prop":4600,"height":121.3,"ceiling":112.0,"reusable":112.0,"bind":"thrust","cap_thrust":112.0,"cap_dv":360.0,"liftoff":5088.0,"twr":1.2,"booster_dv":3626.0,"ship_need":4174.0,"ratio":7.5,"reus_ratio":7.5,"left_at_pub":297.0},"V2":{"label":"Block 2","bd":275,"bp":3400,"sd":85,"sp":1495,"engine":"R2","nrvac":3,"bh":71.0,"sh":52.1,"published":35,"flown":16,"status":"flown","name":"Raptor 2","isp_sl":327,"isp_vac":347,"isp_rvac":360,"gross":5255,"dry":360,"prop":4895,"height":123.1,"ceiling":429.0,"reusable":381.0,"bind":"delta-v","cap_thrust":1070.0,"cap_dv":429.0,"liftoff":5684.0,"twr":1.34,"booster_dv":2986.0,"ship_need":4814.0,"ratio":12.25,"reus_ratio":10.89,"left_at_pub":341.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"sd":110,"sp":1600,"engine":"R3","nrvac":3,"bh":72.3,"sh":52.1,"published":100,"flown":52,"status":"flying","name":"Raptor 3","isp_sl":340,"isp_vac":350,"isp_rvac":378,"gross":5635,"dry":385,"prop":5250,"height":124.4,"ceiling":503.0,"reusable":448.0,"bind":"delta-v","cap_thrust":690.0,"cap_dv":503.0,"liftoff":6138.0,"twr":1.24,"booster_dv":3042.0,"ship_need":4758.0,"ratio":5.03,"reus_ratio":4.48,"left_at_pub":344.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"sd":155,"sp":2560,"engine":"R4","nrvac":6,"bh":81.0,"sh":70.0,"published":200,"flown":null,"status":"projected","name":"Raptor 4","isp_sl":340,"isp_vac":350,"isp_rvac":380,"gross":7065,"dry":455,"prop":6610,"height":151.0,"ceiling":659.0,"reusable":587.0,"bind":"delta-v","cap_thrust":1185.0,"cap_dv":659.0,"liftoff":7724.0,"twr":1.28,"booster_dv":2503.0,"ship_need":5297.0,"ratio":3.3,"reus_ratio":2.94,"left_at_pub":396.0}}};
 
 const {engines, stacks} = DATA;
 const ORDER = ['R1','R2','R3','R4'];
@@ -458,9 +463,10 @@ $('paybody').innerHTML = BLOCKS.map(k => {
     <td class="num">${p.prop.toLocaleString()} t</td>
     <td class="num">${p.nrvac}</td>
     <td class="num">${p.twr.toFixed(2)}</td>
-    <td class="num hi">${p.ceiling} t</td>
+    <td class="num">${p.ceiling} t</td>
+    <td class="num hi">${p.reusable} t</td>
     <td class="num">${p.published} t</td>
-    <td class="num">${p.ratio.toFixed(1)}×</td>
+    <td class="num">${p.reus_ratio.toFixed(1)}×</td>
     <td class="num">${flown}</td>
   </tr>`;
 }).join('');
@@ -556,12 +562,36 @@ function solve(dia, bh, sh, engineKey) {
   const capThrust = Math.max(0, N_BOOST*e.thrust_f/MIN_TWR - (bd+bp+sd+sp));
 
   const ceiling = capDv === null ? capThrust : Math.min(capThrust, capDv);
+
+  // Reusable: same solve, but hold back a landing reserve. Entry is aerobraking
+  // so the budget is deorbit plus the landing burn, not the ascent delta-v.
+  const LAND_DV = DATA.landingDv;
+  const landMargin = p => {
+    const m0 = sd+sp+p;
+    const m1 = m0*Math.exp(-shipNeed(p)/(e.isp_rvac*G0));
+    const left = Math.max(0, m1 - sd - p);
+    const base = sd + p;
+    return left > 0 ? dvf(e.isp_rvac, base+left, base) : 0;
+  };
+  let reusable = 0;
+  if (landMargin(0) >= LAND_DV) {
+    let lo = 0, hi = 3000;
+    if (landMargin(hi) >= LAND_DV) reusable = hi;
+    else {
+      for (let i=0;i<120;i++){
+        const mid=(lo+hi)/2;
+        if (landMargin(mid) >= LAND_DV) lo=mid; else hi=mid;
+      }
+      reusable = lo;
+    }
+  }
+  reusable = Math.min(capThrust, reusable);
   const bind = (capDv === null || capThrust <= capDv) ? 'liftoff thrust' : 'delta-v limit';
 
   return {
     prop: bp+sp, gross: bd+bp+sd+sp,
-    ceiling, bind,
-    twr: N_BOOST*e.thrust_f/(bd+bp+sd+sp+ceiling),
+    ceiling, reusable, bind,
+    twr: N_BOOST*e.thrust_f/(bd+bp+sd+sp+reusable),
   };
 }
 
@@ -574,7 +604,8 @@ function refresh() {
   const r = solve(dia, bh, sh, $('eng').value);
   $('o-h').innerHTML = (bh+sh).toFixed(0)+'<small>m</small>';
   $('o-prop').innerHTML = Math.round(r.prop).toLocaleString()+'<small>t</small>';
-  $('o-ceil').innerHTML = Math.round(r.ceiling)+'<small>t</small>';
+  $('o-exp').innerHTML = Math.round(r.ceiling)+'<small>t</small>';
+  $('o-ceil').innerHTML = Math.round(r.reusable)+'<small>t</small>';
   $('o-twr').innerHTML = r.twr.toFixed(2)+'<small>g</small>';
   $('o-bind').textContent = r.bind;
 
