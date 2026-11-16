@@ -208,7 +208,7 @@
   <header>
     <div class="kicker">Launch vehicle analysis</div>
     <h1>Raptor 1–4, and what each Starship <em>could actually lift</em></h1>
-    <p class="lede">Every Raptor makes two numbers: what it produces on the test stand, and what it holds in flight. For Raptor 3 that gap is <b>50 tonnes-force per engine</b> — <b>1,650 tonnes</b> across a 33-engine booster. Below is what each block can lift in reusable mode, derived from the rocket equation and calibrated against real-world expectations — which puts Block 4 at <b>120 t</b>, short of its 200 t claim.</p>
+    <p class="lede">Every Raptor makes two numbers: what it produces on the test stand, and what it holds in flight. For Raptor 3 that gap is <b>50 tonnes-force per engine</b> — <b>1,650 tonnes</b> across a 33-engine booster. Below is what each block can lift in reusable mode, derived from the rocket equation and calibrated against real-world expectations — which puts Block 4 at <b>112 t</b>, short of its 200 t claim.</p>
 
     <div class="stats">
       <div class="stat"><div class="k">Raptor 3, on the card</div>
@@ -218,7 +218,7 @@
       <div class="stat new"><div class="k">Block 4 stack</div>
         <div class="v">151<small>m</small></div><div class="n">70 m ship, 6 vacuum engines</div></div>
       <div class="stat new"><div class="k">Block 4 reusable</div>
-        <div class="v">120<small>t</small></div><div class="n">not the 200 t claimed</div></div>
+        <div class="v">112<small>t</small></div><div class="n">not the 200 t claimed</div></div>
     </div>
   </header>
 
@@ -284,7 +284,7 @@
     </div>
 
     <div class="note">
-      <p><b>These are calibrated, and the calibration is the honest part.</b> The equation alone gave Block 3 <b>159 t</b> reusable, against a published 100 t and a real-world expectation nearer 70 t. The gap is ship dry mass: the published 85–155 t figures describe the steel structure only, and exclude heat shield, flaps, landing hardware and the propellant that can never be burned. Adding those puts Block 3 at <b>199 t</b> dry. Fitted to 70 t there, the model puts Block 1 at <b>10 t</b> — near its published 15 t — and Block 4 at <b>120 t</b>, well below its 200 t claim.</p>
+      <p><b>These are calibrated, and the calibration is the honest part.</b> The equation alone gave Block 3 <b>159 t</b> reusable, against a published 100 t and a real-world expectation nearer 70 t. The gap is ship dry mass: the published 85–155 t figures describe the steel structure only, and exclude heat shield, flaps, landing hardware and the propellant that can never be burned. Adding those puts Block 3 at <b>199 t</b> dry. Fitted to 70 t there, the model puts Block 1 at <b>10 t</b> — near its published 15 t — and Block 4 at <b>112 t</b>, well below its 200 t claim.</p>
     </div>
 
     <div class="note">
@@ -321,13 +321,18 @@
       <div class="card">
         <h4>What it buys</h4>
         <div class="bars" id="v4bars"></div>
-        <p style="margin:14px 0 0">Block 4's reusable payload is <b>120 t</b>, against Block 3's 70 t — a 71% gain for 60% more propellant. Part of that comes from residual propellant scaling with tank area rather than volume: a longer tank is structurally more efficient, so Block 4 gains more than its extra tankage alone would suggest.</p>
-        <p class="legend" style="margin:0">Block 4's <b>expendable</b> figure is <b>225 t</b> — which brackets SpaceX's 200 t claim closely enough that the published number is most likely an expendable one. Reusable is <b>120 t</b>, and rises to ~141 t if the ship structure comes in at 135 t rather than 155 t. Above 100 t reusable is solid; 150 t is possible; 200 t reusable is not.</p>
+        <p style="margin:14px 0 0">Block 4's reusable payload is <b>112 t</b>, against Block 3's 70 t — a 71% gain for 60% more propellant. Part of that comes from residual propellant scaling with tank area rather than volume: a longer tank is structurally more efficient, so Block 4 gains more than its extra tankage alone would suggest.</p>
+        <p class="legend" style="margin:0">Block 4's <b>expendable</b> figure is <b>225 t</b> — which brackets SpaceX's 200 t claim closely enough that the published number is most likely an expendable one. Reusable is <b>112 t</b>, and rises to ~133 t if the ship structure comes in at 135 t rather than 155 t. Above 100 t reusable is solid; 150 t is possible; 200 t reusable is not.</p>
       </div>
     </div>
 
-    <h3>Six vacuum engines, not three</h3>
-    <p>Going from three RVac to six does not change the delta-v arithmetic — specific impulse is per-engine and the mass flow simply doubles. What it changes is <b>thrust</b>: the ship's vacuum acceleration roughly doubles, which shortens the insertion burn, cuts gravity loss, and gives the vehicle margin to complete the burn on fewer engines if one fails. It also makes the ship a more capable tanker, since refuelling transfers scale with how quickly propellant can be moved.</p>
+    <h3>The engine layout, and why it matters</h3>
+    <p>Every Starship flies <b>six</b> engines, not three: <b>three Raptor Vacuum</b> at 380 s of specific impulse, and <b>three sea-level Raptors</b> at 340 s. The vacuum engines do the ascent burn; the sea-level engines light for the landing flip and touchdown, and provide thrust at staging when the ship is still heavy and the air is thin.</p>
+    <p>Block 4 goes to <b>nine</b> — six vacuum plus the same three sea-level. That is the change worth modelling carefully, and it cuts two ways. The three extra vacuum engines add about 4.6 t of engine mass plus mounts and plumbing, and they do not raise specific impulse at all: Isp is per-engine, so six RVac burn the same propellant at the same efficiency as three, just twice as fast. What they buy is <b>thrust</b> — the ship's vacuum acceleration roughly doubles, which shortens the insertion burn, cuts gravity loss, and gives engine-out margin.</p>
+    <p>Those sea-level engines also set the landing reserve. The burn after the flip is flown at <b>340 s</b>, not the vacuum 380 s, so 600 m/s of landing delta-v costs about <b>20 kg of propellant per kg of dry mass</b> — roughly 12% more than pricing it at the RVac figure. Getting that wrong was worth 5–7 t of payload on every block.</p>
+
+<h3>Six vacuum engines, not three</h3>
+    <p>
     <p>The 60% propellant increase is the bigger lever, and it is not about payload. At its reusable limit a Block 3 ship reaches orbit with only about <b>47 t</b> of propellant left — enough for the landing burn and little else. Block 4 arrives with roughly <b>66 t</b>. Neither is a tanker. Orbital refuelling needs a ship that launches with little or no payload and keeps most of its tank, which is why the tanker variant exists as a separate vehicle rather than a Block 4 with cargo aboard.</p>
   </section>
 
@@ -393,11 +398,12 @@
         <li><b>Ship burn.</b> <code>Isp_vac·g₀·ln((dry+prop+payload)/(dry+payload))</code>. The vacuum engine's 378 s carries the ship from staging to orbit.</li>
         <li><b>Delta-v to LEO is 9,400 m/s, not 7,800.</b> Orbital velocity alone is 7,800; gravity, drag and steering losses are worth ~1,600 more. Using the bare orbital figure was the single largest error in the earlier arithmetic.</li>
         <li><b>Ship dry mass is 1.2–1.3× the published structure, plus 4% residual propellant.</b> Published dry masses describe the steel only. Heat shield, flaps, landing hardware and unusable propellant are all real mass that has to be lifted.</li>
-        <li><b>Reusable means 600 m/s held back.</b> Deorbit plus the landing burn after the flip. Entry is aerobraking and costs no propellant, so the reserve is small next to the ~9,400 m/s of ascent — but it is not zero.</li>
+        <li><b>Ship engines are 3 RVac + 3 sea-level.</b> The vacuum engines fly the ascent at 380 s; the sea-level engines fly the landing at 340 s. Block 4 adds three more RVac for nine total.</li>
+        <li><b>Reusable means 600 m/s held back.</b> Deorbit plus the landing burn after the flip, priced at the <b>sea-level</b> engine's 340 s because that is what flies it. Entry is aerobraking and costs no propellant, so the reserve is small next to the ~9,400 m/s of ascent — but it is not zero.</li>
       </ol>
     </div>
 
-    <p class="caveat">The weak points are the fitted constants, and they should be read as assumptions. Three are anchored rather than derived: the ship hardware uplift, the 600 m/s landing reserve, and the 35 t of re-entry hardware an expendable ship drops. Block 1 and Block 3 are fitted to 10 t and 70 t reusable — judgement calls, not published figures — and Block 4 follows the maturity trend without being tuned at all. What supports the result is that Block 4 then lands at 120 t reusable and 225 t expendable, bracketing SpaceX's 200 t claim closely enough that the published figure looks like an expendable number. If the Block 4 ship structure comes in at 135 t rather than 155 t, reusable rises to about 141 t.</p>
+    <p class="caveat">The weak points are the fitted constants, and they should be read as assumptions. Three are anchored rather than derived: the ship hardware uplift, the 600 m/s landing reserve, and the 35 t of re-entry hardware an expendable ship drops. Block 1 and Block 3 are fitted to 10 t and 70 t reusable — judgement calls, not published figures — and Block 4 follows the maturity trend without being tuned at all. What supports the result is that Block 4 then lands at 112 t reusable and 225 t expendable, bracketing SpaceX's 200 t claim closely enough that the published figure looks like an expendable number. If the Block 4 ship structure comes in at 135 t rather than 155 t, reusable rises to about 133 t.</p>
   </section>
 
   </main>
@@ -408,7 +414,7 @@
 </div>
 
 <script>
-const DATA = {"dvTotal":9400.0,"landingDv":600.0,"boosterReturn":0.1,"residualM2":0.043,"reentryHw":35.0,"dia":9.0,"rho":914.0,"minTwr":1.2,"engines":{"R1":{"name":"Raptor 1","thrust_r":185,"thrust_f":185,"mass":2080,"isp_sl":327,"isp_vac":350,"isp_rvac":355},"R2":{"name":"Raptor 2","thrust_r":230,"thrust_f":230,"mass":1630,"isp_sl":327,"isp_vac":347,"isp_rvac":360},"R3":{"name":"Raptor 3","thrust_r":280,"thrust_f":230,"mass":1525,"isp_sl":340,"isp_vac":350,"isp_rvac":378},"R4":{"name":"Raptor 4","thrust_r":300,"thrust_f":300,"mass":1550,"isp_sl":340,"isp_vac":350,"isp_rvac":380}},"stacks":{"V1":{"label":"Block 1","bd":275,"bp":3400,"sd":100,"sp":1200,"engine":"R1","nrvac":3,"bh":71.0,"sh":50.3,"uplift":1.1724,"published":15,"flown":16,"status":"flown","name":"Raptor 1","isp_sl":327,"isp_vac":350,"isp_rvac":355,"dry_ship":178.0,"gross":5053.0,"dry":453.0,"prop":4600,"height":121.3,"reusable":10.0,"ceiling":69.0,"bind":"delta-v","liftoff":5063.0,"twr":1.21,"booster_dv":3046.0,"ship_need":6354.0,"margin":600.0,"ratio":0.67,"delta":-5.0},"V2":{"label":"Block 2","bd":275,"bp":3400,"sd":85,"sp":1495,"engine":"R2","nrvac":3,"bh":71.0,"sh":52.1,"uplift":1.2046,"published":35,"flown":16,"status":"flown","name":"Raptor 2","isp_sl":327,"isp_vac":347,"isp_rvac":360,"dry_ship":166.0,"gross":5336.0,"dry":441.0,"prop":4895,"height":123.1,"reusable":54.0,"ceiling":132.0,"bind":"delta-v","liftoff":5390.0,"twr":1.41,"booster_dv":2747.0,"ship_need":6653.0,"margin":600.0,"ratio":1.54,"delta":19.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"sd":110,"sp":1600,"engine":"R3","nrvac":3,"bh":72.3,"sh":52.1,"uplift":1.2368,"published":100,"flown":52,"status":"flying","name":"Raptor 3","isp_sl":340,"isp_vac":350,"isp_rvac":378,"dry_ship":199.0,"gross":5724.0,"dry":474.0,"prop":5250,"height":124.4,"reusable":70.0,"ceiling":155.0,"bind":"delta-v","liftoff":5794.0,"twr":1.31,"booster_dv":2819.0,"ship_need":6581.0,"margin":600.0,"ratio":0.7,"delta":-30.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"sd":155,"sp":2560,"engine":"R4","nrvac":6,"bh":81.0,"sh":70.0,"uplift":1.1,"published":200,"flown":null,"status":"projected","name":"Raptor 4","isp_sl":340,"isp_vac":350,"isp_rvac":380,"dry_ship":256.0,"gross":7166.0,"dry":556.0,"prop":6610,"height":151.0,"reusable":120.0,"ceiling":225.0,"bind":"delta-v","liftoff":7286.0,"twr":1.36,"booster_dv":2337.0,"ship_need":7063.0,"margin":600.0,"ratio":0.6,"delta":-80.0}}};
+const DATA = {"dvTotal":9400.0,"landingDv":600.0,"boosterReturn":0.1,"residualM2":0.043,"reentryHw":35.0,"dia":9.0,"rho":914.0,"minTwr":1.2,"engines":{"R1":{"name":"Raptor 1","thrust_r":185,"thrust_f":185,"mass":2080,"isp_sl":327,"isp_vac":350,"isp_rvac":355},"R2":{"name":"Raptor 2","thrust_r":230,"thrust_f":230,"mass":1630,"isp_sl":327,"isp_vac":347,"isp_rvac":360},"R3":{"name":"Raptor 3","thrust_r":280,"thrust_f":230,"mass":1525,"isp_sl":340,"isp_vac":350,"isp_rvac":378},"R4":{"name":"Raptor 4","thrust_r":300,"thrust_f":300,"mass":1550,"isp_sl":340,"isp_vac":350,"isp_rvac":380}},"stacks":{"V1":{"label":"Block 1","bd":275,"bp":3400,"sd":100,"sp":1200,"engine":"R1","nrvac":3,"nsl":3,"bh":71.0,"sh":50.3,"uplift":1.1424,"published":15,"flown":16,"status":"flown","name":"Raptor 1","isp_sl":327,"isp_vac":350,"isp_rvac":355,"dry_ship":175.0,"n_engines":6,"gross":5050.0,"dry":450.0,"prop":4600,"height":121.3,"reusable":10.0,"ceiling":72.0,"bind":"delta-v","liftoff":5060.0,"twr":1.21,"booster_dv":3049.0,"ship_need":6351.0,"margin":0.0,"ratio":0.67,"delta":-5.0},"V2":{"label":"Block 2","bd":275,"bp":3400,"sd":85,"sp":1495,"engine":"R2","nrvac":3,"nsl":3,"bh":71.0,"sh":52.1,"uplift":1.1656,"published":35,"flown":16,"status":"flown","name":"Raptor 2","isp_sl":327,"isp_vac":347,"isp_rvac":360,"dry_ship":162.0,"n_engines":6,"gross":5332.0,"dry":437.0,"prop":4895,"height":123.1,"reusable":53.0,"ceiling":135.0,"bind":"delta-v","liftoff":5386.0,"twr":1.41,"booster_dv":2750.0,"ship_need":6650.0,"margin":0.0,"ratio":1.52,"delta":18.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"sd":110,"sp":1600,"engine":"R3","nrvac":3,"nsl":3,"bh":72.3,"sh":52.1,"uplift":1.1887,"published":100,"flown":52,"status":"flying","name":"Raptor 3","isp_sl":340,"isp_vac":350,"isp_rvac":378,"dry_ship":194.0,"n_engines":6,"gross":5719.0,"dry":469.0,"prop":5250,"height":124.4,"reusable":70.0,"ceiling":161.0,"bind":"delta-v","liftoff":5789.0,"twr":1.31,"booster_dv":2823.0,"ship_need":6577.0,"margin":0.0,"ratio":0.7,"delta":-30.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"sd":155,"sp":2560,"engine":"R4","nrvac":6,"nsl":3,"bh":81.0,"sh":70.0,"uplift":1.1,"published":200,"flown":null,"status":"projected","name":"Raptor 4","isp_sl":340,"isp_vac":350,"isp_rvac":380,"dry_ship":256.0,"n_engines":9,"gross":7166.0,"dry":556.0,"prop":6610,"height":151.0,"reusable":112.0,"ceiling":225.0,"bind":"delta-v","liftoff":7278.0,"twr":1.36,"booster_dv":2341.0,"ship_need":7059.0,"margin":0.0,"ratio":0.56,"delta":-88.0}}};
 
 const {engines, stacks} = DATA;
 const ORDER = ['R1','R2','R3','R4'];
@@ -462,7 +468,7 @@ $('paybody').innerHTML = BLOCKS.map(k => {
     <td class="num">${p.gross.toLocaleString()} t</td>
     <td class="num">${p.prop.toLocaleString()} t</td>
     <td class="num">${p.dry_ship} t</td>
-    <td class="num">${p.nrvac}</td>
+    <td class="num">${p.nrvac}+${p.nsl}</td>
     <td class="num">${p.twr.toFixed(2)}</td>
     <td class="num">${p.ceiling} t</td>
     <td class="num hi">${p.reusable} t</td>
@@ -524,11 +530,11 @@ const N_BOOST = 33;
 const CYL = Math.PI * 20.25;          // 9 m diameter cross-section, m2
 const CAL = {
   V1: {bfill:3400/(CYL*71.0*RHO/1000), sfill:1200/(CYL*50.3*RHO/1000),
-       bs:275/3400, ss:100/1200, up:1.1724},
+       bs:275/3400, ss:100/1200, up:1.1424},
   V2: {bfill:3400/(CYL*71.0*RHO/1000), sfill:1495/(CYL*52.1*RHO/1000),
-       bs:275/3400, ss:85/1495, up:1.2046},
+       bs:275/3400, ss:85/1495, up:1.1656},
   V3: {bfill:3650/(CYL*72.3*RHO/1000), sfill:1600/(CYL*52.1*RHO/1000),
-       bs:275/3650, ss:110/1600, up:1.2368},
+       bs:275/3650, ss:110/1600, up:1.1887},
   V4: {bfill:4050/(CYL*81.0*RHO/1000), sfill:2560/(CYL*70.0*RHO/1000),
        bs:300/4050, ss:155/2560, up:1.100},
 };
@@ -559,17 +565,30 @@ function solve(dia, bh, sh, engineKey) {
     const m1 = m0*Math.exp(-need/(e.isp_rvac*G0));
     const left = m1 - sdx - p;
     if (left <= 0) return -1e9;
-    return dvf(e.isp_rvac, sdx+p+left, sdx+p);
+    // Landing burn is flown by the sea-level engines, so price the reserve at
+    // their Isp. Returns surplus propellant over that requirement.
+    const landProp = (sdx+p+left) * (1 - Math.exp(-LAND_DV/(e.isp_sl*G0)));
+    return left - landProp;
   };
   const ceiling = (land, sdO) => {
-    if (margin(0, sdO) < land) return 0;
+    // land=0 means expendable: no landing reserve to hold back
+    const need = p => margin(p, sdO) + (land === 0 ? LAND_DV*0 : 0);
+    const ok = p => (land === 0 ? marginNoLand(p, sdO) : margin(p, sdO)) >= 0;
+    if (!ok(0)) return 0;
     let lo = 0, hi = 3000;
-    if (margin(hi, sdO) >= land) return hi;
+    if (ok(hi)) return hi;
     for (let i=0;i<140;i++){
       const mid = (lo+hi)/2;
-      if (margin(mid, sdO) >= land) lo = mid; else hi = mid;
+      if (ok(mid)) lo = mid; else hi = mid;
     }
     return lo;
+  };
+  const marginNoLand = (p, sdO) => {
+    const sdx = sdO === undefined ? sd : sdO;
+    const need = Math.max(0, DV_TOTAL - boosterDv(p, sdx));
+    const m0 = sdx+sp+p;
+    const m1 = m0*Math.exp(-need/(e.isp_rvac*G0));
+    return m1 - sdx - p;
   };
   // expendable ship carries no heat shield, flaps or landing gear
   const sdExp = Math.max(0, sd - REENTRY_HW);
