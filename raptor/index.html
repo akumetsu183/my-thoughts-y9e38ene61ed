@@ -297,7 +297,62 @@
   </section>
 
   <section>
-    <h2><span class="n">03</span> What has actually flown</h2>
+    <h2><span class="n">03</span> What it costs to get a kilogram up</h2>
+    <p class="sub">Starship against Falcon 9, at one to five flights per vehicle.</p>
+
+    <div class="cols">
+      <div class="card">
+        <h4>The two vehicles</h4>
+        <p style="margin-bottom:14px">Falcon 9 is the only launch vehicle with a published price and a long reuse record. Starship has neither, so its cost has to be built up from a manufacturing estimate rather than quoted.</p>
+        <div class="tablewrap" style="margin:0">
+          <table style="font-size:.84rem">
+            <thead><tr><th></th><th class="num">Falcon 9</th><th class="num">Starship</th></tr></thead>
+            <tbody>
+              <tr><td>Payload to LEO</td><td class="num">22 t</td><td class="num">70 t <span style="color:var(--dim)">(V3)</span></td></tr>
+              <tr><td>Price / build cost</td><td class="num">$74M</td><td class="num">$90M <span style="color:var(--dim)">est.</span></td></tr>
+              <tr><td>Reuse proven</td><td class="num">20+ flights</td><td class="num">1 catch</td></tr>
+              <tr><td>Cost per kg</td><td class="num"><b>$3,364</b></td><td class="num"><b>see below</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Where the $90M goes</h4>
+        <div class="bars" id="costbars"></div>
+        <p class="legend" style="margin:14px 0 0">From a 2024 Payload Research model. Raptor engines are the single largest item at $39M for 39 engines — about $1M each — which is why engine reuse matters more than airframe reuse.</p>
+      </div>
+    </div>
+
+    <h3>One to five flights per vehicle</h3>
+    <p>Both stages are assumed to refly the same number of times. Hardware is amortised across those flights and propellant is spent every time, at about <b>$0.9M</b> per launch. Refurbishment is the unknown: no recovered Starship has flown twice, so it is shown at three levels rather than assumed away.</p>
+
+    <div class="tablewrap">
+      <table id="costtable">
+        <thead><tr>
+          <th>Flights per vehicle</th><th class="num">Hardware per flight</th>
+          <th class="num">+ Propellant</th><th class="num">No refurbishment</th>
+          <th class="num">$2M refurb</th><th class="num">$5M refurb</th>
+          <th class="num">vs Falcon 9</th>
+        </tr></thead>
+        <tbody id="costbody"></tbody>
+      </table>
+    </div>
+    <p class="legend">Cost per kilogram uses Block 3's 70 t reusable payload. Falcon 9's $3,364/kg comes from its $74M 2026 list price at 22 t. Starship figures are internal cost, not price — SpaceX has published no commercial rate.</p>
+
+    <div class="bars" id="costkg"></div>
+
+    <div class="note">
+      <p><b>Starship beats Falcon 9 on cost per kilogram from the very first flight</b> — $1,299/kg against $3,364/kg — because it carries three times the payload for a comparable build cost. The reuse count is not what makes it cheaper than Falcon 9; it is what makes it <i>dramatically</i> cheaper. At five flights per vehicle the figure falls to <b>$270/kg</b>, roughly 12× better than Falcon 9.</p>
+    </div>
+
+    <div class="note">
+      <p><b>What this does not include, and it is a lot.</b> No development cost, no launch operations, no workforce, no ground infrastructure, no insurance, and no failures. A real price would be several times these figures. The $90M is also a 2024 estimate for Raptor 2 hardware; V3 is a larger vehicle with more engines, so the true build cost is almost certainly higher. Treat the trend as the finding, not the absolute numbers.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">04</span> What has actually flown</h2>
     <p class="sub">The latest launch, and how much of the capability it used.</p>
 
     <div class="cols">
@@ -330,7 +385,7 @@
   </section>
 
   <section>
-    <h2><span class="n">04</span> Block 4, stretched</h2>
+    <h2><span class="n">05</span> Block 4, stretched</h2>
     <p class="sub">The rumoured next ship: 70 metres, 60% more propellant, and three more vacuum engines.</p>
 
     <div class="cols">
@@ -370,7 +425,7 @@
   </section>
 
   <section>
-    <h2><span class="n">05</span> Size the stack yourself</h2>
+    <h2><span class="n">06</span> Size the stack yourself</h2>
     <p class="sub">Stretch a tank and the propellant, the mass ratios and the ceiling all follow. Useful for variants beyond Block 4.</p>
 
     <div class="builder">
@@ -422,7 +477,7 @@
   </section>
 
   <section>
-    <h2><span class="n">06</span> The model</h2>
+    <h2><span class="n">07</span> The model</h2>
     <p class="sub">Two equations, published masses, and an honest account of what they cannot tell you.</p>
 
     <div class="method">
@@ -447,6 +502,7 @@
 </div>
 
 <script>
+const COST = {"rows":[{"n":1,"none":90.9,"r2":92.9,"r5":95.9,"kg3":[1298.5714285714287,1327.142857142857,1370.0]},{"n":2,"none":45.9,"r2":47.9,"r5":50.9,"kg3":[655.7142857142857,684.2857142857143,727.1428571428571]},{"n":3,"none":30.9,"r2":32.9,"r5":35.9,"kg3":[441.42857142857144,470.0,512.8571428571429]},{"n":4,"none":23.4,"r2":25.4,"r5":28.4,"kg3":[334.2857142857143,362.85714285714283,405.7142857142857]},{"n":5,"none":18.9,"r2":20.9,"r5":23.9,"kg3":[270.0,298.57142857142856,341.42857142857144]}],"f9":74.0,"f9p":22.0,"f9kg":3363.6363636363635,"v3":70.0,"v4":112.0,"build":90.0,"booster":63.0,"ship":27.0,"prop":0.9};
 const DATA = {"dvTotal":9400.0,"landingDv":600.0,"boosterReturn":0.1,"residualM2":0.043,"reentryHw":35.0,"dia":9.0,"rho":914.0,"minTwr":1.2,"engines":{"R1":{"name":"Raptor 1","thrust_r":185,"thrust_f":185,"mass":2080,"isp_sl":327,"isp_vac":350,"isp_rvac":355},"R2":{"name":"Raptor 2","thrust_r":230,"thrust_f":230,"mass":1630,"isp_sl":327,"isp_vac":347,"isp_rvac":360},"R3":{"name":"Raptor 3","thrust_r":280,"thrust_f":230,"mass":1525,"isp_sl":340,"isp_vac":350,"isp_rvac":378},"R4":{"name":"Raptor 4","thrust_r":300,"thrust_f":300,"mass":1550,"isp_sl":340,"isp_vac":350,"isp_rvac":380}},"stacks":{"V1":{"label":"Block 1","bd":275,"bp":3400,"sd":100,"sp":1200,"engine":"R1","nrvac":3,"nsl":3,"bh":71.0,"sh":50.3,"uplift":1.1424,"published":15,"flown":16,"status":"flown","name":"Raptor 1","isp_sl":327,"isp_vac":350,"isp_rvac":355,"dry_ship":175.0,"n_engines":6,"gross":5050.0,"dry":450.0,"prop":4600,"height":121.3,"reusable":10.0,"ceiling":72.0,"bind":"delta-v","liftoff":5060.0,"twr":1.21,"booster_dv":3049.0,"ship_need":6351.0,"margin":0.0,"ratio":0.67,"delta":-5.0},"V2":{"label":"Block 2","bd":275,"bp":3400,"sd":85,"sp":1495,"engine":"R2","nrvac":3,"nsl":3,"bh":71.0,"sh":52.1,"uplift":1.1656,"published":35,"flown":16,"status":"flown","name":"Raptor 2","isp_sl":327,"isp_vac":347,"isp_rvac":360,"dry_ship":162.0,"n_engines":6,"gross":5332.0,"dry":437.0,"prop":4895,"height":123.1,"reusable":53.0,"ceiling":135.0,"bind":"delta-v","liftoff":5386.0,"twr":1.41,"booster_dv":2750.0,"ship_need":6650.0,"margin":0.0,"ratio":1.52,"delta":18.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"sd":110,"sp":1600,"engine":"R3","nrvac":3,"nsl":3,"bh":72.3,"sh":52.1,"uplift":1.1887,"published":100,"flown":44,"flown_hi":52,"status":"flying","name":"Raptor 3","isp_sl":340,"isp_vac":350,"isp_rvac":378,"dry_ship":194.0,"n_engines":6,"gross":5719.0,"dry":469.0,"prop":5250,"height":124.4,"reusable":70.0,"ceiling":161.0,"bind":"delta-v","liftoff":5789.0,"twr":1.31,"booster_dv":2823.0,"ship_need":6577.0,"margin":0.0,"ratio":0.7,"delta":-30.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"sd":155,"sp":2560,"engine":"R4","nrvac":6,"nsl":3,"bh":81.0,"sh":70.0,"uplift":1.1,"published":200,"flown":null,"status":"projected","name":"Raptor 4","isp_sl":340,"isp_vac":350,"isp_rvac":380,"dry_ship":256.0,"n_engines":9,"gross":7166.0,"dry":556.0,"prop":6610,"height":151.0,"reusable":112.0,"ceiling":225.0,"bind":"delta-v","liftoff":7278.0,"twr":1.36,"booster_dv":2341.0,"ship_need":7059.0,"margin":0.0,"ratio":0.56,"delta":-88.0}}};
 
 const {engines, stacks} = DATA;
@@ -527,6 +583,45 @@ $('paybody').innerHTML = BLOCKS.map(k => {
       <div class="val">${p.ceiling} <small>t</small></div>
     </div>`;
   }).join('');
+}
+
+/* ── cost section ── */
+{
+  const f9kg = COST.f9kg;
+  $('costbody').innerHTML = COST.rows.map(r => {
+    const best = r.kg3[0], mid = r.kg3[1], worst = r.kg3[2];
+    const ratio = (f9kg / worst).toFixed(1);
+    return `<tr>
+      <td><b>${r.n}</b>${r.n===1?' <span style="color:var(--dim)">(flown once)</span>':''}</td>
+      <td class="num">$${(r.none - COST.prop).toFixed(1)}M</td>
+      <td class="num">$${COST.prop.toFixed(1)}M</td>
+      <td class="num">$${best.toFixed(0)}</td>
+      <td class="num">$${mid.toFixed(0)}</td>
+      <td class="num">$${worst.toFixed(0)}</td>
+      <td class="num" style="color:var(--ok)">${ratio}×</td>
+    </tr>`;
+  }).join('');
+
+  const rows = [
+    ['Falcon 9', f9kg, 'f9'],
+    ...COST.rows.map(r => [`${r.n}× refly`, r.kg3[2], '']),
+  ];
+  const max = Math.max(...rows.map(r=>r[1]));
+  $('costkg').innerHTML = rows.map(([lab,val,cls]) =>
+    `<div class="bar ${cls}"><div class="lab">${lab}</div>
+      <div class="track"><div class="fill" style="width:${val/max*100}%"></div></div>
+      <div class="val">$${val.toFixed(0)} <small>/kg</small></div></div>`
+  ).join('');
+}
+
+/* ── cost breakdown bars ── */
+{
+  const parts = [['Raptor engines',39],['Labour',35],['Structures',13],['Avionics',3]];
+  $('costbars').innerHTML = parts.map(([lab,val]) =>
+    `<div class="bar"><div class="lab">${lab}</div>
+      <div class="track"><div class="fill" style="width:${val/39*100}%"></div></div>
+      <div class="val">$${val}M</div></div>`
+  ).join('');
 }
 
 /* ── flown vs capability bars ── */
