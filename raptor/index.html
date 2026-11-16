@@ -297,7 +297,40 @@
   </section>
 
   <section>
-    <h2><span class="n">03</span> Block 4, stretched</h2>
+    <h2><span class="n">03</span> What has actually flown</h2>
+    <p class="sub">The latest launch, and how much of the capability it used.</p>
+
+    <div class="cols">
+      <div class="card">
+        <h4>Flight 15 — 13 November 2026</h4>
+        <p style="margin-bottom:14px">The most recent Starship launch carried <b>26 Starlink V3 satellites</b> and deployed all of them. Flight 14, on 28 September 2026, carried the same number.</p>
+        <div class="tablewrap" style="margin:0">
+          <table style="font-size:.84rem">
+            <thead><tr><th>Mass per satellite</th><th class="num">Source</th><th class="num">26 units</th></tr></thead>
+            <tbody>
+              <tr><td>1.705 t</td><td class="num" style="color:var(--dim)">derived</td><td class="num">44.3 t</td></tr>
+              <tr><td>~2.0 t</td><td class="num" style="color:var(--dim)">Ars Technica</td><td class="num">52.0 t</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="legend" style="margin:12px 0 0">SpaceX confirms the satellite count but has never published the cargo mass. The 1.705 t figure comes from dividing Flight 13's 34.1 t by its 20 satellites; Ars Technica quotes about 2 t for Flight 14. The true figure sits between them.</p>
+      </div>
+
+      <div class="card">
+        <h4>Against the modelled capability</h4>
+        <div class="bars" id="flownbars"></div>
+        <p style="margin:14px 0 0">Block 3's reusable ceiling is <b>70 t</b>, so the flown payload is <b>63–74%</b> of what the vehicle can do. That is a sensible operating point, not a limit: at 44 t the ship reaches orbit with about <b>75 t</b> of propellant left, of which the landing burn needs 52 t — leaving 23 t of margin. At 52 t the margin is 16 t.</p>
+        <p class="legend" style="margin:0">This is the strongest check on the model. A ship flown at 44–52 t that still lands with propellant to spare is consistent with a 70 t ceiling, and inconsistent with either a 20 t or a 200 t one.</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><b>The flown payload is not the capacity.</b> Every Starship flight so far has carried a partial load, because the priority has been reaching orbit, deploying, and landing. The 26-satellite manifest is a chosen load that fits the mission profile — it is not the heaviest the vehicle could lift, and it should not be read as one.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">04</span> Block 4, stretched</h2>
     <p class="sub">The rumoured next ship: 70 metres, 60% more propellant, and three more vacuum engines.</p>
 
     <div class="cols">
@@ -321,7 +354,7 @@
       <div class="card">
         <h4>What it buys</h4>
         <div class="bars" id="v4bars"></div>
-        <p style="margin:14px 0 0">Block 4's reusable payload is <b>112 t</b>, against Block 3's 70 t — a 71% gain for 60% more propellant. Part of that comes from residual propellant scaling with tank area rather than volume: a longer tank is structurally more efficient, so Block 4 gains more than its extra tankage alone would suggest.</p>
+        <p style="margin:14px 0 0">Block 4's reusable payload is <b>112 t</b>, against Block 3's 70 t — a 60% gain for 60% more propellant. Residual propellant scales with tank area rather than volume, so a longer tank is slightly more efficient — but the gain is close to linear, which is what you would expect when the only real change is a bigger tank.</p>
         <p class="legend" style="margin:0">Block 4's <b>expendable</b> figure is <b>225 t</b> — which brackets SpaceX's 200 t claim closely enough that the published number is most likely an expendable one. Reusable is <b>112 t</b>, and rises to ~133 t if the ship structure comes in at 135 t rather than 155 t. Above 100 t reusable is solid; 150 t is possible; 200 t reusable is not.</p>
       </div>
     </div>
@@ -337,7 +370,7 @@
   </section>
 
   <section>
-    <h2><span class="n">04</span> Size the stack yourself</h2>
+    <h2><span class="n">05</span> Size the stack yourself</h2>
     <p class="sub">Stretch a tank and the propellant, the mass ratios and the ceiling all follow. Useful for variants beyond Block 4.</p>
 
     <div class="builder">
@@ -389,7 +422,7 @@
   </section>
 
   <section>
-    <h2><span class="n">05</span> The model</h2>
+    <h2><span class="n">06</span> The model</h2>
     <p class="sub">Two equations, published masses, and an honest account of what they cannot tell you.</p>
 
     <div class="method">
@@ -414,7 +447,7 @@
 </div>
 
 <script>
-const DATA = {"dvTotal":9400.0,"landingDv":600.0,"boosterReturn":0.1,"residualM2":0.043,"reentryHw":35.0,"dia":9.0,"rho":914.0,"minTwr":1.2,"engines":{"R1":{"name":"Raptor 1","thrust_r":185,"thrust_f":185,"mass":2080,"isp_sl":327,"isp_vac":350,"isp_rvac":355},"R2":{"name":"Raptor 2","thrust_r":230,"thrust_f":230,"mass":1630,"isp_sl":327,"isp_vac":347,"isp_rvac":360},"R3":{"name":"Raptor 3","thrust_r":280,"thrust_f":230,"mass":1525,"isp_sl":340,"isp_vac":350,"isp_rvac":378},"R4":{"name":"Raptor 4","thrust_r":300,"thrust_f":300,"mass":1550,"isp_sl":340,"isp_vac":350,"isp_rvac":380}},"stacks":{"V1":{"label":"Block 1","bd":275,"bp":3400,"sd":100,"sp":1200,"engine":"R1","nrvac":3,"nsl":3,"bh":71.0,"sh":50.3,"uplift":1.1424,"published":15,"flown":16,"status":"flown","name":"Raptor 1","isp_sl":327,"isp_vac":350,"isp_rvac":355,"dry_ship":175.0,"n_engines":6,"gross":5050.0,"dry":450.0,"prop":4600,"height":121.3,"reusable":10.0,"ceiling":72.0,"bind":"delta-v","liftoff":5060.0,"twr":1.21,"booster_dv":3049.0,"ship_need":6351.0,"margin":0.0,"ratio":0.67,"delta":-5.0},"V2":{"label":"Block 2","bd":275,"bp":3400,"sd":85,"sp":1495,"engine":"R2","nrvac":3,"nsl":3,"bh":71.0,"sh":52.1,"uplift":1.1656,"published":35,"flown":16,"status":"flown","name":"Raptor 2","isp_sl":327,"isp_vac":347,"isp_rvac":360,"dry_ship":162.0,"n_engines":6,"gross":5332.0,"dry":437.0,"prop":4895,"height":123.1,"reusable":53.0,"ceiling":135.0,"bind":"delta-v","liftoff":5386.0,"twr":1.41,"booster_dv":2750.0,"ship_need":6650.0,"margin":0.0,"ratio":1.52,"delta":18.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"sd":110,"sp":1600,"engine":"R3","nrvac":3,"nsl":3,"bh":72.3,"sh":52.1,"uplift":1.1887,"published":100,"flown":52,"status":"flying","name":"Raptor 3","isp_sl":340,"isp_vac":350,"isp_rvac":378,"dry_ship":194.0,"n_engines":6,"gross":5719.0,"dry":469.0,"prop":5250,"height":124.4,"reusable":70.0,"ceiling":161.0,"bind":"delta-v","liftoff":5789.0,"twr":1.31,"booster_dv":2823.0,"ship_need":6577.0,"margin":0.0,"ratio":0.7,"delta":-30.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"sd":155,"sp":2560,"engine":"R4","nrvac":6,"nsl":3,"bh":81.0,"sh":70.0,"uplift":1.1,"published":200,"flown":null,"status":"projected","name":"Raptor 4","isp_sl":340,"isp_vac":350,"isp_rvac":380,"dry_ship":256.0,"n_engines":9,"gross":7166.0,"dry":556.0,"prop":6610,"height":151.0,"reusable":112.0,"ceiling":225.0,"bind":"delta-v","liftoff":7278.0,"twr":1.36,"booster_dv":2341.0,"ship_need":7059.0,"margin":0.0,"ratio":0.56,"delta":-88.0}}};
+const DATA = {"dvTotal":9400.0,"landingDv":600.0,"boosterReturn":0.1,"residualM2":0.043,"reentryHw":35.0,"dia":9.0,"rho":914.0,"minTwr":1.2,"engines":{"R1":{"name":"Raptor 1","thrust_r":185,"thrust_f":185,"mass":2080,"isp_sl":327,"isp_vac":350,"isp_rvac":355},"R2":{"name":"Raptor 2","thrust_r":230,"thrust_f":230,"mass":1630,"isp_sl":327,"isp_vac":347,"isp_rvac":360},"R3":{"name":"Raptor 3","thrust_r":280,"thrust_f":230,"mass":1525,"isp_sl":340,"isp_vac":350,"isp_rvac":378},"R4":{"name":"Raptor 4","thrust_r":300,"thrust_f":300,"mass":1550,"isp_sl":340,"isp_vac":350,"isp_rvac":380}},"stacks":{"V1":{"label":"Block 1","bd":275,"bp":3400,"sd":100,"sp":1200,"engine":"R1","nrvac":3,"nsl":3,"bh":71.0,"sh":50.3,"uplift":1.1424,"published":15,"flown":16,"status":"flown","name":"Raptor 1","isp_sl":327,"isp_vac":350,"isp_rvac":355,"dry_ship":175.0,"n_engines":6,"gross":5050.0,"dry":450.0,"prop":4600,"height":121.3,"reusable":10.0,"ceiling":72.0,"bind":"delta-v","liftoff":5060.0,"twr":1.21,"booster_dv":3049.0,"ship_need":6351.0,"margin":0.0,"ratio":0.67,"delta":-5.0},"V2":{"label":"Block 2","bd":275,"bp":3400,"sd":85,"sp":1495,"engine":"R2","nrvac":3,"nsl":3,"bh":71.0,"sh":52.1,"uplift":1.1656,"published":35,"flown":16,"status":"flown","name":"Raptor 2","isp_sl":327,"isp_vac":347,"isp_rvac":360,"dry_ship":162.0,"n_engines":6,"gross":5332.0,"dry":437.0,"prop":4895,"height":123.1,"reusable":53.0,"ceiling":135.0,"bind":"delta-v","liftoff":5386.0,"twr":1.41,"booster_dv":2750.0,"ship_need":6650.0,"margin":0.0,"ratio":1.52,"delta":18.0},"V3":{"label":"Block 3","bd":275,"bp":3650,"sd":110,"sp":1600,"engine":"R3","nrvac":3,"nsl":3,"bh":72.3,"sh":52.1,"uplift":1.1887,"published":100,"flown":44,"flown_hi":52,"status":"flying","name":"Raptor 3","isp_sl":340,"isp_vac":350,"isp_rvac":378,"dry_ship":194.0,"n_engines":6,"gross":5719.0,"dry":469.0,"prop":5250,"height":124.4,"reusable":70.0,"ceiling":161.0,"bind":"delta-v","liftoff":5789.0,"twr":1.31,"booster_dv":2823.0,"ship_need":6577.0,"margin":0.0,"ratio":0.7,"delta":-30.0},"V4":{"label":"Block 4","bd":300,"bp":4050,"sd":155,"sp":2560,"engine":"R4","nrvac":6,"nsl":3,"bh":81.0,"sh":70.0,"uplift":1.1,"published":200,"flown":null,"status":"projected","name":"Raptor 4","isp_sl":340,"isp_vac":350,"isp_rvac":380,"dry_ship":256.0,"n_engines":9,"gross":7166.0,"dry":556.0,"prop":6610,"height":151.0,"reusable":112.0,"ceiling":225.0,"bind":"delta-v","liftoff":7278.0,"twr":1.36,"booster_dv":2341.0,"ship_need":7059.0,"margin":0.0,"ratio":0.56,"delta":-88.0}}};
 
 const {engines, stacks} = DATA;
 const ORDER = ['R1','R2','R3','R4'];
@@ -461,7 +494,7 @@ $('paybody').innerHTML = BLOCKS.map(k => {
   const proj = p.status === 'projected';
   const flown = (p.flown === null || p.flown === undefined)
     ? '<span style="color:var(--dim)">—</span>'
-    : `<span style="color:var(--ok)">${p.flown} t</span>`;
+    : `<span style="color:var(--ok)">${p.flown}${p.flown_hi ? '–'+p.flown_hi : ''} t</span>`;
   return `<tr${proj?' class="proj"':''}>
     <td>${p.label}${proj?'<span class="tag proj">projected</span>':''}</td>
     <td class="num">${p.height} m</td>
@@ -494,6 +527,21 @@ $('paybody').innerHTML = BLOCKS.map(k => {
       <div class="val">${p.ceiling} <small>t</small></div>
     </div>`;
   }).join('');
+}
+
+/* ── flown vs capability bars ── */
+{
+  const rows = [
+    ['26 @ 1.7', 44.3, ''],
+    ['26 @ 2.0', 52.0, ''],
+    ['ceiling', stacks.V3.reusable, 'mark'],
+  ];
+  const max = 80;
+  $('flownbars').innerHTML = rows.map(([lab,val,cls]) =>
+    `<div class="bar ${cls}"><div class="lab">${lab}</div>
+      <div class="track"><div class="fill" style="width:${Math.min(100,val/max*100)}%"></div></div>
+      <div class="val">${val.toFixed(1)} <small>t</small></div></div>`
+  ).join('');
 }
 
 /* ── V4 comparison bars ── */
